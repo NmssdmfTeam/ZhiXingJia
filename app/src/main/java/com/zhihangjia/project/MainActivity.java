@@ -1,13 +1,30 @@
 package com.zhihangjia.project;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.viewmodel.BaseVM;
+
+public class MainActivity extends BaseActivity {
+    private final String TAG = MainActivity.class.getSimpleName();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public String getTAG() {
+        return TAG;
+    }
+
+    @Override
+    public int setLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public BaseVM initViewModel() {
+        return null;
+    }
+
+    @Override
+    protected void initAll(Bundle savedInstanceState) {
+
     }
 }
