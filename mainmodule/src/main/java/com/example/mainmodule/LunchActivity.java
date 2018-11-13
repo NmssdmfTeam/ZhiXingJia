@@ -12,12 +12,6 @@ public class LunchActivity extends BaseTitleActivity {
     private ActivityLunchBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-
-    @Override
     public String getTAG() {
         return TAG;
     }
