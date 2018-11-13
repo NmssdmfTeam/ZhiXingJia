@@ -34,5 +34,5 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.5'
     api project(':customerviewlib')
-
+    implementation 'me.jessyan:autosize:1.0.6'
 }
