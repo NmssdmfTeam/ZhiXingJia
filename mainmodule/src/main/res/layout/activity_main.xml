@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_height="match_parent"
+    <com.jushi.commonlib.view.MyFragmentTabHost
+        android:id="@+id/mfth"
         android:layout_width="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnMain"
-            android:layout_height="40dp"
-            android:layout_width="200dp"
-            android:layout_marginTop="100dp"
-            android:text="首页"
-            android:layout_gravity="center"
-            android:gravity="center"/>
+        <RelativeLayout
+            android:id="@+id/rlMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:layout_alignParentBottom="true"/>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_above="@android:id/tabs"
+                android:background="@color/line_bg" />
+
+
+            <FrameLayout
+                android:id="@+id/tabContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/line"
+                android:layout_weight="1" />
+
+
+        </RelativeLayout>
+
+    </com.jushi.commonlib.view.MyFragmentTabHost>
 </layout>

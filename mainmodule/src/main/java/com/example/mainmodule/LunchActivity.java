@@ -3,13 +3,13 @@ package com.example.mainmodule;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.mainmodule.databinding.ActivityMainBinding;
+import com.example.mainmodule.databinding.ActivityLunchBinding;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
-public class MainActivity extends BaseTitleActivity {
-    private String TAG = MainActivity.class.getSimpleName();
-    private ActivityMainBinding binding;
+public class LunchActivity extends BaseTitleActivity {
+    private String TAG = LunchActivity.class.getSimpleName();
+    private ActivityLunchBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MainActivity extends BaseTitleActivity {
 
     @Override
     public void initContent(Bundle savedInstanceState) {
-        binding = (ActivityMainBinding)baseViewBinding;
+        binding = (ActivityLunchBinding) baseViewBinding;
         binding.btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +46,6 @@ public class MainActivity extends BaseTitleActivity {
 
     @Override
     public int getContentViewId() {
-        return R.layout.activity_main;
+        return R.layout.activity_lunch;
     }
 }
