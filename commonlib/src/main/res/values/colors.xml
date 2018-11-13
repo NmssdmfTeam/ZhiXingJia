@@ -6,4 +6,10 @@
     <color name="red">#ff0000</color>
     <color name="green">#00ff00</color>
     <color name="blue">#0000ff</color>
+    <color name="app_color">#ffffff</color>
+    <color name="text_orange">#FFFF9A14</color>
+    <!--统一的背景颜色-->
+    <color name="background_color">#efeff4</color>
+    <!-- 分割线颜色 -->
+    <color name="line_bg">#88E6E6CC</color>
 </resources>

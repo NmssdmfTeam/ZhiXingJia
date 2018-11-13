@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.loginmodule.viewmodel.LoginVM"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="175dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="45dp"
+            android:text="知行家账号登录"
+            android:textColor="#FF333333"
+            android:textSize="25dp"
+            />
+
+        <EditText
+            android:layout_width="343dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="45dp"
+            android:background="#FFFFFFFF"
+            android:hint="请输入手机号码"
+            android:textColorHint="#FFCCCCCC"
+            android:textSize="15dp"
+            android:inputType="phone"
+            />
+
+        <include
+            layout="@layout/include_login_cut_off_line"/>
+
+        <RelativeLayout
+            android:layout_width="343dp"
+            android:layout_height="55dp">
+
+            <TextView
+                android:id="@+id/tvForgetPwd"
+                android:layout_width="wrap_content"
+                android:minWidth="62dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:paddingRight="6dp"
+                android:text="忘记密码"
+                android:textColor="#FFFF9A14"
+                android:textSize="14dp"
+                android:onClick="@{(v)->vm.tvForgetPwdClick(v)}"
+                />
+
+            <ImageView
+                android:id="@+id/ivHidePwd"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tvForgetPwd"
+                android:paddingRight="13dp"
+                android:src="@{vm.pwdShow ? @drawable/show_pwd : @drawable/hide_pwd}"
+                android:onClick="@{(v)->vm.ivHidePwdClick(v)}"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/ivHidePwd"
+                android:background="@null"
+                android:hint="请输入密码"
+                android:textColorHint="#FFCCCCCC"
+                android:textSize="15dp"
+                />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_login_cut_off_line"/>
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="343dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/shape_page_main_btn"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#FFFFFFFF"
+            android:textSize="17dp"
+            android:onClick="@{(v)->vm.tvLoginClick(v)}"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivWechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="72dp"
+                android:src="@drawable/wechat_login"
+                android:onClick="@{(v)->vm.ivWechatClick(v)}"/>
+
+            <TextView
+                android:id="@+id/tvAgreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="24dp"
+                android:text="登录即代表您已同意我们的 服务协议 和 隐私政策"
+                android:textColor="#FF999999"
+                android:textSize="12dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

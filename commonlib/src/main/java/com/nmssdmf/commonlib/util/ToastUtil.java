@@ -58,4 +58,8 @@ public class ToastUtil {
         toast.setText(message);
         toast.show();
     }
+
+    public static void showMsg(String msg) {
+        ToastUtil.getInstance().showToast(msg);
+    }
 }

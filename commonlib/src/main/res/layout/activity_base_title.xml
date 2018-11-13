@@ -22,6 +22,7 @@
         </android.support.v7.widget.Toolbar>
 
         <include
+            android:id="@+id/iSlenderLine"
             layout="@layout/include_cut_off_slender_line"/>
     </LinearLayout>
 </layout>

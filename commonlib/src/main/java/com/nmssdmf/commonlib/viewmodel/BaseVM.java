@@ -1,6 +1,11 @@
 package com.nmssdmf.commonlib.viewmodel;
 
+import android.support.annotation.CallSuper;
+
 import com.nmssdmf.commonlib.callback.BaseCB;
+import com.nmssdmf.commonlib.net.retrofit.BaseRxRequest;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 
 /**
@@ -9,7 +14,10 @@ import com.nmssdmf.commonlib.callback.BaseCB;
  */
 
 public abstract class BaseVM {
-
+    /**
+     * 网络请求disposable
+     */
+    protected CompositeDisposable subscription = new CompositeDisposable();
     /**
      * 基础view的回调
      */
@@ -34,4 +42,11 @@ public abstract class BaseVM {
      */
     public void unRegisterRxBus(){}
 
+    /**
+     * On destroy.
+     */
+    @CallSuper
+    public void unregisterRx() {
+        BaseRxRequest.unsubscribeIfNotNull(subscription);
+    }
 }

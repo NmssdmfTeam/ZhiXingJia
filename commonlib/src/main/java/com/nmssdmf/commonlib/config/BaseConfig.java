@@ -6,4 +6,6 @@ package com.nmssdmf.commonlib.config;
 
 public class BaseConfig {
     public static final boolean DEBUG = true;//false:不打印log，true：打印log
+
+    public static final String IP = "";//ip地址
 }
