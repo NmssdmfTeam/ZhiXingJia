@@ -7,8 +7,8 @@ import com.example.mainmodule.databinding.ActivityMainBinding;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
-public class MainActivity extends BaseTitleActivity {
-    private String TAG = MainActivity.class.getSimpleName();
+public class LunchActivity extends BaseTitleActivity {
+    private String TAG = LunchActivity.class.getSimpleName();
     private ActivityMainBinding binding;
 
     @Override
