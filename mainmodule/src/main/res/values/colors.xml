@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="transparent">#00ffffff</color>
+    <color name="lightgray_trans">#88DDDDDD</color>
+    <!-- 搜索透明背景色 -->
+    <color name="search_gray_trans">#FFF1F1F1</color>
 </resources>
