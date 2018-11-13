@@ -6,11 +6,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <include layout="@layout/include_index_title"/>
+
+        <com.nmssdmf.customerviewlib.CustomerRecyclerView
+            android:id="@+id/crv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="首页"
-            android:gravity="center"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 </layout>
