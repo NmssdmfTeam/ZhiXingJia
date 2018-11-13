@@ -1,4 +1,4 @@
-package com.zhixingjia.rxbus;
+package com.nmssdmf.commonlib.rxbus;
 
 
 import com.nmssdmf.commonlib.util.JLog;

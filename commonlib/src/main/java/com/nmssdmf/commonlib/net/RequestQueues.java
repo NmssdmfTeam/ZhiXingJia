@@ -1,4 +1,4 @@
-package com.zhixingjia.net;
+package com.nmssdmf.commonlib.net;
 
 
 import java.io.Serializable;

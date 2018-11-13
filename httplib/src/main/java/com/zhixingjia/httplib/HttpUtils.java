@@ -2,7 +2,7 @@ package com.zhixingjia.httplib;
 
 
 import com.nmssdmf.commonlib.config.StringConfig;
-import com.zhixingjia.net.retrofit.HttpObserver;
+import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

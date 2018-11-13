@@ -1,12 +1,12 @@
-package com.zhixingjia.net.retrofit;
+package com.nmssdmf.commonlib.net.retrofit;
 
 
 import com.google.gson.Gson;
 import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.net.IServiceLib;
+import com.nmssdmf.commonlib.net.http.OkHttpClientProvider;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
-import com.zhixingjia.net.IServiceLib;
-import com.zhixingjia.net.http.OkHttpClientProvider;
 
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.OkHttpClient;

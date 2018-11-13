@@ -1,6 +1,7 @@
 package com.zhixingjia.httplib;
 
-import com.zhixingjia.net.retrofit.BaseRxRequest;
+
+import com.nmssdmf.commonlib.net.retrofit.BaseRxRequest;
 
 public class RxRequest extends BaseRxRequest {
 
