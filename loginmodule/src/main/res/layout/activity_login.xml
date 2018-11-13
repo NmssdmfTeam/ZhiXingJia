@@ -3,6 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         >
 
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.loginmodule.viewmodel.LoginVM"/>
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +21,7 @@
             android:layout_marginTop="45dp"
             android:text="知行家账号登录"
             android:textColor="#FF333333"
-            android:textSize="50px"
+            android:textSize="25dp"
             />
 
         <EditText
@@ -25,7 +31,8 @@
             android:background="#FFFFFFFF"
             android:hint="请输入手机号码"
             android:textColorHint="#FFCCCCCC"
-            android:textSize="30px"
+            android:textSize="15dp"
+            android:inputType="phone"
             />
 
         <include
@@ -37,7 +44,8 @@
 
             <TextView
                 android:id="@+id/tvForgetPwd"
-                android:layout_width="62dp"
+                android:layout_width="wrap_content"
+                android:minWidth="62dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -45,7 +53,8 @@
                 android:paddingRight="6dp"
                 android:text="忘记密码"
                 android:textColor="#FFFF9A14"
-                android:textSize="28px"
+                android:textSize="14dp"
+                android:onClick="@{(v)->vm.tvForgetPwdClick(v)}"
                 />
 
             <ImageView
@@ -55,7 +64,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/tvForgetPwd"
                 android:paddingRight="13dp"
-                android:src="@drawable/show_pwd"
+                android:src="@{vm.pwdShow ? @drawable/show_pwd : @drawable/hide_pwd}"
+                android:onClick="@{(v)->vm.ivHidePwdClick(v)}"
                 />
 
             <EditText
@@ -65,7 +75,8 @@
                 android:background="@null"
                 android:hint="请输入密码"
                 android:textColorHint="#FFCCCCCC"
-                android:textSize="30px"
+                android:textSize="15dp"
+                android:inputType="@{vm.pwdShow ? text : textPassword}"
                 />
 
         </RelativeLayout>
@@ -82,7 +93,8 @@
             android:gravity="center"
             android:text="登录"
             android:textColor="#FFFFFFFF"
-            android:textSize="34px"
+            android:textSize="17dp"
+            android:onClick="@{(v)->vm.tvLoginClick(v)}"
             />
 
         <RelativeLayout
@@ -96,7 +108,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="72dp"
-                android:src="@drawable/wechat_login"/>
+                android:src="@drawable/wechat_login"
+                android:onClick="@{(v)->vm.ivWechatClick(v)}"/>
 
             <TextView
                 android:id="@+id/tvAgreement"
