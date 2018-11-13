@@ -86,6 +86,7 @@
                 android:layout_marginRight="6dp"
                 android:paddingLeft="10dp"
                 android:src="@{vm.pwdShow ? @drawable/show_pwd : @drawable/hide_pwd}"
+                android:onClick="@{(v)->vm.ivPwdShowClick(v)}"
                 />
 
             <EditText
@@ -97,7 +98,6 @@
                 android:textColorHint="#FFCCCCCC"
                 android:textSize="15dp"
                 android:text="@={vm.pwd}"
-                android:inputType="@{vm.pwdShow ? text : textPassword}"
                 />
 
         </RelativeLayout>

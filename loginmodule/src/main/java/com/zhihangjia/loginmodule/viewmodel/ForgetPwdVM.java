@@ -33,4 +33,8 @@ public class ForgetPwdVM extends BaseVM {
     public void tvSureClick(View view){
 
     }
+
+    public void ivPwdShowClick(View view){
+
+    }
 }

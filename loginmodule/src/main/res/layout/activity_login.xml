@@ -76,7 +76,6 @@
                 android:hint="请输入密码"
                 android:textColorHint="#FFCCCCCC"
                 android:textSize="15dp"
-                android:inputType="@{vm.pwdShow ? text : textPassword}"
                 />
 
         </RelativeLayout>

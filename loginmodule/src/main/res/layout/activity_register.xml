@@ -104,7 +104,6 @@
                 android:textSize="15dp"
                 android:layout_toLeftOf="@+id/ivPwdShow"
                 android:text="@={vm.pwd}"
-                android:inputType="@{vm.pwdShow ? text : textPassword}"
                 />
 
         </RelativeLayout>
@@ -137,7 +136,6 @@
                 android:textSize="15dp"
                 android:layout_toLeftOf="@+id/ivCheckPwdShow"
                 android:text="@={vm.checkPwd}"
-                android:inputType="@{vm.checkPwdShow ? text : textPassword}"
                 />
         </RelativeLayout>
 
