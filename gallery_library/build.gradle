@@ -14,26 +14,25 @@ android {
     }
 
     buildTypes {
-        release {
-            consumerProguardFiles 'proguard-rules.pro'
-        }
-    }
-
-    dataBinding {
-        enabled=true
+       release {
+           minifyEnabled false
+           proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+       }
     }
 
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:$suppert_verison"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation 'com.google.code.gson:gson:2.8.5'
-    api project(':customerviewlib')
-    api project(':gallery_library')
-    api 'me.jessyan:autosize:1.0.6'
+
+    api "com.android.support:appcompat-v7:$suppert_verison"
+    api "com.android.support:recyclerview-v7:$suppert_verison"
+
+    //图片库
+    api "com.github.bumptech.glide:glide:$glide_version"
+
 }

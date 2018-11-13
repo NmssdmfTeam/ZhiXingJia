@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="decimal_gallery">#2E3334</color>
+    <color name="accent_gallery">#01ceb0</color>
+    <color name="app_color_gallery">#01ceb0</color>
+
+    <!-- 黑色 -->
+    <color name="black">#ff000000</color>
+
+    <color name="gray_btn">#E0DFE0</color>
+
+    <color name="text_black">#6c6c6c</color>
+
+
+</resources>
