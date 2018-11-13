@@ -3,28 +3,39 @@ package com.zhihangjia.mainmodule.fragment.message;
 import android.os.Bundle;
 import android.view.View;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
+import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
+import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
+import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.adapter.SystemMessageAdapter;
+import com.zhihangjia.mainmodule.viewmodel.SystemMessageFragmentVM;
 
-public class SystemMessageFragment extends BaseFragment {
+import java.util.List;
+
+public class SystemMessageFragment extends BaseRecyclerViewFragment {
     private final String TAG = SystemMessageFragment.class.getSimpleName();
+    private SystemMessageFragmentVM vm;
+    private SystemMessageAdapter adapter;
     @Override
-    public BaseVM initViewModel() {
-        return null;
+    public BaseRecyclerViewFragmentVM initRecyclerViewFragmentVM() {
+        vm = new SystemMessageFragmentVM(this);
+        return vm;
     }
 
     @Override
-    public int setLayout() {
-        return 0;
-    }
-
-    @Override
-    public void initAll(View view, Bundle savedInstanceState) {
-
+    public BaseDataBindingAdapter initAdapter(List list) {
+        list.add(new Base());
+        list.add(new Base());
+        list.add(new Base());
+        adapter = new SystemMessageAdapter(list);
+        return adapter;
     }
 
     @Override
     public String getTAG() {
-        return null;
+        return TAG;
     }
 }

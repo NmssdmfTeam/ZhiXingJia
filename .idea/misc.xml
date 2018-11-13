@@ -29,9 +29,6 @@
       </value>
     </option>
   </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/commonlib/src/main/res/layout/include_cut_off_slender_line.xml" />
-  </component>
   <component name="ProjectResources">
     <resource url="http://schemas.android.com/apk/res/android" location="$PROJECT_DIR$" />
   </component>

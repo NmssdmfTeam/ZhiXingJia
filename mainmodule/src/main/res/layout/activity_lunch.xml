@@ -11,8 +11,15 @@
             android:id="@+id/btnMain"
             android:layout_height="40dp"
             android:layout_width="200dp"
-            android:layout_marginTop="100dp"
             android:text="首页"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btnMessage"
+            android:layout_height="40dp"
+            android:layout_width="200dp"
+            android:text="消息"
             android:layout_gravity="center"
             android:gravity="center"/>
 
