@@ -30,6 +30,7 @@ public class RegisterVM extends BaseVM {
     public final ObservableBoolean pwdShow = new ObservableBoolean(false);
     public final ObservableBoolean checkPwdShow = new ObservableBoolean(false);
 
+    private RegisterCB cb;
     /**
      * 不需要callback可以传null
      *
@@ -37,6 +38,7 @@ public class RegisterVM extends BaseVM {
      */
     public RegisterVM(RegisterCB callBack) {
         super(callBack);
+        cb = callBack;
     }
 
     public void tvRegisterClick(View view){
@@ -75,10 +77,12 @@ public class RegisterVM extends BaseVM {
 
     public void ivPwdShowClick(View view){
         pwdShow.set(!pwdShow.get());
+        cb.setEtPwdInputType(pwdShow.get());
     }
 
     public void ivCheckPwdShowClick(View view){
         checkPwdShow.set(!checkPwdShow.get());
+        cb.setEtCheckPwdInputType(checkPwdShow.get());
     }
 
     public void tvAgreementClick(View view){

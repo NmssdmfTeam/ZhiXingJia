@@ -96,6 +96,7 @@
                 />
 
             <EditText
+                android:id="@+id/etPwd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -104,6 +105,7 @@
                 android:textSize="15dp"
                 android:layout_toLeftOf="@+id/ivPwdShow"
                 android:text="@={vm.pwd}"
+                android:inputType="textPassword"
                 />
 
         </RelativeLayout>
@@ -128,6 +130,7 @@
                 android:onClick="@{(v)->vm.ivCheckPwdShowClick(v)}"/>
 
             <EditText
+                android:id="@+id/etCheckPwd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -136,6 +139,7 @@
                 android:textSize="15dp"
                 android:layout_toLeftOf="@+id/ivCheckPwdShow"
                 android:text="@={vm.checkPwd}"
+                android:inputType="textPassword"
                 />
         </RelativeLayout>
 

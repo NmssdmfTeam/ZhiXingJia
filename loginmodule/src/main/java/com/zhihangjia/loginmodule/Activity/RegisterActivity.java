@@ -2,6 +2,8 @@ package com.zhihangjia.loginmodule.Activity;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.text.InputType;
+import android.widget.EditText;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -44,5 +46,25 @@ public class RegisterActivity extends BaseTitleActivity implements RegisterCB{
     @Override
     public int getContentViewId() {
         return R.layout.activity_register;
+    }
+
+    @Override
+    public void setEtPwdInputType(boolean pwdShow) {
+        if (pwdShow) {
+            binding.etPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        } else {
+            binding.etPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
+        binding.etPwd.setSelection(binding.etPwd.getText().length());
+    }
+
+    @Override
+    public void setEtCheckPwdInputType(boolean pwdCheckShow) {
+        if (pwdCheckShow) {
+            binding.etCheckPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        } else {
+            binding.etCheckPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
+        binding.etCheckPwd.setSelection(binding.etCheckPwd.getText().length());
     }
 }

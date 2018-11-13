@@ -90,6 +90,7 @@
                 />
 
             <EditText
+                android:id="@+id/etPwd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/ivPwdShow"
@@ -98,6 +99,7 @@
                 android:textColorHint="#FFCCCCCC"
                 android:textSize="15dp"
                 android:text="@={vm.pwd}"
+                android:inputType="textPassword"
                 />
 
         </RelativeLayout>
