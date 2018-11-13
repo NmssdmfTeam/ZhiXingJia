@@ -1,7 +1,10 @@
-package com.example.mainmodule.Activity;
+package com.example.mainmodule.activity;
 
 import android.os.Bundle;
 
+import com.example.mainmodule.R;
+import com.example.mainmodule.databinding.ActivityMainBinding;
+import com.example.mainmodule.viewmodel.MainVM;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
@@ -12,19 +15,24 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 * @version v3.2.0
 */
 public class MainActivity extends BaseActivity {
+    private String TAG = MainActivity.class.getSimpleName();
+    private MainVM vm;
+    private ActivityMainBinding binding;
+
     @Override
     public String getTAG() {
-        return null;
+        return TAG;
     }
 
     @Override
     public int setLayout() {
-        return 0;
+        return R.layout.activity_main;
     }
 
     @Override
     public BaseVM initViewModel() {
-        return null;
+        vm = new MainVM(this);
+        return vm;
     }
 
     @Override
