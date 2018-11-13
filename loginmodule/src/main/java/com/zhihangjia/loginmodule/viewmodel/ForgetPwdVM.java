@@ -17,6 +17,8 @@ public class ForgetPwdVM extends BaseVM {
     public final ObservableField<String> verificationCode = new ObservableField<>();
     public final ObservableField<String> pwd = new ObservableField<>();
     public final ObservableBoolean pwdShow = new ObservableBoolean(false);
+
+    private ForgetPwdCB cb;
     /**
      * 不需要callback可以传null
      *
@@ -24,6 +26,7 @@ public class ForgetPwdVM extends BaseVM {
      */
     public ForgetPwdVM(ForgetPwdCB callBack) {
         super(callBack);
+        cb = callBack;
     }
 
     public void tvSendCodeClick(View view){
@@ -35,6 +38,7 @@ public class ForgetPwdVM extends BaseVM {
     }
 
     public void ivPwdShowClick(View view){
-
+        pwdShow.set(!pwdShow.get());
+        cb.setInputType(pwdShow.get());
     }
 }

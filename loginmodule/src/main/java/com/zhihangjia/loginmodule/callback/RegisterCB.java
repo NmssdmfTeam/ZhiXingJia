@@ -7,4 +7,6 @@ import com.nmssdmf.commonlib.callback.BaseCB;
  */
 
 public interface RegisterCB extends BaseCB {
+    void setEtPwdInputType(boolean pwdShow);
+    void setEtCheckPwdInputType(boolean pwdCheckShow);
 }
