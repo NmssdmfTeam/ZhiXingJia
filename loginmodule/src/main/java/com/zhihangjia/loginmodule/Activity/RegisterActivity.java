@@ -33,8 +33,12 @@ public class RegisterActivity extends BaseTitleActivity implements RegisterCB{
     @Override
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityRegisterBinding)baseViewBinding;
+        binding.setVm(vm);
+
         String str="已阅读并同意《<font color='#FF000000'>用户服务协议</font>》";
         binding.tvAgreement.setText(Html.fromHtml(str));
+
+        setISlenderLineGone();
     }
 
     @Override

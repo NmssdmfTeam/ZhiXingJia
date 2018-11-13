@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+      >
     <data>
+
         <variable
             name="vm"
-            type="com.zhihangjia.loginmodule.viewmodel.RegisterVM"/>
+            type="com.zhihangjia.loginmodule.viewmodel.ForgetPwdVM"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -20,7 +18,7 @@
             android:layout_width="175dp"
             android:layout_height="35dp"
             android:layout_marginTop="45dp"
-            android:text="知行家创建账号"
+            android:text="知行家找回密码"
             android:textColor="#FF333333"
             android:textSize="25dp"
             />
@@ -30,7 +28,6 @@
             android:layout_height="55dp"
             android:layout_marginTop="45dp"
             android:background="@null"
-            android:gravity="center_vertical"
             android:hint="请输入手机号码"
             android:textColorHint="#FFCCCCCC"
             android:textSize="15dp"
@@ -44,7 +41,6 @@
         <RelativeLayout
             android:layout_width="343dp"
             android:layout_height="55dp"
-            android:background="#FFFFFFFF"
             >
 
             <TextView
@@ -52,20 +48,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
-                android:gravity="center_vertical"
+                android:layout_marginRight="6dp"
+                android:gravity="center"
                 android:text="发送验证码"
                 android:textColor="#FFFF9A14"
                 android:textSize="14dp"
+                android:onClick="@{(v)->vm.tvSendCodeClick(v)}"
                 />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="12dp"
                 android:layout_toLeftOf="@+id/tvSendCode"
                 android:background="@null"
-                android:gravity="center_vertical"
                 android:hint="请输入验证码"
                 android:textColorHint="#FFCCCCCC"
                 android:textSize="15dp"
@@ -81,16 +76,15 @@
         <RelativeLayout
             android:layout_width="343dp"
             android:layout_height="55dp"
-            android:background="#FFFFFFFF"
             >
 
             <ImageView
                 android:id="@+id/ivPwdShow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="12dp"
+                android:layout_marginRight="6dp"
+                android:paddingLeft="10dp"
                 android:src="@{vm.pwdShow ? @drawable/show_pwd : @drawable/hide_pwd}"
                 android:onClick="@{(v)->vm.ivPwdShowClick(v)}"
                 />
@@ -98,11 +92,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/ivPwdShow"
                 android:background="@null"
                 android:hint="请输入6-14位数字或字母密码"
                 android:textColorHint="#FFCCCCCC"
                 android:textSize="15dp"
-                android:layout_toLeftOf="@+id/ivPwdShow"
                 android:text="@={vm.pwd}"
                 />
 
@@ -111,73 +105,19 @@
         <include
             layout="@layout/include_login_cut_off_line"/>
 
-        <RelativeLayout
-            android:layout_width="343dp"
-            android:layout_height="55dp"
-            android:background="#FFFFFFFF"
-            >
-
-            <ImageView
-                android:id="@+id/ivCheckPwdShow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="12dp"
-                android:src="@{vm.checkPwdShow ? @drawable/show_pwd : @drawable/hide_pwd}"
-                android:onClick="@{(v)->vm.ivCheckPwdShowClick(v)}"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:hint="请重复输入6-14位数字或字母密码"
-                android:textColorHint="#FFCCCCCC"
-                android:textSize="15dp"
-                android:layout_toLeftOf="@+id/ivCheckPwdShow"
-                android:text="@={vm.checkPwd}"
-                />
-        </RelativeLayout>
-
-        <include
-            layout="@layout/include_login_cut_off_line"/>
-
-        <RelativeLayout
-            android:layout_width="343dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="30dp">
-            <CheckBox
-                android:id="@+id/cbAgree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:button="@drawable/selector_agree_checkbox"
-                android:checked="@={vm.agree}"/>
-            <TextView
-                android:id="@+id/tvAgreement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="已阅读并同意《用户服务协议》"
-                android:textColor="#FF666666"
-                android:textSize="13dp"
-                android:layout_toRightOf="@+id/cbAgree"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:onClick="@{(v)->vm.tvAgreementClick(v)}"
-                />
-        </RelativeLayout>
-
         <TextView
-            android:id="@+id/tvRegister"
+            android:id="@+id/tvSure"
             android:layout_width="343dp"
-            android:layout_height="86px"
+            android:layout_height="43dp"
             android:background="@drawable/shape_page_main_btn"
-            android:text="注册"
+            android:text="确定"
             android:textColor="#FFFFFFFF"
             android:textSize="17dp"
             android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:onClick="@{(v)->vm.tvRegisterClick(v)}"
+            android:layout_marginTop="36dp"
+            android:onClick="@{(v)->vm.tvSureClick(v)}"
             />
+
     </LinearLayout>
 </layout>
+

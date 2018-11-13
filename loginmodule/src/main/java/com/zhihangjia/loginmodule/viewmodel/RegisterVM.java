@@ -16,7 +16,6 @@ import com.zhixingjia.service.LoginService;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 /**
  * Created by ${nmssdmf} on 2018/11/13 0013.
@@ -56,7 +55,7 @@ public class RegisterVM extends BaseVM {
             return;
         }
 
-        if (checkPwd(pwd.get())) {
+        if (StringUtil.checkPwd(pwd.get())) {
             ToastUtil.showMsg("密码格式不正确");
             return;
         }
@@ -82,11 +81,10 @@ public class RegisterVM extends BaseVM {
         checkPwdShow.set(!checkPwdShow.get());
     }
 
-    public boolean checkPwd(String pwd) {
-        Pattern pattern = Pattern.compile("[0-9A-Za-z] {6,14}");
-        return pattern.matcher(pwd).find();
-
+    public void tvAgreementClick(View view){
+        agree.set(!agree.get());
     }
+
 
     public void doRegister(){
         Map<String, String> map = new HashMap<>();

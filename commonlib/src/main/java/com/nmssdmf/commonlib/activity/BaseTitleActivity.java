@@ -77,6 +77,10 @@ public abstract class BaseTitleActivity extends BaseActivity {
         baseTitleBinding.tTitle.setNavigationIcon(null);
     }
 
+    protected void setISlenderLineGone(){
+        baseTitleBinding.iSlenderLine.setVisibility(View.GONE);
+    }
+
     /**
     * @description 设置Navigation点击事件
     * @author nmssdmf
