@@ -35,7 +35,7 @@ public class MainActivity extends BaseTitleActivity {
 
     @Override
     public void initContent(Bundle savedInstanceState) {
-        binding = baseTitleBinding;
+        binding = (ActivityMainBinding)baseViewBinding;
         binding.btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

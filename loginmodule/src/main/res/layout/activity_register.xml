@@ -22,7 +22,7 @@
             android:layout_marginTop="45dp"
             android:text="知行家创建账号"
             android:textColor="#FF333333"
-            android:textSize="50px"
+            android:textSize="25dp"
             />
 
         <EditText
@@ -33,7 +33,7 @@
             android:gravity="center_vertical"
             android:hint="请输入手机号码"
             android:textColorHint="#FFCCCCCC"
-            android:textSize="30px"
+            android:textSize="15dp"
             android:text="@={vm.phoneNumber}"
             />
 
@@ -55,7 +55,7 @@
                 android:gravity="center_vertical"
                 android:text="发送验证码"
                 android:textColor="#FFFF9A14"
-                android:textSize="28px"
+                android:textSize="14dp"
                 />
 
             <EditText
@@ -67,7 +67,7 @@
                 android:gravity="center_vertical"
                 android:hint="请输入验证码"
                 android:textColorHint="#FFCCCCCC"
-                android:textSize="30px"
+                android:textSize="15dp"
                 android:text="@={vm.verificationCode}"
                 />
 
@@ -99,7 +99,7 @@
                 android:background="@null"
                 android:hint="请输入6-14位数字或字母密码"
                 android:textColorHint="#FFCCCCCC"
-                android:textSize="30px"
+                android:textSize="15dp"
                 android:layout_toLeftOf="@+id/ivHidePwd"
                 android:text="@={vm.pwd}"
                 android:onClick="@{(v)->vm.ivCheckPwdShowClick(v)}"
@@ -132,7 +132,7 @@
                 android:background="@null"
                 android:hint="请重复输入6-14位数字或字母密码"
                 android:textColorHint="#FFCCCCCC"
-                android:textSize="30px"
+                android:textSize="15dp"
                 android:layout_toLeftOf="@+id/ivShowPwd"
                 android:text="@={vm.checkPwd}"
                 />
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:text="已阅读并同意《用户服务协议》"
                 android:textColor="#FF666666"
-                android:textSize="26px"
+                android:textSize="13dp"
                 android:layout_toRightOf="@+id/cbAgree"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
@@ -172,7 +172,7 @@
             android:background="@drawable/shape_page_main_btn"
             android:text="注册"
             android:textColor="#FFFFFFFF"
-            android:textSize="34px"
+            android:textSize="17dp"
             android:gravity="center"
             android:layout_marginTop="16dp"
             android:onClick="@{(v)->vm.tvRegisterClick(v)}"

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
-         xmlns:app="http://schemas.android.com/apk/res-auto"
-         xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,18 +12,17 @@
         <TextView
             android:layout_width="175dp"
             android:layout_height="35dp"
+            android:layout_marginTop="45dp"
             android:text="知行家账号登录"
             android:textColor="#FF333333"
             android:textSize="50px"
-            android:layout_marginTop="45dp"
             />
-
 
         <EditText
             android:layout_width="343dp"
             android:layout_height="55dp"
-            android:background="#FFFFFFFF"
             android:layout_marginTop="45dp"
+            android:background="#FFFFFFFF"
             android:hint="请输入手机号码"
             android:textColorHint="#FFCCCCCC"
             android:textSize="30px"
@@ -41,33 +39,33 @@
                 android:id="@+id/tvForgetPwd"
                 android:layout_width="62dp"
                 android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:paddingRight="6dp"
                 android:text="忘记密码"
                 android:textColor="#FFFF9A14"
                 android:textSize="28px"
-                android:layout_alignParentRight="true"
-                android:paddingRight="6dp"
-                android:layout_centerVertical="true"
-                android:gravity="center"
                 />
 
             <ImageView
                 android:id="@+id/ivHidePwd"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:src="@drawable/show_pwd"
-                android:layout_toLeftOf="@+id/tvForgetPwd"
                 android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tvForgetPwd"
                 android:paddingRight="13dp"
+                android:src="@drawable/show_pwd"
                 />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/ivHidePwd"
+                android:background="@null"
                 android:hint="请输入密码"
                 android:textColorHint="#FFCCCCCC"
                 android:textSize="30px"
-                android:background="@null"
-                android:layout_toLeftOf="@+id/ivHidePwd"
                 />
 
         </RelativeLayout>
@@ -76,14 +74,15 @@
             layout="@layout/include_login_cut_off_line"/>
 
         <TextView
+            android:id="@+id/tvLogin"
             android:layout_width="343dp"
             android:layout_height="43dp"
-            android:background="@drawable/shape_page_main_btn"
             android:layout_marginTop="36dp"
+            android:background="@drawable/shape_page_main_btn"
+            android:gravity="center"
             android:text="登录"
             android:textColor="#FFFFFFFF"
             android:textSize="34px"
-            android:gravity="center"
             />
 
         <RelativeLayout
@@ -91,12 +90,24 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/ivWechat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/wechat_login"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="72dp"
-                android:layout_centerHorizontal="true"/>
+                android:src="@drawable/wechat_login"/>
+
+            <TextView
+                android:id="@+id/tvAgreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="24dp"
+                android:text="登录即代表您已同意我们的 服务协议 和 隐私政策"
+                android:textColor="#FF999999"
+                android:textSize="12dp"/>
 
         </RelativeLayout>
 
