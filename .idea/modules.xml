@@ -3,11 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ZhiXingJia.iml" filepath="$PROJECT_DIR$/ZhiXingJia.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ZhiXingJia.iml" filepath="$PROJECT_DIR$/ZhiXingJia.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonlib/commonlib.iml" filepath="$PROJECT_DIR$/commonlib/commonlib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/commonlib/commonlib.iml" filepath="$PROJECT_DIR$/commonlib/commonlib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/customerviewlib/customerviewlib.iml" filepath="$PROJECT_DIR$/customerviewlib/customerviewlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/customerviewlib/customerviewlib.iml" filepath="$PROJECT_DIR$/customerviewlib/customerviewlib.iml" />
     </modules>
   </component>
