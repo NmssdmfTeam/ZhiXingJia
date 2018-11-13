@@ -1,19 +1,42 @@
-apply plugin: 'com.android.application'
+if (modularization.toBoolean()) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+
 
 android {
     compileSdkVersion compile_sdk_version.toInteger()
+
     defaultConfig {
-        applicationId "com.zhihangjia.project"
+        if (modularization.toBoolean()) {
+        } else {
+            applicationId "com.zhihangjia.loginmodule"
+        }
         minSdkVersion min_sdk_version.toInteger()
         targetSdkVersion target_sdk_version.toInteger()
         versionCode version_code.toInteger()
         versionName version_name
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (modularization.toBoolean()) {
+                consumerProguardFiles 'proguard-rules.pro'
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            if (modularization.toBoolean()) {
+                manifest.srcFile 'src/main/modularization/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
         }
     }
 

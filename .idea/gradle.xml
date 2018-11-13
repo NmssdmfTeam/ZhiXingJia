@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/commonlib" />
             <option value="$PROJECT_DIR$/customerviewlib" />
+            <option value="$PROJECT_DIR$/loginmodule" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
