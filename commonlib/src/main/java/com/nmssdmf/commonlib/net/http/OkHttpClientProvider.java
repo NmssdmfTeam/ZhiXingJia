@@ -1,18 +1,16 @@
-package com.zhixingjia.net.http;
+package com.nmssdmf.commonlib.net.http;
 
 
 import android.os.Build;
+import android.util.Config;
 
 import com.google.gson.Gson;
-import com.jushi.commonlib.BuildConfig;
-import com.jushi.commonlib.bean.Base;
-import com.jushi.commonlib.config.Config;
-import com.jushi.commonlib.config.PrefrenceConfig;
-import com.jushi.commonlib.net.crt.SSlContextProvider;
-import com.jushi.commonlib.rxbus.RxBus;
-import com.jushi.commonlib.rxbus.RxEvent;
-import com.jushi.commonlib.util.JLog;
-import com.jushi.commonlib.util.PreferenceUtil;
+import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.config.BuildConfig;
+import com.nmssdmf.commonlib.net.crt.SSlContextProvider;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.JLog;
 
 import org.json.JSONObject;
 
@@ -278,7 +276,7 @@ public class OkHttpClientProvider {
                     String string = response.body().string();
                     Base base = new Gson().fromJson(string, Base.class);
                     if ("401".equals(base.getStatus_code())) {
-                        RxBus.getInstance().send(RxEvent.LruEvent.RE_LOGIN, null);//发送消息,跳转到登陆页面
+                        RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, null);//发送消息,跳转到登陆页面
                     }
                     ResponseBody responseBody = ResponseBody.create(mediaType, string);
                     return response.newBuilder().body(responseBody).build();
@@ -337,7 +335,6 @@ public class OkHttpClientProvider {
             Request request = chain.request();
 
             long t_start = System.nanoTime();
-            JLog.v(TAG, "页面 = " + PreferenceUtil.getString(PrefrenceConfig.ACTIVITY_NAME, ""));
             JLog.v(TAG, String.format("request %s on %s %n %s body:%s",
                     request.url(), chain.connection(), request.headers(), new Gson().toJson(request.body())));
 
@@ -381,7 +378,6 @@ public class OkHttpClientProvider {
 //                            + "response body: " + buffer.clone().readString(charset));
 
 //                     format json
-                    JLog.v(TAG, "页面 = " + PreferenceUtil.getString(PrefrenceConfig.ACTIVITY_NAME, ""));
                     JLog.v(TAG, String.format("response for %s in %.1fms%n%s",
                             response.request().url(), (t_end - t_start) / 1e6d, response.headers())
                             + "response body: " + new JSONObject(buffer.clone().readString(charset)).toString(1));

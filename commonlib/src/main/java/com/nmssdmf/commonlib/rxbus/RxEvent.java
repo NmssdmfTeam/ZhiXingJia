@@ -1,4 +1,4 @@
-package com.zhixingjia.rxbus;
+package com.nmssdmf.commonlib.rxbus;
 
 /**
  * @author huscarter@163.com
@@ -42,7 +42,8 @@ public class RxEvent {
         /**
          * 登录成功
          */
-        public static final int LOGIN_SUCCESS = VALUE + 2;
+        public static final int LOGIN_SUCCESS = VALUE + 1;
+        public static final int RE_LOGIN = VALUE + 2;
 
         public LoginEvent() {
             super(VALUE);

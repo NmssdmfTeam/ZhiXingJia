@@ -1,10 +1,10 @@
-package com.zhixingjia.net.retrofit;
+package com.nmssdmf.commonlib.net.retrofit;
 
 import android.support.annotation.CallSuper;
 
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.ToastUtil;
-import com.zhixingjia.rxbus.RxBus;
-import com.zhixingjia.rxbus.RxEvent;
 
 import java.net.UnknownHostException;
 
@@ -44,6 +44,12 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
     public HttpObserver() {
     }
 
+    @CallSuper
+    @Override
+    public void onComplete() {
+
+    }
+
     /**
      * 如果需要在出错时对页面组建做处理，请重载此方法
      *
@@ -66,7 +72,7 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
             switch (error.code()) {
                 case UNAUTHORIZED:
                     ToastUtil.showMsg( "当前身份已失效,请重新登录");
-                    RxBus.getInstance().send(RxEvent.LruEvent.RE_LOGIN, null);//发送消息,跳转到登陆页面
+                    RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, null);//发送消息,跳转到登陆页面
                     break;
                 case FORBIDDEN: // 网络禁止访问
                 case NOT_FOUND:
