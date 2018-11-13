@@ -34,6 +34,8 @@ public class ForgetPwdActivity extends BaseTitleActivity implements ForgetPwdCB 
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityForgetPwdBinding) baseViewBinding;
         binding.setVm(vm);
+
+        setISlenderLineGone();
     }
 
     @Override

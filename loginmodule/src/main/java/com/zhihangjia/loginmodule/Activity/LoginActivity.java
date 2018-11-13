@@ -69,4 +69,8 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB{
             }
         });
     }
+
+    @Override
+    public void setInputType(boolean pwdShow) {
+    }
 }
