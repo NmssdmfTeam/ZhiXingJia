@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- 首页底部图标 -->
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_home_selected" />
+
+        <!-- 首页底部消息图标 -->
+        <TextView
+            android:id="@+id/tv_red_point"
+            android:layout_width="@dimen/msg_width_small"
+            android:layout_height="@dimen/msg_width_small"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/circle_notice"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <!-- 首页底部文字 -->
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10dp" />
+
+</LinearLayout>

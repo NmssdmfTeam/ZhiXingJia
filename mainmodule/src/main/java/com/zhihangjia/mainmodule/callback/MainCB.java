@@ -1,4 +1,4 @@
-package com.example.mainmodule.callback;
+package com.zhihangjia.mainmodule.callback;
 
 import com.nmssdmf.commonlib.callback.BaseCB;
 

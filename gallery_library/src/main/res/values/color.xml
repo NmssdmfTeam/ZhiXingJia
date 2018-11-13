@@ -12,5 +12,7 @@
 
     <color name="text_black">#6c6c6c</color>
 
+    <color name="text_gray">#FFD8D8D8</color>
+
 
 </resources>

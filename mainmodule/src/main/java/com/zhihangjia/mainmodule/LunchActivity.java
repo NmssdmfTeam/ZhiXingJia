@@ -1,9 +1,10 @@
-package com.example.mainmodule;
+package com.zhihangjia.mainmodule;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.mainmodule.databinding.ActivityLunchBinding;
+import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.databinding.ActivityLunchBinding;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
@@ -33,7 +34,7 @@ public class LunchActivity extends BaseTitleActivity {
         binding.btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                doIntent(MainActivity.class,null);
             }
         });
     }

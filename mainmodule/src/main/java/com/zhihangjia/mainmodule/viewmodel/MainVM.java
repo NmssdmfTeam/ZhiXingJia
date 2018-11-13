@@ -1,4 +1,4 @@
-package com.example.mainmodule.viewmodel;
+package com.zhihangjia.mainmodule.viewmodel;
 
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;

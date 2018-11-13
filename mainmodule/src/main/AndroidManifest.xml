@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mainmodule">
+    package="com.zhihangjia.mainmodule">
 
     <application
         android:allowBackup="true"
@@ -9,13 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BaseLibTheme">
-        <activity android:name=".LunchActivity">
+        <activity android:name="com.zhihangjia.mainmodule.LunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.zhihangjia.mainmodule.activity.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="design_width_in_dp"
