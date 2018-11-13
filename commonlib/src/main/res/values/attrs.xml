@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="JushiImageView">
+        <attr name="roundType" format="enum" >
+            <enum name="roundtop" value="1"/>
+            <enum name="roundbottom" value="2"/>
+            <enum name="roundall" value="3"/>
+        </attr>
+        <attr name="roundRadius" format="dimension|float" />
+    </declare-styleable>
+</resources>

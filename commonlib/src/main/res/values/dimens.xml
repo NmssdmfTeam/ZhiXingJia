@@ -9,4 +9,15 @@
 
 
     <dimen name="title_text_size">20dp</dimen>
+
+    <!-- 文字小 -->
+    <dimen name="font_size_small">10dp</dimen>
+    <!-- 文字中 -->
+    <dimen name="font_size_mid">12dp</dimen>
+    <!-- 文字大 -->
+    <dimen name="font_size_big">13dp</dimen>
+    <!-- 文字更大 -->
+    <dimen name="font_size_max">15dp</dimen>
+
+    <dimen name="font_size_max_max">32dp</dimen>
 </resources>
