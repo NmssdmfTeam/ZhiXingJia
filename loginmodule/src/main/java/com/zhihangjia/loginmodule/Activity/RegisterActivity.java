@@ -3,7 +3,6 @@ package com.zhihangjia.loginmodule.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
-import android.widget.EditText;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;

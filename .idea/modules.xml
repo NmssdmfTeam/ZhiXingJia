@@ -7,11 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/commonlib/commonlib.iml" filepath="$PROJECT_DIR$/commonlib/commonlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/customerviewlib/customerviewlib.iml" filepath="$PROJECT_DIR$/customerviewlib/customerviewlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/gallery_library/gallery_library.iml" filepath="$PROJECT_DIR$/gallery_library/gallery_library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gallery_library/gallery_library.iml" filepath="$PROJECT_DIR$/gallery_library/gallery_library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/httplib/httplib.iml" filepath="$PROJECT_DIR$/httplib/httplib.iml" />
       <module fileurl="file://$PROJECT_DIR$/httplib/httplib.iml" filepath="$PROJECT_DIR$/httplib/httplib.iml" />
       <module fileurl="file://$PROJECT_DIR$/loginmodule/loginmodule.iml" filepath="$PROJECT_DIR$/loginmodule/loginmodule.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mainmodule/mainmodule.iml" filepath="$PROJECT_DIR$/mainmodule/mainmodule.iml" />
       <module fileurl="file://$PROJECT_DIR$/mainmodule/mainmodule.iml" filepath="$PROJECT_DIR$/mainmodule/mainmodule.iml" />
     </modules>
   </component>
