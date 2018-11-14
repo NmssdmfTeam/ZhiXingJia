@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,8 +13,10 @@ import android.widget.ViewFlipper;
 
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.util.DensityUtil;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MainAdapter;
 import com.zhihangjia.mainmodule.bean.Headline;
@@ -40,6 +43,7 @@ public class MainFragment extends BaseFragment {
     private MainAdapter adapter;
     private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
     private ViewFlipper viewFlipper;
+    private int firstY = 0;
 
     @Override
     public BaseVM initViewModel() {
@@ -56,7 +60,7 @@ public class MainFragment extends BaseFragment {
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMainBinding) baseBinding;
         adapter = new MainAdapter(new ArrayList());
-        ItemMainCrvheadBinding itemMainCrvheadBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_main_crvhead,null,false);
+        ItemMainCrvheadBinding itemMainCrvheadBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_main_crvhead, null, false);
         //初始化首页头部
         adapter.setHeaderView(itemMainCrvheadBinding.getRoot());
 
@@ -74,7 +78,7 @@ public class MainFragment extends BaseFragment {
         List headlines = new ArrayList();
         for (int i = 0; i < 10; i++) {
             Headline headline = new Headline();
-            headline.setTitle("测试"+i);
+            headline.setTitle("测试" + i);
             headlines.add(headline);
         }
         setHeadlineView(headlines);
@@ -93,7 +97,7 @@ public class MainFragment extends BaseFragment {
         mainBean = new MainBean();
         mainBean.setItemType(3);
         adapter.addData(mainBean);
-
+        setListener();
     }
 
     public void setHeadlineView(List<Headline> headlines) {
@@ -103,7 +107,7 @@ public class MainFragment extends BaseFragment {
             LinearLayout linearLayout = new LinearLayout(viewFlipper.getContext());
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setLayoutParams(layoutParams);
-            ItemViewflipperBinding itemViewflipperBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_viewflipper,null,false);
+            ItemViewflipperBinding itemViewflipperBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_viewflipper, null, false);
             itemViewflipperBinding.tvTitle.setText(headlines.get(i).getTitle());
             linearLayout.addView(itemViewflipperBinding.getRoot());
             View view = new View(getContext());
@@ -112,8 +116,8 @@ public class MainFragment extends BaseFragment {
             view.setLayoutParams(blankviewparams);
             linearLayout.addView(view);
             if (i + 1 < headlines.size()) {
-                ItemViewflipperBinding itemViewflipperBindingSecond = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_viewflipper,null,false);
-                itemViewflipperBindingSecond.tvTitle.setText(headlines.get(i+1).getTitle());
+                ItemViewflipperBinding itemViewflipperBindingSecond = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_viewflipper, null, false);
+                itemViewflipperBindingSecond.tvTitle.setText(headlines.get(i + 1).getTitle());
                 linearLayout.addView(itemViewflipperBindingSecond.getRoot());
             }
             viewFlipper.addView(linearLayout);
@@ -139,7 +143,39 @@ public class MainFragment extends BaseFragment {
     }
 
     private void setListener() {
-//        binding.crv.setOnDragListener(new );
+        binding.crv.getRv().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        firstY = (int) motionEvent.getRawY();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        //判断向上滑还是向下滑
+                        //向上滑隐藏底部的导航栏
+                        MainActivity activity = null;
+                        if (getActivity() != null && getActivity() instanceof MainActivity) {
+                            activity = (MainActivity) getActivity();
+                        }
+                        JLog.d(TAG, "moveoffset:"+(firstY - motionEvent.getRawY()));
+                        if (firstY - motionEvent.getRawY() > 0) { //向上滑
+//                            if (activity != null) {
+//                                activity.bottomNavigationMoveOut();
+//                            }
+                        } else {//向下滑
+//                            if (activity != null) {
+//                                activity.bottomNavigationMoveIn();
+//                            }
+                        }
+                        firstY = (int) motionEvent.getRawY();
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
