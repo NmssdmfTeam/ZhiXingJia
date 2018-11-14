@@ -2,10 +2,12 @@ package com.zhihangjia.loginmodule.viewmodel;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -17,6 +19,8 @@ import com.zhixingjia.service.LoginService;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by ${nmssdmf} on 2018/11/13 0013.
@@ -91,6 +95,33 @@ public class RegisterVM extends BaseVM {
         cb.setEtCheckPwdInputType(checkPwdShow.get());
     }
 
+    public void sendVerificationCode(View view) {
+        if (StringUtil.isEmpty(phoneNumber.get())) {
+            ToastUtil.showMsg("请输入手机号");
+            return;
+        }
+
+        cb.showLoaddingDialog();
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_SEND_SMS).sendVerificationCode("1", phoneNumber.get()),
+                new ServiceCallback<BaseData>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData data) {
+                        cb.showToast(data.getMessage());
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData data) {
+
+                    }
+                });
+    }
+
     public void tvAgreementClick(View view){
         agree.set(!agree.get());
     }
@@ -113,6 +144,10 @@ public class RegisterVM extends BaseVM {
             @Override
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.PHONE_NUM, phoneNumber.get());
+                cb.setResultCode(RESULT_OK, bundle);
+                cb.finishActivity();
             }
 
             @Override

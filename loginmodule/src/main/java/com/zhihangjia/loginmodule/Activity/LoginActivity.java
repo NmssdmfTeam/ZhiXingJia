@@ -1,13 +1,15 @@
 package com.zhihangjia.loginmodule.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.InputType;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.loginmodule.R;
 import com.zhihangjia.loginmodule.callback.LoginCB;
@@ -62,11 +64,9 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB {
         baseTitleBinding.tTitle.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.iRegister: {
-                        doIntent(RegisterActivity.class, null);
-                        break;
-                    }
+                int i = menuItem.getItemId();
+                if (i == R.id.iRegister) {
+                    doIntentForResult(RegisterActivity.class, null, LoginVM.REGISTER_REQUEST_CODE);
                 }
                 return true;
             }
@@ -81,5 +81,22 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB {
             binding.etPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
         binding.etPwd.setSelection(binding.etPwd.getText().length());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK)
+            switch (requestCode) {
+                case LoginVM.REGISTER_REQUEST_CODE:{
+                    Bundle bundle = data.getExtras();
+                    vm.phoneNum.set(bundle.getString(IntentConfig.PHONE_NUM));
+                    break;
+                }
+                 case LoginVM.FORGET_PWD_REQUEST_CODE:{
+                     Bundle bundle = data.getExtras();
+                     vm.phoneNum.set(bundle.getString(IntentConfig.PHONE_NUM));
+                     break;
+                 }
+            }
     }
 }
