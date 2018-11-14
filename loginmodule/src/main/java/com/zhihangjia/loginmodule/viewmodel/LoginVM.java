@@ -63,6 +63,8 @@ public class LoginVM extends BaseVM {
 
     public void ivHidePwdClick(View view) {
         pwdShow.set(!pwdShow.get());
+
+        cb.setInputType(pwdShow.get());
     }
 
     public void ivWechatClick(View view) {

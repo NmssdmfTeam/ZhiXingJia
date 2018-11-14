@@ -1,6 +1,7 @@
 package com.zhihangjia.loginmodule.Activity;
 
 import android.os.Bundle;
+import android.text.InputType;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -34,10 +35,22 @@ public class ForgetPwdActivity extends BaseTitleActivity implements ForgetPwdCB 
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityForgetPwdBinding) baseViewBinding;
         binding.setVm(vm);
+
+        setISlenderLineGone();
     }
 
     @Override
     public int getContentViewId() {
         return R.layout.activity_forget_pwd;
+    }
+
+    @Override
+    public void setInputType(boolean pwdShow) {
+        if (pwdShow) {
+            binding.etPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        } else {
+            binding.etPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
+        binding.etPwd.setSelection(binding.etPwd.getText().length());
     }
 }

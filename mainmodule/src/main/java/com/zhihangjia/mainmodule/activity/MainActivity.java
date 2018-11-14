@@ -70,6 +70,9 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
 
     @Override
     protected void initAll(Bundle savedInstanceState) {
+        binding = (ActivityMainBinding) baseBinding;
+        binding.mfth.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
+        binding.mfth.getTabWidget().setDividerDrawable(null); // 去掉分割线
         // 初始化fragment tab host
         for (int i = 0; i < fragment_clazz.length; i++) {
             // Tab按钮添加文字和图片
@@ -81,6 +84,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         }
         binding.mfth.setCurrentTab(current_index);
         setSelectedTab(current_index, true);// 设置初始选中状态
+        binding.mfth.setOnTabChangedListener(this);
     }
 
     @Override

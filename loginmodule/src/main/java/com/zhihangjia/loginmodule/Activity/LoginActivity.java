@@ -3,7 +3,9 @@ package com.zhihangjia.loginmodule.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.InputType;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -12,7 +14,8 @@ import com.zhihangjia.loginmodule.callback.LoginCB;
 import com.zhihangjia.loginmodule.databinding.ActivityLoginBinding;
 import com.zhihangjia.loginmodule.viewmodel.LoginVM;
 
-public class LoginActivity extends BaseTitleActivity implements LoginCB{
+
+public class LoginActivity extends BaseTitleActivity implements LoginCB {
     private final String TAG = LoginActivity.class.getSimpleName();
 
     private LoginVM vm;
@@ -36,10 +39,10 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB{
 
     @Override
     public void initContent(Bundle savedInstanceState) {
-        binding = (ActivityLoginBinding)baseViewBinding;
+        binding = (ActivityLoginBinding) baseViewBinding;
         binding.setVm(vm);
 
-        String str="登录即代表您已同意我们的 <font color='#FF9A14'>服务协议</font> 和 <font color='#FF9A14'>隐私政策</font>";
+        String str = "登录即代表您已同意我们的 <font color='#FF9A14'>服务协议</font> 和 <font color='#FF9A14'>隐私政策</font>";
         binding.tvAgreement.setText(Html.fromHtml(str));
 
         initMenu();
@@ -50,7 +53,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB{
         return R.layout.activity_login;
     }
 
-    private void initMenu(){
+    private void initMenu() {
         baseTitleBinding.tTitle.inflateMenu(R.menu.menu_login);
         baseTitleBinding.tTitle.setNavigationIcon(R.drawable.login_close);
 
@@ -60,7 +63,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB{
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.iRegister :{
+                    case R.id.iRegister: {
                         doIntent(RegisterActivity.class, null);
                         break;
                     }
@@ -68,5 +71,15 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB{
                 return true;
             }
         });
+    }
+
+    @Override
+    public void setInputType(boolean pwdShow) {
+        if (pwdShow) {
+            binding.etPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        } else {
+            binding.etPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
+        binding.etPwd.setSelection(binding.etPwd.getText().length());
     }
 }

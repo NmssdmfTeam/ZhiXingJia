@@ -6,7 +6,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="购物车"
+            android:gravity="center"/>
 
     </LinearLayout>
 </layout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
 import com.zhihangjia.mainmodule.databinding.ActivityLunchBinding;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -35,6 +36,13 @@ public class LunchActivity extends BaseTitleActivity {
             @Override
             public void onClick(View view) {
                 doIntent(MainActivity.class,null);
+            }
+        });
+
+        binding.btnMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doIntent(MessageCenterActivity.class,null);
             }
         });
     }
