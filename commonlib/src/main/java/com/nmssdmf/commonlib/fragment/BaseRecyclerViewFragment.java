@@ -8,7 +8,6 @@ import com.nmssdmf.commonlib.R;
 import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
 import com.nmssdmf.commonlib.databinding.FragmentBaseRecyclerviewBinding;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
-import com.nmssdmf.commonlib.viewmodel.BaseTitleRecyclerViewVM;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -66,5 +65,10 @@ public abstract class BaseRecyclerViewFragment extends BaseFragment implements B
                 adapter.notifyDataChangedAfterLoadMore(isRefresh, dataList);
             }
         });
+    }
+
+    @Override
+    public void stopRefreshAnim() {
+        binding.crv.setRefreshing(false);
     }
 }

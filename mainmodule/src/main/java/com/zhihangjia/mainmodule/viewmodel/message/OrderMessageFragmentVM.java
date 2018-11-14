@@ -1,15 +1,15 @@
-package com.zhihangjia.mainmodule.viewmodel;
+package com.zhihangjia.mainmodule.viewmodel.message;
 
 import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 
-public class SystemMessageFragmentVM extends BaseRecyclerViewFragmentVM {
+public class OrderMessageFragmentVM extends BaseRecyclerViewFragmentVM {
     /**
      * 不需要callback可以传null
      *
      * @param callBack
      */
-    public SystemMessageFragmentVM(BaseRecyclerViewFragmentCB callBack) {
+    public OrderMessageFragmentVM(BaseRecyclerViewFragmentCB callBack) {
         super(callBack);
     }
 

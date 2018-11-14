@@ -1,4 +1,4 @@
-package com.zhihangjia.mainmodule.adapter;
+package com.zhihangjia.mainmodule.adapter.message;
 
 import android.support.annotation.Nullable;
 import android.text.Html;

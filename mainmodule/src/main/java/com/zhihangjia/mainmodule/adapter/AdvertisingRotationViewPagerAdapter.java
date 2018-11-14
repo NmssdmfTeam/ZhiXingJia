@@ -1,4 +1,4 @@
-package com.zhihangjia.mainmodule.adpater;
+package com.zhihangjia.mainmodule.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;

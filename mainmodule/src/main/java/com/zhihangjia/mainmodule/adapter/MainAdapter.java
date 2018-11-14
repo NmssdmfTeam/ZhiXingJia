@@ -1,4 +1,4 @@
-package com.zhihangjia.mainmodule.adpater;
+package com.zhihangjia.mainmodule.adapter;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.Nullable;
