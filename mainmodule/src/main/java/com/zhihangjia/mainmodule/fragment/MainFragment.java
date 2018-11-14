@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -92,6 +93,7 @@ public class MainFragment extends BaseFragment {
         mainBean = new MainBean();
         mainBean.setItemType(3);
         adapter.addData(mainBean);
+
     }
 
     public void setHeadlineView(List<Headline> headlines) {
@@ -134,6 +136,10 @@ public class MainFragment extends BaseFragment {
 //                startActivity(intent);
             }
         });
+    }
+
+    private void setListener() {
+//        binding.crv.setOnDragListener(new );
     }
 
     @Override
