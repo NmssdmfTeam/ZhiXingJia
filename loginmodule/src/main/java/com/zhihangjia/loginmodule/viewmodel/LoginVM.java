@@ -5,12 +5,16 @@ import android.databinding.ObservableField;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.config.AcitivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.loginmodule.Activity.ForgetPwdActivity;
 import com.zhihangjia.loginmodule.callback.LoginCB;
+import com.zhixingjia.bean.loginmodule.LoginResult;
 import com.zhixingjia.httplib.HttpUtils;
 import com.zhixingjia.httplib.RxRequest;
 import com.zhixingjia.httplib.ServiceCallback;
@@ -24,6 +28,8 @@ import java.util.Map;
  */
 
 public class LoginVM extends BaseVM {
+    public static final int REGISTER_REQUEST_CODE = 1;
+    public static final int FORGET_PWD_REQUEST_CODE = 2;
     public final ObservableField<String> phoneNum = new ObservableField<>();
     public final ObservableField<String> pwd = new ObservableField<>();
     public final ObservableBoolean pwdShow = new ObservableBoolean(false);
@@ -40,7 +46,7 @@ public class LoginVM extends BaseVM {
     }
 
     public void tvForgetPwdClick(View view) {
-        cb.doIntent(ForgetPwdActivity.class, null);
+        cb.doIntentForResult(ForgetPwdActivity.class, null, FORGET_PWD_REQUEST_CODE);
     }
 
     public void tvLoginClick(View view) {
@@ -77,19 +83,22 @@ public class LoginVM extends BaseVM {
         map.put("login_account", phoneNum.get());
         map.put("password", pwd.get());
         cb.showLoaddingDialog();
-        HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_LOGIN).login(map), new ServiceCallback<BaseData>() {
+        HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_LOGIN).login(map), new ServiceCallback<BaseData<LoginResult>>() {
             @Override
             public void onError(Throwable error) {
 
             }
 
             @Override
-            public void onSuccess(BaseData data) {
+            public void onSuccess(BaseData<LoginResult> data) {
                 ToastUtil.showMsg(data.getMessage());
+                PreferenceUtil.setStringValue(PrefrenceConfig.TOKEN, data.getData().getToken());
+                cb.doIntentClassName(AcitivityNameConfig.MAIN_ACTIVITY, null);
+                cb.finishActivity();
             }
 
             @Override
-            public void onDefeated(BaseData data) {
+            public void onDefeated(BaseData<LoginResult> data) {
 
             }
         });
