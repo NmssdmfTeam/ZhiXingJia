@@ -91,7 +91,7 @@
             android:orientation="horizontal"
             android:background="@color/white">
 
-            <com.nmssdmf.commonlib.view.JushiImageView
+            <com.nmssdmf.commonlib.view.GlideImageView
                 android:layout_width="39.5dp"
                 android:layout_height="33.5dp"
                 android:layout_gravity="center"
@@ -115,7 +115,7 @@
             android:layout_marginTop="39.5dp"
             android:orientation="horizontal">
 
-            <com.nmssdmf.commonlib.view.JushiImageView
+            <com.nmssdmf.commonlib.view.GlideImageView
                 android:id="@+id/ivAdvertisementFirst"
                 android:layout_width="166.5dp"
                 android:layout_height="match_parent"
@@ -130,7 +130,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_toRightOf="@+id/ivAdvertisementFirst">
-                <com.nmssdmf.commonlib.view.JushiImageView
+                <com.nmssdmf.commonlib.view.GlideImageView
                     android:id="@+id/ivAdvertisementSecond"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -138,7 +138,7 @@
                     android:src="@drawable/advertisement_second"/>
 
 
-                <com.nmssdmf.commonlib.view.JushiImageView
+                <com.nmssdmf.commonlib.view.GlideImageView
                     android:id="@+id/ivAdvertisementThird"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

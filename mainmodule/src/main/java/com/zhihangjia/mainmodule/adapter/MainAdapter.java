@@ -3,16 +3,20 @@ package com.zhihangjia.mainmodule.adapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.widget.FullyGridLayoutManager;
+import com.nmssdmf.commonlib.widget.FullyLinearLayoutManager;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingMultiItemQuickAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.ServiceAdapter;
+import com.zhihangjia.mainmodule.adapter.message.MessageAdapter;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.databinding.ItemLifeServiceBinding;
+import com.zhihangjia.mainmodule.databinding.ItemMessageCenterBinding;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendGoodsBinding;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendGoodsInfoBinding;
 
@@ -30,6 +34,7 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
         super(data);
         addItemType(1, R.layout.item_recommend_goods);
         addItemType(2, R.layout.item_life_service);
+        addItemType(3, R.layout.item_message_center);
     }
 
     @Override
@@ -47,7 +52,8 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
             }
         } else if (item.getItemType() == 2) {
             ItemLifeServiceBinding itemLifeServiceBinding = (ItemLifeServiceBinding) helper.getBinding();
-            itemLifeServiceBinding.rvService.setLayoutManager(new FullyGridLayoutManager(mContext, 5));
+            if (itemLifeServiceBinding.rvService.getLayoutManager() == null)
+                itemLifeServiceBinding.rvService.setLayoutManager(new FullyGridLayoutManager(mContext, 5));
             List<Base> list = new ArrayList<>();
             Base base = new Base();
             base.setMessage("宜兴紫砂");
@@ -86,6 +92,25 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                 adapter.loadMoreEnd(false);
             } else {
                 adapter = (ServiceAdapter) itemLifeServiceBinding.rvService.getAdapter();
+                adapter.setNewData(list);
+            }
+            adapter.notifyDataSetChanged();
+        } else if (item.getItemType() == 3) {
+            ItemMessageCenterBinding binding = (ItemMessageCenterBinding)helper.getBinding();
+            if (binding.rvMessage.getLayoutManager() == null) {
+                binding.rvMessage.setLayoutManager(new LinearLayoutManager(mContext
+                        , LinearLayoutManager.VERTICAL, false));
+            }
+            List<Base> list = new ArrayList<>();
+            for (int i =0 ; i < 10; i++)
+                list.add(new Base());
+            MessageAdapter adapter;
+            if (binding.rvMessage.getAdapter() == null) {
+                adapter = new MessageAdapter(list);
+                binding.rvMessage.setAdapter(adapter);
+                adapter.loadMoreEnd(false);
+            } else {
+                adapter = (MessageAdapter) binding.rvMessage.getAdapter();
                 adapter.setNewData(list);
             }
             adapter.notifyDataSetChanged();

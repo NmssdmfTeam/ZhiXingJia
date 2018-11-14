@@ -38,6 +38,7 @@ public class MainFragment extends BaseFragment {
     private MainVM vm;
     private MainAdapter adapter;
     private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
+    private ViewFlipper viewFlipper;
 
     @Override
     public BaseVM initViewModel() {
@@ -85,6 +86,11 @@ public class MainFragment extends BaseFragment {
         //宜兴生活服务模拟数据
         mainBean = new MainBean();
         mainBean.setItemType(2);
+        adapter.addData(mainBean);
+
+        //消息中心模拟数据
+        mainBean = new MainBean();
+        mainBean.setItemType(3);
         adapter.addData(mainBean);
     }
 
