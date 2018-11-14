@@ -3,10 +3,11 @@ package com.zhihangjia.project;
 import android.os.Bundle;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.config.AcitivityNameConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
-public class MainActivity extends BaseActivity {
-    private final String TAG = MainActivity.class.getSimpleName();
+public class FirstActivity extends BaseActivity {
+    private final String TAG = FirstActivity.class.getSimpleName();
 
     @Override
     public String getTAG() {
@@ -15,7 +16,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public int setLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_first;
     }
 
     @Override
@@ -25,6 +26,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initAll(Bundle savedInstanceState) {
-
+        doIntentClassName(AcitivityNameConfig.MAIN_ACTIVITY, null);
     }
 }

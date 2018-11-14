@@ -7,5 +7,5 @@ package com.nmssdmf.commonlib.config;
 public class BaseConfig {
     public static final boolean DEBUG = true;//false:不打印log，true：打印log
 
-    public static final String IP = "";//ip地址
+    public static final String IP = "http://h5.mobilekoudai.com";//ip地址
 }

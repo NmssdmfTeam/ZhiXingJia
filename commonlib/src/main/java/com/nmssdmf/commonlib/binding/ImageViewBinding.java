@@ -12,7 +12,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.nmssdmf.commonlib.R;
 import com.nmssdmf.commonlib.glide.transform.RoundTransform;
-import com.nmssdmf.commonlib.view.JushiImageView;
+import com.nmssdmf.commonlib.view.GlideImageView;
 
 /**
  * Create by huscarter@163.com on 2017/11/20
@@ -26,7 +26,7 @@ public class ImageViewBinding {
     public static final String fitCenter = "fitCenter";
 
     @BindingAdapter(value = {"src", "placeholderImage", "error", "roundAsCircle", "roundRadius", "scaleType"}, requireAll = false)
-    public static void loadImage(final JushiImageView view, String url, Drawable holderDrawable,
+    public static void loadImage(final GlideImageView view, String url, Drawable holderDrawable,
                                  Drawable errorDrawable, boolean roundAsCircle, float radius, String scaleType) {
         RequestBuilder requestBuilder = Glide.with(view.getContext()).asDrawable().load(url);
         RequestOptions requestOptions = new RequestOptions()
@@ -97,7 +97,7 @@ public class ImageViewBinding {
      * @param resId
      */
     @BindingAdapter(value = {"src","scaleType"}, requireAll = false)
-    public static void loadImage(JushiImageView view, int resId, String scaleType) {
+    public static void loadImage(GlideImageView view, int resId, String scaleType) {
         RequestBuilder requestBuilder = Glide.with(view.getContext()).asDrawable().load(resId);
         RequestOptions requestOptions = new RequestOptions()
                 .priority(Priority.HIGH);

@@ -7,11 +7,11 @@ import android.view.View;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.loginmodule.Activity.LoginActivity;
-import com.zhihangjia.loginmodule.databinding.ActivityMainBinding;
+import com.zhihangjia.loginmodule.databinding.ActivityLoginMainBinding;
 
-public class MainActivity extends BaseActivity {
-    private final String TAG = MainActivity.class.getSimpleName();
-    private ActivityMainBinding binding;
+public class LoginMainActivity extends BaseActivity {
+    private final String TAG = LoginMainActivity.class.getSimpleName();
+    private ActivityLoginMainBinding binding;
 
     @Override
     public String getTAG() {
@@ -20,7 +20,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public int setLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_login_main;
     }
 
     @Override
@@ -31,12 +31,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initAll(Bundle savedInstanceState) {
-        binding = (ActivityMainBinding) baseBinding;
+        binding = (ActivityLoginMainBinding) baseBinding;
         binding.bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this, LoginActivity.class);
+                intent.setClass(LoginMainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });

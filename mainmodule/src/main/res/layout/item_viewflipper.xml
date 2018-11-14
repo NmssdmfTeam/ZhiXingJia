@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="宜兴资产千亿国企人事调动惹议：80后任董事80后任…"
+        android:textColor="#FF333333"
+        android:textSize="12dp"
+        android:drawableLeft="@drawable/top_news_gray_circle"
+        android:drawablePadding="3dp"
+        android:singleLine="true"
+        android:ellipsize="end"/>
+</layout>

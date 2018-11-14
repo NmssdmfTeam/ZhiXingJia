@@ -29,5 +29,7 @@ public interface ServiceCallback<T> {
      *
      * @param t
      */
-    void onNext(T t);
+    void onSuccess(T t);
+
+    void onDefeated(T t);
 }

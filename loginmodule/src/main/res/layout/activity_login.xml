@@ -31,7 +31,8 @@
             android:hint="请输入手机号码"
             android:inputType="phone"
             android:textColorHint="#FFCCCCCC"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:text="@={vm.phoneNum}"/>
 
         <include layout="@layout/include_login_cut_off_line" />
 
@@ -72,7 +73,8 @@
                 android:hint="请输入密码"
                 android:inputType="textPassword"
                 android:textColorHint="#FFCCCCCC"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:text="@={vm.pwd}"/>
 
         </RelativeLayout>
 

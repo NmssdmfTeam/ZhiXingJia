@@ -2,12 +2,11 @@ package com.nmssdmf.commonlib.net.http;
 
 
 import android.os.Build;
-import android.util.Config;
 
 import com.google.gson.Gson;
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.BuildConfig;
-import com.nmssdmf.commonlib.net.crt.SSlContextProvider;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.JLog;
@@ -200,8 +199,7 @@ public class OkHttpClientProvider {
     private OkHttpClient createClientSSL(int version, String token) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         config(builder, version, token);
-        builder.sslSocketFactory(SSlContextProvider.getInstance().getSocketFactory(),
-                SSlContextProvider.getInstance().getTrustManager());
+        //去除https
 
         OkHttpClient client = builder.build();
 
@@ -238,7 +236,7 @@ public class OkHttpClientProvider {
         builder.addNetworkInterceptor(new HeaderInterceptor(version, token));
 
         // to add log
-        if (Config.DEBUG) {
+        if (BaseConfig.DEBUG) {
             // 自定义的log日志
             builder.addNetworkInterceptor(new LoggingInterceptor());
         }
@@ -254,7 +252,7 @@ public class OkHttpClientProvider {
         builder.writeTimeout(OKHTTP_CLIENT_WRITE_TIMEOUT, TimeUnit.SECONDS);
         builder.readTimeout(OKHTTP_CLIENT_READ_TIMEOUT, TimeUnit.SECONDS);
         // to add log
-        if (Config.DEBUG) {
+        if (BaseConfig.DEBUG) {
             // 自定义的log日志
             builder.addNetworkInterceptor(new LoggingInterceptor());
         }
@@ -311,7 +309,7 @@ public class OkHttpClientProvider {
             builder.addHeader("User-Agent", UA);
             //为解决 http://blog.csdn.net/zhangteng22/article/details/52233126 问题
             builder.addHeader("Connection", "close");
-            builder.addHeader("Accept", "application/vnd.trading.v" + version + "+json");
+            builder.addHeader("Accept", "application/vnd.v" + version + "+json");
             if (null == token || "".equals(token) || "null".equals(token)) {
                 // no token
             } else {
@@ -335,7 +333,7 @@ public class OkHttpClientProvider {
             Request request = chain.request();
 
             long t_start = System.nanoTime();
-            JLog.v(TAG, String.format("request %s on %s %n %s body:%s",
+            JLog.d(TAG, String.format("request %s on %s %n %s body:%s",
                     request.url(), chain.connection(), request.headers(), new Gson().toJson(request.body())));
 
             Response response = chain.proceed(request);
@@ -367,7 +365,7 @@ public class OkHttpClientProvider {
             }
             // content type 已经做了可读性分析，此处判断可省略
             if (!isPlaintext(buffer)) {
-                JLog.v(TAG, "response body: Body omitted.(Maybe is a file)");
+                JLog.d(TAG, "response body: Body omitted.(Maybe is a file)");
                 return response;
             }
             if (content_length != 0) {
@@ -378,7 +376,7 @@ public class OkHttpClientProvider {
 //                            + "response body: " + buffer.clone().readString(charset));
 
 //                     format json
-                    JLog.v(TAG, String.format("response for %s in %.1fms%n%s",
+                    JLog.d(TAG, String.format("response for %s in %.1fms%n%s",
                             response.request().url(), (t_end - t_start) / 1e6d, response.headers())
                             + "response body: " + new JSONObject(buffer.clone().readString(charset)).toString(1));
                 } catch (Exception e) {

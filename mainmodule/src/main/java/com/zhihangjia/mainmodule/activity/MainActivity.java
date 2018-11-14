@@ -1,5 +1,8 @@
 package com.zhihangjia.mainmodule.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -24,17 +27,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* @description 知行家首页
-* @author chenbin
-* @date 2018/11/13 15:00
-* @version v3.2.0
-*/
+ * @author chenbin
+ * @version v3.2.0
+ * @description 知行家首页
+ * @date 2018/11/13 15:00
+ */
 public class MainActivity extends BaseActivity implements TabHost.OnTabChangeListener {
     private String TAG = MainActivity.class.getSimpleName();
     private MainVM vm;
     private ActivityMainBinding binding;
 
     private int current_index = 0;
+    private float llBottomNavigationY = 0;
+
+    private ObjectAnimator objectAnimatorMoveIn;
+    private ObjectAnimator objectAnimatorMoveOut;
 
     /**
      * 三个值分别为总首页fragment，配件首页fragment和成品首页fragment
@@ -44,14 +51,15 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
      * tab layout加载的fragment class，并使用class name当作tab的tag，所以要求fragment加载的class是不同的class，否则需要创建其他tag
      */
     private Class[] fragment_clazz = new Class[]{MainFragment.class, MarketFragment.class, MessageFragment.class, ShopCarFragment.class, MineFragment.class};
-    private Integer[] titles_texts = {R.string.main, R.string.marketBuilding, R.string.message,R.string.shopCar, R.string.mine};
-    private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected,R.drawable.icon_home_selected,R.drawable.icon_home_selected};
-    private int[] icon_offs = {R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected,R.drawable.icon_home_unselected,R.drawable.icon_home_unselected};
+    private Integer[] titles_texts = {R.string.main, R.string.marketBuilding, R.string.message, R.string.shopCar, R.string.mine};
+    private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected};
+    private int[] icon_offs = {R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected};
 
 
     private List<ImageView> ivs = new ArrayList<>();
     private List<TextView> tvs = new ArrayList<>();
     private List<TextView> points = new ArrayList<>();
+
     @Override
     public String getTAG() {
         return TAG;
@@ -85,6 +93,12 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         binding.mfth.setCurrentTab(current_index);
         setSelectedTab(current_index, true);// 设置初始选中状态
         binding.mfth.setOnTabChangedListener(this);
+        binding.llBottomNavigation.post(new Runnable() {
+            @Override
+            public void run() {
+                llBottomNavigationY = binding.llBottomNavigation.getY();
+            }
+        });
     }
 
     @Override
@@ -121,7 +135,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     private View getTabView(final int position) {
         View view = LayoutInflater.from(this).inflate(R.layout.view_tab, null);
 
-        ImageView iv =  view.findViewById(R.id.iv);
+        ImageView iv = view.findViewById(R.id.iv);
         iv.setImageResource(icon_offs[position]);
 
         TextView tv = view.findViewById(R.id.tv);
@@ -129,7 +143,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         tv.setText(titles_texts[position]);
         tv.setTextColor(getResources().getColor(R.color.text_gray));
 
-        final TextView point =  view.findViewById(R.id.tv_red_point);
+        final TextView point = view.findViewById(R.id.tv_red_point);
 
         ivs.add(iv);
         tvs.add(tv);
@@ -149,5 +163,46 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         });
 
         return view;
+    }
+
+    public void bottomNavigationMoveIn() {
+        float offset = binding.llBottomNavigation.getTranslationY() - llBottomNavigationY;
+        if (offset < Math.pow(0.1, 10))
+            return;
+        if (objectAnimatorMoveIn == null || !objectAnimatorMoveIn.isRunning()) {
+            if (objectAnimatorMoveOut != null && objectAnimatorMoveOut.isRunning())
+                objectAnimatorMoveOut.cancel();
+            JLog.d(TAG, "bottomNavigationMoveIn offset:"+offset);
+            JLog.d(TAG, "bottomNavigationMoveIn getY():"+binding.llBottomNavigation.getTranslationY());
+            JLog.d(TAG, "bottomNavigationMoveIn llBottomNavigationY:"+llBottomNavigationY);
+            objectAnimatorMoveIn = ObjectAnimator.ofFloat(binding.llBottomNavigation, "translationY", offset, 0);
+            objectAnimatorMoveIn.setDuration(500);
+            objectAnimatorMoveIn.start();
+            objectAnimatorMoveIn.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+
+                }
+            });
+        }
+        JLog.d(TAG, "bottomNavigationMoveIn");
+    }
+
+    public void bottomNavigationMoveOut() {
+        float offset = binding.llBottomNavigation.getWidth() + llBottomNavigationY - binding.llBottomNavigation.getTranslationY();
+        if (offset < Math.pow(0.1, 10))
+            return;
+        if (objectAnimatorMoveOut == null || !objectAnimatorMoveOut.isRunning()) {
+            if (objectAnimatorMoveIn != null && objectAnimatorMoveIn.isRunning())
+                objectAnimatorMoveIn.cancel();
+            JLog.d(TAG, "bottomNavigationMoveOut offset:"+offset);
+            JLog.d(TAG, "bottomNavigationMoveOut getY():"+binding.llBottomNavigation.getY());
+            JLog.d(TAG, "bottomNavigationMoveOut llBottomNavigationY:"+llBottomNavigationY);
+            objectAnimatorMoveOut = ObjectAnimator.ofFloat(binding.llBottomNavigation, "translationY", binding.llBottomNavigation.getY() - llBottomNavigationY, offset);
+            objectAnimatorMoveOut.setDuration(500);
+            objectAnimatorMoveOut.start();
+        }
+        JLog.d(TAG, "bottomNavigationMoveOut");
     }
 }

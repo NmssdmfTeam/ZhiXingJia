@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jushi.dialoglib.loading.view.BackgroundLayout
+<com.nmssdmf.commonlib.view.LoadingDialog.BackgroundLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/background"
     android:layout_width="wrap_content"
@@ -36,4 +36,4 @@
             android:textSize="13sp"
             android:visibility="gone" />
     </LinearLayout>
-</com.jushi.dialoglib.loading.view.BackgroundLayout>
+</com.nmssdmf.commonlib.view.LoadingDialog.BackgroundLayout>

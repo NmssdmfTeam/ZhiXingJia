@@ -12,4 +12,6 @@
     <color name="background_color">#efeff4</color>
     <!-- 分割线颜色 -->
     <color name="line_bg">#88E6E6CC</color>
+
+    <color name="main_color">#FFFF9A14</color>
 </resources>

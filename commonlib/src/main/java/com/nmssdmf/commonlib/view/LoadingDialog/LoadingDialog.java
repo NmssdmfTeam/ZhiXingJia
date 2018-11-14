@@ -3,6 +3,7 @@ package com.nmssdmf.commonlib.view.LoadingDialog;
 import android.content.Context;
 import android.view.View;
 
+import com.nmssdmf.commonlib.util.ContextUtil;
 
 
 /**
@@ -41,29 +42,17 @@ public class LoadingDialog {
      */
     public static final int ANNULAR_DETERMINATE = 3;
 
-//    private static LoadingDialog instance=null;
     public static KProgressHUD progress = null;
 
-    private LoadingDialog(){
+    private LoadingDialog() {
         //
     }
-
-//    public static LoadingDialog getInstance() {
-//        if (instance == null) {
-//            synchronized (LoadingDialog.class) {
-//                if (instance == null) {
-//                    instance = new LoadingDialog();
-//                }
-//            }
-//        }
-//        return instance;
-//    }
 
     /**
      * 关闭dialog
      */
     public static void dismiss() {
-        if (progress != null) {
+        if (progress != null && progress.isShowing() && ContextUtil.isContextExisted(progress.getmContext())){
             progress.dismiss();
             progress = null;
         }

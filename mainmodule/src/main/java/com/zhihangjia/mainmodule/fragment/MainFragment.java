@@ -1,19 +1,30 @@
 package com.zhihangjia.mainmodule.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.util.DensityUtil;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.adpater.AdvertisingRotationViewPagerAdapter;
-import com.zhihangjia.mainmodule.adpater.MainAdapter;
+import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
+import com.zhihangjia.mainmodule.adapter.MainAdapter;
+import com.zhihangjia.mainmodule.bean.Headline;
 import com.zhihangjia.mainmodule.bean.IndexAdvertise;
+import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.databinding.FragmentMainBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMainCrvheadBinding;
+import com.zhihangjia.mainmodule.databinding.ItemViewflipperBinding;
 import com.zhihangjia.mainmodule.viewmodel.MainVM;
 
 import java.util.ArrayList;
@@ -31,6 +42,8 @@ public class MainFragment extends BaseFragment {
     private MainVM vm;
     private MainAdapter adapter;
     private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
+    private ViewFlipper viewFlipper;
+    private int firstY = 0;
 
     @Override
     public BaseVM initViewModel() {
@@ -47,11 +60,11 @@ public class MainFragment extends BaseFragment {
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMainBinding) baseBinding;
         adapter = new MainAdapter(new ArrayList());
-        ItemMainCrvheadBinding itemMainCrvheadBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_main_crvhead,null,false);
+        ItemMainCrvheadBinding itemMainCrvheadBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_main_crvhead, null, false);
+        //初始化首页头部
         adapter.setHeaderView(itemMainCrvheadBinding.getRoot());
-        float width = DensityUtil.getScreenWidth(getContext()) - DensityUtil.dpToPx(getContext(),16)*2;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) width, (int) width * 120 / 343);
-        itemMainCrvheadBinding.rpv.setLayoutParams(params);
+
+        //初始化首页轮播图
         List<IndexAdvertise> indexAdvertises = new ArrayList<>();
         indexAdvertises.add(new IndexAdvertise());
         indexAdvertises.add(new IndexAdvertise());
@@ -59,6 +72,110 @@ public class MainFragment extends BaseFragment {
         viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(AdvertisingRotationViewPagerAdapter.MAIN_PAGER, indexAdvertises, itemMainCrvheadBinding.rpv);
         itemMainCrvheadBinding.rpv.setAdapter(viewPagerAdapter);
         binding.crv.setAdapter(adapter);
+
+        //初始化首页头条
+        viewFlipper = itemMainCrvheadBinding.headlineViewflipper;
+        List headlines = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            Headline headline = new Headline();
+            headline.setTitle("测试" + i);
+            headlines.add(headline);
+        }
+        setHeadlineView(headlines);
+
+        //模拟推荐广告数据
+        MainBean mainBean = new MainBean();
+        mainBean.setItemType(1);
+        adapter.addData(mainBean);
+
+        //宜兴生活服务模拟数据
+        mainBean = new MainBean();
+        mainBean.setItemType(2);
+        adapter.addData(mainBean);
+
+        //消息中心模拟数据
+        mainBean = new MainBean();
+        mainBean.setItemType(3);
+        adapter.addData(mainBean);
+        setListener();
+    }
+
+    public void setHeadlineView(List<Headline> headlines) {
+        viewFlipper.removeAllViews();
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        for (int i = 0; i < headlines.size(); i = i + 2) {
+            LinearLayout linearLayout = new LinearLayout(viewFlipper.getContext());
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.setLayoutParams(layoutParams);
+            ItemViewflipperBinding itemViewflipperBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_viewflipper, null, false);
+            itemViewflipperBinding.tvTitle.setText(headlines.get(i).getTitle());
+            linearLayout.addView(itemViewflipperBinding.getRoot());
+            View view = new View(getContext());
+            LinearLayout.LayoutParams blankviewparams = new LinearLayout.LayoutParams(0, 0);
+            blankviewparams.weight = 1;
+            view.setLayoutParams(blankviewparams);
+            linearLayout.addView(view);
+            if (i + 1 < headlines.size()) {
+                ItemViewflipperBinding itemViewflipperBindingSecond = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_viewflipper, null, false);
+                itemViewflipperBindingSecond.tvTitle.setText(headlines.get(i + 1).getTitle());
+                linearLayout.addView(itemViewflipperBindingSecond.getRoot());
+            }
+            viewFlipper.addView(linearLayout);
+        }
+        //进入动画
+        viewFlipper.setInAnimation(viewFlipper.getContext(), R.anim.headline_in);
+        //退出动画
+        viewFlipper.setOutAnimation(viewFlipper.getContext(), R.anim.headline_out);
+        //动画间隔
+        viewFlipper.setFlipInterval(2000);
+        viewFlipper.startFlipping();
+        viewFlipper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                Bundle bundle = new Bundle();
+//                intent.setClass(activity, WebViewActivity.class);
+//                bundle.putString(IntentConfig.URL, Config.getHtmlPrefix() + UrlConfig.HEADLINE_LIST);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+            }
+        });
+    }
+
+    private void setListener() {
+        binding.crv.getRv().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        firstY = (int) motionEvent.getRawY();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        //判断向上滑还是向下滑
+                        //向上滑隐藏底部的导航栏
+                        MainActivity activity = null;
+                        if (getActivity() != null && getActivity() instanceof MainActivity) {
+                            activity = (MainActivity) getActivity();
+                        }
+                        JLog.d(TAG, "moveoffset:"+(firstY - motionEvent.getRawY()));
+                        if (firstY - motionEvent.getRawY() > 0) { //向上滑
+//                            if (activity != null) {
+//                                activity.bottomNavigationMoveOut();
+//                            }
+                        } else {//向下滑
+//                            if (activity != null) {
+//                                activity.bottomNavigationMoveIn();
+//                            }
+                        }
+                        firstY = (int) motionEvent.getRawY();
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
