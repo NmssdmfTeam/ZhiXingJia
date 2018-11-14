@@ -11,17 +11,17 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.util.JLog;
+import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ActivityMainBinding;
 import com.zhihangjia.mainmodule.fragment.MainFragment;
 import com.zhihangjia.mainmodule.fragment.MarketFragment;
-import com.zhihangjia.mainmodule.fragment.MineFragment;
 import com.zhihangjia.mainmodule.fragment.MessageFragment;
+import com.zhihangjia.mainmodule.fragment.MineFragment;
 import com.zhihangjia.mainmodule.fragment.ShopCarFragment;
 import com.zhihangjia.mainmodule.viewmodel.MainVM;
-import com.nmssdmf.commonlib.activity.BaseActivity;
-import com.nmssdmf.commonlib.util.JLog;
-import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
 import java.util.ArrayList;
 import java.util.List;

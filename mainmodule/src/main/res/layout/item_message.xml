@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.IndexBean.ForumBean"></variable>
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +20,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="质量上乘画风感人《武士崛起》交首付款楚乔质量上乘画风感人《武士崛起》交…"
+                android:text="@{data.title}"
                 android:textColor="#FF000000"
                 android:textSize="15dp" />
 
@@ -45,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="成龙之人"
+                android:text="@{data.member_name}"
                 android:textColor="#FF999999"
                 android:textSize="13dp"
                 android:drawableLeft="@drawable/icon_author"
@@ -54,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3045阅读"
+                android:text="@{data.read_number+@string/read}"
                 android:textColor="#FF999999"
                 android:layout_marginLeft="12dp"
                 android:textSize="13dp" />
@@ -65,9 +69,10 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="18:43"
+                android:text="@{data.createtime}"
                 android:textColor="#FF999999"
                 android:textSize="13dp" />
         </LinearLayout>

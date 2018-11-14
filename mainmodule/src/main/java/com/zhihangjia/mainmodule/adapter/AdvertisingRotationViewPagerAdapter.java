@@ -10,8 +10,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
 import com.nmssdmf.commonlib.rollviewpager.RollPagerView;
 import com.nmssdmf.commonlib.rollviewpager.adapter.LoopPagerAdapter;
-import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.bean.IndexAdvertise;
+import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
 
@@ -24,14 +23,14 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
     public static final int MAIN_PAGER = 1, PART_PAGER = 2, CAPACITY_PAGER =3;
     private int type = MAIN_PAGER;
 
-    private List<IndexAdvertise> advertisingRotations;
+    private List<IndexBean.BannersBean> advertisingRotations;
 
     private ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
     // SetScaleType(ImageView.ScaleType.CENTER_CROP);
     // 按比例扩大图片的size居中显示，使得图片长(宽)等于或大于View的长(宽)
 
-    public AdvertisingRotationViewPagerAdapter(int type, List<IndexAdvertise> advertisingRotations, RollPagerView viewPager) {
+    public AdvertisingRotationViewPagerAdapter(int type, List<IndexBean.BannersBean> advertisingRotations, RollPagerView viewPager) {
         super(viewPager);
         this.type = type;
         this.advertisingRotations = advertisingRotations;
@@ -46,7 +45,7 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
                 .centerCrop()
                 .priority(Priority.HIGH);
         Glide.with(imageView.getContext())
-                .load(R.drawable.no_pic).apply(requestOptions)
+                .load(advertisingRotations.get(position).getImg_url()).apply(requestOptions)
                 .into(imageView);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +64,7 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
         return relativeLayout;
     }
 
-    public List<IndexAdvertise> getAdvertisingRotations() {
+    public List<IndexBean.BannersBean> getAdvertisingRotations() {
         return advertisingRotations;
     }
 

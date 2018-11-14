@@ -10,6 +10,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 * @version v3.2.0
 */
 public class MainVM extends BaseVM {
+
     /**
      * 不需要callback可以传null
      *

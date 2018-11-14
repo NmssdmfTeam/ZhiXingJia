@@ -5,12 +5,24 @@ package com.nmssdmf.commonlib.config;
  */
 
 public class HttpVersionConfig {
-    /**注册*/
+    /**
+     * 注册
+     */
     public static final int API_AUTH_REGISTER = 1;
-    /**登陆*/
+    /**
+     * 登陆
+     */
     public static final int API_AUTH_LOGIN = 1;
-    /**发送验证码*/
+    /**
+     * 发送验证码
+     */
     public static final int API_AUTH_SEND_SMS = 1;
-    /**找回密码*/
+    /**
+     * 找回密码
+     */
     public static final int API_AUTH_FIND_PASSWORD = 1;
+    /**
+     * 首页
+     */
+    public static final int API_INDEX = 1;
 }
