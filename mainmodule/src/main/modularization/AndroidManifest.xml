@@ -24,6 +24,8 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".activity.MerchantMerchandiseActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

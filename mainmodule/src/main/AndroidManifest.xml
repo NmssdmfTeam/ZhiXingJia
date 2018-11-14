@@ -31,14 +31,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.message.MessageCenterActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AllCategoriesActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.AllCategoriesActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+        <activity android:name=".activity.MerchantMerchandiseActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
