@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.adapter.message;
 
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.view.View;
 
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
@@ -25,5 +26,12 @@ public class SystemMessageAdapter extends BaseDataBindingAdapter<Base, ItemSyste
         } else {
             helper.getBinding().tvContent.setText(Html.fromHtml(str));
         }
+
+        helper.getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

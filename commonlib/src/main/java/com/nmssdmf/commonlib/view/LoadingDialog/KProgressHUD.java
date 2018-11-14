@@ -295,4 +295,12 @@ public class KProgressHUD {
             }
         }
     }
+
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public void setmContext(Context mContext) {
+        this.mContext = mContext;
+    }
 }
