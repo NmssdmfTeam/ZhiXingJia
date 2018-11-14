@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="质量上乘画风感人《武士崛起》交首付款楚乔质量上乘画风感人《武士崛起》交…"
+                android:textColor="#FF000000"
+                android:textSize="15dp" />
+
+            <com.nmssdmf.commonlib.view.JushiImageView
+                android:id="@+id/ivImg"
+                android:layout_width="111dp"
+                android:layout_height="75dp"
+                android:src="@drawable/no_pic"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llImgs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="成龙之人"
+                android:textColor="#FF999999"
+                android:textSize="13dp"
+                android:drawableLeft="@drawable/icon_author"
+                android:drawablePadding="3dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3045阅读"
+                android:textColor="#FF999999"
+                android:layout_marginLeft="12dp"
+                android:textSize="13dp" />
+            
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18:43"
+                android:textColor="#FF999999"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <!--<include layout="@layout/in"/>-->
+
+    </LinearLayout>
+</layout>

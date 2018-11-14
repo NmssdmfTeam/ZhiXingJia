@@ -10,8 +10,14 @@ import com.nmssdmf.customerviewlib.entity.MultiItemEntity;
  * <p>
  */
 public class MainBean extends Base implements MultiItemEntity {
+    private int itemType;
+
     @Override
     public int getItemType() {
-        return 0;
+        return itemType;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 }
