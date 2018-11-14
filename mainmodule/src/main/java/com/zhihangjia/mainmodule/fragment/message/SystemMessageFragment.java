@@ -1,17 +1,11 @@
 package com.zhihangjia.mainmodule.fragment.message;
 
-import android.os.Bundle;
-import android.view.View;
-
 import com.nmssdmf.commonlib.bean.Base;
-import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
-import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
-import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.adapter.SystemMessageAdapter;
-import com.zhihangjia.mainmodule.viewmodel.SystemMessageFragmentVM;
+import com.zhihangjia.mainmodule.adapter.message.SystemMessageAdapter;
+import com.zhihangjia.mainmodule.viewmodel.message.SystemMessageFragmentVM;
 
 import java.util.List;
 

@@ -13,8 +13,8 @@ import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.adpater.AdvertisingRotationViewPagerAdapter;
-import com.zhihangjia.mainmodule.adpater.MainAdapter;
+import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
+import com.zhihangjia.mainmodule.adapter.MainAdapter;
 import com.zhihangjia.mainmodule.bean.Headline;
 import com.zhihangjia.mainmodule.bean.IndexAdvertise;
 import com.zhihangjia.mainmodule.bean.MainBean;
@@ -38,7 +38,6 @@ public class MainFragment extends BaseFragment {
     private MainVM vm;
     private MainAdapter adapter;
     private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
-    private ViewFlipper viewFlipper;
 
     @Override
     public BaseVM initViewModel() {

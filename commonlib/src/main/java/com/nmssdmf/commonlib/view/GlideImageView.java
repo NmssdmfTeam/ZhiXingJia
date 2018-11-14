@@ -16,8 +16,8 @@ import com.nmssdmf.commonlib.R;
  * @date 11/19/17
  */
 
-public class JushiImageView extends android.support.v7.widget.AppCompatImageView {
-    private final static String TAG = JushiImageView.class.getSimpleName();
+public class GlideImageView extends android.support.v7.widget.AppCompatImageView {
+    private final static String TAG = GlideImageView.class.getSimpleName();
 
     public final static int RoundNone = 0;
     public final static int RoundTop = 1;
@@ -27,25 +27,25 @@ public class JushiImageView extends android.support.v7.widget.AppCompatImageView
     private int roundtype = 0;
     private float roundRadius = 0;
 
-    public JushiImageView(Context context) {
+    public GlideImageView(Context context) {
         super(context);
     }
 
-    public JushiImageView(Context context, AttributeSet attrs) {
+    public GlideImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public JushiImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GlideImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     private void init(AttributeSet attrs) {
         if (attrs != null) {
-            TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.JushiImageView);
-            roundtype = ta.getInt(R.styleable.JushiImageView_roundType, RoundNone);
-            roundRadius = ta.getDimension(R.styleable.JushiImageView_roundRadius,0);
+            TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.GlideImageView);
+            roundtype = ta.getInt(R.styleable.GlideImageView_roundType, RoundNone);
+            roundRadius = ta.getDimension(R.styleable.GlideImageView_roundRadius,0);
             ta.recycle();
         }
     }

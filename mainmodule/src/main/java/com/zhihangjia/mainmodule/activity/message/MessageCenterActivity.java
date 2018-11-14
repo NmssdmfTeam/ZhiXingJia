@@ -1,13 +1,11 @@
 package com.zhihangjia.mainmodule.activity.message;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
@@ -61,14 +59,40 @@ public class MessageCenterActivity extends BaseTitleActivity {
 
         binding.tl.setupWithViewPager(binding.vp);
 
-        ViewMessageTabBinding systemTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
+        final ViewMessageTabBinding systemTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
 
         systemTabBinding.tvMessageName.setText("系统消息");
         binding.tl.getTabAt(0).setCustomView(systemTabBinding.getRoot());
+        systemTabBinding.tvMessageName.setTextColor(Color.parseColor("#FFFF9A14"));
 
-        ViewMessageTabBinding orderTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
+
+        final ViewMessageTabBinding orderTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
         orderTabBinding.tvMessageName.setText("订单消息");
         binding.tl.getTabAt(1).setCustomView(orderTabBinding.getRoot());
+        orderTabBinding.tvMessageName.setTextColor(Color.parseColor("#666666"));
+
+        binding.vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (i == 0) {
+                    systemTabBinding.tvMessageName.setTextColor(Color.parseColor("#FFFF9A14"));
+                    orderTabBinding.tvMessageName.setTextColor(Color.parseColor("#666666"));
+                } else {
+                    orderTabBinding.tvMessageName.setTextColor(Color.parseColor("#FFFF9A14"));
+                    systemTabBinding.tvMessageName.setTextColor(Color.parseColor("#666666"));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     @Override
