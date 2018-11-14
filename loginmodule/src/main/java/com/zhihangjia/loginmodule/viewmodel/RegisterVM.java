@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -67,8 +68,13 @@ public class RegisterVM extends BaseVM {
             return;
         }
 
-        if (checkPwd.get().equals(pwd.get())) {
+        if (!checkPwd.get().equals(pwd.get())) {
             ToastUtil.showMsg("密码验证与密码不一样");
+            return;
+        }
+
+        if (!agree.get()) {
+            ToastUtil.showMsg("请选择已阅读并同意《用户服务协议》");
             return;
         }
 
@@ -92,15 +98,25 @@ public class RegisterVM extends BaseVM {
 
     public void doRegister(){
         Map<String, String> map = new HashMap<>();
-        HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, 1).register(map), new ServiceCallback<BaseData>() {
+        map.put("is_agree", agree.get() ? "1" : "0");
+        map.put("mobile", phoneNumber.get());
+        map.put("verif_code", verificationCode.get());
+        map.put("password_one", pwd.get());
+        map.put("password_two", checkPwd.get());
+        cb.showLoaddingDialog();
+        HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_REGISTER).register(map), new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
 
             }
 
             @Override
-            public void onNext(BaseData o) {
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+            }
 
+            @Override
+            public void onDefeated(BaseData data) {
             }
         });
     }

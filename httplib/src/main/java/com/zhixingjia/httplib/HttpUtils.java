@@ -1,8 +1,11 @@
 package com.zhixingjia.httplib;
 
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
+import com.nmssdmf.commonlib.util.ToastUtil;
+import com.nmssdmf.commonlib.view.LoadingDialog.LoadingDialog;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,7 +25,7 @@ public class HttpUtils {
     * @date 2018/6/15 0015 14:27
     * @version v3.2.0
     */
-    public static <T>void doHttp(CompositeDisposable subscription, Observable<T> observable, final ServiceCallback<T> callback){
+    public static <T extends Base>void doHttp(CompositeDisposable subscription, Observable<T> observable, final ServiceCallback<T> callback){
         subscription.add(observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -30,12 +33,19 @@ public class HttpUtils {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        LoadingDialog.dismiss();
                         callback.onError(e);
                     }
 
                     @Override
                     public void onNext(T t) {
-                        callback.onNext(t);
+                        LoadingDialog.dismiss();
+                        if (isReturnOk(t.getStatus_code())) {
+                            callback.onSuccess(t);
+                        } else {
+                            ToastUtil.showMsg(t.getMessage());
+                            callback.onDefeated(t);
+                        }
                     }
                 }));
     }

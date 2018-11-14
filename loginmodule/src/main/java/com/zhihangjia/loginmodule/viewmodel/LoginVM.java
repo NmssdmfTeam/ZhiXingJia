@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -73,14 +74,22 @@ public class LoginVM extends BaseVM {
 
     private void doLogin() {
         Map<String, String> map = new HashMap<>();
-        HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, 1).login(map), new ServiceCallback<BaseData>() {
+        map.put("login_account", phoneNum.get());
+        map.put("password", pwd.get());
+        cb.showLoaddingDialog();
+        HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_LOGIN).login(map), new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
 
             }
 
             @Override
-            public void onNext(BaseData baseData) {
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
 
             }
         });

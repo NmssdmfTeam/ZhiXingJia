@@ -11,7 +11,6 @@ import com.nmssdmf.commonlib.BR;
  * 基础的数据实体
  */
 public final class BaseData<T> extends Base {
-    private String count;
 
     private T data;
 
@@ -25,13 +24,4 @@ public final class BaseData<T> extends Base {
         notifyPropertyChanged(BR.data);
     }
 
-    @Bindable
-    public String getCount() {
-        return count;
-    }
-
-    public void setCount(String count) {
-        this.count = count;
-        notifyPropertyChanged(BR.count);
-    }
 }
