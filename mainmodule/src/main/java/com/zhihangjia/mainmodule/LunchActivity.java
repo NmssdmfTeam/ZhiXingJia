@@ -3,7 +3,9 @@ package com.zhihangjia.mainmodule;
 import android.os.Bundle;
 import android.view.View;
 
+import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
 import com.zhihangjia.mainmodule.databinding.ActivityLunchBinding;
@@ -51,6 +53,20 @@ public class LunchActivity extends BaseTitleActivity {
             @Override
             public void onClick(View v) {
                 doIntent(SearchActivity.class,null);
+            }
+        });
+
+        binding.btnCategories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(AllCategoriesActivity.class,null);
+            }
+        });
+
+        binding.btnMerchantMerchandise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(MerchantMerchandiseActivity.class,null);
             }
         });
     }

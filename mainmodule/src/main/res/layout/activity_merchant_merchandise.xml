@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.zhihangjia.mainmodule.viewmodel.MerchantMerchandiseVM"/>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.MerchantMerchandiseVM"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="44dp"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/ic_arrow_back" />
+
+            <LinearLayout
+                android:layout_width="214dp"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tvMerchant"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@{vm.type == MerchantMerchandiseVM.TYPE_MERCHANT ? @drawable/shape_douable_title_selected_left : @drawable/shape_douable_title_unselected_left}"
+                    android:text="商家"
+                    android:textColor="@{vm.type == MerchantMerchandiseVM.TYPE_MERCHANT ? @color/white : @color/light_black}"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.tvMerchantClick(v)}"
+                    />
+
+                <TextView
+                    android:id="@+id/tvMerchandise"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@{vm.type == MerchantMerchandiseVM.TYPE_MERCHANDISE ? @drawable/shape_douable_title_selected_right : @drawable/shape_douable_title_unselected_right}"
+                    android:text="商品"
+                    android:textColor="@{vm.type == MerchantMerchandiseVM.TYPE_MERCHANDISE ? @color/white : @color/light_black}"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.tvMerchandiseClick(v)}"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="44dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="center"
+                android:src="@drawable/icon_search_orange" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="41dp">
+
+            <TextView
+                android:id="@+id/tverchant"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/filtrate_arrow_gray"
+                android:gravity="center"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text="商家" />
+
+            <TextView
+                android:id="@+id/tvPopularity"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/filtrate_arrow_gray"
+                android:gravity="center"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:text="人气最高" />
+
+            <TextView
+                android:id="@+id/tvComment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/filtrate_arrow_gray"
+                android:gravity="center"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:text="好评优先" />
+
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+</layout>
