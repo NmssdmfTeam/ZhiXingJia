@@ -7,4 +7,5 @@ package com.nmssdmf.commonlib.config;
 public class PrefrenceConfig {
     public static final String TOKEN = "TOKEN";//http token
     public static final String SHARED_INFO = "SHARED_INFO";//sharePrefrence
+    public static final String INDEX_INFO = "index";//index
 }
