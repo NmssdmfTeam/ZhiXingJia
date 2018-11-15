@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableInt;
 import android.view.View;
 
@@ -14,9 +15,8 @@ public class MerchantMerchandiseVM extends BaseVM {
     public static final int DOWN = 0;//向下
     public static final int UP = 1;//向上
     public final ObservableInt tvMerchantChooseStatus = new ObservableInt(DOWN);//商家
-    public final ObservableInt tvPopularityStatus = new ObservableInt(DOWN);//人气
-    public final ObservableInt tvCommentStatus = new ObservableInt(DOWN);//好评
-
+    public final ObservableBoolean tvPopularitySelect = new ObservableBoolean(false);
+    public final ObservableBoolean tvCommentSelect = new ObservableBoolean(false);
     /**
      * 不需要callback可以传null
      *
@@ -43,18 +43,10 @@ public class MerchantMerchandiseVM extends BaseVM {
     }
 
     public void tvPopularityClick(View view) {
-        if (tvPopularityStatus.get() == DOWN) {
-            tvPopularityStatus.set(UP);
-        } else {
-            tvPopularityStatus.set(DOWN);
-        }
+        tvPopularitySelect.set(!tvPopularitySelect.get());
     }
 
     public void tvCommentClick(View view) {
-        if (tvCommentStatus.get() == DOWN) {
-            tvCommentStatus.set(UP);
-        } else {
-            tvCommentStatus.set(DOWN);
-        }
+        tvCommentSelect.set(!tvCommentSelect.get());
     }
 }
