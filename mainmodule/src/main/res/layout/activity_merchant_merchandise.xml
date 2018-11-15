@@ -70,37 +70,40 @@
             android:layout_height="41dp">
 
             <TextView
-                android:id="@+id/tverchant"
+                android:id="@+id/tvMerchantChoose"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableRight="@drawable/filtrate_arrow_gray"
+                android:drawableRight="@{vm.tvMerchantChooseStatus == MerchantMerchandiseVM.DOWN ? @drawable/filtrate_arrow_gray : @drawable/filtrate_arrow_orange}"
                 android:gravity="center"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:text="商家" />
+                android:paddingLeft="38dp"
+                android:paddingRight="38dp"
+                android:text="商家"
+                android:onClick="@{(v)->vm.tvMerchantChooseClick(v)}"/>
 
             <TextView
                 android:id="@+id/tvPopularity"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableRight="@drawable/filtrate_arrow_gray"
+                android:drawableRight="@{vm.tvPopularityStatus == MerchantMerchandiseVM.DOWN ? @drawable/filtrate_arrow_gray : @drawable/filtrate_arrow_orange}"
                 android:gravity="center"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:text="人气最高" />
+                android:text="人气最高"
+                android:onClick="@{(v)->vm.tvPopularityClick(v)}"/>
 
             <TextView
                 android:id="@+id/tvComment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableRight="@drawable/filtrate_arrow_gray"
+                android:drawableRight="@{vm.tvCommentStatus == MerchantMerchandiseVM.DOWN ? @drawable/filtrate_arrow_gray : @drawable/filtrate_arrow_orange}"
                 android:gravity="center"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:text="好评优先" />
+                android:text="好评优先"
+                android:onClick="@{(v)->vm.tvCommentClick(v)}"/>
 
         </LinearLayout>
 

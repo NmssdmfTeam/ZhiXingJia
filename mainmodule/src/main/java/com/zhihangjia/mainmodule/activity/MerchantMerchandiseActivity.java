@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
@@ -53,5 +54,12 @@ public class MerchantMerchandiseActivity extends BaseActivity implements Merchan
         list.add(merchandiseFragment);
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), this, list);
         binding.vp.setAdapter(adapter);
+
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }
