@@ -1,30 +1,48 @@
 package com.zhihangjia.mainmodule.fragment;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.zhihangjia.mainmodule.R;
+import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
+import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
+import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
+import com.zhihangjia.mainmodule.adapter.MerchantAllAdapter;
+import com.zhihangjia.mainmodule.adapter.MerchantMainAdapter;
+import com.zhihangjia.mainmodule.callback.MerchantAllFragmentCB;
+import com.zhihangjia.mainmodule.viewmodel.MerchantAllFragmentVM;
+import com.zhihangjia.mainmodule.viewmodel.MerchantMainFragmentVM;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ * 店铺主页全部商品
  */
-public class MerchantAllFragment extends Fragment {
+public class MerchantAllFragment extends BaseRecyclerViewFragment implements MerchantAllFragmentCB {
 
-
-    public MerchantAllFragment() {
-        // Required empty public constructor
+    private final String TAG = MerchantAllFragment.class.getSimpleName();
+    private MerchantAllFragmentVM vm;
+    private MerchantAllAdapter adapter;
+    @Override
+    public BaseRecyclerViewFragmentVM initRecyclerViewFragmentVM() {
+        vm = new MerchantAllFragmentVM(this);
+        return vm;
     }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_merchant_all, container, false);
+    public BaseDataBindingAdapter initAdapter(List list) {
+        list.add(new Base());
+        list.add(new Base());
+        list.add(new Base());
+        list.add(new Base());
+        list.add(new Base());
+        adapter = new MerchantAllAdapter(list);
+        return adapter;
     }
 
+    @Override
+    public String getTAG() {
+        return TAG;
+    }
 }

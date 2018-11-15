@@ -11,10 +11,10 @@ import com.zhihangjia.mainmodule.databinding.ItemMerchantMainBinding;
 import java.util.List;
 
 /**
- * 店铺主页，所有商品
+ * 店铺主页，评价
  */
-public class MerchantAllAdapter extends BaseDataBindingAdapter<Base, ItemMerchantMainBinding> {
-    public MerchantAllAdapter(@Nullable List<Base> data) {
+public class MerchantEvaluateAdapter extends BaseDataBindingAdapter<Base, ItemMerchantMainBinding> {
+    public MerchantEvaluateAdapter(@Nullable List<Base> data) {
         super(R.layout.item_merchant_main, data);
     }
 

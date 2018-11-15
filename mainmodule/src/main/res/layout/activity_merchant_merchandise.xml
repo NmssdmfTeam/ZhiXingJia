@@ -74,11 +74,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableRight="@{vm.tvMerchantChooseStatus == MerchantMerchandiseVM.DOWN ? @drawable/filtrate_arrow_gray : @drawable/filtrate_arrow_orange}"
+                android:drawableRight="@{vm.tvMerchantChooseSelect ? @drawable/filtrate_arrow_orange : @drawable/filtrate_arrow_gray}"
                 android:gravity="center"
                 android:paddingLeft="38dp"
                 android:paddingRight="38dp"
-                android:textColor="@{vm.tvMerchantChooseStatus == MerchantMerchandiseVM.DOWN ? @color/light_black2 : @color/main_color}"
+                android:textColor="@{vm.tvMerchantChooseSelect ? @color/main_color : @color/light_black2}"
                 android:text="商家"
                 android:textSize="14dp"
                 android:onClick="@{(v)->vm.tvMerchantChooseClick(v)}"/>

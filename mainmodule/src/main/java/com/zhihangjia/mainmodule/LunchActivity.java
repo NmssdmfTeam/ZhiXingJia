@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
@@ -67,6 +68,13 @@ public class LunchActivity extends BaseTitleActivity {
             @Override
             public void onClick(View v) {
                 doIntent(MerchantMerchandiseActivity.class,null);
+            }
+        });
+
+        binding.btnMerchantMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(MerchantMainActivity.class,null);
             }
         });
     }

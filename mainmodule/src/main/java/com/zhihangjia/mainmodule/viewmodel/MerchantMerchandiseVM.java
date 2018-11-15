@@ -12,9 +12,7 @@ public class MerchantMerchandiseVM extends BaseVM {
     public static final int TYPE_MERCHANDISE = 1;//商品
     public final ObservableInt type = new ObservableInt(TYPE_MERCHANT);//0表示商家, 1：表示商品
 
-    public static final int DOWN = 0;//向下
-    public static final int UP = 1;//向上
-    public final ObservableInt tvMerchantChooseStatus = new ObservableInt(DOWN);//商家
+    public final ObservableBoolean tvMerchantChooseSelect = new ObservableBoolean(false);//商家
     public final ObservableBoolean tvPopularitySelect = new ObservableBoolean(false);
     public final ObservableBoolean tvCommentSelect = new ObservableBoolean(false);
     /**
@@ -35,11 +33,7 @@ public class MerchantMerchandiseVM extends BaseVM {
     }
 
     public void tvMerchantChooseClick(View view) {
-        if (tvMerchantChooseStatus.get() == DOWN) {
-            tvMerchantChooseStatus.set(UP);
-        } else {
-            tvMerchantChooseStatus.set(DOWN);
-        }
+        tvMerchantChooseSelect.set(!tvMerchantChooseSelect.get());
     }
 
     public void tvPopularityClick(View view) {

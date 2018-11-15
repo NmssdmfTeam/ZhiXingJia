@@ -15,7 +15,7 @@ import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import java.util.List;
 
 public abstract class BaseRecyclerViewFragment extends BaseFragment implements BaseRecyclerViewFragmentCB {
-    private FragmentBaseRecyclerviewBinding binding;
+    protected FragmentBaseRecyclerviewBinding binding;
     private BaseRecyclerViewFragmentVM baseRecyclerViewFragmentVM;
     private BaseDataBindingAdapter adapter;
     @Override

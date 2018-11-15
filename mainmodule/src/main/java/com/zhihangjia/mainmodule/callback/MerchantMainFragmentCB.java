@@ -1,4 +1,6 @@
 package com.zhihangjia.mainmodule.callback;
 
-public class MerchantMainFragmentCB {
+import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
+
+public interface MerchantMainFragmentCB extends BaseRecyclerViewFragmentCB {
 }
