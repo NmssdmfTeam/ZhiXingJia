@@ -23,7 +23,7 @@
             android:layout_marginTop="5dp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:text="@{data.commodity_name}"/>
+            android:text="程辉世纪装饰工装家装设计施工"/>
 
         <TextView
             android:id="@+id/tv_yuan"
@@ -41,7 +41,7 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{data.price}"
+            android:text="44.7"
             android:textColor="#FFFF5C4A"
             android:textSize="17dp"
             android:layout_toRightOf="@+id/tv_yuan"
@@ -66,7 +66,7 @@
             android:id="@+id/tv_shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{data.company}"
+            android:text="德尔地板"
             android:textColor="#FF999999"
             android:textSize="13dp"
             android:layout_alignParentRight="true"
