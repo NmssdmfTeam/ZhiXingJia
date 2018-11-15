@@ -5,9 +5,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.request.RequestOptions;
+import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.rollviewpager.RollPagerView;
 import com.nmssdmf.commonlib.rollviewpager.adapter.LoopPagerAdapter;
 import com.zhixingjia.bean.mainmodule.IndexBean;
@@ -41,12 +39,13 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
         RelativeLayout relativeLayout = new RelativeLayout(container.getContext());
         relativeLayout.setLayoutParams(layoutParams);
         ImageView imageView = new ImageView(container.getContext());
-        RequestOptions requestOptions = new RequestOptions()
-                .centerCrop()
-                .priority(Priority.HIGH);
-        Glide.with(imageView.getContext())
-                .load(advertisingRotations.get(position).getImg_url()).apply(requestOptions)
-                .into(imageView);
+//        RequestOptions requestOptions = new RequestOptions()
+//                .centerCrop()
+//                .priority(Priority.HIGH);
+//        Glide.with(imageView.getContext())
+//                .load(advertisingRotations.get(position).getImg_url()).apply(requestOptions)
+//                .into(imageView);
+        GlideUtil.load(imageView,advertisingRotations.get(position).getImg_url());
         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -70,4 +70,20 @@ public class GlideImageView extends android.support.v7.widget.AppCompatImageView
         }
         super.onDraw(canvas);
     }
+
+    public int getRoundtype() {
+        return roundtype;
+    }
+
+    public void setRoundtype(int roundtype) {
+        this.roundtype = roundtype;
+    }
+
+    public float getRoundRadius() {
+        return roundRadius;
+    }
+
+    public void setRoundRadius(float roundRadius) {
+        this.roundRadius = roundRadius;
+    }
 }

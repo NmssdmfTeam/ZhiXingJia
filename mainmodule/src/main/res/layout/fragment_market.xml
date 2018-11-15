@@ -1,16 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/llWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:elevation="1000dp"
+            android:orientation="vertical"
+            android:translationZ="1000dp"
+            android:background="@color/transparent">
+
+            <View
+                android:id="@+id/vMarginTop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+                <TextView
+                    android:id="@+id/vSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:layout_toLeftOf="@id/rlMessage"
+                    android:layout_toRightOf="@id/ivReturn"
+                    android:background="@drawable/shape_search_black_trans"
+                    android:drawableLeft="@drawable/icon_search_white"
+                    android:drawablePadding="3dp"
+                    android:paddingLeft="14dp"
+                    android:text="@string/search_product_seller"
+                    android:textColor="@color/white"
+                    android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <com.nmssdmf.customerviewlib.CustomerRecyclerView
+            android:id="@+id/crv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="建材家居"
-            android:gravity="center"/>
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

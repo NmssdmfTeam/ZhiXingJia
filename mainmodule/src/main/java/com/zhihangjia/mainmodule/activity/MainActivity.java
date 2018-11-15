@@ -80,6 +80,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     @Override
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityMainBinding) baseBinding;
+        WindowUtil.setWindowStatusBarTransParent(this);
         binding.mfth.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         binding.mfth.getTabWidget().setDividerDrawable(null); // 去掉分割线
         // 初始化fragment tab host
