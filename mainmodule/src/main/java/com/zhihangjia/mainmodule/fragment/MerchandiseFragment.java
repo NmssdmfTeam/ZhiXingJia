@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.fragment;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -24,6 +25,7 @@ public class MerchandiseFragment extends BaseRecyclerViewFragment implements Mer
 
     @Override
     public BaseDataBindingAdapter initAdapter(List list) {
+        list.add(new Base());
         adapter = new MerchandiseAdapter(list);
         return adapter;
     }
