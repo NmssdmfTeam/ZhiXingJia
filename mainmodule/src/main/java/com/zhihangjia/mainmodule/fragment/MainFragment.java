@@ -67,8 +67,8 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         //初始化首页头条
         viewFlipper = itemMainCrvheadBinding.headlineViewflipper;
 
-
-        vm.getIndex();
+        binding.crv.setRefreshing(true);
+        vm.getIndex(true);
         setListener();
     }
 
@@ -118,7 +118,7 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         binding.crv.setOnDataChangeListener(new OnDataChangeListener() {
             @Override
             public void onRefresh() {
-                vm.getIndex();
+                vm.getIndex(false);
             }
 
             @Override

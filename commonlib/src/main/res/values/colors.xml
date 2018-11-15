@@ -15,4 +15,5 @@
 
     <color name="main_color">#FFFF9A14</color>
     <color name="light_black">#FF333333</color>
+    <color name="black_statusbar">#33000000</color>
 </resources>
