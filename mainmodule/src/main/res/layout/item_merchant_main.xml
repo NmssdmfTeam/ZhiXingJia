@@ -2,13 +2,16 @@
 <layout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="164dp"
-        android:layout_height="194dp">
+                    android:layout_width="187.5dp"
+                    android:layout_height="194dp"
+                    android:paddingTop="8dp"
+        >
 
         <com.nmssdmf.commonlib.view.GlideImageView
             android:id="@+id/givIcon"
             android:layout_width="164dp"
-            android:layout_height="123dp" />
+            android:layout_height="123dp"
+            android:background="@drawable/shape_glide_image_bg"/>
 
         <TextView
             android:id="@+id/tvName"
@@ -16,11 +19,11 @@
             android:layout_height="21dp"
             android:layout_below="@+id/givIcon"
             android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="音匀环保去甲音匀"
             android:textColor="#FF333333"
-            android:textSize="15dp"
-            android:singleLine="true"
-            android:ellipsize="end"/>
+            android:textSize="15dp"/>
 
         <TextView
             android:id="@+id/tvUnit"
@@ -30,7 +33,7 @@
             android:layout_marginTop="8.5dp"
             android:text="￥"
             android:textColor="#FFFF5C4A"
-            android:textSize="11sp" />
+            android:textSize="11dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,16 +43,16 @@
             android:layout_toRightOf="@+id/tvUnit"
             android:text="44.7"
             android:textColor="#FFFF5C4A"
-            android:textSize="17dp" />
+            android:textSize="17dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="16.5dp"
-            android:layout_below="@+id/tvName"
             android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvName"
             android:layout_marginTop="6dp"
             android:text="已售 1.23万"
             android:textColor="#FF999999"
-            android:textSize="12dp" />
+            android:textSize="12dp"/>
     </RelativeLayout>
 </layout>
