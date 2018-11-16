@@ -1,16 +1,21 @@
 package com.zhihangjia.mainmodule.fragment;
 
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
+import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.MerchantMainAdapter;
 import com.zhihangjia.mainmodule.callback.MerchantMainFragmentCB;
+import com.zhihangjia.mainmodule.databinding.HeaderMerchantMainBinding;
 import com.zhihangjia.mainmodule.viewmodel.MerchantMainFragmentVM;
 
 import java.util.List;
@@ -44,6 +49,8 @@ public class MerchantMainFragment extends BaseRecyclerViewFragment implements Me
         list.add(new Base());
         list.add(new Base());
         adapter = new MerchantMainAdapter(list);
+        HeaderMerchantMainBinding headerMerchantMainBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.header_merchant_main, null, false);
+        adapter.addHeaderView(headerMerchantMainBinding.getRoot());
         return adapter;
     }
 
@@ -56,5 +63,14 @@ public class MerchantMainFragment extends BaseRecyclerViewFragment implements Me
     public void initAll(View view, Bundle savedInstanceState) {
         super.initAll(view, savedInstanceState);
         binding.crv.getSrl().setEnabled(false);
+        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        binding.crv.setLayoutManager(layoutManager);
+
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (position == vm.getList().size() + 1 || position == 0) ? layoutManager.getSpanCount() : 1;
+            }
+        });
     }
 }

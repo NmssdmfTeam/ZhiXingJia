@@ -3,6 +3,7 @@ package com.zhihangjia.mainmodule.adapter;
 import android.support.annotation.Nullable;
 
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
@@ -21,6 +22,17 @@ public class MerchantMainAdapter extends BaseDataBindingAdapter<Base, ItemMercha
 
     @Override
     protected void convert2(BaseBindingViewHolder<ItemMerchantMainBinding> helper, Base item, int position) {
+        int margin = DensityUtil.dpToPx(mContext, 16);
+        int mid = DensityUtil.dpToPx(mContext, 7.5f);
+        if (position > 0) {
+            if (position % 2 == 1) {
+                helper.getBinding().getRoot().setPadding(margin, 0, mid, 0);
+            } else {
+                helper.getBinding().getRoot().setPadding(mid, 0, margin, 0);
+            }
+        }
 
     }
+
+
 }
