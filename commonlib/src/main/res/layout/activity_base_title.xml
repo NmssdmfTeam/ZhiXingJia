@@ -24,6 +24,7 @@
 
         <include
             android:id="@+id/iSlenderLine"
-            layout="@layout/include_cut_off_slender_line"/>
+            layout="@layout/include_cut_off_slender_line"
+            android:visibility="gone"/>
     </LinearLayout>
 </layout>
