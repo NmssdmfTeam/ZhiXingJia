@@ -3,16 +3,15 @@ package com.zhihangjia.mainmodule;
 import android.os.Bundle;
 import android.view.View;
 
+import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
-import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
 import com.zhihangjia.mainmodule.databinding.ActivityLunchBinding;
-import com.nmssdmf.commonlib.activity.BaseTitleActivity;
-import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
 public class LunchActivity extends BaseTitleActivity {
     private String TAG = LunchActivity.class.getSimpleName();
@@ -76,6 +75,12 @@ public class LunchActivity extends BaseTitleActivity {
             @Override
             public void onClick(View v) {
                 doIntent(MerchantMainActivity.class,null);
+            }
+        });
+        binding.btnPoliticsNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(PoliticsNoticeActivity.class,null);
             }
         });
 
