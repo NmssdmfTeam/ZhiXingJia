@@ -2,7 +2,9 @@ package com.zhihangjia.mainmodule.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -14,6 +16,7 @@ import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsCategoryAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsMarketAdapter;
+import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.bean.MaterialsCategoryBean;
 import com.zhihangjia.mainmodule.callback.MarketFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMarketBinding;
@@ -33,8 +36,8 @@ import static android.databinding.DataBindingUtil.inflate;
 * @date 2018/11/13 15:53
 * @version v3.2.0
 */
-public class MarketFragment extends BaseFragment implements MarketFragmentCB {
-    private final String TAG = MarketFragment.class.getSimpleName();
+public class MaterialsMarketFragment extends BaseFragment implements MarketFragmentCB {
+    private final String TAG = MaterialsMarketFragment.class.getSimpleName();
     private FragmentMarketBinding binding;
     private MarketFragmentVM vm;
     private MaterialsMarketAdapter adapter;
@@ -107,6 +110,22 @@ public class MarketFragment extends BaseFragment implements MarketFragmentCB {
             ItemHotBrandBinding itemHotBrandBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_hot_brand,null,false);
             itemMaterialsCrvheadBinding.llBrand.addView(itemHotBrandBinding.getRoot());
         }
+
+        //爆款推荐模块模拟数据
+        MainBean mainBean = new MainBean();
+        mainBean.setItemType(0);
+        adapter.addData(mainBean);
+
+        //推荐商家模块模拟数据
+        mainBean = new MainBean();
+        mainBean.setItemType(1);
+        adapter.addData(mainBean);
+
+        setListener();
+    }
+
+    private void setListener() {
+
     }
 
     @Override
