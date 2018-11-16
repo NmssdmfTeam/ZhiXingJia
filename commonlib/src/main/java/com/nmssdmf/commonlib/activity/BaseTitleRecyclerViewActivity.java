@@ -38,6 +38,7 @@ public abstract class BaseTitleRecyclerViewActivity extends BaseTitleActivity im
 
     @Override
     public void initContent(Bundle savedInstanceState) {
+        binding = (ActivityBaseTitleRecyclerviewBinding) baseViewBinding;
         adapter = initAdapter(vm.getList());
         binding.crv.setAdapter(adapter);
 

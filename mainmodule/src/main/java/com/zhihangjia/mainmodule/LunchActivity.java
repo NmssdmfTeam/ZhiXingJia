@@ -7,6 +7,7 @@ import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
+import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
 import com.zhihangjia.mainmodule.databinding.ActivityLunchBinding;
@@ -75,6 +76,12 @@ public class LunchActivity extends BaseTitleActivity {
             @Override
             public void onClick(View v) {
                 doIntent(MerchantMainActivity.class,null);
+            }
+        });
+        binding.btnPoliticsNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(PoliticsNoticeActivity.class,null);
             }
         });
     }

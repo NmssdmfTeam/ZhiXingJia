@@ -11,8 +11,10 @@ import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MainAdapter;
+import com.zhihangjia.mainmodule.adapter.YXHeadLineAdapter;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.callback.MainFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMainBinding;
@@ -104,12 +106,7 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         viewFlipper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent();
-//                Bundle bundle = new Bundle();
-//                intent.setClass(activity, WebViewActivity.class);
-//                bundle.putString(IntentConfig.URL, Config.getHtmlPrefix() + UrlConfig.HEADLINE_LIST);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
+                doIntent(YXHeadLineActivity.class,null);
             }
         });
     }
