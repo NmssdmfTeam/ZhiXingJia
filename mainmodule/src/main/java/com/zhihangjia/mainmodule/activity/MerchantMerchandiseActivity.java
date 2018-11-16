@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
@@ -17,6 +18,9 @@ import com.zhihangjia.mainmodule.viewmodel.MerchantMerchandiseVM;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 商家/商品
+ */
 public class MerchantMerchandiseActivity extends BaseActivity implements MerchantMerchandiseCB {
     private final String TAG = MerchantMerchandiseActivity.class.getSimpleName();
 
@@ -54,6 +58,27 @@ public class MerchantMerchandiseActivity extends BaseActivity implements Merchan
         list.add(merchandiseFragment);
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), this, list);
         binding.vp.setAdapter(adapter);
+
+        binding.vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (i == 0) {
+                    vm.type.set(MerchantMerchandiseVM.TYPE_MERCHANT);
+                } else {
+                    vm.type.set(MerchantMerchandiseVM.TYPE_MERCHANDISE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

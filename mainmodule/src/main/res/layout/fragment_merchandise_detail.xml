@@ -2,6 +2,12 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailFragmentVM"/>
+    </data>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -157,7 +163,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="16.5dp"
+                        android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:drawablePadding="7.4dp"
@@ -165,6 +171,8 @@
                         android:text="领取"
                         android:textColor="#FF999999"
                         android:textSize="12dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{(v)->vm.getCoupon(v)}"
                         />
 
                 </RelativeLayout>
@@ -191,7 +199,7 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="16.5dp"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="16dp"
                         android:layout_toRightOf="@+id/tvSpecification"
@@ -199,6 +207,8 @@
                         android:text="请选择 颜色、尺寸分类"
                         android:textColor="#FF999999"
                         android:textSize="12dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{(v)->vm.chooseSpecification(v)}"
                         />
                 </RelativeLayout>
 
@@ -227,13 +237,15 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:drawableRight="@drawable/icon_arrow_item_title_right"
                         android:text="查看全部"
                         android:textColor="#FFFF9A14"
                         android:textSize="14dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{(v)->vm.gotoCommentList(v)}"
                         />
 
                 </RelativeLayout>
@@ -386,10 +398,13 @@
             android:layout_marginTop="25dp">
 
             <ImageView
+                android:id="@+id/ivBack"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginLeft="16dp"
-                android:src="@drawable/icon_notitle_back"/>
+                android:src="@drawable/icon_notitle_back"
+                android:onClick="@{(v)->vm.ivBackClick(v)}"
+                />
 
             <ImageView
                 android:id="@+id/ivShare"
@@ -397,15 +412,18 @@
                 android:layout_height="32dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/icon_share"/>
+                android:src="@drawable/icon_share"
+                android:onClick="@{(v)->vm.ivShareClick(v)}"/>
 
 
             <ImageView
+                android:id="@+id/ivAddShoppingCar"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginRight="12dp"
                 android:layout_toLeftOf="@+id/ivShare"
-                android:src="@drawable/icon_shopping_car"/>
+                android:src="@drawable/icon_shopping_car"
+                android:onClick="@{(v)->vm.ivAddShoppingCarClick(v)}"/>
 
         </RelativeLayout>
 

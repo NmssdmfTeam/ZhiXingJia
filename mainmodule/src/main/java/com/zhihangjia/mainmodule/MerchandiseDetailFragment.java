@@ -7,18 +7,24 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
+import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;
+import com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailFragmentVM;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MerchandiseDetailFragment extends BaseFragment {
+public class MerchandiseDetailFragment extends BaseFragment implements MerchandiseDetailFragmentCB {
 
     private final String TAG = MerchandiseDetailFragment.class.getSimpleName();
+    private MerchandiseDetailFragmentVM vm;
 
+    private FragmentMerchandiseDetailBinding binding;
     @Override
     public BaseVM initViewModel() {
-        return null;
+        vm = new MerchandiseDetailFragmentVM(this);
+        return vm;
     }
 
     @Override
@@ -28,7 +34,8 @@ public class MerchandiseDetailFragment extends BaseFragment {
 
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
-
+        binding = (FragmentMerchandiseDetailBinding) baseBinding;
+        binding.setVm(vm);
     }
 
     @Override
@@ -36,4 +43,8 @@ public class MerchandiseDetailFragment extends BaseFragment {
         return TAG;
     }
 
+    @Override
+    public void onBack() {
+        getActivity().onBackPressed();
+    }
 }

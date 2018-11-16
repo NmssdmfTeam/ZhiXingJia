@@ -2,20 +2,24 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.callback.MerchantMainCB;
 import com.zhihangjia.mainmodule.databinding.ActivityMerchantMainBinding;
+import com.zhihangjia.mainmodule.databinding.IncludeMerchantMainHeaderBinding;
 import com.zhihangjia.mainmodule.fragment.MerchantAllFragment;
 import com.zhihangjia.mainmodule.fragment.MerchantEvaluateFragment;
 import com.zhihangjia.mainmodule.fragment.MerchantMainFragment;
+import com.zhihangjia.mainmodule.viewmodel.MerchantMainVM;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MerchantMainActivity extends BaseActivity {
+public class MerchantMainActivity extends BaseActivity implements MerchantMainCB {
     private final String TAG = MerchantMainActivity.class.getSimpleName();
 
     private ActivityMerchantMainBinding binding;
@@ -25,6 +29,8 @@ public class MerchantMainActivity extends BaseActivity {
     private MerchantEvaluateFragment evaluateFragment;
     private List<Fragment> list = new ArrayList<>();
     private FragmentPagerAdapter adapter;
+
+    private MerchantMainVM vm;
     @Override
     public String getTAG() {
         return TAG;
@@ -37,13 +43,45 @@ public class MerchantMainActivity extends BaseActivity {
 
     @Override
     public BaseVM initViewModel() {
-        return null;
+        vm = new MerchantMainVM(this);
+        return vm;
     }
 
     @Override
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityMerchantMainBinding) baseBinding;
 
+        initTabLayout();
+
+        initView();
+    }
+
+
+    private void initView(){
+        IncludeMerchantMainHeaderBinding headerBinding = binding.iHeader;
+        headerBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        headerBinding.ivCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        headerBinding.ivAdress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    private void initTabLayout(){
         mainFragment = new MerchantMainFragment();
         allFragment = new MerchantAllFragment();
         evaluateFragment = new MerchantEvaluateFragment();

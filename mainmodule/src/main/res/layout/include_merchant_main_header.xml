@@ -1,147 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout>
 
-    <FrameLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <com.nmssdmf.commonlib.view.GlideImageView
-            android:id="@+id/givMain"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            />
+            android:layout_height="150dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_notitle_back"
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/givMain"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/icon_notitle_back" />
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="26dp"/>
+            android:layout_marginRight="16dp">
 
-    </FrameLayout>
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/givIcon"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="88dp"
+                android:layout_height="21dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="21.5dp"
+                android:layout_toRightOf="@+id/givIcon"
+                android:text="栾雅床上用品"
+                android:textColor="#FF333333"
+                android:textSize="15dp" />
 
-        <com.nmssdmf.commonlib.view.GlideImageView
-            android:id="@+id/givIcon"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="16dp" />
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_below="@+id/tvName"
+                android:layout_alignLeft="@+id/tvName"
+                android:layout_marginTop="8dp"
+                android:text="主营：餐桌、空调、一切建材"
+                android:textColor="#FF999999"
+                android:textSize="12dp" />
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="88dp"
-            android:layout_height="21dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="21.5dp"
-            android:layout_toRightOf="@+id/givIcon"
-            android:text="栾雅床上用品"
-            android:textColor="#FF333333"
-            android:textSize="15dp" />
-
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="16.5dp"
-            android:layout_below="@+id/tvName"
-            android:layout_alignLeft="@+id/tvName"
-            android:layout_marginTop="8dp"
-            android:text="主营：餐桌、空调、一切建材"
-            android:textColor="#FF999999"
-            android:textSize="12dp" />
-
-        <TextView
-            android:id="@+id/tvScore"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="23dp"
-            android:gravity="center"
-            android:text="4.7"
-            android:textColor="#FF666666"
-            android:textSize="10dp" />
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="23dp"
+                android:gravity="center"
+                android:text="4.7"
+                android:textColor="#FF666666"
+                android:textSize="10dp" />
 
 
-        <android.support.v7.widget.AppCompatRatingBar
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_alignTop="@+id/tvScore"
-            android:layout_marginRight="2dp"
-            android:layout_toLeftOf="@+id/tvScore"
-            android:numStars="5"
-            android:rating="4.5"
-            android:stepSize="0.5" />
+            <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/acrbStore"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/tvScore"
+                android:layout_marginRight="2dp"
+                android:layout_toLeftOf="@+id/tvScore"
+                android:numStars="5"
+                android:rating="4.5"
+                android:stepSize="0.5" />
 
-        <TextView
-            android:id="@+id/tvDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="16.5dp"
-            android:layout_alignBaseline="@+id/tvDescription"
-            android:layout_alignParentRight="true"
-            android:text="1.09km"
-            android:textColor="#FF999999"
-            android:textSize="12dp" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tvDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_alignBaseline="@+id/tvDescription"
+                android:layout_alignParentRight="true"
+                android:text="1.09km"
+                android:textColor="#FF999999"
+                android:textSize="12dp" />
+        </RelativeLayout>
 
-    <include
-        layout="@layout/include_recyclerview_cutoff_line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="1"
-            android:text="江干区宾前大厦F23-103"
-            android:textColor="#FF333333"
-            android:textSize="14dp" />
-
-        <ImageView
-            android:layout_width="44dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:scaleType="center"
-            android:src="@drawable/icon_address_merchant_main" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:text="江干区宾前大厦F23-103"
+                android:textColor="#FF333333"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:id="@+id/ivAdress"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:scaleType="center"
+                android:src="@drawable/icon_address_merchant_main" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="#FFD8D8D8" />
+
+            <ImageView
+                android:id="@+id/ivCall"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:scaleType="center"
+                android:src="@drawable/icon_call_merchant_main" />
+
+        </LinearLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="15dp"
-            android:background="#FFD8D8D8" />
-
-        <ImageView
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:scaleType="center"
-            android:src="@drawable/icon_call_merchant_main" />
-
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="#FFF6F6F6" />
     </LinearLayout>
-
-    <include
-        layout="@layout/include_recyclerview_cutoff_line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:background="#FFF6F6F6" />
-</LinearLayout>
+</layout>
