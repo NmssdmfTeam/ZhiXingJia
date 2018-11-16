@@ -42,16 +42,18 @@
         <activity
             android:name=".activity.MerchantMerchandiseActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MerchantMainActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MerchandiseDetailActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".activity.MerchantMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.MerchandiseDetailActivity"
+            android:screenOrientation="portrait">
         </activity>
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.MerchantMainActivity"></activity>
-        <activity android:name=".activity.YXHeadLineActivity"
+        <activity
+            android:name=".activity.YXHeadLineActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.PoliticsNoticeActivity"
+        <activity
+            android:name=".activity.PoliticsNoticeActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 
