@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="3.25dp"
+        android:paddingRight="3.25dp"
+        android:paddingBottom="20dp">
+
+        <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/ivPic"
+            android:layout_width="match_parent"
+            android:layout_height="82.5dp"
+            android:src="@drawable/no_pic"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="110dp"
+            android:layout_height="16.5dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="程辉世纪装饰工装工装ffffff"
+            android:textColor="#FF333333"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="#FFFF5C4A"
+                android:textSize="9dp" />
+
+            <TextView
+                android:id="@+id/ivPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="44.7"
+                android:textColor="#FFFF5C4A"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

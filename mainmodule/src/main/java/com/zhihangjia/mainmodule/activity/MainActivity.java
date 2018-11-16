@@ -18,7 +18,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ActivityMainBinding;
 import com.zhihangjia.mainmodule.fragment.MainFragment;
-import com.zhihangjia.mainmodule.fragment.MarketFragment;
+import com.zhihangjia.mainmodule.fragment.MaterialsMarketFragment;
 import com.zhihangjia.mainmodule.fragment.MessageFragment;
 import com.zhihangjia.mainmodule.fragment.MineFragment;
 import com.zhihangjia.mainmodule.fragment.ShopCarFragment;
@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     /**
      * tab layout加载的fragment class，并使用class name当作tab的tag，所以要求fragment加载的class是不同的class，否则需要创建其他tag
      */
-    private Class[] fragment_clazz = new Class[]{MainFragment.class, MarketFragment.class, MessageFragment.class, ShopCarFragment.class, MineFragment.class};
+    private Class[] fragment_clazz = new Class[]{MainFragment.class, MaterialsMarketFragment.class, MessageFragment.class, ShopCarFragment.class, MineFragment.class};
     private Integer[] titles_texts = {R.string.main, R.string.marketBuilding, R.string.message, R.string.shopCar, R.string.mine};
     private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected};
     private int[] icon_offs = {R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected};

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/ivPic"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/no_pic" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/ivPic"
+                android:maxWidth="213dp"
+                android:text="栾雅床上用品"
+                android:textColor="#FF333333"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tvTag"
+                android:layout_width="match_parent"
+                android:layout_height="16.5dp"
+                android:layout_below="@+id/tvName"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/ivPic"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="主营：餐桌、空调、一切建材"
+                android:textColor="#FF999999"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_below="@+id/tvTag"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/ivPic"
+                android:drawableLeft="@drawable/icon_location"
+                android:drawablePadding="2dp"
+                android:ellipsize="end"
+                android:maxWidth="234.5dp"
+                android:singleLine="true"
+                android:text="江干区宾前大厦F23-103"
+                android:textColor="#FF999999"
+                android:textSize="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <RatingBar
+                    android:id="@+id/rb"
+                    style="@style/myRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:rating="5"
+                    android:stepSize="0.1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:layout_marginLeft="3dp"
+                    android:minWidth="11dp"
+                    android:text="4.7"
+                    android:textColor="#FF666666"
+                    android:textSize="8dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.09km"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="#FF999999"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/ivPic"
+                android:textSize="12dp" />
+
+        </RelativeLayout>
+        
+        <LinearLayout
+            android:id="@+id/llPics"
+            android:layout_width="match_parent"
+            android:layout_height="82.5dp"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+</layout>
