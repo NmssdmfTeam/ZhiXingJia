@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        android:paddingLeft="12dp"
+        android:background="@drawable/bg_choose_coupon">
+
+        <TextView
+            android:id="@+id/tvPriceUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="￥"
+            android:textColor="#FFFF9A14"
+            android:textSize="18dp"
+            android:layout_marginTop="15dp"
+            />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="40.5dp"
+            android:text="30"
+            android:textColor="#FFFF9A14"
+            android:textSize="29dp"
+            android:layout_toRightOf="@+id/tvPriceUnit"
+            android:layout_alignBaseline="@+id/tvPriceUnit"
+            />
+
+        <TextView
+            android:id="@+id/tvCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="满100元使用"
+            android:textColor="#FFFF9A14"
+            android:textSize="11dp"
+            android:layout_below="@+id/tvPrice"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="有效期：2018-11-11至2018-12-31"
+            android:textColor="#FFFF9A14"
+            android:textSize="11dp"
+            android:layout_below="@+id/tvCondition"
+            />
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="87dp"
+            android:text="立即领取"
+            android:textColor="#FFFF9A14"
+            android:textSize="15dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            />
+    </RelativeLayout>
+</layout>

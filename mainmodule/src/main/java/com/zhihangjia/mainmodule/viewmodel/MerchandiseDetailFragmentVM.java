@@ -34,10 +34,10 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
     }
 
     public void getCoupon(View view){
-
+        cb.showChooseCouponWindow();
     }
 
     public void chooseSpecification(View view){
-
+        cb.showChooseSpecificationWindow();
     }
 }
