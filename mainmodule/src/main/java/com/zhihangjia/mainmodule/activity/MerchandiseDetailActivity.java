@@ -42,7 +42,6 @@ public class MerchandiseDetailActivity extends BaseActivity {
         merchandiseDetailFragment = new MerchandiseDetailFragment();
         commentDetailListFragment = new CommentDetailListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(R.id.fl, merchandiseDetailFragment);
-        transaction.addToBackStack("merchandiseDetailFragment");
         transaction.commit();
     }
 
@@ -54,6 +53,7 @@ public class MerchandiseDetailActivity extends BaseActivity {
     */
     public void switchToCommentFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(R.id.fl, commentDetailListFragment);
+        transaction.addToBackStack("commentDetailListFragment");
         transaction.commit();
     }
 }

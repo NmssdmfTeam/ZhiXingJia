@@ -1,5 +1,8 @@
 package com.zhihangjia.mainmodule.fragment;
 
+import android.os.Bundle;
+import android.view.View;
+
 import com.nmssdmf.commonlib.fragment.BaseTitleRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -39,5 +42,17 @@ public class CommentDetailListFragment extends BaseTitleRecyclerViewFragment {
     @Override
     public String setTitle() {
         return "";
+    }
+
+    @Override
+    public void initContent(Bundle savedInstanceState) {
+        super.initContent(savedInstanceState);
+        baseTitleBinding.vStatusBar.setVisibility(View.VISIBLE);
+        baseTitleBinding.tTitle.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 }

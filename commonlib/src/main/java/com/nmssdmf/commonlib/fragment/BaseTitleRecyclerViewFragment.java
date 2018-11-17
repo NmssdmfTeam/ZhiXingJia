@@ -30,7 +30,7 @@ public abstract class BaseTitleRecyclerViewFragment extends BaseTitleFragment im
 
     @Override
     public void initContent(Bundle savedInstanceState) {
-        binding = (FragmentBaseRecyclerviewBinding) baseBinding;
+        binding = (FragmentBaseRecyclerviewBinding) baseViewBinding;
 
         adapter = initAdapter(baseRecyclerViewFragmentVM.getList());
 
