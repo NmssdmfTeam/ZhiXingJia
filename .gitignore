@@ -11,3 +11,4 @@
 .externalNativeBuild
 /gen
 */gen
+app/release
