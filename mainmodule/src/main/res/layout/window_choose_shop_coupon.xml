@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.ChooseShopCouponWindowVM"/>
+    </data>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="477.5dp"
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="78.5dp"
+            android:layout_height="22.5dp"
+            android:text="店铺优惠券"
+            android:textColor="#FF333333"
+            android:textSize="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            />
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_close_window"
+            android:layout_marginTop="19dp"
+            android:layout_alignParentRight="true"
+            android:onClick="@{(v)->vm.ivCloseClick(v)}"
+            />
+
+        <TextView
+            android:id="@+id/tvGetCoupon"
+            android:layout_width="25dp"
+            android:layout_height="16.5dp"
+            android:text="领券"
+            android:textColor="#FF999999"
+            android:textSize="12dp"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="8dp"
+            />
+
+        <TextView
+            android:id="@+id/tvDone"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_main_color_bg"
+            android:text="完成"
+            android:textColor="#FFFFFFFF"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="7dp"
+            android:onClick="@{(v)->vm.tvDoneClick(v)}"
+            />
+
+        <com.nmssdmf.customerviewlib.CustomerRecyclerView
+            android:id="@+id/crv"
+            android:layout_width="match_parent"
+            android:layout_height="304dp"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/tvGetCoupon"
+            android:layout_above="@+id/tvDone"
+            android:layout_marginBottom="12dp">
+
+        </com.nmssdmf.customerviewlib.CustomerRecyclerView>
+
+    </RelativeLayout>
+</layout>

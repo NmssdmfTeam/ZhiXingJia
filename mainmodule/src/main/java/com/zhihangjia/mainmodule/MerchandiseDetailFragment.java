@@ -3,6 +3,7 @@ package com.zhihangjia.mainmodule;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.View;
 
 import com.nmssdmf.commonlib.fragment.BaseFragment;
@@ -10,6 +11,8 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;
 import com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailFragmentVM;
+import com.zhihangjia.mainmodule.window.ChooseShopCouponWindow;
+import com.zhihangjia.mainmodule.window.ChooseSpecificationWindow;
 
 
 /**
@@ -21,6 +24,9 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     private MerchandiseDetailFragmentVM vm;
 
     private FragmentMerchandiseDetailBinding binding;
+
+    private ChooseShopCouponWindow chooseShopCouponWindow;
+    private ChooseSpecificationWindow chooseSpecificationWindow;
     @Override
     public BaseVM initViewModel() {
         vm = new MerchandiseDetailFragmentVM(this);
@@ -46,5 +52,21 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     @Override
     public void onBack() {
         getActivity().onBackPressed();
+    }
+
+    @Override
+    public void showChooseCouponWindow() {
+        if (chooseShopCouponWindow == null) {
+            chooseShopCouponWindow = new ChooseShopCouponWindow(getActivity());
+        }
+        chooseShopCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
+    }
+
+    @Override
+    public void showChooseSpecificationWindow() {
+        if (chooseSpecificationWindow == null) {
+            chooseSpecificationWindow = new ChooseSpecificationWindow(getActivity());
+        }
+        chooseSpecificationWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 }
