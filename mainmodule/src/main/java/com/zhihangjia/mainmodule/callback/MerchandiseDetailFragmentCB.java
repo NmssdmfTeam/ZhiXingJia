@@ -6,4 +6,6 @@ public interface MerchandiseDetailFragmentCB extends BaseCB {
     void onBack();
     void showChooseCouponWindow();
     void showChooseSpecificationWindow();
+
+    void gotoCommentDetail();
 }

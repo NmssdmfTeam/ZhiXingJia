@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;
 import com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailFragmentVM;
@@ -68,5 +69,13 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
             chooseSpecificationWindow = new ChooseSpecificationWindow(getActivity());
         }
         chooseSpecificationWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
+    }
+
+    @Override
+    public void gotoCommentDetail() {
+        if (getActivity() instanceof MerchandiseDetailActivity) {
+            MerchandiseDetailActivity merchandiseDetailActivity = (MerchandiseDetailActivity) getActivity();
+            merchandiseDetailActivity.switchToCommentFragment();
+        }
     }
 }

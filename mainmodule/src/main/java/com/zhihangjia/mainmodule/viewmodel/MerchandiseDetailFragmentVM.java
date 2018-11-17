@@ -18,6 +18,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
     }
 
     public void ivShareClick(View view){
+
     }
 
     public void ivAddShoppingCarClick(View view){
@@ -29,7 +30,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
     }
 
     public void gotoCommentList(View view){
-
+        cb.gotoCommentDetail();
     }
 
     public void getCoupon(View view){
