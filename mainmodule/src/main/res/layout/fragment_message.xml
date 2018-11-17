@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <TextView
+            android:id="@+id/vSearch"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="消息中心"
-            android:gravity="center"/>
+            android:layout_height="28dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@id/rlMessage"
+            android:layout_toRightOf="@id/ivReturn"
+            android:background="@drawable/shape_search_gray_trans"
+            android:drawableLeft="@drawable/search_black_inner"
+            android:drawablePadding="3dp"
+            android:paddingLeft="14dp"
+            android:text="搜索帖子"
+            android:textColor="#FF999999"
+            android:textSize="14dp" />
+
+        <com.nmssdmf.commonlib.rollviewpager.RollPagerView
+            android:id="@+id/rpv"
+            android:layout_width="match_parent"
+            android:layout_height="203dp"
+            android:background="@color/white"
+            app:rollviewpager_hint_paddingBottom="19dp"
+            app:rollviewpager_play_delay="3000"
+            app:rollviewpager_hint_view_normal="@drawable/viewpager_hinticon_2"
+            app:rollviewpager_hint_view_focuse="@drawable/viewpager_hinticon_focus_2"/>
 
     </LinearLayout>
 </layout>

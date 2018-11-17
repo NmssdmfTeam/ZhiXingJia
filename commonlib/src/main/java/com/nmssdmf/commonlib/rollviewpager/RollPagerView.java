@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.databinding.BindingAdapter;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Message;
@@ -59,6 +60,8 @@ public class RollPagerView extends RelativeLayout implements OnPageChangeListene
 
     private View mHintView;
     private Timer timer;
+    private Drawable drawableFocus;
+    private Drawable drawableUnFocus;
 
     @BindingAdapter("rollpagerviewadapter")
     public static void setbindAdapter(RollPagerView view, PagerAdapter adapter) {
@@ -124,13 +127,18 @@ public class RollPagerView extends RelativeLayout implements OnPageChangeListene
         paddingRight = (int) type.getDimension(R.styleable.RollViewPager_rollviewpager_hint_paddingRight, 0);
         paddingTop = (int) type.getDimension(R.styleable.RollViewPager_rollviewpager_hint_paddingTop, 0);
         paddingBottom = (int) type.getDimension(R.styleable.RollViewPager_rollviewpager_hint_paddingBottom, Util.dip2px(getContext(), 4));
-
+        drawableFocus = type.getDrawable(R.styleable.RollViewPager_rollviewpager_hint_view_focuse);
+        drawableUnFocus = type.getDrawable(R.styleable.RollViewPager_rollviewpager_hint_view_normal);
         mViewPager = new ViewPager(getContext());
         mViewPager.setId(R.id.viewpager_inner);
         mViewPager.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         addView(mViewPager);
         type.recycle();
-        initHint(new IconHintView(getContext(), R.drawable.icon_rollpageview_focus, R.drawable.icon_rollpageview_normal));
+        if (drawableFocus == null)
+            drawableFocus = getContext().getResources().getDrawable(R.drawable.icon_rollpageview_focus);
+        if (drawableUnFocus == null)
+            drawableUnFocus = getContext().getResources().getDrawable(R.drawable.icon_rollpageview_normal);
+        initHint(new IconHintView(getContext(), drawableFocus, drawableUnFocus));
         //手势处理
         mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
