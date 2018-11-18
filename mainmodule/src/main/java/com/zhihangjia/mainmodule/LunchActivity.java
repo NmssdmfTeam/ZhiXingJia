@@ -6,10 +6,13 @@ import android.view.View;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
+import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
+import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
+import com.zhihangjia.mainmodule.activity.PaySuccessActivity;
 import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
@@ -90,6 +93,27 @@ public class LunchActivity extends BaseTitleActivity {
             @Override
             public void onClick(View v) {
                 doIntent(MerchandiseDetailActivity.class,null);
+            }
+        });
+
+        binding.btnConfirmOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(ConfirmOrderActivity.class,null);
+            }
+        });
+
+        binding.btnPaySuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(PaySuccessActivity.class,null);
+            }
+        });
+
+        binding.btnConfirmPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(ConfirmPayActivity.class,null);
             }
         });
     }

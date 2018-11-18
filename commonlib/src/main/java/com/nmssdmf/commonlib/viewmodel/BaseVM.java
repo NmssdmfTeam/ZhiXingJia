@@ -2,8 +2,11 @@ package com.nmssdmf.commonlib.viewmodel;
 
 import android.support.annotation.CallSuper;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.net.retrofit.BaseRxRequest;
+
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 

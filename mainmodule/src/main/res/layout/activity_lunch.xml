@@ -1,75 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_height="match_parent"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/btnMain"
-            android:layout_height="40dp"
             android:layout_width="200dp"
-            android:text="首页"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="首页" />
 
         <Button
             android:id="@+id/btnMessage"
-            android:layout_height="40dp"
             android:layout_width="200dp"
-            android:text="消息"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="消息" />
 
         <Button
             android:id="@+id/btnSearch"
-            android:layout_height="40dp"
             android:layout_width="200dp"
-            android:text="搜索"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="搜索" />
 
         <Button
-        android:id="@+id/btnCategories"
-        android:layout_height="40dp"
-        android:layout_width="200dp"
-        android:text="分类"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+            android:id="@+id/btnCategories"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="分类" />
 
         <Button
             android:id="@+id/btnMerchantMerchandise"
-            android:layout_height="40dp"
             android:layout_width="200dp"
-            android:text="商家商品"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="商家商品" />
 
         <Button
             android:id="@+id/btnMerchantMain"
-            android:layout_height="40dp"
             android:layout_width="200dp"
-            android:text="商家商品"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="商家详情" />
 
         <Button
             android:id="@+id/btnMerchandiseDetail"
-            android:layout_height="40dp"
             android:layout_width="200dp"
-            android:text="商品详情"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="商品详情" />
 
         <Button
             android:id="@+id/btnPoliticsNotice"
-            android:layout_height="40dp"
             android:layout_width="200dp"
-            android:text="政务公告"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="政务公告" />
+
+        <Button
+            android:id="@+id/btnConfirmOrder"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="确认订单" />
+
+        <Button
+            android:id="@+id/btnPaySuccess"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="支付成功" />
+
+        <Button
+            android:id="@+id/btnConfirmPay"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="确认支付" />
 
     </LinearLayout>
 </layout>

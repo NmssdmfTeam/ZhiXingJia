@@ -1,4 +1,4 @@
-package com.zhihangjia.mainmodule;
+package com.zhihangjia.mainmodule.fragment;
 
 
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;

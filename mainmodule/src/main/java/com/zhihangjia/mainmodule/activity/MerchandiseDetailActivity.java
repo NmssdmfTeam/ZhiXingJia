@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhihangjia.mainmodule.MerchandiseDetailFragment;
+import com.zhihangjia.mainmodule.fragment.MerchandiseDetailFragment;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.fragment.CommentDetailListFragment;
 

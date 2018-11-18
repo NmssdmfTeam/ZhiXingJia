@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".activity.PaySuccessActivity">
+
+        <ImageView
+            android:id="@+id/ivPaySuccess"
+            android:layout_width="49dp"
+            android:layout_height="49dp"
+            android:src="@drawable/icon_pay_success"
+            android:layout_marginTop="70dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_below="@+id/ivPaySuccess"
+            android:layout_width="wrap_content"
+            android:layout_height="22.5dp"
+            android:text="订单支付成功"
+            android:textColor="#FF333333"
+            android:textSize="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            />
+        
+        <View
+            android:id="@+id/vCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_below="@+id/ivPaySuccess"
+            android:layout_marginTop="70dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:id="@+id/tvViewOrder"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="查看订单"
+            android:textColor="#FFFF9A14"
+            android:textSize="15dp"
+            android:layout_alignTop="@+id/vCenter"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/vCenter"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/shape_main_color_stroke"
+            />
+
+        <TextView
+            android:id="@+id/tvContinueStroll"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="继续逛逛"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_alignTop="@+id/vCenter"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/vCenter"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/shape_main_color_bg"
+            />
+
+    </RelativeLayout>
+</layout>

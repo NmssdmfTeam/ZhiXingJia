@@ -1,19 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.ConfirmOrderVM"/>
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.ConfirmOrderActivity"
-        android:background="@color/white">
+        android:background="@color/white"
+        tools:context=".activity.ConfirmOrderActivity">
 
         <RelativeLayout
+            android:id="@+id/rlBottom"
             android:layout_width="match_parent"
-            android:layout_height="74.5dp"
-            >
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/tvSubmit"
+                android:layout_width="102dp"
+                android:layout_height="50dp"
+                android:background="#FFFF9A14"
+                android:text="提交订单"
+                android:textColor="#FFFFFFFF"
+                android:textSize="16dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:text="88.8"
+                android:textColor="#FFFF5C4A"
+                android:textSize="20dp"
+                android:layout_toLeftOf="@+id/tvSubmit"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                />
+
+            <TextView
+                android:id="@+id/tvPriceUnit"
+                android:layout_width="15.5dp"
+                android:layout_height="21dp"
+                android:text="￥"
+                android:textColor="#FFFF5C4A"
+                android:textSize="15dp"
+                android:layout_toLeftOf="@+id/tvPrice"
+                android:layout_alignBaseline="@+id/tvPrice"
+                />
+
+            <TextView
+                android:layout_width="43.5dp"
+                android:layout_height="20dp"
+                android:text="合计："
+                android:textColor="#FF333333"
+                android:textSize="14dp"
+                android:layout_toLeftOf="@+id/tvPriceUnit"
+                android:layout_alignBaseline="@+id/tvPrice"
+                />
 
         </RelativeLayout>
 
-    </LinearLayout>
+        <com.nmssdmf.customerviewlib.CustomerRecyclerView
+            android:id="@+id/crv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_above="@+id/rlBottom"
+            app:refresh_enable="false"
+            app:loadmore_enable="false">
+
+        </com.nmssdmf.customerviewlib.CustomerRecyclerView>
+
+    </RelativeLayout>
 </layout>
