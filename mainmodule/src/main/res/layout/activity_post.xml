@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:id="@+id/llRootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="101dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_post_titile_selector"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="杂七杂八"
+                    android:textColor="#FFFF9A14"
+                    android:textSize="13dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_dragdown" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="vertical">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:hint="请填写标题"
+                    android:textSize="18dp"
+                    android:background="@null"/>
+                <include layout="@layout/include_recyclerview_cutoff_line"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="#FFFFF2E2"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:textColor="#FFFF9A14"
+            android:drawableLeft="@drawable/icon_add"
+            android:text="添加图文"
+            android:paddingLeft="16dp"
+            android:drawablePadding="5.5dp"/>
+
+    </LinearLayout>
+</layout>

@@ -53,8 +53,8 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
      */
     private Class[] fragment_clazz = new Class[]{MainFragment.class, MaterialsMarketFragment.class, MessageFragment.class, ShopCarFragment.class, MineFragment.class};
     private Integer[] titles_texts = {R.string.main, R.string.marketBuilding, R.string.message, R.string.shopCar, R.string.mine};
-    private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_materials_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected};
-    private int[] icon_offs = {R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected};
+    private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_materials_selected, R.drawable.message_center_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected};
+    private int[] icon_offs = {R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.message_center_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected};
 
 
     private List<ImageView> ivs = new ArrayList<>();
