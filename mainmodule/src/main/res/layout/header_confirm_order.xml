@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="86.5dp"
+        >
+            <TextView
+                android:id="@+id/tvReceiver"
+                android:layout_width="wrap_content"
+                android:layout_height="22.5dp"
+                android:text="收件人：张小褚"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@+id/tvReceiver"
+                android:layout_marginTop="8dp"
+                android:text="宜城镇龙潭西路290号"
+                android:textColor="#FF333333"
+                android:textSize="14dp"
+                android:layout_alignLeft="@+id/tvReceiver"/>
+
+            <ImageView
+                android:id="@+id/ivAddressArrow"
+                android:layout_width="10.85dp"
+                android:layout_height="74.5dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_arrow_item_right"
+                android:layout_marginRight="16dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22.5dp"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@+id/ivAddressArrow"
+                android:text="13212345123"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                android:layout_marginTop="12dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="#FFF6F6F6"
+            android:layout_below="@+id/tvAddress"
+            android:layout_marginTop="12dp"/>
+
+        <ImageView
+            android:id="@+id/ivAddAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/icon_add_address"
+            android:scaleType="center"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</layout>

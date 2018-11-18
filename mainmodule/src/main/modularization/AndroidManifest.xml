@@ -30,7 +30,14 @@
         <activity
             android:name=".activity.MerchandiseDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ConfirmOrderActivity"
+        <activity
+            android:name=".activity.ConfirmOrderActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.PaySuccessActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.ConfirmPayActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 
