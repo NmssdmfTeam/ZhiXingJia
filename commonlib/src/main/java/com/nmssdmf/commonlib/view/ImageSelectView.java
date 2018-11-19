@@ -1,40 +1,37 @@
 package com.nmssdmf.commonlib.view;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.R;
+import com.nmssdmf.commonlib.adapter.ImageSelectAdapter;
+import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.config.BaseConfig;
-import com.nmssdmf.commonlib.config.IntentConfig;
-import com.nmssdmf.commonlib.util.CommonUtils;
+import com.nmssdmf.commonlib.config.IntegerConfig;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.FileUtil;
 import com.nmssdmf.commonlib.util.ImageUtil;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PermissionCompat;
 import com.nmssdmf.commonlib.util.ToastUtil;
-import com.nmssdmf.commonlib.widget.FullyLinearLayoutManager;
+import com.nmssdmf.commonlib.widget.GridSpacingItemDecoration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,20 +47,20 @@ import java.util.List;
  * <p>
  */
 
-public class ImageSelectView extends LinearLayout {
+public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.ViewClickListener {
     private final String TAG = ImageSelectView.class.getSimpleName();
 
     private Context context;
 
     private RecyclerView rv_image_rl;
-    private TextView tv_add_image;
 
-    private ImageAdapter adapter_img;
-    private List<String> imgs = new ArrayList<>(); //用于adapter
+    private ImageSelectAdapter adapter;
+//    private List<String> imgs = new ArrayList<>(); //用于adapter
+    private List<UploadImage> uploadImages = new ArrayList<UploadImage>(); //用于adapter显示
+    private List<String> imageIds = new ArrayList<>();//用于上传给服务器
 
     private String temp_path;//拍照时候的照片地址
 
-    private List<String> image_ids = new ArrayList<>();//用于上传给服务器
     private OnImageUpLoadCompleteListener upload_listener;
     private boolean isNeed = false;//图片是否非必填
 
@@ -72,9 +69,9 @@ public class ImageSelectView extends LinearLayout {
     private int sdv_size = 0; // 组件每个图片的宽度\高度
 
     //以下属性的数值请对照布局文件
-    private int IMAGE_MARGIN = 16;//每张图之间的间距
-    private int VIEW_PADDING_LEFT = 8;// ImageSelectView右边
-    private int VIEW_PADDING_RIGHT = 8;// ImageSelectView右边
+    private int IMAGE_MARGIN = 12;//每张图之间的间距
+    private int VIEW_PADDING_LEFT = 16;// ImageSelectView右边
+    private int VIEW_PADDING_RIGHT = 16;// ImageSelectView右边
     private int DELETE_IMAGE_SIZE = 18; // 删除图标的高宽
 
     public ImageSelectView(Context context) {
@@ -88,20 +85,6 @@ public class ImageSelectView extends LinearLayout {
         initView(context);
     }
 
-    public void setNeed(boolean need) {
-        isNeed = need;
-    }
-
-    public void setImage_ids(List<String> image_ids) {
-        this.image_ids = image_ids;
-    }
-
-    public void setImgs(List<String> imgs) {//询价页面回复sku数据，恢复图片数据
-        this.imgs = imgs;
-        adapter_img.setImgs(imgs);
-        adapter_img.notifyDataSetChanged();
-    }
-
     private void initView(Context context) {
 
         if (isInEditMode()) {
@@ -109,48 +92,32 @@ public class ImageSelectView extends LinearLayout {
         }
         this.context = context;
 
-        adapter_img = new ImageAdapter(imgs, context);
 
         LinearLayout view = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.view_image_select, null);
-
+        VIEW_PADDING_RIGHT = DensityUtil.dpToPx(context, 16);
+        VIEW_PADDING_LEFT = DensityUtil.dpToPx(context, 16);
+        IMAGE_MARGIN = DensityUtil.dpToPx(context, 12);
         /**
          * 计算每张图外围的宽度(图片＋删除图标整体的宽度)，因为高==宽，所以也是每张图外围的高度<br/>
          * 外围的宽度=(屏幕宽度-ImageSelectView的左右padding和margin-item的间距*3)/4
          *
          */
-        wrap_width = (DensityUtil.getScreenWidth(context) - VIEW_PADDING_RIGHT - VIEW_PADDING_LEFT - DensityUtil.dpToPx(context, IMAGE_MARGIN - DELETE_IMAGE_SIZE / 2) * 3) / 4;
-        wrap_height = wrap_width + 1/*- DensityUtil.dpToPx(context, SUIT_SIZE)*/;
-        /**
-         * 设置整个组件的宽高</p>
-         *
-         * 宽: ViewGroup.LayoutParams.MATCH_PARENT</p>
-         * 高: wrap_width-DensityUtil.dpToPx(context, 8)
-         * 这里DensityUtil.dpToPx(context, 8)为一个便宜量，为了使组件顶部不至于空白太多，因为一般组件上方是TextView（参考图片），而此TextView底部会有一个空白
-         */
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, wrap_height);
-        view.setLayoutParams(params);
-        view.setOrientation(LinearLayout.HORIZONTAL);
+        wrap_width = (DensityUtil.getScreenWidth(context) - VIEW_PADDING_RIGHT - VIEW_PADDING_LEFT - IMAGE_MARGIN * 3) / 4;//图片宽度
+
 
         rv_image_rl = (RecyclerView) view.findViewById(R.id.rv_image_rl);
-        tv_add_image = (TextView) view.findViewById(R.id.tv_add_image);
-        rv_image_rl.addItemDecoration(new SpacesItemDecoration(DensityUtil.dpToPx(context, IMAGE_MARGIN - DELETE_IMAGE_SIZE / 2)));//item之间的间距
+        rv_image_rl.addItemDecoration(new GridSpacingItemDecoration(4,IMAGE_MARGIN,false));//item之间的间距
 
-        rv_image_rl.setAdapter(adapter_img);
+        UploadImage uploadImage = new UploadImage();
+        uploadImage.setType(1);
+        uploadImages.add(uploadImage);
+        adapter = new ImageSelectAdapter(uploadImages, wrap_width, this);
+        rv_image_rl.setAdapter(adapter);
         rv_image_rl.setHasFixedSize(true);
-        rv_image_rl.setLayoutManager(new FullyLinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        rv_image_rl.setLayoutManager(new GridLayoutManager(context, 4));
 
         //图片高度 = (屏幕宽度 - 左右间距 - 间隔)/4 - 一半的删除图标
-        sdv_size = wrap_width - DensityUtil.dpToPx(context, DELETE_IMAGE_SIZE / 2);
-        LayoutParams param = new LayoutParams(sdv_size, sdv_size);
-        param.topMargin = DensityUtil.dpToPx(context, DELETE_IMAGE_SIZE / 2);
-        tv_add_image.setLayoutParams(param);
-
-        tv_add_image.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toShowDialog();
-            }
-        });
+        sdv_size = wrap_width;
 
         addView(view);
     }
@@ -168,9 +135,9 @@ public class ImageSelectView extends LinearLayout {
     }
 
     private void toShowDialog() {
-        if (imgs.size() < BaseConfig.MAX_IMG) {
+        if (adapter.getImageSize() < BaseConfig.MAX_IMG) {
             temp_path = FileUtil.getBaseImageDir() + System.currentTimeMillis() + ".jpg";
-            showAddImageDialog((Activity) context, (BaseConfig.MAX_IMG - imgs.size()), temp_path);
+            showAddImageDialog((Activity) context, (BaseConfig.MAX_IMG - adapter.getImageSize()), temp_path);
         } else {
             ToastUtil.getInstance().showToast( "图片数目已达上限");
         }
@@ -188,12 +155,12 @@ public class ImageSelectView extends LinearLayout {
         final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
         final android.support.v7.app.AlertDialog dialog;
         final LinearLayout layout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.alert_dialog_select_image, null);
+
         builder.setView(layout);
         TextView tv_add_image_phone = (TextView) layout.findViewById(R.id.tv_add_image_phone);
         TextView tv_add_image_galley = (TextView) layout.findViewById(R.id.tv_add_image_galley);
 
         dialog = builder.create();
-
         final PackageManager pm = activity.getPackageManager();
 
         tv_add_image_phone.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +189,7 @@ public class ImageSelectView extends LinearLayout {
             }
         });
         dialog.show();
+        dialog.getWindow().setLayout(DensityUtil.dpToPx(activity,300), LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     public static void getImageFromAlbum(Activity activity, int count) {
@@ -242,10 +210,23 @@ public class ImageSelectView extends LinearLayout {
         if (state.equals(Environment.MEDIA_MOUNTED)) {
             try {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                Uri uri = Uri.fromFile(new File(filePath));
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, IntentConfig.REQUEST_CODE_CAMERA_IMAGE);
-                activity.startActivityForResult(intent, IntentConfig.REQUEST_CODE_CAMERA_IMAGE);
+                if (Build.VERSION.SDK_INT < 24) {
+                    Uri uri = Uri.fromFile(new File(filePath));
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, IntegerConfig.REQUEST_CODE_CAMERA_IMAGE);
+                    activity.startActivityForResult(intent, IntegerConfig.REQUEST_CODE_CAMERA_IMAGE);
+                } else {
+                    //适配安卓7.0
+                    ContentValues contentValues=new ContentValues(1);
+                    contentValues.put(MediaStore.Images.Media.DATA,
+                            new File(filePath).getAbsolutePath());
+                    Uri uri= activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+                    activity.grantUriPermission(activity.getPackageName(),uri,Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+                    activity.startActivityForResult(intent, IntegerConfig.REQUEST_CODE_CAMERA_IMAGE);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -255,22 +236,36 @@ public class ImageSelectView extends LinearLayout {
     }
 
     public void notifyDataSetChanged() {
-        if (imgs.size() == 4) {
-            tv_add_image.setVisibility(GONE);
+        if (adapter.getImageSize() == BaseConfig.MAX_IMG) {
+            removeAddImageView();
         }
-        adapter_img.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+    }
+
+    private void removeAddImageView() {
+        for (int i = 0; i < adapter.getData().size();i++) {
+            if (adapter.getData().get(i).getItemType() == 1) {
+                adapter.getData().remove(i);
+                break;
+            }
+        }
     }
 
     /**
      * 拍照返回添加
      */
     public void addCameraImage() {
-        imgs.add(temp_path);
-        image_ids.add("");
-        if (imgs.size() == 4) {
-            tv_add_image.setVisibility(GONE);
+        UploadImage uploadImage = new UploadImage();
+        uploadImage.setUrl(temp_path);
+        uploadImage.setImage_id("");
+        if (adapter.getData().size() == 0)
+            adapter.getData().add(uploadImage);
+        else
+            adapter.getData().add(adapter.getData().size() - 1,uploadImage);
+        if (adapter.getImageSize() == BaseConfig.MAX_IMG) {
+            removeAddImageView();
         }
-        adapter_img.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -284,13 +279,18 @@ public class ImageSelectView extends LinearLayout {
         }
         List<String> temps = data.getExtras().getStringArrayList("datas");
         for (String path : temps) {
-            imgs.add(path);
-            image_ids.add("");
+            UploadImage uploadImage = new UploadImage();
+            uploadImage.setUrl(path);
+            uploadImage.setImage_id("");
+            if (adapter.getData().size() == 0)
+                adapter.getData().add(uploadImage);
+            else
+                adapter.getData().add(adapter.getData().size() - 1,uploadImage);
         }
-        if (imgs.size() == 4) {
-            tv_add_image.setVisibility(GONE);
+        if (adapter.getImageSize() == BaseConfig.MAX_IMG) {
+            removeAddImageView();
         }
-        adapter_img.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -300,36 +300,49 @@ public class ImageSelectView extends LinearLayout {
      * @param id   如果是服务器图片，需要给出图片的id
      */
     public void addImage(String path, String id) {
-        if (imgs != null && path != null) {
-            if (imgs.size() < BaseConfig.MAX_IMG) {
-                imgs.add(path);
-                image_ids.add(id);
+        if (uploadImages != null && path != null) {
+            if (adapter.getImageSize() < BaseConfig.MAX_IMG) {
+                UploadImage uploadImage = new UploadImage();
+                uploadImage.setUrl(path);
+                uploadImage.setImage_id(id);
             }
         }
-        adapter_img.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+    }
+
+    private boolean isFull(int size) {
+        imageIds.clear();
+        for (int i = 0; i < size; i++) {
+            String image_id = adapter.getData().get(i).getImage_id();
+            if (TextUtils.isEmpty(image_id)) {
+                return false;
+            }
+            imageIds.add(image_id);
+        }
+        return true;
     }
 
     /**
      * 上传图片到服务端
      */
     public void uploadImage() {
-        if (imgs.size() == 0 && !isNeed) {
+        int imageSize = adapter.getImageSize();
+        if (imageSize == 0 && !isNeed) {
             ToastUtil.getInstance().showToast("请至少添加一张图片");
             upload_listener.onUpLoadFailed(new Exception("There is no file need to upload"));
             return;
         }
 
         // 上传之前先判断是不是所有的都是已上传的土拍呢，如果是则直接走回调
-        if (CommonUtils.isFull(image_ids, image_ids.size())) {
-            JLog.i(TAG, "image_ids size:" + image_ids.size() + "||" + new Gson().toJson(image_ids) + ",upload_listener:" + upload_listener);
+        if (isFull(imageSize)) {
             if (upload_listener != null) {
-                upload_listener.onUpLoadComplete(toStringArray(image_ids));
+                upload_listener.onUpLoadComplete(toStringArray(imageIds));
                 return;
             }
         }
-        for (int i = 0; i < imgs.size(); i++) {
-            if (image_ids.get(i).equals("")) {
-                final String file_path = imgs.get(i);
+        for (int i = 0; i < imageSize; i++) {
+            if (adapter.getData().get(i).equals("")) {
+                final String file_path = adapter.getData().get(i).getUrl();
                 File file = ImageUtil.getCompressFile(file_path);
                 // create your getFile object here
                 if (file == null) {
@@ -397,156 +410,38 @@ public class ImageSelectView extends LinearLayout {
         this.upload_listener = upload_listener;
     }
 
-    public List<String> getData() {
-        return imgs;
-    }
-
-    public void setData(List<String> datas) {
-        if (datas != null && datas.size() > 0) {
-            for (String path : datas) {
-                if (imgs.size() < BaseConfig.MAX_IMG) {
-                    imgs.add(path);
-                }
-            }
-        }
-        adapter_img.notifyDataSetChanged();
-    }
+//    public List<UploadImage> getData() {
+//        return adapter.getData();
+//    }
+//
+//    public void setData(List<UploadImage> datas) {
+//        if (datas != null && datas.size() > 0) {
+//            for (UploadImage path : datas) {
+//                if (adapter.getImageSize() < BaseConfig.MAX_IMG) {
+//                    adapter.getData().add(path);
+//                }
+//            }
+//        }
+//        adapter.notifyDataSetChanged();
+//    }
 
     public String[] getResult() {
-        return toStringArray(image_ids);
+        return toStringArray(imageIds);
+    }
+
+    @Override
+    public void onAddViewClick() {
+        toShowDialog();
+        if (upload_listener != null) {
+            upload_listener.onAddImageClick(this);
+        }
     }
 
     public interface OnImageUpLoadCompleteListener {
         void onUpLoadComplete(String[] ids);
 
         void onUpLoadFailed(Throwable e);
-    }
 
-    public class ImageAdapter extends RecyclerView.Adapter<ImageVH> {
-        private List<String> imgs = new ArrayList<>();
-        private Context context;
-        private boolean candelete = true;// 是否可以删除
-        private int flag = 0;
-        private String TAG = ImageAdapter.class.getSimpleName();
-
-        public ImageAdapter(List<String> imgs, Context context) {
-            this.imgs = imgs;
-            this.context = context;
-        }
-
-        public ImageAdapter(List<String> imgs, Context context, boolean candelete) {
-            this.imgs = imgs;
-            this.context = context;
-            this.candelete = candelete;
-        }
-
-        public ImageAdapter(List<String> imgs, Context context, int flag) {
-            this.imgs = imgs;
-            this.context = context;
-            this.flag = flag;
-        }
-
-        public void setImgs(List<String> imgs) {
-            this.imgs = imgs;
-        }
-
-        @Override
-        public ImageVH onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_add_img, parent, false);
-            view.setLayoutParams(new ViewGroup.LayoutParams(wrap_width, wrap_height));
-            ImageVH vh = new ImageVH(view);
-
-            vh.sdv = (GlideImageView) view.findViewById(R.id.sdv);
-            vh.iv = (ImageView) view.findViewById(R.id.iv);
-
-            JLog.d(TAG, "sdv_size = " + sdv_size);
-            RelativeLayout.LayoutParams sdv_param = new RelativeLayout.LayoutParams(sdv_size, sdv_size);
-            sdv_param.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            sdv_param.setMargins(0, DELETE_IMAGE_SIZE / 2, DELETE_IMAGE_SIZE, 0);
-            vh.sdv.setLayoutParams(sdv_param);
-
-            return vh;
-        }
-
-        @Override
-        public void onBindViewHolder(final ImageVH holder, final int position) {
-            String uri;
-            if (imgs != null && imgs.size() > 0) {
-                if (imgs.get(position) != null && imgs.get(position).startsWith("http")) {
-                    uri = imgs.get(position);
-                } else {
-                    uri = "file://" + imgs.get(position);
-                }
-                JLog.i(TAG, "uri:" + uri);
-                Glide.with(context)
-                        .load(uri)
-                        .apply(new RequestOptions()
-                                .centerCrop()
-                                .error(R.drawable.no_pic))
-                        .into(holder.sdv);
-
-                if (candelete) {
-                    holder.iv.setVisibility(View.VISIBLE);
-                    holder.iv.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            imgs.remove(position);
-                            image_ids.remove(position);
-
-                            if (imgs.size() < 4) {
-                                tv_add_image.setVisibility(VISIBLE);
-                            }
-
-                            notifyDataSetChanged();
-                        }
-                    });
-                } else {
-                    holder.iv.setVisibility(View.GONE);
-                }
-                if (flag != 0) {
-                    holder.iv.setVisibility(View.GONE);
-                }
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return imgs.size();
-        }
-    }
-
-    public class ImageVH extends RecyclerView.ViewHolder {
-        public GlideImageView sdv;
-        public ImageView iv;
-        public View root;
-
-        public ImageVH(View itemView) {
-            super(itemView);
-            this.root = itemView;
-        }
-    }
-
-    /**
-     * 设置recyclerview间距的
-     */
-    public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-        private int space;
-
-        public SpacesItemDecoration(int space) {
-            this.space = space;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view,
-                                   RecyclerView parent, RecyclerView.State state) {
-//            outRect.left = space;
-            outRect.right = space;
-//            outRect.bottom = space;
-
-            // Add top margin only for the first item to avoid double space between items
-//            if (parent.getChildPosition(view) == 0)
-//                outRect.top = space;
-        }
+        void onAddImageClick(ImageSelectView imageSelectView);
     }
 }

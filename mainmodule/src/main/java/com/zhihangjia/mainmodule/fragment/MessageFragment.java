@@ -4,6 +4,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
@@ -13,6 +15,7 @@ import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.fragment.BaseTitleFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.PostActivity;
 import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MessageCategoryViewPagerAdapter;
@@ -85,6 +88,17 @@ public class MessageFragment extends BaseTitleFragment {
         adapter = new FragmentPagerAdapter(getActivity().getSupportFragmentManager(), getActivity(), fragments);
         fragmentMessageBinding.vp.setAdapter(adapter);
 
+
+        fragmentMessageBinding.tl.setupWithViewPager(fragmentMessageBinding.vp);
+
+        fragmentMessageBinding.tl.getTabAt(0).setText("24小时热点");
+        fragmentMessageBinding.tl.getTabAt(1).setText("最新发布");
+        fragmentMessageBinding.tl.getTabAt(2).setText("最后回复");
+
+        setListener();
+    }
+
+    private void setListener() {
         fragmentMessageBinding.vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -101,12 +115,15 @@ public class MessageFragment extends BaseTitleFragment {
 
             }
         });
-
-        fragmentMessageBinding.tl.setupWithViewPager(fragmentMessageBinding.vp);
-
-        fragmentMessageBinding.tl.getTabAt(0).setText("24小时热点");
-        fragmentMessageBinding.tl.getTabAt(1).setText("最新发布");
-        fragmentMessageBinding.tl.getTabAt(2).setText("最后回复");
+        baseTitleBinding.tTitle.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.publishMessage) {
+                    doIntent(PostActivity.class,null);
+                }
+                return false;
+            }
+        });
     }
 
     @Override
