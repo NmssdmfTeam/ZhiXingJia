@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            >
+
+            <RadioButton
+                android:id="@+id/rbSelectAll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:drawableLeft="@drawable/icon_select"
+                android:paddingLeft="16dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="xxxxx"
+                android:textColor="#FF333333"
+                android:textSize="14dp"
+                android:drawableLeft="@drawable/icon_shop"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/rbSelectAll"
+                android:layout_marginLeft="12dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_arrow_item_right"
+                android:scaleType="center"
+                android:layout_alignParentRight="true"
+                android:paddingRight="16dp"
+                android:paddingLeft="5dp"
+                />
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"/>
+
+        <LinearLayout
+            android:id="@+id/llMerchandise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:text="44.7"
+                android:textColor="#FFFF5C4A"
+                android:textSize="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:id="@+id/tvPriceUnit"
+                android:layout_width="12.5dp"
+                android:layout_height="16.5dp"
+                android:text="￥"
+                android:textColor="#FFFF5C4A"
+                android:textSize="12dp"
+                android:layout_toLeftOf="@+id/tvPrice"
+                android:layout_alignBaseline="@+id/tvPrice"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="18.5dp"
+                android:text="共1件"
+                android:textColor="#FF333333"
+                android:textSize="13dp"
+                android:layout_toLeftOf="@+id/tvPriceUnit"
+                android:layout_alignBaseline="@+id/tvPriceUnit"
+                android:layout_marginRight="12dp"
+                />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="375dp"
+            android:layout_height="12dp"
+            android:background="#FFF6F6F6"
+            />
+
+    </LinearLayout>
+</layout>
