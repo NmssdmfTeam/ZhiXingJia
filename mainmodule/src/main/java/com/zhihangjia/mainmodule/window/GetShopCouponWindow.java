@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.nmssdmf.commonlib.util.ContextUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.zhihangjia.mainmodule.R;
@@ -21,7 +20,7 @@ import com.zhihangjia.mainmodule.viewmodel.ChooseShopCouponWindowVM;
 public class ChooseShopCouponWindow extends PopupWindow implements ChooseShopCouponWindowCB{
     private ChooseShopCouponWindowVM vm;
     public ChooseShopCouponWindow(final Context context) {
-        WindowChooseShopCouponBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_choose_shop_coupon, null, false);
+        WindowChooseShopCouponBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_get_shop_coupon, null, false);
         setContentView(binding.getRoot());
 
         vm = new ChooseShopCouponWindowVM(this);
