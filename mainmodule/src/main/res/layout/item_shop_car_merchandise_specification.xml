@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="46dp"
+            android:layout_alignParentBottom="true"/>
+
+        <RadioButton
+            android:id="@+id/rbSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:button="@null"
+            android:drawableLeft="@drawable/icon_select"
+            android:paddingLeft="16dp"
+            />
+
+        <TextView
+            android:id="@+id/tvSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="16.5dp"
+            android:text="规格：红色+90cm"
+            android:textColor="#FF333333"
+            android:textSize="12dp"
+            android:layout_toRightOf="@+id/rbSelect"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            />
+
+
+        <TextView
+            android:id="@+id/tvPriceUnit"
+            android:layout_width="11.5dp"
+            android:layout_height="15dp"
+            android:text="￥"
+            android:textColor="#FFFF5C4A"
+            android:textSize="11dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_alignLeft="@+id/tvSpecification"
+            />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="44.7"
+            android:textColor="#FFFF5C4A"
+            android:textSize="14dp"
+            android:layout_alignBaseline="@+id/tvPriceUnit"
+            android:layout_toRightOf="@+id/tvPriceUnit"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:text="/件"
+            android:textColor="#FF999999"
+            android:textSize="10dp"
+            android:layout_alignBaseline="@+id/tvPrice"
+            android:layout_toRightOf="@+id/tvPrice"
+            />
+
+        <com.zhihangjia.mainmodule.view.AddMinusView
+            android:id="@+id/amv"
+            android:layout_width="105dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            app:maxNum="10"
+            />
+
+    </RelativeLayout>
+</layout>

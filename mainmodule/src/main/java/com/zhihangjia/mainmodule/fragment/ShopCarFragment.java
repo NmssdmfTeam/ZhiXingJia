@@ -3,10 +3,13 @@ package com.zhihangjia.mainmodule.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.databinding.FragmentShopcarBinding;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.adapter.ShopCarAdapter;
+import com.zhihangjia.mainmodule.callback.ShopCarFragmentCB;
+import com.zhihangjia.mainmodule.databinding.FragmentShopcarBinding;
+import com.zhihangjia.mainmodule.viewmodel.ShopCarFragmentVM;
 
 /**
 * @description 知行家首页-- 建材家居fragment
@@ -14,14 +17,17 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 * @date 2018/11/13 15:53
 * @version v3.2.0
 */
-public class ShopCarFragment extends BaseFragment {
+public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
     private final String TAG = ShopCarFragment.class.getSimpleName();
     private FragmentShopcarBinding binding;
 
+    private ShopCarAdapter adapter;
+    private ShopCarFragmentVM vm;
+
     @Override
     public BaseVM initViewModel() {
-        return new BaseVM(this) {
-        };
+        vm = new ShopCarFragmentVM(this);
+        return vm;
     }
 
     @Override
@@ -31,7 +37,10 @@ public class ShopCarFragment extends BaseFragment {
 
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
-
+        binding = (FragmentShopcarBinding) baseBinding;
+        vm.getData();
+        adapter = new ShopCarAdapter(vm.getList());
+        binding.crv.setAdapter(adapter);
     }
 
     @Override

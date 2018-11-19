@@ -13,7 +13,7 @@ import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;
 import com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailFragmentVM;
-import com.zhihangjia.mainmodule.window.ChooseShopCouponWindow;
+import com.zhihangjia.mainmodule.window.GetShopCouponWindow;
 import com.zhihangjia.mainmodule.window.ChooseSpecificationWindow;
 
 
@@ -27,7 +27,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
 
     private FragmentMerchandiseDetailBinding binding;
 
-    private ChooseShopCouponWindow chooseShopCouponWindow;
+    private GetShopCouponWindow getShopCouponWindow;
     private ChooseSpecificationWindow chooseSpecificationWindow;
     @Override
     public BaseVM initViewModel() {
@@ -58,10 +58,10 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
 
     @Override
     public void showChooseCouponWindow() {
-        if (chooseShopCouponWindow == null) {
-            chooseShopCouponWindow = new ChooseShopCouponWindow(getActivity());
+        if (getShopCouponWindow == null) {
+            getShopCouponWindow = new GetShopCouponWindow(getActivity());
         }
-        chooseShopCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
+        getShopCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 
     @Override

@@ -10,7 +10,8 @@ import java.util.List;
 public class ConfirmOrderVM extends BaseVM {
     private ConfirmOrderCB cb;
 
-    private List<Base> list = new ArrayList<>();
+    private List<Base> list = new ArrayList<>();//商品数据
+    private List<Base> couponList = new ArrayList<>();//优惠券数据
     /**
      * 不需要callback可以传null
      *
@@ -33,5 +34,13 @@ public class ConfirmOrderVM extends BaseVM {
 
     public void setList(List<Base> list) {
         this.list = list;
+    }
+
+    public List<Base> getCouponList() {
+        return couponList;
+    }
+
+    public void setCouponList(List<Base> couponList) {
+        this.couponList = couponList;
     }
 }

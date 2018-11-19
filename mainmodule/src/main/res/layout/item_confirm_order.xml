@@ -94,8 +94,9 @@
                 />
 
             <TextView
+                android:id="@+id/tvDeliveryMethod"
                 android:layout_width="wrap_content"
-                android:layout_height="18.5dp"
+                android:layout_height="match_parent"
                 android:text="商家配送 ￥10"
                 android:textColor="#FF333333"
                 android:textSize="13dp"
@@ -103,6 +104,7 @@
                 android:drawableRight="@drawable/icon_arrow_item_right"
                 android:layout_alignParentRight="true"
                 android:drawablePadding="6dp"
+                android:gravity="center_vertical"
                 />
 
         </RelativeLayout>
@@ -132,13 +134,14 @@
 
             <ImageView
                 android:id="@+id/ivCouponArrow"
-                android:layout_width="10.85dp"
-                android:layout_height="10.85dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon_arrow_item_right" />
 
             <TextView
+                android:id="@+id/tvCouponCount"
                 android:layout_width="wrap_content"
                 android:layout_height="18.5dp"
                 android:text="5张可用"

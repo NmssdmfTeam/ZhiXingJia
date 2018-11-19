@@ -1,8 +1,5 @@
 package com.zhihangjia.mainmodule.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -39,10 +36,6 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     private ActivityMainBinding binding;
 
     private int current_index = 0;
-    private float llBottomNavigationY = 0;
-
-    private ObjectAnimator objectAnimatorMoveIn;
-    private ObjectAnimator objectAnimatorMoveOut;
 
     /**
      * 三个值分别为总首页fragment，配件首页fragment和成品首页fragment
@@ -95,12 +88,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         binding.mfth.setCurrentTab(current_index);
         setSelectedTab(current_index, true);// 设置初始选中状态
         binding.mfth.setOnTabChangedListener(this);
-        binding.llBottomNavigation.post(new Runnable() {
-            @Override
-            public void run() {
-                llBottomNavigationY = binding.llBottomNavigation.getY();
-            }
-        });
+
     }
 
     @Override
@@ -114,6 +102,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
                 }
                 break;
             }
+
         }
     }
 
@@ -165,46 +154,5 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         });
 
         return view;
-    }
-
-    public void bottomNavigationMoveIn() {
-        float offset = binding.llBottomNavigation.getTranslationY() - llBottomNavigationY;
-        if (offset < Math.pow(0.1, 10))
-            return;
-        if (objectAnimatorMoveIn == null || !objectAnimatorMoveIn.isRunning()) {
-            if (objectAnimatorMoveOut != null && objectAnimatorMoveOut.isRunning())
-                objectAnimatorMoveOut.cancel();
-            JLog.d(TAG, "bottomNavigationMoveIn offset:"+offset);
-            JLog.d(TAG, "bottomNavigationMoveIn getY():"+binding.llBottomNavigation.getTranslationY());
-            JLog.d(TAG, "bottomNavigationMoveIn llBottomNavigationY:"+llBottomNavigationY);
-            objectAnimatorMoveIn = ObjectAnimator.ofFloat(binding.llBottomNavigation, "translationY", offset, 0);
-            objectAnimatorMoveIn.setDuration(500);
-            objectAnimatorMoveIn.start();
-            objectAnimatorMoveIn.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-
-                }
-            });
-        }
-        JLog.d(TAG, "bottomNavigationMoveIn");
-    }
-
-    public void bottomNavigationMoveOut() {
-        float offset = binding.llBottomNavigation.getWidth() + llBottomNavigationY - binding.llBottomNavigation.getTranslationY();
-        if (offset < Math.pow(0.1, 10))
-            return;
-        if (objectAnimatorMoveOut == null || !objectAnimatorMoveOut.isRunning()) {
-            if (objectAnimatorMoveIn != null && objectAnimatorMoveIn.isRunning())
-                objectAnimatorMoveIn.cancel();
-            JLog.d(TAG, "bottomNavigationMoveOut offset:"+offset);
-            JLog.d(TAG, "bottomNavigationMoveOut getY():"+binding.llBottomNavigation.getY());
-            JLog.d(TAG, "bottomNavigationMoveOut llBottomNavigationY:"+llBottomNavigationY);
-            objectAnimatorMoveOut = ObjectAnimator.ofFloat(binding.llBottomNavigation, "translationY", binding.llBottomNavigation.getY() - llBottomNavigationY, offset);
-            objectAnimatorMoveOut.setDuration(500);
-            objectAnimatorMoveOut.start();
-        }
-        JLog.d(TAG, "bottomNavigationMoveOut");
     }
 }

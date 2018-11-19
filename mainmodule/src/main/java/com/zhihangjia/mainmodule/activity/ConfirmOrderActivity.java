@@ -2,26 +2,32 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.ConfirmOrderAdapter;
+import com.zhihangjia.mainmodule.callback.ConfirmOrderAdapterCB;
 import com.zhihangjia.mainmodule.callback.ConfirmOrderCB;
 import com.zhihangjia.mainmodule.databinding.ActivityConfirmOrderBinding;
 import com.zhihangjia.mainmodule.databinding.HeaderConfirmOrderBinding;
 import com.zhihangjia.mainmodule.viewmodel.ConfirmOrderVM;
+import com.zhihangjia.mainmodule.window.ChooseCouponWindow;
+import com.zhihangjia.mainmodule.window.DeliveryMethodWindow;
 
 /**
  * 确认订单
  */
-public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOrderCB {
+public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOrderCB, ConfirmOrderAdapterCB {
     private final String TAG = ConfirmOrderActivity.class.getSimpleName();
     private ActivityConfirmOrderBinding binding;
     private ConfirmOrderVM vm;
 
     private ConfirmOrderAdapter adapter;
+    private DeliveryMethodWindow deliveryMethodWindow;
+    private ChooseCouponWindow chooseCouponWindow;
     @Override
     public String getTAG() {
         return TAG;
@@ -44,7 +50,7 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
         binding.setVm(vm);
 
         vm.initData();
-        adapter = new ConfirmOrderAdapter(vm.getList());
+        adapter = new ConfirmOrderAdapter(vm.getList(), this);
         HeaderConfirmOrderBinding headerBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.header_confirm_order, null, false);
         adapter.addHeaderView(headerBinding.getRoot());
         binding.crv.setAdapter(adapter);
@@ -53,5 +59,23 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     @Override
     public int getContentViewId() {
         return R.layout.activity_confirm_order;
+    }
+
+    @Override
+    public void chooseDeliveryMethod() {
+        if (deliveryMethodWindow == null) {
+            deliveryMethodWindow = new DeliveryMethodWindow(this);
+        }
+
+        deliveryMethodWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
+    }
+
+    @Override
+    public void chooseCoupon() {
+        if (chooseCouponWindow == null) {
+            chooseCouponWindow = new ChooseCouponWindow(this, ChooseCouponWindow.TYPE_MERCHANT, vm.getCouponList());
+        }
+
+        chooseCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 }

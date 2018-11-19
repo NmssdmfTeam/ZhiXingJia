@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="114dp"
+            android:background="#FFFFFFFF"
+            >
+
+            <RadioButton
+                android:id="@+id/rbSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:button="@null"
+                android:drawableLeft="@drawable/icon_select"
+                android:paddingLeft="16dp"
+                />
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@+id/rbSelect"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="18dp"
+                android:layout_toRightOf="@+id/ivIcon"
+                android:text="程辉世纪装饰工装家装设计施工工装家装设计施工"
+                android:textColor="#FF333333"
+                android:textSize="14dp"
+                />
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="46dp"/>
+
+        <LinearLayout
+            android:id="@+id/llSpecification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
