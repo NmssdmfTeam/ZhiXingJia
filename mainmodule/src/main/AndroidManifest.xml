@@ -66,6 +66,9 @@
         <activity
             android:name=".activity.PostActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.MessageCenterModuleActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
