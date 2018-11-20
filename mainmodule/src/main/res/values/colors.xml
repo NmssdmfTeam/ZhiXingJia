@@ -12,4 +12,5 @@
     <!-- 搜索透明背景色 -->
     <color name="search_gray_trans">#FFF1F1F1</color>
     <color name="search_black_trans">#33000000</color>
+    <color name="btn_yellow">#FFFF9A14</color>
 </resources>

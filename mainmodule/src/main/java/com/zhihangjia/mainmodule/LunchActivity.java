@@ -5,10 +5,12 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.AddOrEditAddressActivity;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.activity.ManageAddressListActivity;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
@@ -136,6 +138,18 @@ public class LunchActivity extends BaseTitleActivity {
             @Override
             public void onClick(View v) {
                 doIntent(MyPostActivity.class,null);
+            }
+        });
+        binding.btnManageAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(ManageAddressListActivity.class,null);
+            }
+        });
+        binding.btnAddOrEditAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(AddOrEditAddressActivity.class,null);
             }
         });
 

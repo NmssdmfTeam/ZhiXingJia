@@ -77,6 +77,13 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.OrderListActivity">
         </activity>
+        <activity
+            android:name=".activity.ManageAddressListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.AddOrEditAddressActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
