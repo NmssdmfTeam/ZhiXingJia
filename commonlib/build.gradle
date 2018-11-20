@@ -31,7 +31,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
     /**
      * OkHttp-3.2.0 contains library:okhttp-3.2.0,okio-1.6.0
      */
@@ -50,4 +49,5 @@ dependencies {
     api project(':customerviewlib')
     api project(':gallery_library')
     api 'me.jessyan:autosize:1.0.6'
+    api project(':WheelPicker')
 }

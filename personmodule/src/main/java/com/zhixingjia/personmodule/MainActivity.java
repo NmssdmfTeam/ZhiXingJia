@@ -5,7 +5,9 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhixingjia.personmodule.activity.MyCouponsActivity;
 import com.zhixingjia.personmodule.activity.PersonInfoActivity;
+import com.zhixingjia.personmodule.activity.SetActivity;
 import com.zhixingjia.personmodule.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseTitleActivity {
@@ -34,6 +36,20 @@ public class MainActivity extends BaseTitleActivity {
             @Override
             public void onClick(View v) {
                 doIntent(PersonInfoActivity.class, null);
+            }
+        });
+
+        binding.btnMyCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(MyCouponsActivity.class, null);
+            }
+        });
+
+        binding.btnSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(SetActivity.class, null);
             }
         });
     }

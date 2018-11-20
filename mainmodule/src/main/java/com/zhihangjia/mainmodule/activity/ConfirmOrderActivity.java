@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.nmssdmf.commonlib.window.WheelPickerWindow;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.ConfirmOrderAdapter;
 import com.zhihangjia.mainmodule.callback.ConfirmOrderAdapterCB;
@@ -15,7 +16,6 @@ import com.zhihangjia.mainmodule.databinding.ActivityConfirmOrderBinding;
 import com.zhihangjia.mainmodule.databinding.HeaderConfirmOrderBinding;
 import com.zhihangjia.mainmodule.viewmodel.ConfirmOrderVM;
 import com.zhihangjia.mainmodule.window.ChooseCouponWindow;
-import com.zhihangjia.mainmodule.window.DeliveryMethodWindow;
 
 /**
  * 确认订单
@@ -26,8 +26,9 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     private ConfirmOrderVM vm;
 
     private ConfirmOrderAdapter adapter;
-    private DeliveryMethodWindow deliveryMethodWindow;
+    private WheelPickerWindow deliveryMethodWindow;
     private ChooseCouponWindow chooseCouponWindow;
+
     @Override
     public String getTAG() {
         return TAG;
@@ -46,7 +47,7 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
 
     @Override
     public void initContent(Bundle savedInstanceState) {
-        binding = (ActivityConfirmOrderBinding)baseViewBinding;
+        binding = (ActivityConfirmOrderBinding) baseViewBinding;
         binding.setVm(vm);
 
         vm.initData();
@@ -64,7 +65,7 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     @Override
     public void chooseDeliveryMethod() {
         if (deliveryMethodWindow == null) {
-            deliveryMethodWindow = new DeliveryMethodWindow(this);
+            deliveryMethodWindow = new WheelPickerWindow(this, vm.getDeliveryMethodList(), vm);
         }
 
         deliveryMethodWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);

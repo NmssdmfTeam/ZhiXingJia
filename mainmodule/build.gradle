@@ -55,5 +55,4 @@ dependencies {
     implementation project(':commonlib')
     implementation project(':httplib')
     implementation "com.android.support:design:$suppert_verison"
-    implementation project(':WheelPicker')
 }

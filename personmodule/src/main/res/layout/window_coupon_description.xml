@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="280dp"
+        android:layout_height="186dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/ivTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/use_description"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"/>
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1、老克勒左南非世界杯南非世界杯。
+2、老克勒百花村大舒服点东西都有茜。
+3、老克勒布艺城东西都有。
+4、老克勒布艺城甘。
+5、奋达奋达发大水发南非世界杯。"
+            android:textColor="#FF333333"
+            android:textSize="13dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ivTitle"
+            android:lineSpacingExtra="7dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            />
+    </RelativeLayout>
+</layout>
