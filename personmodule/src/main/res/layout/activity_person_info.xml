@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_grey_bg"
+        android:orientation="vertical"
+        tools:context="com.zhixingjia.personmodule.activity.PersonInfoActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#FFFFFFFF"
+            >
+
+            <TextView
+                android:layout_width="32dp"
+                android:layout_height="22.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="头像"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                />
+
+            <ImageView
+                android:id="@+id/ivIconArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:scaleType="center"
+                android:src="@drawable/icon_arrow_item_right"/>
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3.5dp"
+                android:layout_toLeftOf="@+id/ivIconArrow"
+                />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFFFF"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="昵称"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="16dp"
+                android:drawablePadding="3.5dp"
+                android:drawableRight="@drawable/icon_arrow_item_right"
+                android:gravity="center_vertical"
+                android:text="知行家 fda"
+                android:textColor="#FFCCCCCC"
+                android:textSize="15dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFFFF"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="真是姓名"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="16dp"
+                android:drawablePadding="3.5dp"
+                android:drawableRight="@drawable/icon_arrow_item_right"
+                android:gravity="center_vertical"
+                android:text="知行家 fda"
+                android:textColor="#FFCCCCCC"
+                android:textSize="15dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFFFF"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="性别"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="16dp"
+                android:drawablePadding="3.5dp"
+                android:drawableRight="@drawable/icon_arrow_item_right"
+                android:gravity="center_vertical"
+                android:text="男"
+                android:textColor="#FFCCCCCC"
+                android:textSize="15dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
+

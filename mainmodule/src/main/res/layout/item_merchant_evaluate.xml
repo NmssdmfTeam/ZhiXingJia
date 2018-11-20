@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/givIcon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="22.5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="14.5dp"
+            android:layout_toRightOf="@+id/givIcon"
+            android:text="城内人"
+            android:textColor="#FF333333"
+            android:textSize="16dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="16.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="18dp"
+            android:text="2018-11-12"
+            android:textColor="#FF999999"
+            android:textSize="12dp"
+            />
+
+        <TextView
+            android:id="@+id/tvNameAndSpec"
+            android:layout_width="match_parent"
+            android:layout_height="16.5dp"
+            android:layout_below="@id/givIcon"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:text="商品：老克勒发一发了的商品标题"
+            android:textColor="#FF999999"
+            android:textSize="12dp"
+            />
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_below="@+id/tvNameAndSpec"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="6dp"
+            android:text="等了老久，特能装 大容量 好看哈哈哈哈等了老久，特能装 大容量 好看哈哈哈哈"
+            android:textColor="#FF000000"
+            android:textSize="15dp"
+            />
+
+        <com.nmssdmf.commonlib.view.TagLayout
+            android:id="@+id/tl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvContent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            app:line_count="3">
+
+        </com.nmssdmf.commonlib.view.TagLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/tl"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"/>
+
+    </RelativeLayout>
+</layout>

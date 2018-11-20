@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class MerchantEvaluateAdapter extends BaseDataBindingAdapter<Base, ItemMerchantMainBinding> {
     public MerchantEvaluateAdapter(@Nullable List<Base> data) {
-        super(R.layout.item_merchant_main, data);
+        super(R.layout.item_merchant_evaluate, data);
     }
 
     @Override

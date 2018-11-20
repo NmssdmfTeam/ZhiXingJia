@@ -1,1 +1,1 @@
-include ':app', ':customerviewlib', ':commonlib', ':loginmodule', ':httplib', ':gallery_library', ':mainmodule', ':WheelPicker'
+include ':app', ':customerviewlib', ':commonlib', ':loginmodule', ':httplib', ':gallery_library', ':mainmodule', ':WheelPicker', ':personmodule'
