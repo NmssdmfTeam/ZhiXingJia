@@ -4,31 +4,31 @@ import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.adapter.DailyHotNewsAdapter;
-import com.zhihangjia.mainmodule.adapter.FocusNewsAdapter;
-import com.zhihangjia.mainmodule.viewmodel.DailyHotNewsVM;
+import com.zhihangjia.mainmodule.adapter.MyPostReplyAdapter;
+import com.zhihangjia.mainmodule.viewmodel.MyPostReplyFragmentVM;
 
 import java.util.List;
 
 /**
- * 24小时热点新闻fragment
- * Create by chenbin on 2018/11/18
- * <p>
- * <p>
- */
-public class DailyHotNewsFragment extends BaseRecyclerViewFragment {
-    private DailyHotNewsVM vm;
-    private DailyHotNewsAdapter adapter;
-    private String TAG = DailyHotNewsFragment.class.getSimpleName();
+* @description 我的帖子 -- 回帖
+* @author chenbin
+* @date 2018/11/20 18:24
+* @version v3.2.0
+*/
+public class MyPostReplyFragment extends BaseRecyclerViewFragment {
+    private MyPostReplyFragmentVM vm;
+    private MyPostReplyAdapter adapter;
+    private final String TAG = MyPostReplyFragment.class.getSimpleName();
 
     @Override
     public BaseRecyclerViewFragmentVM initRecyclerViewFragmentVM() {
-        vm = new DailyHotNewsVM(this);
+        vm = new MyPostReplyFragmentVM(this);
         return vm;
     }
 
     @Override
     public BaseDataBindingAdapter initAdapter(List list) {
-        adapter = new DailyHotNewsAdapter(list);
+        adapter = new MyPostReplyAdapter(list);
         return adapter;
     }
 

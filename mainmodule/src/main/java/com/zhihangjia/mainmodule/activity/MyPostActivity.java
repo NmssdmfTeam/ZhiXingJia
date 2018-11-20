@@ -13,6 +13,7 @@ import com.zhihangjia.mainmodule.fragment.MerchantAllFragment;
 import com.zhihangjia.mainmodule.fragment.MerchantEvaluateFragment;
 import com.zhihangjia.mainmodule.fragment.MerchantMainFragment;
 import com.zhihangjia.mainmodule.fragment.MyPostFragment;
+import com.zhihangjia.mainmodule.fragment.MyPostReplyFragment;
 import com.zhihangjia.mainmodule.viewmodel.MyPostVM;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class MyPostActivity extends BaseTitleActivity {
     private final String TAG = MyPostActivity.class.getSimpleName();
     private MyPostVM vm;
     private MyPostFragment myPostFragment;
-    private MyPostFragment myPostRecieveFragment;
+    private MyPostReplyFragment myPostReplyFragment;
     private List<Fragment> list = new ArrayList<>();
     private FragmentPagerAdapter adapter;
     private ActivityMyPostBinding binding;
@@ -46,9 +47,9 @@ public class MyPostActivity extends BaseTitleActivity {
     private void initTabsLayout() {
         binding = (ActivityMyPostBinding) baseViewBinding;
         myPostFragment = new MyPostFragment();
-        myPostRecieveFragment = new MyPostFragment();
+        myPostReplyFragment = new MyPostReplyFragment();
         list.add(myPostFragment);
-        list.add(myPostRecieveFragment);
+        list.add(myPostReplyFragment);
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), this, list);
 
         binding.vp.setAdapter(adapter);

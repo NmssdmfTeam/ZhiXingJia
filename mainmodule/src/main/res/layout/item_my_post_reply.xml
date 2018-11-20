@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="质量上乘画风感人《武士崛起》交首付款楚乔质质量上乘画风感人《武士崛起》《武士崛起》《武士崛起》"
+            android:textColor="#FF000000"
+            android:textSize="15dp"
+            android:maxLines="2"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="3dp"/>
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="100dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="成龙之人"
+            android:drawableLeft="@drawable/icon_author"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="14dp"
+            android:textColor="#FF999999"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tvReadingVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3045阅读"
+            android:textColor="#FF999999"
+            android:layout_below="@+id/tvTitle"
+            android:layout_toRightOf="@+id/tvAuthor"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="14dp"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tvCreateDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="前天 18:43"
+            android:textColor="#FF999999"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="14dp"
+            android:layout_alignParentRight="true"
+            android:textSize="13dp" />
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/tvCreateDate"
+            android:layout_marginTop="12dp"/>
+    </RelativeLayout>
+</layout>
