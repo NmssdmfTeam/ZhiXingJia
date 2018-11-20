@@ -7,14 +7,12 @@ if (modularization.toBoolean()) {
 
 android {
     compileSdkVersion compile_sdk_version.toInteger()
-
-
-
     defaultConfig {
         if (modularization.toBoolean()) {
         } else {
             applicationId "com.zhixingjia.personmodule"
         }
+
 
         minSdkVersion min_sdk_version.toInteger()
         targetSdkVersion target_sdk_version.toInteger()

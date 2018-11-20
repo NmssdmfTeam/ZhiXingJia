@@ -15,6 +15,7 @@ import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
 import com.zhihangjia.mainmodule.activity.MessageCenterModuleActivity;
 import com.zhihangjia.mainmodule.activity.MessageDetailActivity;
 import com.zhihangjia.mainmodule.activity.MyPostActivity;
+import com.zhihangjia.mainmodule.activity.OrderListActivity;
 import com.zhihangjia.mainmodule.activity.PaySuccessActivity;
 import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
@@ -138,7 +139,12 @@ public class LunchActivity extends BaseTitleActivity {
                 doIntent(MyPostActivity.class,null);
             }
         });
-
+        binding.btnMyOrderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(OrderListActivity.class,null);
+            }
+        });
     }
 
     @Override
