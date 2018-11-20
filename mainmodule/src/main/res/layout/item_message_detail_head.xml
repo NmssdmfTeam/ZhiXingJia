@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="质量上乘画风感人《武士崛起》交首付款火爆质量上乘画风感人质量上乘画风感人风…"
+            android:textColor="#FF333333"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2343阅读"
+                android:textColor="#FFA5A5A5"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="234评论"
+                android:textColor="#FFA5A5A5"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="杂七杂八"
+                android:textColor="#FFFF9A14"
+                android:textSize="13dp" />
+
+
+        </LinearLayout>
+
+        <include layout="@layout/include_recyclerview_cutoff_line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/ivAvater"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/no_pic"
+                android:layout_marginTop="12dp"
+                app:roundAsCircle="@{true}"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="城龙一切之人"
+                android:textColor="#FF333333"
+                android:textSize="15dp"
+                android:layout_toRightOf="@+id/ivAvater"
+                android:layout_alignTop="@+id/ivAvater"
+                android:layout_marginLeft="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1小时前"
+                android:textColor="#FFA5A5A5"
+                android:layout_toRightOf="@+id/ivAvater"
+                android:layout_below="@+id/tvName"
+                android:layout_marginLeft="8dp"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="你的一切都 真的地发了的一地的五的的雪地的一一地雪发地雪寺额未亡人城标老克勒 的的地地fdsd发大水发打算需要需要发大水发城茜百花村奇葩魂牵梦萦 南非世界杯老克勒村"
+                android:textColor="#FF666666"
+                android:textSize="15dp" />
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/no_pic"
+                android:layout_marginTop="12dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llZan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_zan"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="你好一切、大家好、er123、123、老克勒、老克勒、南非世界杯老克勒 等34人赞"
+                android:textColor="#FF333333"
+                android:textSize="12dp"
+                android:layout_marginLeft="4dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全部评论"
+                android:textColor="#FF333333"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5.5dp"
+                android:paddingRight="5.5dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="只看楼主"
+                android:textColor="#FFFF9A14"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_post_detail_onlyupzhu"
+                android:layout_marginLeft="12dp"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最热"
+                android:textColor="#FF999999"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正序"
+                android:textColor="#FFFF9A14"
+                android:textSize="14dp"
+                android:layout_marginLeft="16dp"
+                android:drawableRight="@drawable/icon_acs"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

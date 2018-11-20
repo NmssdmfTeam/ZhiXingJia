@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/ivAvater"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="12dp"
+            app:roundAsCircle="@{true}"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="城内人"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#FF333333"
+            android:layout_toRightOf="@id/ivAvater"
+            android:layout_marginTop="14.5dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="16dp" />
+
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="等了老久，特能装 大容量 好看哈哈哈哈等了老久，特能装 大容量 好看哈哈哈哈"
+            android:textColor="#FF000000"
+            android:textSize="15dp"
+            android:layout_below="@id/tvName"
+            android:layout_marginTop="6dp"/>
+
+        <TextView
+            android:id="@+id/tvCreateDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1天前"
+            android:textColor="#FF999999"
+            android:layout_marginTop="6dp"
+            android:layout_below="@+id/tvComment"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tvZan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点赞"
+            android:layout_toRightOf="@+id/tvCreateDate"
+            android:layout_alignTop="@+id/tvCreateDate"
+            android:drawableLeft="@drawable/icon_commentlist_zan"
+            android:layout_marginLeft="204dp"
+            android:layout_marginRight="50dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="#FF999999"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论"
+            android:textColor="#FF999999"
+            android:layout_alignTop="@+id/tvZan"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/icon_commentlist_comment"
+            android:textSize="12dp" />
+
+        <include
+            android:id="@+id/includeBottomLine"
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/tvCreateDate"/>
+
+    </RelativeLayout>
+</layout>

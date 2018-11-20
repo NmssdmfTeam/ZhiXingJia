@@ -1,18 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_marginTop="15dp">
-        <TextView
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="质量上乘画风感人《武士崛起》交首付款火爆质量上乘画风感人质量上乘画风感人风…"
-            android:textColor="#FF333333"
-            android:textSize="36px" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <com.nmssdmf.customerviewlib.CustomerRecyclerView
+                android:id="@+id/crv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <include layout="@layout/include_recyclerview_cutoff_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <EditText
+                    android:layout_width="195dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/shape_comment_edit"
+                    android:gravity="center_vertical"
+                    android:hint="写评论..."
+                    android:paddingLeft="16dp"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="23dp"
+                    android:src="@drawable/icon_commentbar_zan" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="23dp"
+                    android:src="@drawable/icon_commentbar_comment" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="23dp"
+                    android:src="@drawable/icon_commentbar_share" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/vBlackBackgroud"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/search_black_trans"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:id="@+id/svPage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/llPage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="28dp"
+                    android:paddingTop="18dp"
+                    android:text="第1页"
+                    android:textColor="#FFFF9A14"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="28dp"
+                    android:paddingTop="18dp"
+                    android:text="第2页"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 </layout>
