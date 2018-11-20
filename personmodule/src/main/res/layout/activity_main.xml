@@ -17,6 +17,20 @@
             android:text="个人信息"
            />
 
+        <Button
+            android:id="@+id/btnMyCoupon"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="我的优惠券"
+            />
+
+        <Button
+            android:id="@+id/btnSet"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="设置"
+            />
+
     </LinearLayout>
 
 </layout>

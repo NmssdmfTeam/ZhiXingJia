@@ -7,4 +7,5 @@ package com.nmssdmf.commonlib.config;
 public class IntentConfig {
     public static final String PHONE_NUM = "PHONE_NUM";
 
+    public static final String NAME = "NAME";
 }

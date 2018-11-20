@@ -49,7 +49,7 @@
             />
 
         <TextView
-            android:layout_width="110dp"
+            android:layout_width="103dp"
             android:layout_height="87dp"
             android:text="立即领取"
             android:textColor="#FFFF9A14"

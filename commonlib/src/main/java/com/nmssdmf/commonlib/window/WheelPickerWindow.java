@@ -1,4 +1,4 @@
-package com.zhihangjia.mainmodule.window;
+package com.nmssdmf.commonlib.window;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,29 +7,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 
+import com.nmssdmf.commonlib.R;
+import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
+import com.nmssdmf.commonlib.databinding.WindowWheelPickerBinding;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.WindowUtil;
-import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.databinding.WindowDeliveryMethodBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
- * Created by ${nmssdmf} on 2018/11/19 0019.
+ * Created by ${nmssdmf} on 2018/11/20 0020.
+ * 单个wheelpicker 的window
  */
 
-public class DeliveryMethodWindow extends PopupWindow {
+public class WheelPickerWindow extends PopupWindow {
 
-    public DeliveryMethodWindow(final Context context) {
+    public WheelPickerWindow(final Context context, final List<String> list, final WheelPickerWindowCB cb) {
 
-        WindowDeliveryMethodBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_delivery_method, null, false);
+        final WindowWheelPickerBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_wheel_picker, null, false);
         setContentView(binding.getRoot());
         setHeight(DensityUtil.dpToPx(context, 256.5f));
         setWidth(MATCH_PARENT);
 
+        if (list == null || list.size() == 0) {
+            return;
+        }
         binding.tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,13 +44,10 @@ public class DeliveryMethodWindow extends PopupWindow {
         binding.tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                cb.tvSureClick(list.get(binding.wp.getCurrentItemPosition()), binding.wp.getCurrentItemPosition());
             }
         });
 
-        List<String> list = new ArrayList<>();
-        list.add("商家配送");
-        list.add("上门自提");
         binding.wp.setData(list);
 
         setOnDismissListener(new OnDismissListener() {
