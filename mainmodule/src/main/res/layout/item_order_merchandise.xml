@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="114dp">
+        <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/givIcon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_toRightOf="@+id/givIcon"
+            android:text="程辉世纪装饰工装家装设计施工工装家装设计施工"
+            android:textColor="#FF333333"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tvSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="16.5dp"
+            android:layout_alignLeft="@+id/tvName"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="19.5dp"
+            android:text="规格：红色+90cm"
+            android:textColor="#FF999999"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="16dp"
+            android:text="44.7"
+            android:textColor="#FF333333"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="12.5dp"
+            android:layout_height="16.5dp"
+            android:layout_alignBaseline="@+id/tvPrice"
+            android:layout_toLeftOf="@+id/tvPrice"
+            android:text="￥"
+            android:textColor="#FF333333"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="16.5dp"
+            android:layout_alignBaseline="@+id/tvSpecification"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:text="x23"
+            android:textColor="#FF999999"
+            android:textSize="12dp" />
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+    </RelativeLayout>
+</layout>
