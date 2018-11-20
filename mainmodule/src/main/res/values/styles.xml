@@ -24,5 +24,14 @@
         <attr name="addImageOff" format="reference"></attr>
         <attr name="minusImageOff" format="reference"></attr>
     </declare-styleable>
-
+    <declare-styleable name="MyMoneyView">
+        <attr name="top_textcolor" format="color"></attr>
+        <attr name="top_unit_textcolor" format="color"></attr>
+        <attr name="bottom_textcolor" format="color"></attr>
+        <attr name="top_textsize" format="dimension"></attr>
+        <attr name="top_unit_textsize" format="dimension"></attr>
+        <attr name="bottom_textsize" format="dimension"></attr>
+        <attr name="top_text" format="string"></attr>
+        <attr name="bottom_text" format="string"></attr>
+    </declare-styleable>
 </resources>

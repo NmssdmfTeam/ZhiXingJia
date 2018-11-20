@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="text_red">#FFFF5C4A</color>
+    <color name="text_money_gray">#FF999999</color>
+
     <color name="transparent">#00ffffff</color>
     <color name="lightgray_trans">#88DDDDDD</color>
     <!-- 搜索透明背景色 -->

@@ -9,6 +9,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -17,9 +18,11 @@ import com.zhihangjia.mainmodule.databinding.ActivityMainBinding;
 import com.zhihangjia.mainmodule.fragment.MainFragment;
 import com.zhihangjia.mainmodule.fragment.MaterialsMarketFragment;
 import com.zhihangjia.mainmodule.fragment.MessageFragment;
-import com.zhihangjia.mainmodule.fragment.MineFragment;
+import com.zhihangjia.mainmodule.fragment.MineCustomerFragment;
+import com.zhihangjia.mainmodule.fragment.MineProviderFragment;
 import com.zhihangjia.mainmodule.fragment.ShopCarFragment;
 import com.zhihangjia.mainmodule.viewmodel.MainVM;
+import com.zhihangjia.mainmodule.viewmodel.MineCustomerVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +47,10 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     /**
      * tab layout加载的fragment class，并使用class name当作tab的tag，所以要求fragment加载的class是不同的class，否则需要创建其他tag
      */
-    private Class[] fragment_clazz = new Class[]{MainFragment.class, MaterialsMarketFragment.class, MessageFragment.class, ShopCarFragment.class, MineFragment.class};
+    private Class[] mine_class = new Class[]{MineCustomerFragment.class, MineProviderFragment.class};
+    private Class[] fragment_clazz = new Class[]{MainFragment.class, MaterialsMarketFragment.class, MessageFragment.class, ShopCarFragment.class, MineProviderFragment.class};
     private Integer[] titles_texts = {R.string.main, R.string.marketBuilding, R.string.message, R.string.shopCar, R.string.mine};
-    private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_materials_selected, R.drawable.message_center_selected, R.drawable.icon_home_selected, R.drawable.icon_home_selected};
+    private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_materials_selected, R.drawable.message_center_selected, R.drawable.icon_home_selected, R.drawable.icon_mine_selected};
     private int[] icon_offs = {R.drawable.icon_home_unselected, R.drawable.icon_home_unselected, R.drawable.message_center_unselected, R.drawable.icon_home_unselected, R.drawable.icon_home_unselected};
 
 
@@ -76,7 +80,17 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         WindowUtil.setWindowStatusBarTransParent(this);
         binding.mfth.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         binding.mfth.getTabWidget().setDividerDrawable(null); // 去掉分割线
+        initTabsView();
+
+    }
+
+    private void initTabsView() {
         // 初始化fragment tab host
+        if (vm.identify.equals(StringConfig.BUYER)) { //是否买家卖家切换fragment
+            fragment_clazz[fragment_clazz.length - 1] = mine_class[0];
+        } else {
+            fragment_clazz[fragment_clazz.length - 1] = mine_class[1];
+        }
         for (int i = 0; i < fragment_clazz.length; i++) {
             // Tab按钮添加文字和图片
             TabHost.TabSpec spec = binding.mfth.newTabSpec(fragment_clazz[i].getName()).setIndicator(getTabView(i));
@@ -88,7 +102,6 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         binding.mfth.setCurrentTab(current_index);
         setSelectedTab(current_index, true);// 设置初始选中状态
         binding.mfth.setOnTabChangedListener(this);
-
     }
 
     @Override
@@ -154,5 +167,13 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         });
 
         return view;
+    }
+
+    public void changeIdentify(String identify) {
+        vm.identify = identify;
+        binding.mfth.clearAllTabs();
+        binding.mfth.setOnTabChangedListener(null);
+        //初始化fragment及底部导航栏
+        initTabsView();
     }
 }
