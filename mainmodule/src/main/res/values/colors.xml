@@ -12,4 +12,6 @@
     <!-- 搜索透明背景色 -->
     <color name="search_gray_trans">#FFF1F1F1</color>
     <color name="search_black_trans">#33000000</color>
+
+    <color name="activity_grey_bg">#f6f6f6</color>
 </resources>
