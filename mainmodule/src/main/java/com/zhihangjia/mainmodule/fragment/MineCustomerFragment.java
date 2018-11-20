@@ -3,9 +3,11 @@ package com.zhihangjia.mainmodule.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.databinding.FragmentMineCustomerBinding;
 import com.zhihangjia.mainmodule.viewmodel.MineCustomerVM;
 
@@ -35,6 +37,19 @@ public class MineCustomerFragment extends BaseFragment {
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMineCustomerBinding) baseBinding;
         binding.msfl.setSwipeableChildren(R.id.sv_customer_my);
+        setListener();
+    }
+
+    private void setListener() {
+        binding.tvChanggeMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() instanceof MainActivity) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.changeIdentify(StringConfig.PROVIDER);
+                }
+            }
+        });
     }
 
     @Override

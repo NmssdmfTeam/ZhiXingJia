@@ -10,7 +10,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 * @version v3.2.0
 */
 public class MainVM extends BaseVM {
-
+    public String identify = "buyer";
     /**
      * 不需要callback可以传null
      *
