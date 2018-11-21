@@ -47,4 +47,9 @@ public interface MainFragmentCB extends BaseCB {
      * 结束刷新
      */
     void setRefreshend();
+
+    /**
+     * 跳转建材家居
+     */
+    void toOtherFragment(int index);
 }

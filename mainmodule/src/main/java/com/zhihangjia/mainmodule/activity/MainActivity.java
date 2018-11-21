@@ -22,7 +22,6 @@ import com.zhihangjia.mainmodule.fragment.MineCustomerFragment;
 import com.zhihangjia.mainmodule.fragment.MineProviderFragment;
 import com.zhihangjia.mainmodule.fragment.ShopCarFragment;
 import com.zhihangjia.mainmodule.viewmodel.MainVM;
-import com.zhihangjia.mainmodule.viewmodel.MineCustomerVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,5 +174,9 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         binding.mfth.setOnTabChangedListener(null);
         //初始化fragment及底部导航栏
         initTabsView();
+    }
+
+    public void setCurrentTabsIndex(int index) {
+        binding.mfth.setCurrentTab(index);
     }
 }

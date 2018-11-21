@@ -1,6 +1,7 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import android.text.TextUtils;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -103,5 +104,21 @@ public class MainFragmentVM extends BaseVM {
         forumBean.setItemType(3);
         forumBean.setForumBeans(indexBeanBaseData.getData().getForum());
         cb.setForum(forumBean);
+    }
+
+    /**
+     * 点击建材家居
+     * @param view
+     */
+    public void onMaterialsClick(View view) {
+        cb.toOtherFragment(1);
+    }
+
+    /**
+     * 点击信息中心
+     * @param view
+     */
+    public void onMessageCenterClick(View view) {
+        cb.toOtherFragment(2);
     }
 }
