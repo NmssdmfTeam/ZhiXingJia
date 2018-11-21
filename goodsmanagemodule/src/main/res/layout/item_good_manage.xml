@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="114dp"
+            android:background="#FFFFFFFF"
+            android:paddingLeft="16dp"
+            >
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/givIcon"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/givIcon"
+                android:text="程辉世纪装饰工装家装设计施工工装家装设计施工"
+                android:textColor="#FF333333"
+                android:textSize="14dp"
+                />
+
+            <TextView
+                android:id="@+id/tvPriceDes"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_alignLeft="@+id/tvName"
+                android:layout_below="@+id/tvName"
+                android:layout_marginTop="0.5dp"
+                android:text="价格："
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                />
+
+            <TextView
+                android:id="@+id/tvPriceUnit"
+                android:layout_width="10dp"
+                android:layout_height="14dp"
+                android:layout_alignBaseline="@+id/tvPriceDes"
+                android:layout_toRightOf="@+id/tvPriceDes"
+                android:text="￥"
+                android:textColor="#FF999999"
+                android:textSize="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_alignBaseline="@+id/tvPriceUnit"
+                android:layout_toRightOf="@+id/tvPriceUnit"
+                android:text="44.7"
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                />
+
+            <TextView
+                android:id="@+id/tvSpecification"
+                android:layout_width="match_parent"
+                android:layout_height="16.5dp"
+                android:layout_alignLeft="@+id/tvName"
+                android:layout_below="@+id/tvPriceDes"
+                android:layout_marginRight="16dp"
+                android:singleLine="true"
+                android:text="规格：红色+90cm"
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_alignLeft="@id/tvName"
+                android:layout_below="@+id/tvSpecification"
+                android:text="销量：123"
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                />
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:scaleType="center"
+                android:src="@drawable/icon_arrow_up"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#FFF6F6F6"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_edit"
+                android:gravity="center"
+                android:paddingBottom="7.5dp"
+                android:paddingTop="10dp"
+                android:text="编辑"
+                android:textColor="#FF666666"
+                android:textSize="12dp"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_out_stock"
+                android:gravity="center"
+                android:paddingBottom="7.5dp"
+                android:paddingTop="10dp"
+                android:text="下架"
+                android:textColor="#FF666666"
+                android:textSize="12dp"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_delete"
+                android:gravity="center"
+                android:paddingBottom="7.5dp"
+                android:paddingTop="10dp"
+                android:text="下架"
+                android:textColor="#FF666666"
+                android:textSize="12dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
