@@ -1,0 +1,91 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/ll_root"
+        android:layout_width="match_parent"
+        android:layout_height="74.5dp">
+
+        <LinearLayout
+            android:id="@+id/ll_left"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:id="@+id/tv_recive_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="收件人：张小褚"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/font_size_big" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="13212345123"
+                    android:textColor="@color/text_black"
+                    android:layout_marginRight="18.5dp"
+                    android:textSize="@dimen/font_size_big" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:paddingBottom="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[默认]"
+                    android:textColor="#FFFF9A14"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:text="宜城镇龙潭西路290号"
+                    android:textColor="@color/text_black"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_alignParentBottom="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15.75dp"
+            android:src="@drawable/icon_next"/>
+
+    </RelativeLayout>
+
+</layout>

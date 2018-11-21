@@ -9,6 +9,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ActivityOrderListBinding;
 import com.zhihangjia.mainmodule.fragment.OrderListFragment;
+import com.zhihangjia.mainmodule.fragment.OrderListWaitForPayFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class OrderListActivity extends BaseActivity {
         binding = (ActivityOrderListBinding) baseBinding;
 
         OrderListFragment allFragment = new OrderListFragment();
-        OrderListFragment waitPayFragment = new OrderListFragment();
+        OrderListWaitForPayFragment waitPayFragment = new OrderListWaitForPayFragment();
         OrderListFragment waitDeliverFragment = new OrderListFragment();
         OrderListFragment waitReceiveFragment = new OrderListFragment();
         OrderListFragment waitCommentFragment = new OrderListFragment();
@@ -54,5 +55,12 @@ public class OrderListActivity extends BaseActivity {
         binding.vp.setAdapter(adapter);
 
         binding.tl.setupWithViewPager(binding.vp);
+
+        binding.tl.getTabAt(0).setText("全部");
+        binding.tl.getTabAt(1).setText("待付款");
+        binding.tl.getTabAt(2).setText("待发货");
+        binding.tl.getTabAt(3).setText("待收货");
+        binding.tl.getTabAt(4).setText("待评论");
+
     }
 }

@@ -5,16 +5,20 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.AddOrEditAddressActivity;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.activity.ManageAddressListActivity;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
 import com.zhihangjia.mainmodule.activity.MessageCenterModuleActivity;
 import com.zhihangjia.mainmodule.activity.MessageDetailActivity;
 import com.zhihangjia.mainmodule.activity.MyPostActivity;
+import com.zhihangjia.mainmodule.activity.OrderDetailActivity;
+import com.zhihangjia.mainmodule.activity.OrderListActivity;
 import com.zhihangjia.mainmodule.activity.PaySuccessActivity;
 import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
@@ -138,6 +142,32 @@ public class LunchActivity extends BaseTitleActivity {
                 doIntent(MyPostActivity.class,null);
             }
         });
+        binding.btnManageAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(ManageAddressListActivity.class,null);
+            }
+        });
+        binding.btnAddOrEditAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(AddOrEditAddressActivity.class,null);
+            }
+        });
+        binding.btnMyOrderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(OrderListActivity.class,null);
+            }
+        });
+
+        binding.btnOrderDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(OrderDetailActivity.class,null);
+            }
+        });
+
 
     }
 
