@@ -45,6 +45,7 @@ public class MessageDetailActivity extends BaseTitleActivity {
         binding.crv.setAdapter(adapter);
         ItemMessageDetailHeadBinding itemMessageDetailHeadBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_message_detail_head,null,false);
         adapter.addHeaderView(itemMessageDetailHeadBinding.getRoot());
+        baseTitleBinding.tTitle.inflateMenu(R.menu.share);
         setListener();
     }
 

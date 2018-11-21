@@ -4,11 +4,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
-import com.nmssdmf.commonlib.databinding.ActivitySelectStandardBinding;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.goodsmanagemodule.R;
 import com.zhixingjia.goodsmanagemodule.databinding.ItemStandardTagBinding;
 import com.zhixingjia.goodsmanagemodule.viewmodel.SelectStandardVM;
+import com.zhixingjia.goodsmanagemodule.databinding.ActivitySelectStandardBinding;
 
 import java.util.ArrayList;
 import java.util.List;

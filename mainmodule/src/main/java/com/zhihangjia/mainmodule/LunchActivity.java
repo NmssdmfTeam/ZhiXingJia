@@ -21,6 +21,7 @@ import com.zhihangjia.mainmodule.activity.OrderDetailActivity;
 import com.zhihangjia.mainmodule.activity.OrderListActivity;
 import com.zhihangjia.mainmodule.activity.PaySuccessActivity;
 import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
+import com.zhihangjia.mainmodule.activity.ReplyActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.SetCouponActivity;
 import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
@@ -183,6 +184,13 @@ public class LunchActivity extends BaseTitleActivity {
                 doIntent(SetCouponActivity.class,null);
             }
         });
+        binding.btnReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(ReplyActivity.class,null);
+            }
+        });
+
     }
 
     @Override
