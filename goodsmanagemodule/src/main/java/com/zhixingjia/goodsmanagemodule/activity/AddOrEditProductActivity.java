@@ -1,8 +1,11 @@
 package com.zhixingjia.goodsmanagemodule.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.config.IntegerConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.goodsmanagemodule.R;
 import com.zhixingjia.goodsmanagemodule.viewmodel.AddOrEditProductVM;
@@ -44,5 +47,24 @@ public class AddOrEditProductActivity extends BaseTitleActivity {
     public BaseVM initViewModel() {
         vm = new AddOrEditProductVM(this);
         return vm;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case IntegerConfig.REQUEST_CODE_CAMERA_IMAGE:
+                if (resultCode == RESULT_OK) {
+                    binding.isv.addCameraImage();
+                }
+                break;
+            case ImageGalleryActivity.IMAGE_SELECT_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    binding.isv.addAlbumImage(data);
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
