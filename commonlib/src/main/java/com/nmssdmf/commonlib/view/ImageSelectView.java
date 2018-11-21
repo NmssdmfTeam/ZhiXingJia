@@ -74,6 +74,8 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     private int VIEW_PADDING_RIGHT = 16;// ImageSelectView右边
     private int DELETE_IMAGE_SIZE = 18; // 删除图标的高宽
 
+    private int image_max_size = 12;    //最多允许选择图片张数
+
     public ImageSelectView(Context context) {
         super(context);
         initView(context);
@@ -91,7 +93,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
             return;
         }
         this.context = context;
-
+        image_max_size = BaseConfig.MAX_IMG;
 
         LinearLayout view = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.view_image_select, null);
         VIEW_PADDING_RIGHT = DensityUtil.dpToPx(context, 16);
@@ -135,9 +137,9 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     }
 
     private void toShowDialog() {
-        if (adapter.getImageSize() < BaseConfig.MAX_IMG) {
+        if (adapter.getImageSize() < image_max_size) {
             temp_path = FileUtil.getBaseImageDir() + System.currentTimeMillis() + ".jpg";
-            showAddImageDialog((Activity) context, (BaseConfig.MAX_IMG - adapter.getImageSize()), temp_path);
+            showAddImageDialog((Activity) context, (image_max_size - adapter.getImageSize()), temp_path);
         } else {
             ToastUtil.getInstance().showToast( "图片数目已达上限");
         }
@@ -236,7 +238,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     }
 
     public void notifyDataSetChanged() {
-        if (adapter.getImageSize() == BaseConfig.MAX_IMG) {
+        if (adapter.getImageSize() == image_max_size) {
             removeAddImageView();
         }
         adapter.notifyDataSetChanged();
@@ -262,7 +264,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
             adapter.getData().add(uploadImage);
         else
             adapter.getData().add(adapter.getData().size() - 1,uploadImage);
-        if (adapter.getImageSize() == BaseConfig.MAX_IMG) {
+        if (adapter.getImageSize() == image_max_size) {
             removeAddImageView();
         }
         adapter.notifyDataSetChanged();
@@ -287,7 +289,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
             else
                 adapter.getData().add(adapter.getData().size() - 1,uploadImage);
         }
-        if (adapter.getImageSize() == BaseConfig.MAX_IMG) {
+        if (adapter.getImageSize() == image_max_size) {
             removeAddImageView();
         }
         adapter.notifyDataSetChanged();
@@ -301,7 +303,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
      */
     public void addImage(String path, String id) {
         if (uploadImages != null && path != null) {
-            if (adapter.getImageSize() < BaseConfig.MAX_IMG) {
+            if (adapter.getImageSize() < image_max_size) {
                 UploadImage uploadImage = new UploadImage();
                 uploadImage.setUrl(path);
                 uploadImage.setImage_id(id);
@@ -417,7 +419,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 //    public void setData(List<UploadImage> datas) {
 //        if (datas != null && datas.size() > 0) {
 //            for (UploadImage path : datas) {
-//                if (adapter.getImageSize() < BaseConfig.MAX_IMG) {
+//                if (adapter.getImageSize() < image_max_size) {
 //                    adapter.getData().add(path);
 //                }
 //            }
@@ -427,6 +429,14 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 
     public String[] getResult() {
         return toStringArray(imageIds);
+    }
+
+    public int getImage_max_size() {
+        return image_max_size;
+    }
+
+    public void setImage_max_size(int image_max_size) {
+        this.image_max_size = image_max_size;
     }
 
     @Override
