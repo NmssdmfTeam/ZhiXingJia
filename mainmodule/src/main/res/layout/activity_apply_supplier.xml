@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context="com.zhihangjia.mainmodule.activity.ApplySupplierActivity">
+
+        <TextView
+            android:id="@+id/tvSubmitApplications"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="#FFFF9A14"
+            android:gravity="center"
+            android:text="提交申请"
+            android:textColor="#FFFFFFFF"
+            android:textSize="16dp"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tvSubmitApplications"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:background="@color/activity_grey_bg"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    >
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center_vertical"
+                        android:text="所在商圈"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_right"
+                        android:text="请选店铺的所在商圈"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"/>
+
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    >
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center_vertical"
+                        android:text="详细地址"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_right"
+                        android:text="请填写店铺具体地址"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"/>
+
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    >
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center_vertical"
+                        android:text="法人姓名"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_right"
+                        android:text="请填写店铺法人姓名"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"/>
+
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    >
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center_vertical"
+                        android:text="联系电话"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_right"
+                        android:text="请填写联系方式，最好是手机号码"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"/>
+
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    >
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center_vertical"
+                        android:text="主营产品"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_right"
+                        android:text="请选择店铺主营产品"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"/>
+
+                </RelativeLayout>
+
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="13.5dp"
+                        android:gravity="center_vertical"
+                        android:text="上传证件"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="50dp"
+                        android:drawableTop="@drawable/upload_papers"
+                        android:text="法人身份证正面"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+
+                    <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="60dp"
+                        android:layout_marginTop="50dp"
+                        android:drawableTop="@drawable/upload_papers"
+                        android:text="法人身份证反面"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+
+                    <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="168dp"
+                        android:drawableTop="@drawable/upload_papers"
+                        android:text="营业执照"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>
+

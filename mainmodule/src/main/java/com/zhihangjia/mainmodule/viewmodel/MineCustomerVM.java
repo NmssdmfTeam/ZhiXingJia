@@ -1,7 +1,10 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.view.View;
+
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.ApplySupplierActivity;
 
 /**
 * @description 我的买家版
@@ -18,5 +21,9 @@ public class MineCustomerVM extends BaseVM {
      */
     public MineCustomerVM(BaseCB callBack) {
         super(callBack);
+    }
+
+    public void applySupplierActivity(View view) {
+        baseCallBck.doIntent(ApplySupplierActivity.class, null);
     }
 }

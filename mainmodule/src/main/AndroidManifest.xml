@@ -83,10 +83,11 @@
         <activity
             android:name=".activity.AddOrEditAddressActivity"
             android:screenOrientation="portrait"/>
-
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.OrderListActivity"></activity>
-        <activity android:name=".activity.OrderDetailActivity"></activity>
+        android:screenOrientation="portrait" />
+        <activity android:name=".activity.OrderListActivity"/>
+        <activity android:name=".activity.OrderDetailActivity"/>
+        <activity android:name=".activity.ApplySupplierActivity">
+        </activity>
     </application>
 
 </manifest>

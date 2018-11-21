@@ -14,7 +14,6 @@ import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MainAdapter;
-import com.zhihangjia.mainmodule.adapter.YXHeadLineAdapter;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.callback.MainFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMainBinding;
@@ -123,39 +122,6 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
 
             }
         });
-//        binding.crv.getRv().setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                switch (motionEvent.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        firstY = (int) motionEvent.getRawY();
-//                        return true;
-//                    case MotionEvent.ACTION_MOVE:
-//                        //判断向上滑还是向下滑
-//                        //向上滑隐藏底部的导航栏
-//                        MainActivity activity = null;
-//                        if (getActivity() != null && getActivity() instanceof MainActivity) {
-//                            activity = (MainActivity) getActivity();
-//                        }
-//                        JLog.d(TAG, "moveoffset:"+(firstY - motionEvent.getRawY()));
-//                        if (firstY - motionEvent.getRawY() > 0) { //向上滑
-////                            if (activity != null) {
-////                                activity.bottomNavigationMoveOut();
-////                            }
-//                        } else {//向下滑
-////                            if (activity != null) {
-////                                activity.bottomNavigationMoveIn();
-////                            }
-//                        }
-//                        firstY = (int) motionEvent.getRawY();
-//                        break;
-//                    case MotionEvent.ACTION_CANCEL:
-//                    case MotionEvent.ACTION_UP:
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
     }
 
     @Override
