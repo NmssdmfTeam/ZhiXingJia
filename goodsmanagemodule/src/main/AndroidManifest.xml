@@ -38,6 +38,19 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.GoodManageActivity">
         </activity>
+        <activity android:name=".activity.AddOrEditProductActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activity.AddProductDescribeActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activity.PriceSettingActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activity.LadderPriceSettingActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.SelectStandardActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

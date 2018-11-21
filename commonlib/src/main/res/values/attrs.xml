@@ -46,4 +46,11 @@
         <!-- 一行显示几个子view(规则布局) -->
         <attr name="horizontal_count" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="TagView">
+        <attr name="selected_textcolor" format="color"/>
+        <attr name="unselected_textcolor" format="color"/>
+        <attr name="unselected_background" format="color|reference"/>
+        <attr name="selected_background" format="color|reference"/>
+    </declare-styleable>
 </resources>

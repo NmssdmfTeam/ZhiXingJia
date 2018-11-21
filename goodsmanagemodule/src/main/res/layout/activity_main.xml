@@ -43,5 +43,13 @@
             android:layout_gravity="center_horizontal"
             android:text="商品管理"/>
 
+        <Button
+            android:id="@+id/btnSelectStandard"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="选择规格"
+            android:layout_gravity="center_horizontal"/>
+
+
     </LinearLayout>
 </layout>

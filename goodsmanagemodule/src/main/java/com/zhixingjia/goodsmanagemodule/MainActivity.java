@@ -64,5 +64,11 @@ public class MainActivity extends BaseActivity {
                 doIntent(GoodManageActivity.class,null);
             }
         });
+        binding.btnSelectStandard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(SelectStandardActivity.class,null);
+            }
+        });
     }
 }

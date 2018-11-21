@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.nmssdmf.commonlib.view.TagView
+        android:id="@+id/tvTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="17.5dp"
+        android:paddingRight="17.5dp"
+        android:paddingTop="8.5dp"
+        android:paddingBottom="8.5dp"
+        android:background="@drawable/shape_choose_unselect"
+        android:gravity="center"
+        android:text="杂七杂八"
+        android:textColor="@color/text_black"
+        app:unselected_background="@drawable/shape_choose_unselect"
+        app:unselected_textcolor="@color/text_black"
+        app:selected_background="@drawable/shape_standard_tag"
+        app:selected_textcolor="@color/text_orange"
+        android:textSize="13dp" />
+</layout>
