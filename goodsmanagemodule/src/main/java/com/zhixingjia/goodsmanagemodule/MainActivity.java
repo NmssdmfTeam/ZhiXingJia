@@ -6,6 +6,7 @@ import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.goodsmanagemodule.activity.AddOrEditProductActivity;
 import com.zhixingjia.goodsmanagemodule.activity.AddProductDescribeActivity;
+import com.zhixingjia.goodsmanagemodule.activity.GoodManageActivity;
 import com.zhixingjia.goodsmanagemodule.activity.LadderPriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.PriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.databinding.ActivityMainBinding;
@@ -54,6 +55,13 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 doIntent(LadderPriceSettingActivity.class,null);
+            }
+        });
+
+        binding.btnGoodManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(GoodManageActivity.class,null);
             }
         });
     }
