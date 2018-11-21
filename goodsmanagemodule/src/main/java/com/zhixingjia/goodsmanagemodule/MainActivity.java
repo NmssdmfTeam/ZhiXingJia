@@ -2,6 +2,7 @@ package com.zhixingjia.goodsmanagemodule;
 
 import android.os.Bundle;
 import android.view.View;
+
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.goodsmanagemodule.activity.AddOrEditProductActivity;
@@ -9,6 +10,7 @@ import com.zhixingjia.goodsmanagemodule.activity.AddProductDescribeActivity;
 import com.zhixingjia.goodsmanagemodule.activity.GoodManageActivity;
 import com.zhixingjia.goodsmanagemodule.activity.LadderPriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.PriceSettingActivity;
+import com.zhixingjia.goodsmanagemodule.activity.SelectStandardActivity;
 import com.zhixingjia.goodsmanagemodule.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActivity {

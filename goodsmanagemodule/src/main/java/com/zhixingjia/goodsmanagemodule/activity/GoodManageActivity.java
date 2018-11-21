@@ -2,7 +2,7 @@ package com.zhixingjia.goodsmanagemodule.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
@@ -53,20 +53,11 @@ public class GoodManageActivity extends BaseActivity {
         binding.tl.getTabAt(0).setText("出售中(4)");
         binding.tl.getTabAt(1).setText("仓库中(5)");
 
-        binding.vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
