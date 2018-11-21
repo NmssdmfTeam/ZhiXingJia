@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="3mm+白色"
+                android:textColor="#FF333333"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="#FF333333"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="4dp"
+                android:textSize="16dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:hint="输入价格"
+                android:inputType="numberDecimal"
+                android:minWidth="60dp"
+                android:singleLine="true"
+                android:textColor="@color/text_black"
+                android:textColorHint="#FFCCCCCC"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <include layout="@layout/include_recyclerview_cutoff_line"/>
+    </LinearLayout>
+</layout>

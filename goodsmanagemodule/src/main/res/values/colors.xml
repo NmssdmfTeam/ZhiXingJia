@@ -6,4 +6,6 @@
 
     <color name="light_orange">#FF9A14</color>
     <color name="dark_orange">#FF5C4A</color>
+    <color name="search_black_trans">#33000000</color>
+    <color name="btn_yellow">#FFFF9A14</color>
 </resources>

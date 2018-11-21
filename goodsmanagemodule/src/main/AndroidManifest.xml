@@ -16,15 +16,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AddOrEditProductActivity"
-            android:screenOrientation="portrait"></activity>
-
         <meta-data
             android:name="design_width_in_dp"
             android:value="375"/>
         <meta-data
             android:name="design_height_in_dp"
             android:value="667"/>
+
+        <activity android:name=".activity.AddOrEditProductActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activity.AddProductDescribeActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activity.PriceSettingActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activity.LadderPriceSettingActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
