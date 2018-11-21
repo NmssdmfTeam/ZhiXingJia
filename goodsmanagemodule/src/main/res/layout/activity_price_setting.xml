@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格（元）"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"/>
+            
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="75dp"
+                android:hint="请输入价格"
+                android:textColorHint="#FFCCCCCC"
+                android:textColor="@color/text_black"
+                android:textSize="15dp"
+                android:layout_marginRight="14dp"
+                android:background="@null"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/include_recyclerview_cutoff_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="库存"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="120dp"
+                android:hint="请输入商品的库存"
+                android:textColorHint="#FFCCCCCC"
+                android:textColor="@color/text_black"
+                android:textSize="15dp"
+                android:layout_marginRight="14dp"
+                android:background="@null"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+        <include layout="@layout/include_recyclerview_cutoff_line"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="单位"
+                android:textColor="#FF333333"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请选择商品销售单位"
+                android:textColorHint="#FFCCCCCC"
+                android:textColor="@color/text_black"
+                android:textSize="15dp"
+                android:layout_gravity="center_vertical"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="10.85dp"
+                android:src="@drawable/icon_next"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/include_recyclerview_cutoff_line"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="确定"
+            android:background="@drawable/selector_btn_add_describe"/>
+    </LinearLayout>
+</layout>
