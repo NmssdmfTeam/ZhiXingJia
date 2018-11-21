@@ -22,6 +22,7 @@ import com.zhihangjia.mainmodule.activity.OrderListActivity;
 import com.zhihangjia.mainmodule.activity.PaySuccessActivity;
 import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
+import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
 import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
 import com.zhihangjia.mainmodule.databinding.ActivityLunchBinding;
 
@@ -168,7 +169,12 @@ public class LunchActivity extends BaseTitleActivity {
             }
         });
 
-
+        binding.btnShopCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(ShopCouponListActivity.class,null);
+            }
+        });
     }
 
     @Override

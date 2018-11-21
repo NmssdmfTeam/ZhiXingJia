@@ -36,6 +36,7 @@ public class MineCustomerFragment extends BaseFragment {
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMineCustomerBinding) baseBinding;
+        binding.setVm(vm);
         binding.msfl.setSwipeableChildren(R.id.sv_customer_my);
         setListener();
     }
