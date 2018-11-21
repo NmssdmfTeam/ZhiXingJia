@@ -88,6 +88,8 @@
         <activity android:name=".activity.OrderDetailActivity"/>
         <activity android:name=".activity.ApplySupplierActivity">
         </activity>
+        <activity android:name=".activity.ShopCouponListActivity">
+        </activity>
     </application>
 
 </manifest>
