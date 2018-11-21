@@ -8,6 +8,7 @@ import com.zhixingjia.goodsmanagemodule.activity.AddOrEditProductActivity;
 import com.zhixingjia.goodsmanagemodule.activity.AddProductDescribeActivity;
 import com.zhixingjia.goodsmanagemodule.activity.LadderPriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.PriceSettingActivity;
+import com.zhixingjia.goodsmanagemodule.activity.SelectStandardActivity;
 import com.zhixingjia.goodsmanagemodule.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActivity {
@@ -54,6 +55,12 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 doIntent(LadderPriceSettingActivity.class,null);
+            }
+        });
+        binding.btnSelectStandard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(SelectStandardActivity.class,null);
             }
         });
     }
