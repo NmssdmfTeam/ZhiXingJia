@@ -90,6 +90,8 @@
         </activity>
         <activity android:name=".activity.ShopCouponListActivity">
         </activity>
+        <activity android:name=".activity.SetCouponActivity">
+        </activity>
     </application>
 
 </manifest>

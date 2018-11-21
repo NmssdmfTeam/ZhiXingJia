@@ -23,10 +23,11 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  */
 
 public class WheelPickerWindow extends PopupWindow {
+    private WindowWheelPickerBinding binding;
 
     public WheelPickerWindow(final Context context, final List<String> list, final WheelPickerWindowCB cb) {
 
-        final WindowWheelPickerBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_wheel_picker, null, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_wheel_picker, null, false);
         setContentView(binding.getRoot());
         setHeight(DensityUtil.dpToPx(context, 256.5f));
         setWidth(MATCH_PARENT);
@@ -44,11 +45,13 @@ public class WheelPickerWindow extends PopupWindow {
         binding.tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dismiss();
                 cb.tvSureClick(list.get(binding.wp.getCurrentItemPosition()), binding.wp.getCurrentItemPosition());
             }
         });
 
         binding.wp.setData(list);
+
 
         setOnDismissListener(new OnDismissListener() {
             @Override
@@ -56,6 +59,14 @@ public class WheelPickerWindow extends PopupWindow {
                 WindowUtil.setBackgroundAlpha((Activity) context, 1);
             }
         });
+    }
+
+    public void setCurrentItem(int position) {
+        binding.wp.setSelectedItemPosition(position);
+    }
+
+    public void changeDataList(List<String> list){
+        binding.wp.setData(list);
     }
 
 

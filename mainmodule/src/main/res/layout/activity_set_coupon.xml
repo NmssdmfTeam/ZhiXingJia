@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.SetCouponVM"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_grey_bg"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        tools:context="com.zhihangjia.mainmodule.activity.SetCouponActivity">
+
+        <TextView
+            android:id="@+id/tvSure"
+            android:layout_width="375dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="#FFFF9A14"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="#FFFFFFFF"
+            android:textSize="16dp"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tvSure">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="名称"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/white"
+                        android:hint="请输入优惠券名称"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFFFF"
+                    android:minHeight="50dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvRuleDes"
+                        android:layout_width="64dp"
+                        android:layout_height="22.5dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="14dp"
+                        android:text="规则描述"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="14.5dp"
+                        android:layout_toRightOf="@+id/tvRuleDes"
+                        android:text="请输入优惠券规则描述"
+                        android:textColor="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="时间类型"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:minWidth="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/white"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_title_right"
+                        android:hint="时间段"
+                        android:text="@{vm.timeType}"
+                        android:onClick="@{(v)->vm.chooseTimeType(v)}"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    android:visibility="@{vm.timeType.equals(@string/time_quantum) ? View.GONE : View.VISIBLE}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="过期时间"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv"
+                        android:layout_width="45dp"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:text="天过期"
+                        android:textColor="#FF333333"
+                        android:textSize="15dp"
+                        />
+
+                    <EditText
+                        android:id="@+id/tvPastDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignBaseline="@+id/tv"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_toLeftOf="@+id/tv"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:hint="2018-11-11"
+                        android:maxWidth="80dp"
+                        android:minWidth="75dp"
+                        android:singleLine="true"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="21dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_toLeftOf="@+id/tvPastDay"
+                        android:text="天过期"
+                        android:textColor="#FF333333"
+                        android:textSize="15dp"
+                        />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    android:visibility="@{vm.timeType.equals(@string/postnatal_life_cycle) ? View.GONE : View.VISIBLE}"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="开始时间"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/white"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_title_right"
+                        android:hint="2018-11-11"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"
+                    android:visibility="@{vm.timeType.equals(@string/postnatal_life_cycle) ? View.GONE : View.VISIBLE}"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    android:visibility="@{vm.timeType.equals(@string/postnatal_life_cycle) ? View.GONE : View.VISIBLE}"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="结束时间"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/white"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_title_right"
+                        android:hint="2018-11-11"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="使用条件"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:minWidth="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/white"
+                        android:drawablePadding="3.5dp"
+                        android:drawableRight="@drawable/icon_arrow_item_title_right"
+                        android:hint="@{vm.useCondition}"
+                        android:onClick="@{(v)->vm.chooseUseCondition(v)}"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="优惠金额"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <EditText
+                        android:id="@+id/etPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/white"
+                        android:drawablePadding="3.5dp"
+                        android:hint="输入金额"
+                        android:minWidth="60dp"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textSize="15dp"
+                        />
+
+                    <TextView
+                        android:layout_width="16dp"
+                        android:layout_height="22.5dp"
+                        android:layout_alignBaseline="@+id/etPrice"
+                        android:layout_toLeftOf="@+id/etPrice"
+                        android:text="￥"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/include_recyclerview_cutoff_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="使用条件"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>
+
