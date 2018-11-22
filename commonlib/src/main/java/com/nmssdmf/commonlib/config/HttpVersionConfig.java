@@ -25,4 +25,9 @@ public class HttpVersionConfig {
      * 首页
      */
     public static final int API_INDEX = 1;
+
+    /**
+     * 分类列表帖子
+     */
+    public static final int API_BBS_INFO_LIST = 1;
 }
