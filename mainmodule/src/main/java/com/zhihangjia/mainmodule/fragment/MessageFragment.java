@@ -19,9 +19,12 @@ import com.zhihangjia.mainmodule.activity.PostActivity;
 import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MessageCategoryViewPagerAdapter;
+import com.zhihangjia.mainmodule.bean.MessageCategory;
+import com.zhihangjia.mainmodule.callback.IndexMessageCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMessageBinding;
 import com.zhihangjia.mainmodule.databinding.ItemViewflipperBinding;
 import com.zhihangjia.mainmodule.viewmodel.MessageVM;
+import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ import java.util.List;
 * @date 2018/11/13 15:53
 * @version v3.2.0
 */
-public class MessageFragment extends BaseTitleFragment {
+public class MessageFragment extends BaseTitleFragment implements IndexMessageCB {
     private MessageVM vm;
     private String TAG = MessageFragment.class.getSimpleName();
     private FragmentMessageBinding fragmentMessageBinding;
@@ -60,11 +63,7 @@ public class MessageFragment extends BaseTitleFragment {
         fragmentMessageBinding = (FragmentMessageBinding) baseViewBinding;
 
         //初始化首页轮播图
-        List<Base> list = new ArrayList<>();
-        for (int i=0; i < 2; i++) {
-            list.add(new Base());
-        }
-        viewPagerAdapter = new MessageCategoryViewPagerAdapter(AdvertisingRotationViewPagerAdapter.MAIN_PAGER, list, fragmentMessageBinding.rpv);
+        viewPagerAdapter = new MessageCategoryViewPagerAdapter(AdvertisingRotationViewPagerAdapter.MAIN_PAGER, new ArrayList<MessageCategory>(), fragmentMessageBinding.rpv);
         fragmentMessageBinding.rpv.setAdapter(viewPagerAdapter);
         fragmentMessageBinding.rpv.pause();
 
@@ -94,7 +93,7 @@ public class MessageFragment extends BaseTitleFragment {
         fragmentMessageBinding.tl.getTabAt(0).setText("24小时热点");
         fragmentMessageBinding.tl.getTabAt(1).setText("最新发布");
         fragmentMessageBinding.tl.getTabAt(2).setText("最后回复");
-
+        vm.getMessageCat();
         setListener();
     }
 
@@ -172,5 +171,28 @@ public class MessageFragment extends BaseTitleFragment {
     @Override
     public String getTAG() {
         return TAG;
+    }
+
+    @Override
+    public void setMessageCategory(List<BbsCategory> bbsCategories) {
+        List<MessageCategory> messageCategories = new ArrayList<>();
+        if (bbsCategories.size() < 8) {
+            MessageCategory messageCategory = new MessageCategory();
+            messageCategory.setCategories(bbsCategories);
+            messageCategories.add(messageCategory);
+        } else {
+            for (int i=0; i < bbsCategories.size(); i+=8) {
+                MessageCategory messageCategory = new MessageCategory();
+                if (i+8 >= bbsCategories.size()) {
+                    messageCategory.setCategories(bbsCategories.subList(i,bbsCategories.size()));
+                } else {
+                    messageCategory.setCategories(bbsCategories.subList(i,i+8));
+                }
+                messageCategories.add(messageCategory);
+            }
+        }
+        viewPagerAdapter.setMessageCategory(messageCategories);
+        viewPagerAdapter.notifyDataSetChanged();
+        fragmentMessageBinding.rpv.pause();
     }
 }

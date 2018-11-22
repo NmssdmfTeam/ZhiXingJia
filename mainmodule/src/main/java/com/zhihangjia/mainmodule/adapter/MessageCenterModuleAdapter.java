@@ -1,4 +1,4 @@
-package com.zhihangjia.mainmodule.adapter.message;
+package com.zhihangjia.mainmodule.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,36 +11,38 @@ import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ItemMessageBinding;
+import com.zhihangjia.mainmodule.databinding.ItemMessageModuleBinding;
+import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
 
 /**
-* @description 消息中心adapter
+* @description 消息中心分类模块adapter
 * @author chenbin
 * @date 2018/11/14 15:14
 * @version v3.2.0
 */
-public class MessageAdapter extends BaseDataBindingAdapter<IndexBean.ForumBean, ItemMessageBinding> {
-    public MessageAdapter(@Nullable List<IndexBean.ForumBean> data) {
-        super(R.layout.item_message, data);
+public class MessageCenterModuleAdapter extends BaseDataBindingAdapter<BbsInfoList, ItemMessageModuleBinding> {
+    public MessageCenterModuleAdapter(@Nullable List<BbsInfoList> data) {
+        super(R.layout.item_message_module, data);
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ItemMessageBinding> helper, IndexBean.ForumBean item, int position) {
-        ItemMessageBinding itemMessageBinding = helper.getBinding();
-        itemMessageBinding.setData(item);
+    protected void convert2(BaseBindingViewHolder<ItemMessageModuleBinding> helper, BbsInfoList item, int position) {
+        ItemMessageModuleBinding itemMessageModuleBinding = helper.getBinding();
+        itemMessageModuleBinding.setData(item);
         if (item.getImgs()== null || item.getImgs().size() == 0) {
-            itemMessageBinding.llImgs.setVisibility(View.GONE);
-            itemMessageBinding.ivImg.setVisibility(View.GONE);
+            itemMessageModuleBinding.llImgs.setVisibility(View.GONE);
+            itemMessageModuleBinding.ivImg.setVisibility(View.GONE);
         } else if (item.getImgs().size() == 1) {
-            itemMessageBinding.llImgs.setVisibility(View.GONE);
-            itemMessageBinding.ivImg.setVisibility(View.VISIBLE);
-            GlideUtil.load(itemMessageBinding.ivImg,item.getImgs().get(0));
+            itemMessageModuleBinding.llImgs.setVisibility(View.GONE);
+            itemMessageModuleBinding.ivImg.setVisibility(View.VISIBLE);
+            GlideUtil.load(itemMessageModuleBinding.ivImg,item.getImgs().get(0));
         } else {
-            itemMessageBinding.ivImg.setVisibility(View.GONE);
-            itemMessageBinding.llImgs.setVisibility(View.VISIBLE);
-            itemMessageBinding.llImgs.removeAllViews();
+            itemMessageModuleBinding.ivImg.setVisibility(View.GONE);
+            itemMessageModuleBinding.llImgs.setVisibility(View.VISIBLE);
+            itemMessageModuleBinding.llImgs.removeAllViews();
             int index = 0;
             for (String img:item.getImgs()) {
                 if (index > 2)
@@ -51,7 +53,7 @@ public class MessageAdapter extends BaseDataBindingAdapter<IndexBean.ForumBean, 
                     layoutParams.rightMargin = DensityUtil.dpToPx(mContext,5);
                 imageView.setLayoutParams(layoutParams);
                 GlideUtil.load(imageView,img);
-                itemMessageBinding.llImgs.addView(imageView);
+                itemMessageModuleBinding.llImgs.addView(imageView);
                 index++;
             }
         }

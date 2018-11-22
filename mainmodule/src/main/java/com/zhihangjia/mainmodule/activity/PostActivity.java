@@ -18,6 +18,7 @@ import com.zhihangjia.mainmodule.databinding.ActivityPostBinding;
 import com.zhihangjia.mainmodule.databinding.ItemPostTagBinding;
 import com.zhihangjia.mainmodule.viewmodel.PostVM;
 import com.zhihangjia.mainmodule.databinding.ItemPostContentBinding;
+import com.zhixingjia.bean.mainmodule.BbsCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,27 +56,9 @@ public class PostActivity extends BaseActivity implements PostCB{
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityPostBinding) baseBinding;
         binding.setVm(vm);
-        ItemPostTagBinding itemPostTagBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_post_tag,null,false);
-        itemPostTagBinding.tvTag.setText("杂七杂八");
-        itemPostTagBindings.add(itemPostTagBinding);
-        binding.tagLayout.addView(itemPostTagBinding.getRoot());
-
-        itemPostTagBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_post_tag,null,false);
-        itemPostTagBinding.tvTag.setText("娱乐八卦");
-        itemPostTagBinding.tvTag.setTextColor(getResources().getColor(R.color.text_black));
-        itemPostTagBinding.tvTag.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_choose_unselect));
-        itemPostTagBindings.add(itemPostTagBinding);
-        binding.tagLayout.addView(itemPostTagBinding.getRoot());
-
-        itemPostTagBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_post_tag,null,false);
-        itemPostTagBinding.tvTag.setText("情感天地");
-        itemPostTagBinding.tvTag.setTextColor(getResources().getColor(R.color.text_black));
-        itemPostTagBinding.tvTag.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_choose_unselect));
-        itemPostTagBindings.add(itemPostTagBinding);
-        binding.tagLayout.addView(itemPostTagBinding.getRoot());
         binding.tTitle.setNavigationIcon(R.drawable.ic_arrow_back);
         binding.tTitle.inflateMenu(R.menu.post);
-        setListener();
+        vm.getBbsCat();
     }
 
     private void setListener() {
@@ -142,6 +125,28 @@ public class PostActivity extends BaseActivity implements PostCB{
         } else {
             binding.llTags.setVisibility(View.GONE);
             binding.vBlackBackgroud.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void setCat(List<BbsCategory> cats) {
+        itemPostTagBindings.clear();
+        binding.tagLayout.removeAllViews();
+        int i = 0;
+        for (BbsCategory category : cats) {
+            //设置类别
+            ItemPostTagBinding itemPostTagBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_post_tag,null,false);
+            itemPostTagBinding.tvTag.setText(category.getCate_name());
+            if (i == 0)
+                itemPostTagBinding.tvTag.setSelected(true);
+            itemPostTagBindings.add(itemPostTagBinding);
+            binding.tagLayout.addView(itemPostTagBinding.getRoot());
+            i++;
+        }
+        if (cats.size() > 0) {
+            binding.tvTitle.setText(cats.get(0).getCate_name());
+            vm.currentCat = cats.get(0).getCate_id();
+            setListener();
         }
     }
 }

@@ -65,4 +65,8 @@ public class TagView extends android.support.v7.widget.AppCompatTextView {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
+
+    public interface TagClickListener {
+
+    }
 }

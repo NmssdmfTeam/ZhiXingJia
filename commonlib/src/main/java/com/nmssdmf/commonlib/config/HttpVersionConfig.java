@@ -38,4 +38,9 @@ public class HttpVersionConfig {
      * 帖子详情
      */
     public static final int API_BBS_VIEW = 1;
+
+    /**
+     * 分类
+     */
+    public static final int API_BBS_CATE = 1;
 }

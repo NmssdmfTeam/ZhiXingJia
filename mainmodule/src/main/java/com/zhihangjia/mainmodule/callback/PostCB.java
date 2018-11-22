@@ -1,6 +1,9 @@
 package com.zhihangjia.mainmodule.callback;
 
 import com.nmssdmf.commonlib.callback.BaseCB;
+import com.zhixingjia.bean.mainmodule.BbsCategory;
+
+import java.util.List;
 
 /**
 * @description 发帖callback
@@ -14,4 +17,5 @@ public interface PostCB extends BaseCB {
 
     void showChooseWindow();
 
+    void setCat(List<BbsCategory> cats);          //设置类别
 }

@@ -11,6 +11,7 @@ import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.rollviewpager.RollPagerView;
 import com.nmssdmf.commonlib.rollviewpager.adapter.LoopPagerAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.bean.MessageCategory;
 import com.zhihangjia.mainmodule.databinding.ItemMessageCategoryBinding;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MessageCategoryViewPagerAdapter extends LoopPagerAdapter {
     public static final int MAIN_PAGER = 1, PART_PAGER = 2, CAPACITY_PAGER =3;
     private int type = MAIN_PAGER;
 
-    private List<Base> messageCategory;
+    private List<MessageCategory> messageCategory;
 
     private ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -33,7 +34,7 @@ public class MessageCategoryViewPagerAdapter extends LoopPagerAdapter {
     // SetScaleType(ImageView.ScaleType.CENTER_CROP);
     // 按比例扩大图片的size居中显示，使得图片长(宽)等于或大于View的长(宽)
 
-    public MessageCategoryViewPagerAdapter(int type, List<Base> messageCategory, RollPagerView viewPager) {
+    public MessageCategoryViewPagerAdapter(int type, List<MessageCategory> messageCategory, RollPagerView viewPager) {
         super(viewPager);
         this.type = type;
         this.messageCategory = messageCategory;
@@ -43,17 +44,7 @@ public class MessageCategoryViewPagerAdapter extends LoopPagerAdapter {
     @Override
     public View getView(final ViewGroup container, final int position) {
         ItemMessageCategoryBinding binding =  DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_message_category,null,false);
-        List<Base> bases = new ArrayList<>();
-        if (position == 0) {
-            for (int i=0; i < 8; i++) {
-                bases.add(new Base());
-            }
-        } else {
-            for (int i=0; i < 6; i++) {
-                bases.add(new Base());
-            }
-        }
-        MessageCategoryAdapter adapter = new MessageCategoryAdapter(bases);
+        MessageCategoryAdapter adapter = new MessageCategoryAdapter(messageCategory.get(position).getCategories());
         binding.crv.setLayoutManager(new GridLayoutManager(context,4));
         binding.crv.setAdapter(adapter);
         return binding.getRoot();
@@ -64,11 +55,11 @@ public class MessageCategoryViewPagerAdapter extends LoopPagerAdapter {
         return messageCategory.size();
     }
 
-    public List<Base> getMessageCategory() {
+    public List<MessageCategory> getMessageCategory() {
         return messageCategory;
     }
 
-    public void setMessageCategory(List<Base> messageCategory) {
+    public void setMessageCategory(List<MessageCategory> messageCategory) {
         this.messageCategory = messageCategory;
     }
 

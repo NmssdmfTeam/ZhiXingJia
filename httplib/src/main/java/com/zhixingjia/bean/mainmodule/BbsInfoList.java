@@ -1,7 +1,10 @@
 package com.zhixingjia.bean.mainmodule;
 
+import android.databinding.BaseObservable;
+
 import com.nmssdmf.commonlib.bean.Base;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +13,7 @@ import java.util.List;
 * @date 2018/11/22 10:27
 * @version v3.2.0
 */
-public class BbsInfoList extends Base {
+public class BbsInfoList extends BaseObservable implements Serializable {
 
     private String bbs_id;      //论坛ID
     private String title;       //标题
