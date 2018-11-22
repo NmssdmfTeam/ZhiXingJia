@@ -20,6 +20,8 @@ import com.zhihangjia.mainmodule.callback.MaterialsMerchantFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMaterialsMerchantBinding;
 import com.zhihangjia.mainmodule.viewmodel.MaterialsMerchantFragmentVM;
 
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * 建材商家
@@ -44,10 +46,7 @@ public class MaterialsMerchantFragment extends BaseFragment implements Materials
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMaterialsMerchantBinding) baseBinding;
-
         initSearchHistory();
-
-        initHotSearchHistory();
 
         binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -65,8 +64,6 @@ public class MaterialsMerchantFragment extends BaseFragment implements Materials
                 return true;
             }
         });
-
-        vm.getHistory();
     }
 
     private void initSearchHistory(){
@@ -94,14 +91,14 @@ public class MaterialsMerchantFragment extends BaseFragment implements Materials
         }
     }
 
-    private void initHotSearchHistory() {
-        for (int i = 0; i < vm.getHotHistorys().size(); i++) {
+    public void initHotSearchHistory(List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
             final TextView textView = new TextView(getActivity());
             textView.setGravity(Gravity.CENTER);
             textView.setTextColor(Color.parseColor("#FF666666"));
             textView.setBackgroundResource(R.drawable.shape_search_edittext);
             textView.setTextSize(12);
-            textView.setText("第几个" + i);
+            textView.setText(list.get(i));
 
             int paddingleft = DensityUtil.dpToPx(getActivity(), 12);
             int paddingtop = DensityUtil.dpToPx(getActivity(), 7);

@@ -1,6 +1,5 @@
 package com.zhixingjia.service;
 
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
@@ -22,4 +21,7 @@ public interface MainService {
     Observable<BaseData<IndexBean>> getIndex();
 
 //    Observable<Base>
+
+    @GET ("/api/hotkey")
+    Observable<BaseListData<HotHistory>> getHotHistory();
 }

@@ -30,4 +30,8 @@ public class HttpVersionConfig {
      * 分类列表帖子
      */
     public static final int API_BBS_INFO_LIST = 1;
+    /**
+     * 热门搜索
+     */
+    public static final int API_HOTKEY = 1;
 }
