@@ -61,6 +61,7 @@ public class MessageCenterModuleActivity extends BaseTitleActivity {
         binding.tl.getTabAt(1).setText("最新发布");
         binding.tl.getTabAt(2).setText("精华热帖");
         baseTitleBinding.tTitle.inflateMenu(R.menu.messagecenter);
+        setTitle(vm.name);
     }
 
     @Override

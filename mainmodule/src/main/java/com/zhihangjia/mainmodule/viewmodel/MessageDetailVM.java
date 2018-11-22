@@ -4,11 +4,13 @@ package com.zhihangjia.mainmodule.viewmodel;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
@@ -31,7 +33,7 @@ import java.util.Map;
  * @date 2018/11/20 11:12
  */
 public class MessageDetailVM extends BaseVM {
-    private String messageId = "1";
+    public String messageId = "1";
     private MessageDetailCB cb;
 
     public final ObservableField<MessageDetail> detail = new ObservableField<>();
@@ -53,6 +55,7 @@ public class MessageDetailVM extends BaseVM {
     public MessageDetailVM(MessageDetailCB callBack) {
         super(callBack);
         this.cb = callBack;
+        initData();
 
         onlyLookBuilder.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
@@ -67,6 +70,13 @@ public class MessageDetailVM extends BaseVM {
                 getCommentList(true);
             }
         });
+    }
+
+    private void initData() {
+        Bundle bundle = baseCallBck.getIntentData();
+        if (bundle != null) {
+            messageId = bundle.getString(IntentConfig.ID);
+        }
     }
 
     public void getMessageDetail() {

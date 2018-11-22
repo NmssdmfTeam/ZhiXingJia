@@ -13,6 +13,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
  */
 public class MessageCenterModuleVM extends BaseVM {
     public String cat_id;
+    public String name;
 
     /**
      * 不需要callback可以传null
@@ -28,6 +29,7 @@ public class MessageCenterModuleVM extends BaseVM {
         Bundle bundle = baseCallBck.getIntentData();
         if (bundle != null) {
             cat_id = bundle.getString(IntentConfig.CAT_ID);
+            name = bundle.getString(IntentConfig.NAME);
         }
     }
 }

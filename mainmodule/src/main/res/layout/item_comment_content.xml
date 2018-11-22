@@ -96,9 +96,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/tvCreateDate"
-                android:layout_marginLeft="204dp"
-                android:layout_marginRight="50dp"
-                android:layout_toRightOf="@+id/tvCreateDate"
+                android:layout_marginRight="58dp"
+                android:layout_alignParentRight="true"
                 android:drawableLeft="@drawable/icon_commentlist_zan"
                 android:ellipsize="end"
                 android:singleLine="true"
@@ -107,6 +106,7 @@
                 android:textSize="12dp" />
 
             <TextView
+                android:id="@+id/tvToComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

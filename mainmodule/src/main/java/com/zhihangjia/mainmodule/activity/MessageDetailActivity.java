@@ -48,7 +48,7 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityMessageDetailBinding) baseViewBinding;
 
-        adapter = new CommentListContentAdapter(vm.getList());
+        adapter = new CommentListContentAdapter(vm.getList(), vm.messageId);
         binding.crv.setAdapter(adapter);
         itemMessageDetailHeadBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_message_detail_head, null, false);
         adapter.addHeaderView(itemMessageDetailHeadBinding.getRoot());

@@ -74,4 +74,12 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/bbs/insert")
     Observable<Base> postBbs(@FieldMap Map<String,Object> params);
+
+    /**
+     * 帖子评论保存
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/comment_insert")
+    Observable<Base> commentInsert(@FieldMap Map<String,Object> params);
 }

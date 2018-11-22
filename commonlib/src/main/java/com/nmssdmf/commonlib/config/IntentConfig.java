@@ -9,5 +9,11 @@ public class IntentConfig {
 
     public static final String NAME = "NAME";
 
-    public static final String CAT_ID = "cat_id";   //类别id
+    public static final String CAT_ID = "cat_id";               //类别id
+
+    public static final String ID = "id";                       //id
+
+    public static final String BBS_ID = "bbs_id";               //帖子ID
+
+    public static final String COMMENT_ID = "comment_id";       //评论ID
 }

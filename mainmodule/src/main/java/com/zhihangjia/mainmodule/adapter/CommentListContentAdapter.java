@@ -1,14 +1,19 @@
 package com.zhihangjia.mainmodule.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.LinearLayout;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.ReplyActivity;
 import com.zhihangjia.mainmodule.databinding.ItemCommentContentBinding;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 
@@ -21,13 +26,14 @@ import java.util.List;
 * @version v3.2.0
 */
 public class CommentListContentAdapter extends BaseDataBindingAdapter<MessageComment,ItemCommentContentBinding> {
-
-    public CommentListContentAdapter(@Nullable List<MessageComment> data) {
+    private String bbsId;
+    public CommentListContentAdapter(@Nullable List<MessageComment> data, String bbsId) {
         super(R.layout.item_comment_content, data);
+        this.bbsId = bbsId;
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ItemCommentContentBinding> helper, MessageComment item, int position) {
+    protected void convert2(BaseBindingViewHolder<ItemCommentContentBinding> helper, final MessageComment item, int position) {
         ItemCommentContentBinding binding= helper.getBinding();
         binding.setData(item);
         MessageComment.ContentsBean contentsBean = item.getContents().get(0);
@@ -42,5 +48,17 @@ public class CommentListContentAdapter extends BaseDataBindingAdapter<MessageCom
                 binding.tl.addView(imageView, params);
             }
         }
+        binding.tvToComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, ReplyActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.BBS_ID, bbsId);
+                bundle.putString(IntentConfig.COMMENT_ID, item.getComment_id());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
     }
 }

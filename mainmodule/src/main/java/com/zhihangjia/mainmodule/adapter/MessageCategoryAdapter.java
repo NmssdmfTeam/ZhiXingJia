@@ -32,6 +32,7 @@ public class MessageCategoryAdapter extends BaseDataBindingAdapter<BbsCategory, 
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.CAT_ID, item.getCate_id());
+                bundle.putString(IntentConfig.NAME, item.getCate_name());
                 intent.setClass(mContext, MessageCenterModuleActivity.class);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
