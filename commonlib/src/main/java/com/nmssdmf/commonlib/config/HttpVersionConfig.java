@@ -43,4 +43,8 @@ public class HttpVersionConfig {
      * 分类
      */
     public static final int API_BBS_CATE = 1;
+    /**
+     * 帖子评论详情
+     */
+    public static final int API_BBS_COMMENT = 1;
 }
