@@ -1,6 +1,8 @@
 package com.zhixingjia.service;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.bean.BaseListData;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.HotHistory;
