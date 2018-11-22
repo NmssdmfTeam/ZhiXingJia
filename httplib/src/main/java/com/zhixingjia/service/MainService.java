@@ -1,6 +1,8 @@
 package com.zhixingjia.service;
 
 import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.bean.BaseListData;
+import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import io.reactivex.Observable;
@@ -19,4 +21,7 @@ public interface MainService {
      */
     @GET("/api/index")
     Observable<BaseData<IndexBean>> getIndex();
+
+    @GET ("/api/hotkey")
+    Observable<BaseListData<HotHistory>> getHotHistory();
 }

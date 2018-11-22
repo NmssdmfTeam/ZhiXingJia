@@ -20,7 +20,6 @@ public class MaterialsMerchantFragmentVM extends BaseVM {
     public final ObservableField<String> keyword = new ObservableField<>();
 
     private List<Base> historys = new ArrayList<>();
-    private List<Base> hotHistorys = new ArrayList<>();
 
     /**
      * 不需要callback可以传null
@@ -40,12 +39,6 @@ public class MaterialsMerchantFragmentVM extends BaseVM {
         cb.clearHistory();
     }
 
-    public void getHistory(){
-        for (int i =0; i< 10; i++) {
-            historys.add(new Base());
-            hotHistorys.add(new Base());
-        }
-    }
 
     public void doSearch() {
 
@@ -59,11 +52,6 @@ public class MaterialsMerchantFragmentVM extends BaseVM {
         this.historys = historys;
     }
 
-    public List<Base> getHotHistorys() {
-        return hotHistorys;
-    }
 
-    public void setHotHistorys(List<Base> hotHistorys) {
-        this.hotHistorys = hotHistorys;
-    }
+
 }

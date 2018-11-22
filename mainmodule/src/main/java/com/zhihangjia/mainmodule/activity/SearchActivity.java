@@ -7,20 +7,31 @@ import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.callback.SearchCB;
 import com.zhihangjia.mainmodule.databinding.ActivitySearchBinding;
 import com.zhihangjia.mainmodule.fragment.InformationCenterFragment;
 import com.zhihangjia.mainmodule.fragment.MaterialsMerchandiseFragment;
 import com.zhihangjia.mainmodule.fragment.MaterialsMerchantFragment;
+import com.zhihangjia.mainmodule.viewmodel.SearchVM;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends BaseTitleActivity {
+/**
+ * 搜索
+ * 历史记录保存在本地
+ * 热门搜索来自接口
+ */
+public class SearchActivity extends BaseTitleActivity implements SearchCB{
     private final String TAG = SearchActivity.class.getSimpleName();
     private ActivitySearchBinding binding;
 
     private List<Fragment> list = new ArrayList<>();
     private FragmentPagerAdapter adapter;
+    MaterialsMerchantFragment materialsMerchantFragment = new MaterialsMerchantFragment();
+    MaterialsMerchandiseFragment materialsMerchandiseFragment = new MaterialsMerchandiseFragment();
+    InformationCenterFragment informationCenterFragment = new InformationCenterFragment();
+    private SearchVM vm;
 
     @Override
     public String getTAG() {
@@ -29,7 +40,8 @@ public class SearchActivity extends BaseTitleActivity {
 
     @Override
     public BaseVM initViewModel() {
-        return null;
+        vm = new SearchVM(this);
+        return vm;
     }
 
     @Override
@@ -43,13 +55,10 @@ public class SearchActivity extends BaseTitleActivity {
 
         setISlenderLineGone();
         initTabLayout();
-
+        vm.getHistory();
     }
 
     private void initTabLayout(){
-        MaterialsMerchantFragment materialsMerchantFragment = new MaterialsMerchantFragment();
-        MaterialsMerchandiseFragment materialsMerchandiseFragment = new MaterialsMerchandiseFragment();
-        InformationCenterFragment informationCenterFragment = new InformationCenterFragment();
         list.add(materialsMerchantFragment);
         list.add(materialsMerchandiseFragment);
         list.add(informationCenterFragment);
@@ -67,5 +76,20 @@ public class SearchActivity extends BaseTitleActivity {
     @Override
     public int getContentViewId() {
         return R.layout.activity_search;
+    }
+
+    @Override
+    public void setMaterialsMerchantHotHistory(List<String> list) {
+        materialsMerchantFragment.initHotSearchHistory(list);
+    }
+
+    @Override
+    public void setMaterialsMerchandiseHotHistory(List<String> list) {
+
+    }
+
+    @Override
+    public void setInformationCenterHotHistory(List<String> list) {
+
     }
 }
