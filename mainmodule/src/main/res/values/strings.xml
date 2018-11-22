@@ -13,6 +13,10 @@
     <string name="time_quantum">时间段</string>
     <string name="postnatal_life_cycle">发放后生存周期</string>
 
+    <string name="comment">评论</string>
+    <string name="and">等</string>
+    <string name="people_praise">人赞</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

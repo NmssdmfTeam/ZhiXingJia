@@ -13,6 +13,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
 import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
@@ -131,6 +132,13 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
             @Override
             public void onClick(View v) {
                 doIntent(MessageCenterActivity.class,null);
+            }
+        });
+
+        binding.iIndexTitle.vSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(SearchActivity.class, null);
             }
         });
     }

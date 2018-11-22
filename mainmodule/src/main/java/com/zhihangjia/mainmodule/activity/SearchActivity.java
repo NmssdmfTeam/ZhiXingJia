@@ -9,9 +9,8 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.callback.SearchCB;
 import com.zhihangjia.mainmodule.databinding.ActivitySearchBinding;
-import com.zhihangjia.mainmodule.fragment.InformationCenterFragment;
-import com.zhihangjia.mainmodule.fragment.MaterialsMerchandiseFragment;
-import com.zhihangjia.mainmodule.fragment.MaterialsMerchantFragment;
+import com.zhihangjia.mainmodule.fragment.SearchFragment;
+import com.zhihangjia.mainmodule.viewmodel.SearchFragmentVM;
 import com.zhihangjia.mainmodule.viewmodel.SearchVM;
 
 import java.util.ArrayList;
@@ -28,9 +27,9 @@ public class SearchActivity extends BaseTitleActivity implements SearchCB{
 
     private List<Fragment> list = new ArrayList<>();
     private FragmentPagerAdapter adapter;
-    MaterialsMerchantFragment materialsMerchantFragment = new MaterialsMerchantFragment();
-    MaterialsMerchandiseFragment materialsMerchandiseFragment = new MaterialsMerchandiseFragment();
-    InformationCenterFragment informationCenterFragment = new InformationCenterFragment();
+    SearchFragment materialsMerchantFragment = new SearchFragment();
+    SearchFragment materialsMerchandiseFragment = new SearchFragment();
+    SearchFragment informationCenterFragment = new SearchFragment();
     private SearchVM vm;
 
     @Override
@@ -63,13 +62,19 @@ public class SearchActivity extends BaseTitleActivity implements SearchCB{
         list.add(materialsMerchandiseFragment);
         list.add(informationCenterFragment);
 
-        adapter = new FragmentPagerAdapter(getSupportFragmentManager(), this, list);
+        materialsMerchantFragment.setType(SearchFragmentVM.TYPE_MATERIALS_MERCHANT);
+        materialsMerchandiseFragment.setType(SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
+        informationCenterFragment.setType(SearchFragmentVM.TYPE_INFORMATION_CENTER);
+
+        adapter = new FragmentPagerAdapter(getSupportFragmentManager(), SearchActivity.this, list);
         binding.vp.setAdapter(adapter);
         binding.tl.setupWithViewPager(binding.vp);
 
         binding.tl.getTabAt(0).setText("建材商家");
         binding.tl.getTabAt(1).setText("建材商品");
         binding.tl.getTabAt(2).setText("信息中心");
+
+        binding.vp.setOffscreenPageLimit(2);//因为vp预加载只有1个，导致第三个无法加载数据，所以设置预加载2个
     }
 
 
@@ -85,11 +90,11 @@ public class SearchActivity extends BaseTitleActivity implements SearchCB{
 
     @Override
     public void setMaterialsMerchandiseHotHistory(List<String> list) {
-
+        materialsMerchandiseFragment.initHotSearchHistory(list);
     }
 
     @Override
     public void setInformationCenterHotHistory(List<String> list) {
-
+        informationCenterFragment.initHotSearchHistory(list);
     }
 }

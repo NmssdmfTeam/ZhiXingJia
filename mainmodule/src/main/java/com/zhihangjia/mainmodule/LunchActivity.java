@@ -27,10 +27,13 @@ import com.zhihangjia.mainmodule.activity.SetCouponActivity;
 import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
 import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
 import com.zhihangjia.mainmodule.databinding.ActivityLunchBinding;
+import com.zhihangjia.mainmodule.viewmodel.LunchVM;
 
 public class LunchActivity extends BaseTitleActivity {
     private String TAG = LunchActivity.class.getSimpleName();
     private ActivityLunchBinding binding;
+
+    private LunchVM vm;
 
     @Override
     public String getTAG() {
@@ -39,8 +42,8 @@ public class LunchActivity extends BaseTitleActivity {
 
     @Override
     public BaseVM initViewModel() {
-        return new BaseVM(this) {
-        };
+        vm = new LunchVM(this);
+        return vm;
     }
 
     @Override
@@ -51,6 +54,8 @@ public class LunchActivity extends BaseTitleActivity {
     @Override
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityLunchBinding) baseViewBinding;
+
+        vm.doLogin();
         binding.btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

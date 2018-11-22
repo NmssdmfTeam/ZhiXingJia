@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.MessageDetail"/>
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +20,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:text="质量上乘画风感人《武士崛起》交首付款火爆质量上乘画风感人质量上乘画风感人风…"
+            android:text="@{data.title}"
             android:textColor="#FF333333"
             android:textSize="18dp" />
 
@@ -29,7 +36,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2343阅读"
+                android:text="@{data.read_sum + @string/read}"
                 android:textColor="#FFA5A5A5"
                 android:textSize="13dp" />
 
@@ -37,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:text="234评论"
+                android:text="@{data.comment_sum + @string/comment}"
                 android:textColor="#FFA5A5A5"
                 android:textSize="13dp" />
 
@@ -45,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:text="杂七杂八"
+                android:text="@{data.cate_name}"
                 android:textColor="#FFFF9A14"
                 android:textSize="13dp" />
 
@@ -58,14 +65,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp">
 
             <com.nmssdmf.commonlib.view.GlideImageView
                 android:id="@+id/ivAvater"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/no_pic"
+                src="@{data.avatar}"
                 android:layout_marginTop="12dp"
                 app:roundAsCircle="@{true}"/>
 
@@ -73,7 +81,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="城龙一切之人"
+                android:text="@{data.nickname}"
                 android:textColor="#FF333333"
                 android:textSize="15dp"
                 android:layout_toRightOf="@+id/ivAvater"
@@ -83,7 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1小时前"
+                android:text="@{data.createtime}"
                 android:textColor="#FFA5A5A5"
                 android:layout_toRightOf="@+id/ivAvater"
                 android:layout_below="@+id/tvName"
@@ -97,7 +105,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <TextView
                 android:layout_width="match_parent"
@@ -121,7 +130,9 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="@{ Integer.valueOf(data.give_sum) > 0 ? View.VISIBLE:View.GONE}">
+            <!--Integer.valueOf(data.give_sum) > 0 ? View.VISIBLE:-->
 
             <com.nmssdmf.commonlib.view.GlideImageView
                 android:layout_width="wrap_content"
@@ -131,7 +142,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="你好一切、大家好、er123、123、老克勒、老克勒、南非世界杯老克勒 等34人赞"
+                android:text="@{data.give_info+@string/and + data.give_sum + @string/people_praise}"
                 android:textColor="#FF333333"
                 android:textSize="12dp"
                 android:layout_marginLeft="4dp"/>

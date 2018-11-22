@@ -9,8 +9,8 @@ import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.CommentListContentAdapter;
+import com.zhihangjia.mainmodule.callback.MessageDetailCB;
 import com.zhihangjia.mainmodule.databinding.ActivityMessageDetailBinding;
-import com.zhihangjia.mainmodule.databinding.ItemCommentDetailBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMessageDetailHeadBinding;
 import com.zhihangjia.mainmodule.viewmodel.MessageDetailVM;
 
@@ -23,12 +23,12 @@ import java.util.List;
 * @date 2018/11/20 11:10
 * @version v3.2.0
 */
-public class MessageDetailActivity extends BaseTitleActivity {
+public class MessageDetailActivity extends BaseTitleActivity implements MessageDetailCB {
     private final String TAG = MessageDetailActivity.class.getSimpleName();
     private MessageDetailVM vm;
     private ActivityMessageDetailBinding binding;
     private CommentListContentAdapter adapter;
-
+    private ItemMessageDetailHeadBinding itemMessageDetailHeadBinding;
     @Override
     public String setTitle() {
         return "1/10";
@@ -43,17 +43,18 @@ public class MessageDetailActivity extends BaseTitleActivity {
         }
         adapter = new CommentListContentAdapter(list);
         binding.crv.setAdapter(adapter);
-        ItemMessageDetailHeadBinding itemMessageDetailHeadBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_message_detail_head,null,false);
+        itemMessageDetailHeadBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_message_detail_head,null,false);
         adapter.addHeaderView(itemMessageDetailHeadBinding.getRoot());
         baseTitleBinding.tTitle.inflateMenu(R.menu.share);
         setListener();
+
+        vm.getMessageDetail();
     }
 
     private void setListener() {
         baseTitleBinding.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                binding.llPage.setVivibl
                 if (binding.svPage.getVisibility() == View.GONE) {
                     binding.vBlackBackgroud.setVisibility(View.VISIBLE);
                     binding.svPage.setVisibility(View.VISIBLE);
@@ -80,4 +81,11 @@ public class MessageDetailActivity extends BaseTitleActivity {
         vm = new MessageDetailVM(this);
         return vm;
     }
+
+    @Override
+    public void initView() {
+        setTitle(vm.getDetail().getComment_pages());
+        itemMessageDetailHeadBinding.setData(vm.getDetail());
+    }
+
 }

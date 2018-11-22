@@ -313,7 +313,7 @@ public class OkHttpClientProvider {
             if (null == token || "".equals(token) || "null".equals(token)) {
                 // no token
             } else {
-                builder.addHeader("Authorization", "Bearer {" + token + "}");
+                builder.addHeader("Authorization", "Bearer " + token + "");
             }
 
             Response response = chain.proceed(builder.build());

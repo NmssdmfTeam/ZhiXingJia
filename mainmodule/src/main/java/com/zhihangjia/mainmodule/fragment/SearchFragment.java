@@ -14,11 +14,12 @@ import android.widget.TextView;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.JLog;
+import com.nmssdmf.commonlib.util.KeyBoardUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.callback.MaterialsMerchantFragmentCB;
-import com.zhihangjia.mainmodule.databinding.FragmentMaterialsMerchantBinding;
-import com.zhihangjia.mainmodule.viewmodel.MaterialsMerchantFragmentVM;
+import com.zhihangjia.mainmodule.callback.SearchFragmentCB;
+import com.zhihangjia.mainmodule.databinding.FragmentSearchBinding;
+import com.zhihangjia.mainmodule.viewmodel.SearchFragmentVM;
 
 import java.util.List;
 
@@ -26,28 +27,28 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  * 建材商家
  */
-public class MaterialsMerchantFragment extends BaseFragment implements MaterialsMerchantFragmentCB {
-    private final String TAG = MaterialsMerchantFragment.class.getSimpleName();
+public class SearchFragment extends BaseFragment implements SearchFragmentCB {
+    private final String TAG = SearchFragment.class.getSimpleName();
 
-    private FragmentMaterialsMerchantBinding binding;
-    private MaterialsMerchantFragmentVM vm;
+    private FragmentSearchBinding binding;
+    private SearchFragmentVM vm;
 
     @Override
     public BaseVM initViewModel() {
-        vm = new MaterialsMerchantFragmentVM(this);
+        vm = new SearchFragmentVM(this);
         return vm;
     }
 
     @Override
     public int setLayout() {
-        return R.layout.fragment_materials_merchant;
+        return R.layout.fragment_search;
     }
 
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
-        binding = (FragmentMaterialsMerchantBinding) baseBinding;
+        binding = (FragmentSearchBinding) baseBinding;
+        binding.setVm(vm);
         initSearchHistory();
-
         binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -66,14 +67,16 @@ public class MaterialsMerchantFragment extends BaseFragment implements Materials
         });
     }
 
-    private void initSearchHistory(){
-        for (int i = 0; i < vm.getHistorys().size(); i++) {
+    private void initSearchHistory() {
+        binding.tlSearchHistory.removeAllViews();
+        int size = vm.getHistorys().size() - 1;
+        for (int i = size; i >= 0; i--) {
             final TextView textView = new TextView(getActivity());
             textView.setGravity(Gravity.CENTER);
             textView.setTextColor(Color.parseColor("#FF666666"));
             textView.setBackgroundResource(R.drawable.shape_search_edittext);
             textView.setTextSize(12);
-            textView.setText("第几个" + i * 2);
+            textView.setText(vm.getHistorys().get(i));
 
             int paddingleft = DensityUtil.dpToPx(getActivity(), 12);
             int paddingtop = DensityUtil.dpToPx(getActivity(), 7);
@@ -124,5 +127,36 @@ public class MaterialsMerchantFragment extends BaseFragment implements Materials
     @Override
     public void clearHistory() {
         binding.tlSearchHistory.removeAllViews();
+    }
+
+    @Override
+    public void refreshHistory() {
+        initSearchHistory();
+    }
+
+    /**
+     * 该方法在fragment被activity加载之后使用
+     *
+     * @param type
+     */
+    public void setType(String type) {
+        if (vm != null) {
+            vm.setType(type);
+            vm.getHistroyData();
+        } else {
+            JLog.d(TAG, "vm == null");
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        closeKeyBoard();
+    }
+
+    @Override
+    public void closeKeyBoard() {
+        KeyBoardUtil.closeKeyWords(binding.etSearch);
     }
 }
