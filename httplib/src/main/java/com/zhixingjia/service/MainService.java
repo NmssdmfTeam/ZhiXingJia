@@ -1,7 +1,6 @@
 package com.zhixingjia.service;
 
 import com.nmssdmf.commonlib.bean.BaseData;
-import com.nmssdmf.commonlib.bean.BaseListData;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.HotHistory;
@@ -12,7 +11,10 @@ import com.zhixingjia.bean.mainmodule.MessageDetail;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -62,4 +64,12 @@ public interface MainService {
      */
     @GET ("/api/bbs/comment")
     Observable<BaseListData<MessageComment>> getCommentList(@QueryMap Map<String, String> map);
+
+    /**
+     * 发帖保存
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/insert")
+    Observable<Base> postBbs(@FieldMap Map<String,Object> params);
 }

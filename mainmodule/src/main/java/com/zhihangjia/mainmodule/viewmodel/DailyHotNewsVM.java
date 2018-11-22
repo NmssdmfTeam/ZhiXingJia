@@ -4,9 +4,6 @@ import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
-import com.zhixingjia.httplib.HttpUtils;
-import com.zhixingjia.httplib.RxRequest;
-import com.zhixingjia.httplib.ServiceCallback;
 import com.zhixingjia.service.MainService;
 
 import java.util.ArrayList;

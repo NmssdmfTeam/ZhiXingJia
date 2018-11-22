@@ -65,14 +65,14 @@
                 android:layout_marginBottom="47dp">
 
                 <LinearLayout
-                    android:id="@+id/llContent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
+                    android:paddingRight="16dp"
+                    android:orientation="vertical">
 
                     <EditText
+                        android:id="@+id/etTitle"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:background="@null"
@@ -81,8 +81,15 @@
 
                     <include layout="@layout/include_recyclerview_cutoff_line" />
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/llContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
+
+                    </LinearLayout>
+                </LinearLayout>
             </ScrollView>
 
             <TextView

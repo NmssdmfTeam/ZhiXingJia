@@ -47,4 +47,9 @@ public class HttpVersionConfig {
      * 帖子评论详情
      */
     public static final int API_BBS_COMMENT = 1;
+
+    /**
+     * 发帖保存
+     */
+    public static final int API_BBS_INSERT = 1;
 }

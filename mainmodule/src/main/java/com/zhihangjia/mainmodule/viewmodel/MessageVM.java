@@ -7,13 +7,13 @@ import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.IndexMessageCB;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
-import com.zhixingjia.httplib.HttpUtils;
-import com.zhixingjia.httplib.RxRequest;
-import com.zhixingjia.httplib.ServiceCallback;
 import com.zhixingjia.service.MainService;
 
 /**

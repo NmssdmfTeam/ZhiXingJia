@@ -2,12 +2,12 @@ package com.zhihangjia.mainmodule.viewmodel;
 
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.SearchCB;
 import com.zhixingjia.bean.mainmodule.HotHistory;
-import com.zhixingjia.httplib.HttpUtils;
-import com.zhixingjia.httplib.RxRequest;
-import com.zhixingjia.httplib.ServiceCallback;
 import com.zhixingjia.service.MainService;
 
 import java.util.List;

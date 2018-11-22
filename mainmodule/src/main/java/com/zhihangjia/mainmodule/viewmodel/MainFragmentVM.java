@@ -8,14 +8,14 @@ import com.google.gson.reflect.TypeToken;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.callback.MainFragmentCB;
 import com.zhixingjia.bean.mainmodule.IndexBean;
-import com.zhixingjia.httplib.HttpUtils;
-import com.zhixingjia.httplib.RxRequest;
-import com.zhixingjia.httplib.ServiceCallback;
 import com.zhixingjia.service.MainService;
 
 import java.util.List;
