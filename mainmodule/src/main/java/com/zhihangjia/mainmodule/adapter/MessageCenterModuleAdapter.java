@@ -10,10 +10,8 @@ import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.databinding.ItemMessageBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMessageModuleBinding;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
-import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
 

@@ -1,6 +1,9 @@
 package com.zhihangjia.mainmodule.callback;
 
 import com.nmssdmf.commonlib.callback.BaseCB;
+import com.zhixingjia.bean.mainmodule.MessageComment;
+
+import java.util.List;
 
 /**
  * Created by ${nmssdmf} on 2018/11/22 0022.
@@ -8,4 +11,5 @@ import com.nmssdmf.commonlib.callback.BaseCB;
 
 public interface MessageDetailCB extends BaseCB {
     void initView();
+    void refreshComent(boolean isRefresh, List<MessageComment> list);
 }

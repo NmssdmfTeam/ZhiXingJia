@@ -143,16 +143,18 @@ public class MessageDetail extends BaseObservable{
         this.contents = contents;
     }
 
-    public static class ContentsBean {
+    public static class ContentsBean extends BaseObservable{
         private String note;//内容1
         private List<String> imgs;//图片集1
 
+        @Bindable
         public String getNote() {
             return note;
         }
 
         public void setNote(String note) {
             this.note = note;
+            notifyPropertyChanged(BR.note);
         }
 
         public List<String> getImgs() {

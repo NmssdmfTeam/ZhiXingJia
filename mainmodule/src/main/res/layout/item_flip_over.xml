@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <TextView
+        android:id="@+id/tvPage"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="26dp"
+        android:textColor="#FFFF9A14"
+        android:textSize="14dp">
+
+    </TextView>
+</layout>

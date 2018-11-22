@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.nmssdmf.commonlib.util.StringUtil"/>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.MessageComment"/>
+        <variable
+            name="content"
+            type="com.zhixingjia.bean.mainmodule.MessageComment.ContentsBean"/>
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <com.nmssdmf.commonlib.view.GlideImageView
                 android:id="@+id/ivAvater"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginTop="12dp"
-                app:roundAsCircle="@{true}" />
+                app:roundAsCircle="@{true}"
+                src="@{data.avatar}"/>
 
             <TextView
                 android:id="@+id/tvName"
@@ -30,7 +42,7 @@
                 android:layout_toRightOf="@id/ivAvater"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="城内人"
+                android:text="@{data.nickname}"
                 android:textColor="#FF333333"
                 android:textSize="16dp" />
 
@@ -41,25 +53,29 @@
             android:layout_height="wrap_content"
             android:background="#FFEEEEEE"
             android:padding="8dp"
-            android:text="引用城内人11-12 11:45发表的：等了老久，特能装 大容量 好看哈哈哈哈等了老久，特能装，大容量"
+            android:text="@{data.quote}"
             android:textColor="#FF000000"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:visibility="@{StringUtil.isEmpty(data.quote) ? View.GONE : View.VISIBLE}"/>
 
         <TextView
             android:id="@+id/tvComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="等了老久，特能装 大容量 好看哈哈哈哈等了老久，特能装 大容量 好看哈哈哈哈"
+            android:text="@{content.note}"
             android:textColor="#FF000000"
             android:textSize="15dp" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+        <com.nmssdmf.commonlib.view.TagLayout
+            android:id="@+id/tl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvComment"
-            android:layout_marginTop="8dp"/>
+            app:horizontal_count="3"
+            app:horizontal_space="5dp"
+            android:layout_marginTop="8dp">
+
+        </com.nmssdmf.commonlib.view.TagLayout>
 
 
         <RelativeLayout
@@ -71,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="1天前"
+                android:text="@{data.createtime}"
                 android:textColor="#FF999999"
                 android:textSize="12dp" />
 

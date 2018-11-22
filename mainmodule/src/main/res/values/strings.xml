@@ -17,6 +17,9 @@
     <string name="and">等</string>
     <string name="people_praise">人赞</string>
 
+    <string name="desc">倒序</string>
+    <string name="asc">正序</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
