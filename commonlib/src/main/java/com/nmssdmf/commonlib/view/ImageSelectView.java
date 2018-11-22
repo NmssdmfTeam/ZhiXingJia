@@ -19,14 +19,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.R;
 import com.nmssdmf.commonlib.adapter.ImageSelectAdapter;
 import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.bean.Upload;
 import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.IntegerConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.net.IServiceLib;
+import com.nmssdmf.commonlib.net.http.OkHttpClientProvider;
+import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
 import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.FileUtil;
@@ -38,13 +44,21 @@ import com.nmssdmf.commonlib.widget.GridSpacingItemDecoration;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -64,9 +78,9 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     private RecyclerView rv_image_rl;
 
     private ImageSelectAdapter adapter;
-//    private List<String> imgs = new ArrayList<>(); //用于adapter
+    //    private List<String> imgs = new ArrayList<>(); //用于adapter
     private List<UploadImage> uploadImages = new ArrayList<UploadImage>(); //用于adapter显示
-    private List<String> imageIds = new ArrayList<>();//用于上传给服务器
+//    private List<String> imageIds = new ArrayList<>();//用于上传给服务器
 
     private String temp_path;//拍照时候的照片地址
 
@@ -117,7 +131,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 
 
         rv_image_rl = (RecyclerView) view.findViewById(R.id.rv_image_rl);
-        rv_image_rl.addItemDecoration(new GridSpacingItemDecoration(4,IMAGE_MARGIN,false));//item之间的间距
+        rv_image_rl.addItemDecoration(new GridSpacingItemDecoration(4, IMAGE_MARGIN, false));//item之间的间距
 
         UploadImage uploadImage = new UploadImage();
         uploadImage.setType(1);
@@ -150,7 +164,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
             temp_path = FileUtil.getBaseImageDir() + System.currentTimeMillis() + ".jpg";
             showAddImageDialog((Activity) context, (image_max_size - adapter.getImageSize()), temp_path);
         } else {
-            ToastUtil.getInstance().showToast( "图片数目已达上限");
+            ToastUtil.getInstance().showToast("图片数目已达上限");
         }
     }
 
@@ -200,7 +214,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
             }
         });
         dialog.show();
-        dialog.getWindow().setLayout(DensityUtil.dpToPx(activity,300), LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(DensityUtil.dpToPx(activity, 300), LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     public static void getImageFromAlbum(Activity activity, int count) {
@@ -228,14 +242,14 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
                     activity.startActivityForResult(intent, IntegerConfig.REQUEST_CODE_CAMERA_IMAGE);
                 } else {
                     //适配安卓7.0
-                    ContentValues contentValues=new ContentValues(1);
+                    ContentValues contentValues = new ContentValues(1);
                     contentValues.put(MediaStore.Images.Media.DATA,
                             new File(filePath).getAbsolutePath());
-                    Uri uri= activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
-                    activity.grantUriPermission(activity.getPackageName(),uri,Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    Uri uri = activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                    activity.grantUriPermission(activity.getPackageName(), uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                     activity.startActivityForResult(intent, IntegerConfig.REQUEST_CODE_CAMERA_IMAGE);
                 }
             } catch (Exception e) {
@@ -254,7 +268,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     }
 
     private void removeAddImageView() {
-        for (int i = 0; i < adapter.getData().size();i++) {
+        for (int i = 0; i < adapter.getData().size(); i++) {
             if (adapter.getData().get(i).getItemType() == 1) {
                 adapter.getData().remove(i);
                 break;
@@ -272,7 +286,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         if (adapter.getData().size() == 0)
             adapter.getData().add(uploadImage);
         else
-            adapter.getData().add(adapter.getData().size() - 1,uploadImage);
+            adapter.getData().add(adapter.getData().size() - 1, uploadImage);
         if (adapter.getImageSize() == image_max_size) {
             removeAddImageView();
         }
@@ -296,7 +310,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
             if (adapter.getData().size() == 0)
                 adapter.getData().add(uploadImage);
             else
-                adapter.getData().add(adapter.getData().size() - 1,uploadImage);
+                adapter.getData().add(adapter.getData().size() - 1, uploadImage);
         }
         if (adapter.getImageSize() == image_max_size) {
             removeAddImageView();
@@ -321,16 +335,22 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         adapter.notifyDataSetChanged();
     }
 
-    private boolean isFull(int size) {
-        imageIds.clear();
-        for (int i = 0; i < size; i++) {
+    private boolean isFull() {
+        for (int i = 0; i < adapter.getImageSize(); i++) {
             String image_id = adapter.getData().get(i).getImage_id();
             if (TextUtils.isEmpty(image_id)) {
                 return false;
             }
-            imageIds.add(image_id);
         }
         return true;
+    }
+
+    private List<String> getImgIds() {
+        List<String> imgIds = new ArrayList<>();
+        for (int i=0; i < adapter.getImageSize(); i++) {
+            imgIds.add(adapter.getData().get(i).getImage_id());
+        }
+        return imgIds;
     }
 
     /**
@@ -345,20 +365,20 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         }
 
         // 上传之前先判断是不是所有的都是已上传的土拍呢，如果是则直接走回调
-        if (isFull(imageSize)) {
+        if (isFull()) {
             if (upload_listener != null) {
-                upload_listener.onUpLoadComplete(toStringArray(imageIds));
+                upload_listener.onUpLoadComplete(toStringArray(getImgIds()));
                 return;
             }
         }
         for (int i = 0; i < imageSize; i++) {
-            if (adapter.getData().get(i).equals("")) {
+            if (adapter.getData().get(i).getImage_id().equals("")) {
                 final String file_path = adapter.getData().get(i).getUrl();
                 File file = ImageUtil.getCompressFile(file_path);
                 // create your getFile object here
                 if (file == null) {
                     upload_listener.onUpLoadFailed(new Exception("New file failed with the file path:" + file_path));
-                    ToastUtil.getInstance().showToast( "上传图片失败");
+                    ToastUtil.getInstance().showToast("上传图片失败");
                     return;
                 }
                 doUploadImage(file, i);
@@ -367,45 +387,46 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     }
 
 
-        /**
-         * upload image to the server
-         *
-         * @param file
-         * @param index
-         */
+    /**
+     * upload image to the server
+     *
+     * @param file
+     * @param index
+     */
     private void doUploadImage(final File file, final int index) {
-
         RequestBody request_body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), request_body);
+        IServiceLib iService = new Retrofit.Builder()
+                .baseUrl(BaseConfig.IMAGEUPLOADIP)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .client(OkHttpClientProvider.getInstance().getClient()).build().create(IServiceLib.class);
+        iService.uploadImage(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new HttpObserver<Upload>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        upload_listener.onUpLoadFailed(e);
+                        ToastUtil.getInstance().showToast("上传图片失败");
+                    }
 
-//        RxRequest.createLib(4).uploadImage(body)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeWith(new JushiObserver<BaseData<UploadImage>>() {
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        super.onError(e);
-//                        upload_listener.onUpLoadFailed(e);
-//                        CommonUtils.showToast( context.getString(R.string.upload_image_failed));
-//                    }
-//
-//                    @Override
-//                    public void onNext(BaseData<UploadImage> obj) {
-//                        if (Config.OK.equals(obj.getStatus_code())) {
-//                            image_ids.add(index, obj.getData().getImage_id());
-//                            image_ids.remove(index + 1);
-//                            if (CommonUtils.isFull(image_ids, image_ids.size())) {
-//                                if (upload_listener != null) {
-//                                    upload_listener.onUpLoadComplete(toStringArray(image_ids));
-//                                }
-//                            }
-//                        } else {
-//                            upload_listener.onUpLoadFailed(new Exception("Http request failed with status code 0 "));
-//                            CommonUtils.showToast( context.getString(R.string.upload_image_failed));
-//                        }
-//                    }
-//                });
+                    @Override
+                    public void onNext(Upload uploadImage) {
+                        if (StringConfig.OK.equals(uploadImage.getStatus_code())) {
+                            adapter.getData().get(index).setImage_id(uploadImage.getData().getImage_id());
+                            if (CommonUtils.isFull(getImgIds(), getImgIds().size())) {
+                                if (upload_listener != null) {
+                                    upload_listener.onUpLoadComplete(toStringArray(getImgIds()));
+                                }
+                            }
+                        } else {
+                            upload_listener.onUpLoadFailed(new Exception("Http request failed with status code 0 "));
+                            ToastUtil.getInstance().showToast("上传图片失败");
+                        }
+                    }
+                });
     }
 
     private String[] toStringArray(List<String> image_ids) {
@@ -437,7 +458,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 //    }
 
     public String[] getResult() {
-        return toStringArray(imageIds);
+        return toStringArray(getImgIds());
     }
 
     public int getImage_max_size() {
@@ -449,7 +470,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     }
 
     public int getImgSize() {
-        return uploadImages.size();
+        return adapter.getImageSize();
     }
 
     @Override

@@ -18,7 +18,8 @@
                 android:hint="请输入内容"
                 android:paddingBottom="19dp"
                 android:paddingTop="16dp"
-                android:textColor="#FFCCCCCC"
+                android:textColorHint="#FFCCCCCC"
+                android:textColor="@color/text_black"
                 android:textSize="15dp" />
 
             <ImageButton

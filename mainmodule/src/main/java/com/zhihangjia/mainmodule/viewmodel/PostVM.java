@@ -105,10 +105,12 @@ public class PostVM extends BaseVM {
         callBack.showLoaddingDialog();
         if (postContents == null || postContents.size() == 0){
             ToastUtil.showMsg("请填写内容");
+            callBack.dismissLoaddingDialog();
             return;
         }
         if (TextUtils.isEmpty(title)) {
             ToastUtil.showMsg("请填写标题");
+            callBack.dismissLoaddingDialog();
             return;
         }
         Map<String,Object> params = new HashMap<>();

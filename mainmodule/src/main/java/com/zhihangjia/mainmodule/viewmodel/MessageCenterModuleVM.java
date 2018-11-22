@@ -1,6 +1,9 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.os.Bundle;
+
 import com.nmssdmf.commonlib.callback.BaseCB;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
 /**
@@ -9,6 +12,8 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
  * <p>
  */
 public class MessageCenterModuleVM extends BaseVM {
+    public String cat_id;
+
     /**
      * 不需要callback可以传null
      *
@@ -16,5 +21,13 @@ public class MessageCenterModuleVM extends BaseVM {
      */
     public MessageCenterModuleVM(BaseCB callBack) {
         super(callBack);
+        initData();
+    }
+
+    private void initData() {
+        Bundle bundle = baseCallBck.getIntentData();
+        if (bundle != null) {
+            cat_id = bundle.getString(IntentConfig.CAT_ID);
+        }
     }
 }

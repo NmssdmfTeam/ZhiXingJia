@@ -8,4 +8,6 @@ public class IntentConfig {
     public static final String PHONE_NUM = "PHONE_NUM";
 
     public static final String NAME = "NAME";
+
+    public static final String CAT_ID = "cat_id";   //类别id
 }
