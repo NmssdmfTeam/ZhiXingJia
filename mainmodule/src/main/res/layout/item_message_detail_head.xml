@@ -9,8 +9,8 @@
         <import type="com.nmssdmf.commonlib.util.StringUtil"/>
 
         <variable
-            name="data"
-            type="com.zhixingjia.bean.mainmodule.MessageDetail"/>
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.MessageDetailVM"/>
     </data>
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:text="@{data.title}"
+            android:text="@{vm.detail.title}"
             android:textColor="#FF333333"
             android:textSize="18dp"/>
 
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.read_sum + @string/read}"
+                android:text="@{vm.detail.read_sum + @string/read}"
                 android:textColor="#FFA5A5A5"
                 android:textSize="13dp"/>
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:text="@{data.comment_sum + @string/comment}"
+                android:text="@{vm.detail.comment_sum + @string/comment}"
                 android:textColor="#FFA5A5A5"
                 android:textSize="13dp"/>
 
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:text="@{data.cate_name}"
+                android:text="@{vm.detail.cate_name}"
                 android:textColor="#FFFF9A14"
                 android:textSize="13dp"/>
 
@@ -74,7 +74,7 @@
 
             <com.nmssdmf.commonlib.view.GlideImageView
                 android:id="@+id/ivAvater"
-                src="@{data.avatar}"
+                src="@{vm.detail.avatar}"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
@@ -88,7 +88,7 @@
                 android:layout_alignTop="@+id/ivAvater"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/ivAvater"
-                android:text="@{data.nickname}"
+                android:text="@{vm.detail.nickname}"
                 android:textColor="#FF333333"
                 android:textSize="15dp"/>
 
@@ -98,7 +98,7 @@
                 android:layout_below="@+id/tvName"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/ivAvater"
-                android:text="@{data.createtime}"
+                android:text="@{vm.detail.createtime}"
                 android:textColor="#FFA5A5A5"
                 android:textSize="12dp"/>
         </RelativeLayout>
@@ -123,7 +123,7 @@
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:visibility="@{StringUtil.isEmpty(data.give_sum)|| Integer.valueOf(data.give_sum) == 0 ? View.GONE:View.VISIBLE}">
+            android:visibility="@{StringUtil.isEmpty(vm.detail.give_sum)|| Integer.valueOf(vm.detail.give_sum) == 0 ? View.GONE:View.VISIBLE}">
 
             <com.nmssdmf.commonlib.view.GlideImageView
                 android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="@{data.give_info+@string/and + data.give_sum + @string/people_praise}"
+                android:text="@{vm.detail.give_info+@string/and + vm.detail.give_sum + @string/people_praise}"
                 android:textColor="#FF333333"
                 android:textSize="12dp"/>
 
@@ -166,12 +166,13 @@
                 android:paddingLeft="5.5dp"
                 android:paddingRight="5.5dp"
                 android:paddingTop="2dp"
-                android:checked="false"
                 android:text="只看楼主"
                 android:textColor="#FFFF9A14"
                 android:textSize="12dp"
                 android:button="@null"
+                android:checked="@={vm.onlyLookBuilder}"
                 />
+
 
             <View
                 android:layout_width="0dp"
@@ -182,19 +183,22 @@
                 android:id="@+id/cbHot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="最热"
-                android:textColor="#FF999999"
+                android:text="最赞"
+                android:textColor="@{vm.isHot ? @color/main_color : @color/text_money_gray}"
                 android:textSize="14dp"
+                android:checked="@={vm.isHot}"
                 android:button="@null"/>
 
             <TextView
+                android:id="@+id/tvSort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:drawableRight="@drawable/icon_acs"
-                android:text="正序"
-                android:textColor="#FFFF9A14"
-                android:textSize="14dp"/>
+                android:text="@{vm.isSortDesc ? @string/desc : @string/asc}"
+                android:textColor="@{vm.isHot ? @color/text_money_gray : @color/main_color}"
+                android:textSize="14dp"
+                android:onClick="@{(v)->vm.tvSortClick(v)}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

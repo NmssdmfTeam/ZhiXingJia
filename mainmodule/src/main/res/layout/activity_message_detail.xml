@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -69,39 +70,15 @@
             android:clickable="true"
             android:visibility="gone" />
 
-        <ScrollView
-            android:id="@+id/svPage"
+        <com.nmssdmf.customerviewlib.CustomerRecyclerView
+            android:id="@+id/crvPage"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:background="@color/white"
+            app:refresh_enable="false"
+            app:loadmore_enable="false"
             android:visibility="gone">
 
-            <LinearLayout
-                android:id="@+id/llPage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="18dp"
-                    android:paddingLeft="28dp"
-                    android:paddingTop="18dp"
-                    android:text="第1页"
-                    android:textColor="#FFFF9A14"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="18dp"
-                    android:paddingLeft="28dp"
-                    android:paddingTop="18dp"
-                    android:text="第2页"
-                    android:textColor="@color/black"
-                    android:textSize="14dp" />
-            </LinearLayout>
-        </ScrollView>
+        </com.nmssdmf.customerviewlib.CustomerRecyclerView>
     </RelativeLayout>
 </layout>
