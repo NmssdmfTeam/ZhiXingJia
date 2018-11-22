@@ -30,4 +30,8 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
         }
         baseCB.refreshAdapter(isRefresh,list);
     }
+
+    public void getBbsInfoList() {
+        
+    }
 }
