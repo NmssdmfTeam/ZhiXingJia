@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/post"
+        android:id="@+id/share"
         android:icon="@drawable/icon_menu_share"
-        android:title="发布"
+        android:title="分享"
         app:showAsAction="ifRoom" />
 </menu>

@@ -8,13 +8,13 @@ import android.view.View;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.loginmodule.callback.RegisterCB;
-import com.zhixingjia.httplib.HttpUtils;
-import com.zhixingjia.httplib.RxRequest;
-import com.zhixingjia.httplib.ServiceCallback;
 import com.zhixingjia.service.LoginService;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.zhixingjia.httplib;
+package com.nmssdmf.commonlib.httplib;
 
 
 import com.nmssdmf.commonlib.net.retrofit.BaseRxRequest;

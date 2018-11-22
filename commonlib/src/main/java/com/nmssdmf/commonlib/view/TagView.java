@@ -15,6 +15,12 @@ public class TagView extends android.support.v7.widget.AppCompatTextView {
     private int selectedTextColor;
     private Drawable selectedBackground;
     private Drawable unSelectedBackground;
+    private TagClickListener tagClickListener;
+    private int mode = 0;
+    public static final int MULTIYMODE = 0;
+    public static final int SINGLEMODE = 1;
+
+    private String tagId;
 
     public TagView(Context context) {
         super(context);
@@ -44,16 +50,37 @@ public class TagView extends android.support.v7.widget.AppCompatTextView {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSelected) {
-                    setTextColor(unSelectedTextColor);
-                    setBackgroundDrawable(unSelectedBackground);
-                } else {
-                    setTextColor(selectedTextColor);
-                    setBackgroundDrawable(selectedBackground);
+                if (mode == MULTIYMODE) {
+                    if (isSelected) {
+                        setTextColor(unSelectedTextColor);
+                        setBackgroundDrawable(unSelectedBackground);
+                    } else {
+                        setTextColor(selectedTextColor);
+                        setBackgroundDrawable(selectedBackground);
+                    }
+                    isSelected = !isSelected;
+                } else if (mode == SINGLEMODE) {
+                    if (!isSelected) {
+                        setTextColor(selectedTextColor);
+                        setBackgroundDrawable(selectedBackground);
+                    }
+                    isSelected = true;
                 }
-                isSelected = !isSelected;
+                if (tagClickListener != null) {
+                    tagClickListener.onTagClick();
+                }
             }
         });
+    }
+
+    private void refreshTagState() {
+        if (isSelected) {
+            setTextColor(selectedTextColor);
+            setBackgroundDrawable(selectedBackground);
+        } else {
+            setTextColor(unSelectedTextColor);
+            setBackgroundDrawable(unSelectedBackground);
+        }
     }
 
     @Override
@@ -64,9 +91,34 @@ public class TagView extends android.support.v7.widget.AppCompatTextView {
     @Override
     public void setSelected(boolean selected) {
         isSelected = selected;
+        refreshTagState();
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
+    }
+
+    public TagClickListener getTagClickListener() {
+        return tagClickListener;
+    }
+
+    public void setTagClickListener(TagClickListener tagClickListener) {
+        this.tagClickListener = tagClickListener;
     }
 
     public interface TagClickListener {
-
+        void onTagClick();
     }
 }

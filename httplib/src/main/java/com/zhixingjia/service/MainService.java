@@ -11,8 +11,13 @@ import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -54,4 +59,12 @@ public interface MainService {
      */
     @GET ("/api/bbs/cate")
     Observable<BaseListData<BbsCategory>> getBbsCate();
+
+    /**
+     * 发帖保存
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/insert")
+    Observable<Base> postBbs(@FieldMap Map<String,Object> params);
 }

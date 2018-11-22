@@ -22,9 +22,12 @@ import android.widget.TextView;
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.R;
 import com.nmssdmf.commonlib.adapter.ImageSelectAdapter;
+import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.IntegerConfig;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.FileUtil;
 import com.nmssdmf.commonlib.util.ImageUtil;
@@ -36,6 +39,12 @@ import com.nmssdmf.commonlib.widget.GridSpacingItemDecoration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 
 /**
@@ -366,9 +375,9 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
          */
     private void doUploadImage(final File file, final int index) {
 
-//        RequestBody request_body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), request_body);
-//
+        RequestBody request_body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), request_body);
+
 //        RxRequest.createLib(4).uploadImage(body)
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
@@ -437,6 +446,10 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 
     public void setImage_max_size(int image_max_size) {
         this.image_max_size = image_max_size;
+    }
+
+    public int getImgSize() {
+        return uploadImages.size();
     }
 
     @Override

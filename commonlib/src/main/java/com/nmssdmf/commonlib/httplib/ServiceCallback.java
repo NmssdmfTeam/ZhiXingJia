@@ -1,4 +1,4 @@
-package com.zhixingjia.httplib;
+package com.nmssdmf.commonlib.httplib;
 
 /**
  * @author huscarter@163.com

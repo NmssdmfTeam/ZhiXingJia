@@ -43,4 +43,9 @@ public class HttpVersionConfig {
      * 分类
      */
     public static final int API_BBS_CATE = 1;
+
+    /**
+     * 发帖保存
+     */
+    public static final int API_BBS_INSERT = 1;
 }
