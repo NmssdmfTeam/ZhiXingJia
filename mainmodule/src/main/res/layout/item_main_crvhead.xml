@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.MainFragmentVM"></variable>
+    </data>
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -35,7 +41,8 @@
                 android:textSize="12dp"
                 android:drawableTop="@drawable/icon_sofa"
                 android:drawablePadding="6dp"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:onClick="@{(v)->vm.onMaterialsClick(v)}"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -46,7 +53,8 @@
                 android:textSize="12dp"
                 android:drawableTop="@drawable/icon_sofa"
                 android:drawablePadding="6dp"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:onClick="@{(v)->vm.onMessageCenterClick(v)}"/>
 
             <TextView
                 android:layout_width="0dp"

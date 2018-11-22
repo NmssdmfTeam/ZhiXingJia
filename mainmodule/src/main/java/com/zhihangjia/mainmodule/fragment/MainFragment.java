@@ -3,6 +3,7 @@ package com.zhihangjia.mainmodule.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
@@ -11,7 +12,9 @@ import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
+import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MainAdapter;
 import com.zhihangjia.mainmodule.bean.MainBean;
@@ -57,6 +60,7 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         binding = (FragmentMainBinding) baseBinding;
         adapter = new MainAdapter(new ArrayList());
         itemMainCrvheadBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_main_crvhead, null, false);
+        itemMainCrvheadBinding.setVm(vm);
         //初始化首页头部
         adapter.setHeaderView(itemMainCrvheadBinding.getRoot());
 
@@ -120,6 +124,13 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
             @Override
             public void onLoadMore() {
 
+            }
+        });
+        ImageView ivNotice = binding.getRoot().findViewById(R.id.ivNotice);
+        ivNotice.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                doIntent(MessageCenterActivity.class,null);
             }
         });
     }
@@ -186,5 +197,12 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
     @Override
     public void setRefreshend() {
         binding.crv.setRefreshing(false);
+    }
+
+    @Override
+    public void toOtherFragment(int index) {
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).setCurrentTabsIndex(index);
+        }
     }
 }
