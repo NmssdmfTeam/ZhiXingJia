@@ -34,4 +34,9 @@ public class HttpVersionConfig {
      * 热门搜索
      */
     public static final int API_HOTKEY = 1;
+
+    /**
+     * 分类
+     */
+    public static final int API_BBS_CATE = 1;
 }

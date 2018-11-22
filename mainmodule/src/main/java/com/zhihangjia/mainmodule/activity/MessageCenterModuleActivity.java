@@ -38,6 +38,16 @@ public class MessageCenterModuleActivity extends BaseTitleActivity {
         MessageCenterModuleFragment newReplyFragment = new MessageCenterModuleFragment();
         MessageCenterModuleFragment newPublishFragment = new MessageCenterModuleFragment();
         MessageCenterModuleFragment hotNewsFragment = new MessageCenterModuleFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("types", "1");
+        bundle.putString("cat_id","1");
+        newPublishFragment.setArguments(bundle);
+        bundle = new Bundle();
+        bundle.putString("types", "2");
+        newReplyFragment.setArguments(bundle);
+        bundle = new Bundle();
+        bundle.putString("types", "3");
+        hotNewsFragment.setArguments(bundle);
         fragments.add(newReplyFragment);
         fragments.add(newPublishFragment);
         fragments.add(hotNewsFragment);

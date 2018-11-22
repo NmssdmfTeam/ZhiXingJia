@@ -6,6 +6,7 @@ import android.databinding.Bindable;
 import com.nmssdmf.commonlib.bean.Base;
 import com.zhixingjia.httplib.BR;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * <p>
  * <p>
  */
-public class IndexBean extends Base {
+public class IndexBean extends BaseObservable implements Serializable {
 
     private List<BannersBean> banners;              //顶部滚动广告位
     private List<BannerFixedBean> banner_fixed;     //固定广告位
