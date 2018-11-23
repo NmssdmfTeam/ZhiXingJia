@@ -6,4 +6,5 @@ package com.nmssdmf.commonlib.config;
 
 public class AcitivityNameConfig {
     public static final String MAIN_ACTIVITY = "com.zhihangjia.mainmodule.activity.MainActivity";
+    public static final String MY_COUPONS_ACTIVITY = "com.zhixingjia.personmodule.activity.MyCouponsActivity";
 }

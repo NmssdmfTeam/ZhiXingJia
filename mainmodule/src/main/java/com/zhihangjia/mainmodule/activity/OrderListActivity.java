@@ -7,19 +7,23 @@ import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.callback.OrderListCB;
 import com.zhihangjia.mainmodule.databinding.ActivityOrderListBinding;
 import com.zhihangjia.mainmodule.fragment.OrderListFragment;
 import com.zhihangjia.mainmodule.fragment.OrderListWaitForPayFragment;
+import com.zhihangjia.mainmodule.viewmodel.OrderListVM;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderListActivity extends BaseActivity {
+public class OrderListActivity extends BaseActivity implements OrderListCB{
     private final String TAG = OrderListActivity.class.getSimpleName();
     private ActivityOrderListBinding binding;
 
     private List<Fragment> fragments = new ArrayList<>();
     private FragmentPagerAdapter adapter;
+
+    private OrderListVM vm;
 
     @Override
     public String getTAG() {
@@ -33,12 +37,15 @@ public class OrderListActivity extends BaseActivity {
 
     @Override
     public BaseVM initViewModel() {
-        return null;
+        vm = new OrderListVM(this);
+        return vm;
     }
 
     @Override
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityOrderListBinding) baseBinding;
+
+
 
         OrderListFragment allFragment = new OrderListFragment();
         OrderListWaitForPayFragment waitPayFragment = new OrderListWaitForPayFragment();
@@ -62,5 +69,13 @@ public class OrderListActivity extends BaseActivity {
         binding.tl.getTabAt(3).setText("待收货");
         binding.tl.getTabAt(4).setText("待评论");
 
+        vm.getData();
+
+    }
+
+    @Override
+    public void setCurrentTab(int position) {
+        //需要在设置adapter之后才有效
+        binding.vp.setCurrentItem(position);
     }
 }

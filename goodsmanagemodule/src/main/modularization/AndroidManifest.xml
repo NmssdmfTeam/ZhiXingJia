@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.zhixingjia.personmodule">
+          package="com.zhixingjia.goodsmanagemodule">
 
     <application
         android:allowBackup="true"
@@ -9,17 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         >
+
         <activity
-            android:name=".activity.PersonInfoActivity"
+            android:name=".activity.AddOrEditProductActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.ChangeNameActivity"
+            android:name=".activity.AddProductDescribeActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.MyCouponsActivity"
+            android:name=".activity.PriceSettingActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.SetActivity"
+            android:name=".activity.LadderPriceSettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GoodManageActivity"
+                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.SelectStandardActivity"
             android:screenOrientation="portrait"/>
     </application>
 

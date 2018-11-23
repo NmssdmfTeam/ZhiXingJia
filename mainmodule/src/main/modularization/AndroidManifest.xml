@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zhihangjia.mainmodule">
+          package="com.zhihangjia.mainmodule">
 
     <application
         android:allowBackup="true"
@@ -10,42 +10,83 @@
         android:supportsRtl="true">
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true"
+            android:exported="false"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.message.MessageCenterActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SearchActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.AllCategoriesActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MerchantMerchandiseActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MerchantMainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MerchandiseDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.YXHeadLineActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.PoliticsNoticeActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.ConfirmOrderActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.PaySuccessActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.ConfirmPayActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.PostActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.MessageCenterModuleActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.MessageDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.MyPostActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.OrderListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.ManageAddressListActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.AddOrEditAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.OrderDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.ApplySupplierActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.ShopCouponListActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.SetCouponActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.ReplyActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

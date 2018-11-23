@@ -157,7 +157,8 @@
                                 android:gravity="center"
                                 android:text="优惠券"
                                 android:textColor="#FF333333"
-                                android:textSize="13dp" />
+                                android:textSize="13dp"
+                                android:onClick="@{(v)->vm.myCouponClick(v)}"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -231,7 +232,8 @@
                                 android:drawableRight="@drawable/icon_next"
                                 android:text="全部订单"
                                 android:textColor="#FF999999"
-                                android:textSize="14dp" />
+                                android:textSize="14dp"
+                                android:onClick="@{(v)->vm.orderClick(v, 0)}"/>
 
                         </LinearLayout>
 
@@ -252,7 +254,8 @@
                                     android:drawableTop="@drawable/icon_pending_payment"
                                     android:text="待付款"
                                     android:textColor="#FF333333"
-                                    android:textSize="13dp" />
+                                    android:textSize="13dp"
+                                    android:onClick="@{(v)->vm.orderClick(v, 1)}"/>
 
                             </FrameLayout>
 
@@ -268,7 +271,8 @@
                                     android:drawableTop="@drawable/icon_pending_delivery"
                                     android:text="待发货"
                                     android:textColor="#FF333333"
-                                    android:textSize="13dp" />
+                                    android:textSize="13dp"
+                                    android:onClick="@{(v)->vm.orderClick(v, 2)}"/>
 
                             </FrameLayout>
 
@@ -284,7 +288,8 @@
                                     android:drawableTop="@drawable/icon_pending_recieve"
                                     android:text="待收货"
                                     android:textColor="#FF333333"
-                                    android:textSize="13dp" />
+                                    android:textSize="13dp"
+                                    android:onClick="@{(v)->vm.orderClick(v, 3)}"/>
 
                             </FrameLayout>
 
@@ -300,7 +305,8 @@
                                     android:drawableTop="@drawable/icon_pending_comment"
                                     android:text="待评价"
                                     android:textColor="#FF333333"
-                                    android:textSize="13dp" />
+                                    android:textSize="13dp"
+                                    android:onClick="@{(v)->vm.orderClick(v, 4)}"/>
 
                             </FrameLayout>
                         </LinearLayout>

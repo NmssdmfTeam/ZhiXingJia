@@ -39,11 +39,8 @@ public class ChangeNameActivity extends BaseTitleActivity {
         baseTitleBinding.tTitle.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.iSave:{
-                        vm.changeName();
-                        break;
-                    }
+                if (menuItem.getItemId() ==  R.id.iSave) {
+                    vm.changeName();
                 }
                 return true;
             }
