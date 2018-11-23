@@ -57,7 +57,7 @@ public class MessageDetailVM extends BaseVM {
     public final ObservableInt zanNum = new ObservableInt(0);
     public final ObservableInt commentNum = new ObservableInt(0);
 
-    private int page = 1;//评论翻页
+    public final ObservableInt page = new ObservableInt(1);//评论翻页
 
     private boolean isGive;                 //是否点过赞
     private int zanNumOriginal;             //点赞实际个数
@@ -68,7 +68,7 @@ public class MessageDetailVM extends BaseVM {
      *
      * @param callBack
      */
-    public MessageDetailVM(MessageDetailCB callBack) {
+    public MessageDetailVM(final MessageDetailCB callBack) {
         super(callBack);
         this.cb = callBack;
         initData();
@@ -84,6 +84,13 @@ public class MessageDetailVM extends BaseVM {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 getCommentList(true);
+            }
+        });
+        page.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (detail.get() != null)
+                    callBack.setPageTitle(page.get()+"/"+detail.get().getComment_pages());
             }
         });
     }
@@ -157,32 +164,30 @@ public class MessageDetailVM extends BaseVM {
     }
 
     public void getCommentList(final boolean isRefresh) {
-        if (isRefresh) {
-            page = 1;
-        }
         Map<String, String> map = new HashMap<>();
         map.put("bbs_id", messageId);//必填，帖子ID
-        map.put("pages", String.valueOf(page));//必填，分页的传，默认为1，加载一次加1，以此类推
+        if (!isRefresh)
+            page.set(page.get()+1);
+        map.put("pages", String.valueOf(page.get()));//必填，分页的传，默认为1，加载一次加1，以此类推
         map.put("hot_sort", isHot.get() ? "hot" : (isSortDesc.get() ? "desc" : "asc"));//默认传asc desc=倒序 asc=正序 hot=最热
         map.put("landlord", onlyLookBuilder.get() ? "1" : "0");//选填，是否只看楼主，默认是0，0=否 1=是
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_COMMENT).getCommentList(map), new ServiceCallback<BaseListData<MessageComment>>() {
             @Override
             public void onError(Throwable error) {
-
+                cb.endFresh();
             }
 
             @Override
             public void onSuccess(BaseListData<MessageComment> data) {
+                cb.endFresh();
                 if (data.getData() != null && data.getData().size() > 0) {
-                    if (!isRefresh)
-                        page += 1;
                     cb.refreshComent(isRefresh, data.getData());
                 }
             }
 
             @Override
             public void onDefeated(BaseListData<MessageComment> data) {
-
+                cb.endFresh();
             }
         });
     }
@@ -276,17 +281,18 @@ public class MessageDetailVM extends BaseVM {
     public void onRxEvent(RxEvent event, EventInfo info) {
         switch (event.getType()) {
             case RxEvent.BbsEvent.COMMENT_INSERT://变更
+                getMessageDetail();
                 getCommentList(true);
                 break;
         }
     }
 
     public int getPage() {
-        return page;
+        return page.get();
     }
 
     public void setPage(int page) {
-        this.page = page;
+        this.page.set(page);
     }
 
     public List<MessageComment> getList() {

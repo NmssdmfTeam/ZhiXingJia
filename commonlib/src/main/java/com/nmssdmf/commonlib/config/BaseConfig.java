@@ -13,5 +13,5 @@ public class BaseConfig {
     public static final String APP_IMAGE_PATH = "trading_image";//缓存图片目录
     public static final String APP_TEMP_PATH = "trading_temp";//缓存文件目录
     public static final String IMAGEUPLOADIP = "http://h6.mobilekoudai.com/";//ip地址
-    public static final int MAX_IMG = 12;
+    public static final int MAX_IMG = 10;
 }

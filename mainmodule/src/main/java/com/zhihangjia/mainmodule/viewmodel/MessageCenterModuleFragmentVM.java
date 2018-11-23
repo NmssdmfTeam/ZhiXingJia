@@ -7,6 +7,9 @@ import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.zhihangjia.mainmodule.callback.MessageCenterModuleCB;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
@@ -39,7 +42,7 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
 
     @Override
     public void initData(boolean isRefresh) {
-        getBbsInfoList(types,cate_id,isRefresh);
+        getBbsInfoList(types, cate_id, isRefresh);
     }
 
 
@@ -47,26 +50,56 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
         if (isRefresh)
             pages = "0";
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_INFO_LIST)
-                        .getBbsInfoList(types,cate_id,pages),
+                        .getBbsInfoList(types, cate_id, pages),
                 new ServiceCallback<BaseListData<BbsInfoList>>() {
-            @Override
-            public void onError(Throwable error) {
-                callback.stopFreshAction();
-            }
+                    @Override
+                    public void onError(Throwable error) {
+                        callback.stopFreshAction();
+                    }
 
-            @Override
-            public void onSuccess(BaseListData<BbsInfoList> bbsInfoListBaseListData) {
-                if (bbsInfoListBaseListData.getData() != null) {
-                    callback.setData(bbsInfoListBaseListData.getData(),isRefresh);
-                    if (bbsInfoListBaseListData.getData().size() > 0)
-                        pages = bbsInfoListBaseListData.getData().get(bbsInfoListBaseListData.getData().size() - 1).getPages();
-                }
-            }
+                    @Override
+                    public void onSuccess(BaseListData<BbsInfoList> bbsInfoListBaseListData) {
+                        if (bbsInfoListBaseListData.getData() != null) {
+                            callback.setData(bbsInfoListBaseListData.getData(), isRefresh);
+                            if (bbsInfoListBaseListData.getData().size() > 0)
+                                pages = bbsInfoListBaseListData.getData().get(bbsInfoListBaseListData.getData().size() - 1).getPages();
+                        }
+                    }
 
-            @Override
-            public void onDefeated(BaseListData<BbsInfoList> bbsInfoListBaseListData) {
-                callback.stopFreshAction();
+                    @Override
+                    public void onDefeated(BaseListData<BbsInfoList> bbsInfoListBaseListData) {
+                        callback.stopFreshAction();
+                    }
+                });
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.BbsEvent.BBS_INSERT, this);
+        RxBus.getInstance().register(RxEvent.BbsEvent.COMMENT_INSERT, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.BbsEvent.BBS_INSERT, this);
+        RxBus.getInstance().unregister(RxEvent.BbsEvent.COMMENT_INSERT, this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        if ("1".equals(types)) {//最新发布
+            switch (event.getType()) {
+                case RxEvent.BbsEvent.BBS_INSERT:
+                    getBbsInfoList(types, cate_id, true);
+                    break;
             }
-        });
+        } else {//最新回复,精华热帖
+            switch (event.getType()) {
+                case RxEvent.BbsEvent.COMMENT_INSERT:
+                    getBbsInfoList(types, cate_id, true);
+                    break;
+            }
+        }
     }
 }

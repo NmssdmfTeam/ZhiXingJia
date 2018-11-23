@@ -53,7 +53,8 @@ public class RxEvent {
     public static class BbsEvent extends RxEvent {
         public static final int VALUE = 200;
 
-        public static final int COMMENT_INSERT = VALUE + 1;
+        public static final int COMMENT_INSERT = VALUE + 1;     //添加评论
+        public static final int BBS_INSERT = VALUE + 2;     //添加帖子
     }
 
     public int getType() {

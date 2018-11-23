@@ -38,7 +38,7 @@ import java.util.List;
  * @description 信息详情activity
  * @date 2018/11/20 11:10
  */
-public class MessageDetailActivity extends BaseTitleActivity implements MessageDetailCB, CommentListContentAdapter.ItemClickListener {
+public class MessageDetailActivity extends BaseTitleActivity implements MessageDetailCB, CommentListContentAdapter.ItemClickListener, FlipOverAdapter.OnItemClickListener {
     private final String TAG = MessageDetailActivity.class.getSimpleName();
     private MessageDetailVM vm;
     private ActivityMessageDetailBinding binding;
@@ -68,6 +68,7 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
             @Override
             public void onRefresh() {
                 vm.getMessageDetail();
+                vm.page.set(1);
                 vm.getCommentList(true);
             }
 
@@ -77,7 +78,7 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
             }
         });
 
-        flipOverAdapter = new FlipOverAdapter(vm.getFlipList());
+        flipOverAdapter = new FlipOverAdapter(vm.getFlipList(),this);
         binding.crvPage.setAdapter(flipOverAdapter);
         flipOverAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -98,6 +99,7 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
                 if (binding.crvPage.getVisibility() == View.GONE) {
                     binding.vBlackBackgroud.setVisibility(View.VISIBLE);
                     binding.crvPage.setVisibility(View.VISIBLE);
+                    flipOverAdapter.setCurrentPage(vm.page.get());
                 } else {
                     binding.vBlackBackgroud.setVisibility(View.GONE);
                     binding.crvPage.setVisibility(View.GONE);
@@ -125,7 +127,6 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
     @Override
     public void initView() {
         setTitle(vm.getPage() + "/" + vm.detail.get().getComment_pages());
-
         flipOverAdapter.notifyDataSetChanged();
 
         itemMessageDetailHeadBinding.setVm(vm);
@@ -203,8 +204,25 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
     }
 
     @Override
+    public void setPageTitle(String title) {
+        setTitle(title);
+    }
+
+    @Override
+    public void endFresh() {
+        binding.crv.setRefreshing(false);
+        adapter.notifyDataChangedAfterLoadMore(true);
+    }
+
+    @Override
     public void onZanClick(MessageComment item, int position) {
         JLog.d(TAG, "position:"+position);
         vm.onZan("1",item.getComment_id(),position-1);
+    }
+
+    @Override
+    public void onPageClick(int page) {
+        vm.setPage(page);
+        vm.getCommentList(true);
     }
 }

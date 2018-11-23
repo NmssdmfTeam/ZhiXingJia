@@ -13,6 +13,7 @@ import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.config.IntegerConfig;
 import com.nmssdmf.commonlib.util.DensityUtil;
+import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.view.ImageSelectView;
 import com.nmssdmf.commonlib.view.TagView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -64,7 +65,14 @@ public class PostActivity extends BaseActivity implements PostCB{
         binding.setVm(vm);
         binding.tTitle.setNavigationIcon(R.drawable.ic_arrow_back);
         binding.tTitle.inflateMenu(R.menu.post);
-        vm.getBbsCat();
+        if (!TextUtils.isEmpty(vm.catId)) {
+            binding.tvTitle.setText(vm.catname);
+            binding.ivIcon.setVisibility(View.GONE);
+            setListener();
+        } else {
+            binding.tvTitle.setVisibility(View.VISIBLE);
+            vm.getBbsCat();
+        }
     }
 
     private void setListener() {
@@ -121,6 +129,10 @@ public class PostActivity extends BaseActivity implements PostCB{
 
     @Override
     public void addContent() {
+        if (binding.llContent.getChildCount() >= 9) { //模块数不能超过9个
+            ToastUtil.showMsg("图文数量不可超过9个");
+            return;
+        }
         final ItemPostContentBinding itemPostContentBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_post_content,null,false);
         itemPostContentBinding.isv.setOnUploadlistener(new ImageSelectView.OnImageUpLoadCompleteListener() {
             @Override
