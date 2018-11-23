@@ -10,7 +10,6 @@ import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
-import com.zhihangjia.mainmodule.activity.ManageAddressListActivity;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
@@ -18,14 +17,14 @@ import com.zhihangjia.mainmodule.activity.MessageCenterModuleActivity;
 import com.zhihangjia.mainmodule.activity.MessageDetailActivity;
 import com.zhihangjia.mainmodule.activity.MyPostActivity;
 import com.zhihangjia.mainmodule.activity.OrderDetailActivity;
-import com.zhihangjia.mainmodule.activity.OrderListActivity;
+import com.zhihangjia.mainmodule.activity.OrderListPurchaserActivity;
 import com.zhihangjia.mainmodule.activity.PaySuccessActivity;
 import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
 import com.zhihangjia.mainmodule.activity.ReplyActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.SetCouponActivity;
 import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
-import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
+import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.databinding.ActivityLunchBinding;
 import com.zhihangjia.mainmodule.viewmodel.LunchVM;
 
@@ -150,12 +149,6 @@ public class LunchActivity extends BaseTitleActivity {
                 doIntent(MyPostActivity.class,null);
             }
         });
-        binding.btnManageAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doIntent(ManageAddressListActivity.class,null);
-            }
-        });
         binding.btnAddOrEditAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +158,7 @@ public class LunchActivity extends BaseTitleActivity {
         binding.btnMyOrderList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doIntent(OrderListActivity.class,null);
+                doIntent(OrderListPurchaserActivity.class,null);
             }
         });
 

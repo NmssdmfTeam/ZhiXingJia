@@ -1,14 +1,14 @@
-package com.zhihangjia.mainmodule.activity;
+package com.zhixingjia.personmodule.activity;
 
 import android.os.Bundle;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.adapter.ManageAddressListAdapter;
-import com.zhihangjia.mainmodule.databinding.ActivityManageAddresslistBinding;
-import com.zhihangjia.mainmodule.viewmodel.ManageAddressListVM;
+import com.zhixingjia.personmodule.R;
+import com.zhixingjia.personmodule.adapter.ManageAddressListAdapter;
+import com.zhixingjia.personmodule.databinding.ActivityManageAddresslistBinding;
+import com.zhixingjia.personmodule.viewmodule.ManageAddressListVM;
 
 import java.util.ArrayList;
 import java.util.List;

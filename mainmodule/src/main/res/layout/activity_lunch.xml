@@ -123,14 +123,6 @@
                 android:text="我的帖子" />
 
             <Button
-                android:id="@+id/btnManageAddress"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="地址管理" />
-
-            <Button
                 android:id="@+id/btnAddOrEditAddress"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
@@ -177,7 +169,6 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="帖子回复" />
-
 
         </LinearLayout>
     </ScrollView>

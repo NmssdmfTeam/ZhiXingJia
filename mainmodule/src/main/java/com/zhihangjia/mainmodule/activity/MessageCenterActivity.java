@@ -1,4 +1,4 @@
-package com.zhihangjia.mainmodule.activity.message;
+package com.zhihangjia.mainmodule.activity;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;

@@ -10,14 +10,16 @@ import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.callback.OrderListCB;
 import com.zhihangjia.mainmodule.databinding.ActivityOrderListBinding;
 import com.zhihangjia.mainmodule.fragment.OrderListFragment;
-import com.zhihangjia.mainmodule.fragment.OrderListWaitForPayFragment;
 import com.zhihangjia.mainmodule.viewmodel.OrderListVM;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderListActivity extends BaseActivity implements OrderListCB{
-    private final String TAG = OrderListActivity.class.getSimpleName();
+/**
+ * 供应商订单列表
+ */
+public class OrderListSupplierActivity extends BaseActivity implements OrderListCB{
+    private final String TAG = OrderListSupplierActivity.class.getSimpleName();
     private ActivityOrderListBinding binding;
 
     private List<Fragment> fragments = new ArrayList<>();
@@ -48,7 +50,7 @@ public class OrderListActivity extends BaseActivity implements OrderListCB{
 
 
         OrderListFragment allFragment = new OrderListFragment();
-        OrderListWaitForPayFragment waitPayFragment = new OrderListWaitForPayFragment();
+        OrderListFragment waitPayFragment = new OrderListFragment();
         OrderListFragment waitDeliverFragment = new OrderListFragment();
         OrderListFragment waitReceiveFragment = new OrderListFragment();
         OrderListFragment waitCommentFragment = new OrderListFragment();

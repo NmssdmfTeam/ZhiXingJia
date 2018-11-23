@@ -9,7 +9,7 @@ import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.databinding.FragmentMineProviderBinding;
-import com.zhihangjia.mainmodule.viewmodel.MineProviderVM;
+import com.zhihangjia.mainmodule.viewmodel.MineProviderFragmentVM;
 
 /**
 * @description 知行家首页-- 建材家居fragment
@@ -20,11 +20,11 @@ import com.zhihangjia.mainmodule.viewmodel.MineProviderVM;
 public class MineProviderFragment extends BaseFragment {
     private final String TAG = MineProviderFragment.class.getSimpleName();
     private FragmentMineProviderBinding binding;
-    private MineProviderVM vm;
+    private MineProviderFragmentVM vm;
 
     @Override
     public BaseVM initViewModel() {
-        vm = new MineProviderVM(this);
+        vm = new MineProviderFragmentVM(this);
         return vm;
     }
 
@@ -36,6 +36,7 @@ public class MineProviderFragment extends BaseFragment {
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMineProviderBinding) baseBinding;
+        binding.setVm(vm);
         binding.msfl.setSwipeableChildren(R.id.sv_customer_my);
         setListener();
     }

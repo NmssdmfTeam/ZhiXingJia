@@ -31,7 +31,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.message.MessageCenterActivity"
+            android:name=".activity.MessageCenterActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SearchActivity"
@@ -75,22 +75,21 @@
         <activity
             android:name=".activity.MyPostActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.OrderListActivity">
-        </activity>
-        <activity
-            android:name=".activity.ManageAddressListActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.OrderListPurchaserActivity"
+                  android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.AddOrEditAddressActivity"
             android:screenOrientation="portrait"/>
-        android:screenOrientation="portrait" />
-        <activity android:name=".activity.OrderDetailActivity"/>
-        <activity android:name=".activity.ApplySupplierActivity">
+        <activity android:name=".activity.OrderDetailActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ShopCouponListActivity"
+                  android:screenOrientation="portrait">
+            <activity
+                android:name=".activity.OrderListSupplierActivity"
+                android:screenOrientation="portrait"/>
         </activity>
-        <activity android:name=".activity.ShopCouponListActivity">
-        </activity>
-        <activity android:name=".activity.SetCouponActivity">
-        </activity>
+        <activity android:name=".activity.SetCouponActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.ReplyActivity"
             android:screenOrientation="portrait"></activity>
     </application>

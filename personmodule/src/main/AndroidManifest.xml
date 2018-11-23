@@ -33,6 +33,11 @@
         </activity>
         <activity android:name=".activity.SetActivity">
         </activity>
+        <activity
+            android:name=".activity.ManageAddressListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ApplySupplierActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

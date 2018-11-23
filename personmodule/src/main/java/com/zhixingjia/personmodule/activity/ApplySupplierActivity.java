@@ -1,10 +1,10 @@
-package com.zhihangjia.mainmodule.activity;
+package com.zhixingjia.personmodule.activity;
 
 import android.os.Bundle;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhihangjia.mainmodule.R;
+import com.zhixingjia.personmodule.R;
 
 public class ApplySupplierActivity extends BaseTitleActivity {
     private final String TAG = ApplySupplierActivity.class.getSimpleName();

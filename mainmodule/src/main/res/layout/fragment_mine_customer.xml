@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
-            type="com.zhihangjia.mainmodule.viewmodel.MineCustomerVM"/>
+            type="com.zhihangjia.mainmodule.viewmodel.MineCustomerFragmentVM"/>
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,7 +41,7 @@
                         <View
                             android:id="@+id/vStatusBar"
                             android:layout_width="0dp"
-                            android:layout_height="25dp" />
+                            android:layout_height="25dp"/>
 
                         <RelativeLayout
                             android:id="@+id/rl_top_menu"
@@ -61,7 +63,7 @@
                                 android:paddingTop="3.5dp"
                                 android:text="切换为卖家"
                                 android:textColor="@color/white"
-                                android:textSize="13dp" />
+                                android:textSize="13dp"/>
 
                             <RelativeLayout
                                 android:id="@+id/rl_message"
@@ -75,7 +77,7 @@
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
                                     android:scaleType="fitXY"
-                                    android:src="@drawable/icon_mine_message" />
+                                    android:src="@drawable/icon_mine_message"/>
 
                                 <ImageView
                                     android:id="@+id/iv_message_notice"
@@ -87,7 +89,7 @@
                                     android:layout_marginTop="6dp"
                                     android:clickable="false"
                                     android:src="@drawable/message_red_point"
-                                    android:visibility="visible" />
+                                    android:visibility="visible"/>
                             </RelativeLayout>
 
                             <ImageView
@@ -97,7 +99,7 @@
                                 android:layout_marginRight="15dp"
                                 android:layout_toLeftOf="@+id/rl_message"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/icon_mine_setting" />
+                                android:src="@drawable/icon_mine_setting"/>
                         </RelativeLayout>
 
                         <LinearLayout
@@ -117,9 +119,9 @@
                                     android:id="@+id/sdw_headers"
                                     android:layout_width="67dp"
                                     android:layout_height="67dp"
-                                    android:src="@drawable/no_pic"
                                     android:layout_centerInParent="true"
-                                    app:roundAsCircle="@{true}" />
+                                    android:src="@drawable/no_pic"
+                                    app:roundAsCircle="@{true}"/>
                             </RelativeLayout>
 
                             <TextView
@@ -129,7 +131,7 @@
                                 android:layout_marginLeft="12dp"
                                 android:text="城龙一切之人"
                                 android:textColor="#FFFFFFFF"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"/>
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -155,10 +157,10 @@
                                 android:layout_gravity="center"
                                 android:drawableTop="@drawable/icon_mine_coupon"
                                 android:gravity="center"
+                                android:onClick="@{(v)->vm.myCouponClick(v)}"
                                 android:text="优惠券"
                                 android:textColor="#FF333333"
-                                android:textSize="13dp"
-                                android:onClick="@{(v)->vm.myCouponClick(v)}"/>
+                                android:textSize="13dp"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -174,7 +176,7 @@
                                 android:gravity="center"
                                 android:text="发帖"
                                 android:textColor="#FF333333"
-                                android:textSize="13dp" />
+                                android:textSize="13dp"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -190,7 +192,7 @@
                                 android:gravity="center"
                                 android:text="回帖"
                                 android:textColor="#FF333333"
-                                android:textSize="13dp" />
+                                android:textSize="13dp"/>
                         </FrameLayout>
 
                     </LinearLayout>
@@ -217,12 +219,12 @@
                                 android:layout_marginTop="10dp"
                                 android:text="我的订单"
                                 android:textColor="#FF333333"
-                                android:textSize="17dp" />
+                                android:textSize="17dp"/>
 
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -230,10 +232,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="12dp"
                                 android:drawableRight="@drawable/icon_next"
+                                android:onClick="@{(v)->vm.orderClick(v, 0)}"
                                 android:text="全部订单"
                                 android:textColor="#FF999999"
-                                android:textSize="14dp"
-                                android:onClick="@{(v)->vm.orderClick(v, 0)}"/>
+                                android:textSize="14dp"/>
 
                         </LinearLayout>
 
@@ -245,7 +247,8 @@
                             <FrameLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:onClick="@{(v)->vm.orderClick(v, 1)}">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -255,14 +258,15 @@
                                     android:text="待付款"
                                     android:textColor="#FF333333"
                                     android:textSize="13dp"
-                                    android:onClick="@{(v)->vm.orderClick(v, 1)}"/>
+                                    />
 
                             </FrameLayout>
 
                             <FrameLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:onClick="@{(v)->vm.orderClick(v, 2)}">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -272,14 +276,15 @@
                                     android:text="待发货"
                                     android:textColor="#FF333333"
                                     android:textSize="13dp"
-                                    android:onClick="@{(v)->vm.orderClick(v, 2)}"/>
+                                    />
 
                             </FrameLayout>
 
                             <FrameLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:onClick="@{(v)->vm.orderClick(v, 3)}">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -289,14 +294,15 @@
                                     android:text="待收货"
                                     android:textColor="#FF333333"
                                     android:textSize="13dp"
-                                    android:onClick="@{(v)->vm.orderClick(v, 3)}"/>
+                                    />
 
                             </FrameLayout>
 
                             <FrameLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:onClick="@{(v)->vm.orderClick(v, 4)}">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -306,7 +312,7 @@
                                     android:text="待评价"
                                     android:textColor="#FF333333"
                                     android:textSize="13dp"
-                                    android:onClick="@{(v)->vm.orderClick(v, 4)}"/>
+                                    />
 
                             </FrameLayout>
                         </LinearLayout>
@@ -330,7 +336,7 @@
                             android:layout_marginTop="10dp"
                             android:text="必备工具"
                             android:textColor="#FF333333"
-                            android:textSize="17dp" />
+                            android:textSize="17dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -340,7 +346,8 @@
                             <FrameLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:onClick="@{(v)->vm.personInfoClick(v)}">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -349,14 +356,16 @@
                                     android:drawableTop="@drawable/icon_user_info"
                                     android:text="个人信息"
                                     android:textColor="#FF333333"
-                                    android:textSize="13dp" />
+                                    android:textSize="13dp"
+                                    />
 
                             </FrameLayout>
 
                             <FrameLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:onClick="@{(v)->vm.receiveAddress(v)}">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -365,7 +374,8 @@
                                     android:drawableTop="@drawable/icon_location_setting"
                                     android:text="收货地址"
                                     android:textColor="#FF333333"
-                                    android:textSize="13dp" />
+                                    android:textSize="13dp"
+                                    />
 
                             </FrameLayout>
 
@@ -382,7 +392,7 @@
                                     android:drawableTop="@drawable/icon_become_provider"
                                     android:text="成为卖家"
                                     android:textColor="#FF333333"
-                                    android:textSize="13dp" />
+                                    android:textSize="13dp"/>
 
                             </FrameLayout>
 
@@ -398,7 +408,7 @@
                                     android:drawableTop="@drawable/icon_customer_service"
                                     android:text="客服热线"
                                     android:textColor="#FF333333"
-                                    android:textSize="13dp" />
+                                    android:textSize="13dp"/>
 
                             </FrameLayout>
                         </LinearLayout>

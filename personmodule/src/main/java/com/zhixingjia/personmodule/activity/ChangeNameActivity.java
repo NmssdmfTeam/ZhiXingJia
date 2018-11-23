@@ -10,6 +10,9 @@ import com.zhixingjia.personmodule.R;
 import com.zhixingjia.personmodule.databinding.ActivityChangeNameBinding;
 import com.zhixingjia.personmodule.viewmodule.ChangeNameVM;
 
+/**
+ * 修改名称
+ */
 public class ChangeNameActivity extends BaseTitleActivity {
     private final String TAG = ChangeNameActivity.class.getSimpleName();
     private ActivityChangeNameBinding binding;
