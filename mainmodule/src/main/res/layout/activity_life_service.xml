@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context="com.zhihangjia.mainmodule.activity.LifeServiceActivity">
+
+        <com.nmssdmf.commonlib.rollviewpager.RollPagerView
+            android:id="@+id/rpv"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp">
+
+        </com.nmssdmf.commonlib.rollviewpager.RollPagerView>
+
+        <com.nmssdmf.customerviewlib.CustomerRecyclerView
+            android:id="@+id/crv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rpv"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp">
+
+        </com.nmssdmf.customerviewlib.CustomerRecyclerView>
+
+        <View
+            android:id="@+id/vBlackBackgroud"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/search_black_trans"
+            android:clickable="true"
+            android:visibility="gone"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="124.5dp"
+            android:visibility="gone"
+            android:background="@color/white">
+
+            <com.nmssdmf.commonlib.view.TagLayout
+                android:id="@+id/crvPage"
+                android:layout_width="match_parent"
+                android:layout_height="124.5dp"
+                />
+        </ScrollView>
+
+
+    </RelativeLayout>
+</layout>
+

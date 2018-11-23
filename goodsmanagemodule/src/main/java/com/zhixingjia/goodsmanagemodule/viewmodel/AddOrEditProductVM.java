@@ -3,6 +3,7 @@ package com.zhixingjia.goodsmanagemodule.viewmodel;
 import android.view.View;
 
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhixingjia.goodsmanagemodule.activity.AddProductDescribeActivity;
 import com.zhixingjia.goodsmanagemodule.activity.SelectStandardActivity;
 import com.zhixingjia.goodsmanagemodule.callback.AddOrEditProductCB;
 
@@ -35,5 +36,9 @@ public class AddOrEditProductVM extends BaseVM {
 
     public void selectSpecificationClick(View view) {
         cb.doIntent(SelectStandardActivity.class, null);
+    }
+
+    public void productDescriptionClick(View view) {
+        cb.doIntent(AddProductDescribeActivity.class, null);
     }
 }

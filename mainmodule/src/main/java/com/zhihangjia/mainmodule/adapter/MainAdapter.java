@@ -14,10 +14,10 @@ import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.message.MessageAdapter;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.databinding.ItemExcellentSellerBinding;
-import com.zhihangjia.mainmodule.databinding.ItemLifeServiceBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMessageCenterBinding;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendGoodsBinding;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendGoodsInfoBinding;
+import com.zhihangjia.mainmodule.databinding.ItemXyLifeServiceBinding;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
     public MainAdapter(@Nullable List data) {
         super(data);
         addItemType(1, R.layout.item_recommend_goods);
-        addItemType(2, R.layout.item_life_service);
+        addItemType(2, R.layout.item_xy_life_service);
         addItemType(3, R.layout.item_message_center);
         addItemType(0, R.layout.item_excellent_seller);
     }
@@ -58,7 +58,7 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
             }
             itemRecommendGoodsBinding.setData(item);
         } else if (item.getItemType() == 2) {
-            ItemLifeServiceBinding itemLifeServiceBinding = (ItemLifeServiceBinding) helper.getBinding();
+            ItemXyLifeServiceBinding itemLifeServiceBinding = (ItemXyLifeServiceBinding) helper.getBinding();
             if (itemLifeServiceBinding.rvService.getLayoutManager() == null)
                 itemLifeServiceBinding.rvService.setLayoutManager(new GridLayoutManager(mContext, 5));
             List<Base> bases = new ArrayList<>();

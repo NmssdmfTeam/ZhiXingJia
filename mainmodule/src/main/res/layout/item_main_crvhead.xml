@@ -65,7 +65,8 @@
                 android:textSize="12dp"
                 android:drawableTop="@drawable/icon_sofa"
                 android:drawablePadding="6dp"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:onClick="@{(v)->vm.onXYTelecomClick(v)}"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -76,7 +77,8 @@
                 android:textSize="12dp"
                 android:drawableTop="@drawable/icon_sofa"
                 android:drawablePadding="6dp"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:onClick="@{(v)->vm.onLifeServiceClick(v)}"/>
 
             <TextView
                 android:layout_width="0dp"

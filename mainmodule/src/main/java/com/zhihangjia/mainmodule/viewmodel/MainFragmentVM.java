@@ -13,6 +13,8 @@ import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.LifeServiceActivity;
+import com.zhihangjia.mainmodule.activity.XYTelecomActivity;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.callback.MainFragmentCB;
 import com.zhixingjia.bean.mainmodule.IndexBean;
@@ -120,5 +122,13 @@ public class MainFragmentVM extends BaseVM {
      */
     public void onMessageCenterClick(View view) {
         cb.toOtherFragment(2);
+    }
+
+    public void onXYTelecomClick(View view) {
+        cb.doIntent(XYTelecomActivity.class, null);
+    }
+
+    public void onLifeServiceClick(View view) {
+        cb.doIntent(LifeServiceActivity.class, null);
     }
 }

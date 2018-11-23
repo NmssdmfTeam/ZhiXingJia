@@ -90,12 +90,16 @@
         <activity
             android:name=".activity.OrderListSupplierActivity"
             android:screenOrientation="portrait"/>
-    <activity
-        android:name=".activity.SetCouponActivity"
-        android:screenOrientation="portrait"/>
-    <activity
-        android:name=".activity.ReplyActivity"
-        android:screenOrientation="portrait"></activity>
-</application>
+        <activity
+            android:name=".activity.SetCouponActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.ReplyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.XYTelecomActivity">
+        </activity>
+        <activity android:name=".activity.LifeServiceActivity">
+        </activity>
+    </application>
 
-    </manifest>
+</manifest>

@@ -376,7 +376,8 @@
                             android:gravity="center"
                             android:background="@null"
                             android:drawableRight="@drawable/icon_next"
-                            android:layout_alignParentRight="true"/>
+                            android:layout_alignParentRight="true"
+                            android:onClick="@{(v)->vm.productDescriptionClick(v)}"/>
 
 
                     </RelativeLayout>

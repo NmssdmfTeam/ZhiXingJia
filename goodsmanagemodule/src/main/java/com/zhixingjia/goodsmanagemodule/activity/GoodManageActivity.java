@@ -60,6 +60,14 @@ public class GoodManageActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(AddOrEditProductActivity.class, null);
+            }
+        });
+
     }
 
 }
