@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.ConfirmPayVM"/>
+    </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -194,7 +199,8 @@
                 android:gravity="center"
                 android:text="立即付款"
                 android:textColor="#FFFFFFFF"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:onClick="@{(v)->vm.confirmPay(v)}"/>
         </RelativeLayout>
     </LinearLayout>
 </layout>

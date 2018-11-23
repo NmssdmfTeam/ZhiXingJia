@@ -1,8 +1,11 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.view.View;
+
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.callback.ConfirmOrderCB;
 
 import java.util.ArrayList;
@@ -32,6 +35,10 @@ public class ConfirmOrderVM extends BaseVM implements WheelPickerWindowCB{
 
         deliveryMethodList.add("商家配送");
         deliveryMethodList.add("上门自提");
+    }
+
+    public void tvSubmitClick(View view){
+        cb.doIntent(ConfirmPayActivity.class, null);
     }
 
     public List<Base> getList() {

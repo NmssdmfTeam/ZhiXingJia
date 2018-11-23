@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.PaySuccessVM"/>
+    </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -49,6 +55,7 @@
             android:layout_toLeftOf="@+id/vCenter"
             android:layout_marginRight="8dp"
             android:background="@drawable/shape_main_color_stroke"
+            android:onClick="@{(v)->vm.tvViewOrderClick(v)}"
             />
 
         <TextView
@@ -63,6 +70,7 @@
             android:layout_toRightOf="@+id/vCenter"
             android:layout_marginLeft="8dp"
             android:background="@drawable/shape_main_color_bg"
+            android:onClick="@{(v)->vm.tvContinueStrollClick(v)}"
             />
 
     </RelativeLayout>
