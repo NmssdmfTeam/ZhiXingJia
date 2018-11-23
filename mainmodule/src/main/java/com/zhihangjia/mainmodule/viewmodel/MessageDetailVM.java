@@ -4,17 +4,26 @@ package com.zhihangjia.mainmodule.viewmodel;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.ReplyActivity;
 import com.zhihangjia.mainmodule.callback.MessageDetailCB;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
@@ -45,7 +54,14 @@ public class MessageDetailVM extends BaseVM {
     public final ObservableBoolean isHot = new ObservableBoolean(false);//最赞
     public final ObservableBoolean isSortDesc = new ObservableBoolean(false);//最赞
 
+    public final ObservableInt zanNum = new ObservableInt(0);
+    public final ObservableInt commentNum = new ObservableInt(0);
+
     private int page = 1;//评论翻页
+
+    private boolean isGive;                 //是否点过赞
+    private int zanNumOriginal;             //点赞实际个数
+    private String user_name;
 
     /**
      * 不需要callback可以传null
@@ -77,6 +93,19 @@ public class MessageDetailVM extends BaseVM {
         if (bundle != null) {
             messageId = bundle.getString(IntentConfig.ID);
         }
+        user_name = PreferenceUtil.getString(PrefrenceConfig.USER_NAME, "知行家276410");
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.BbsEvent.COMMENT_INSERT, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.BbsEvent.COMMENT_INSERT, this);
     }
 
     public void getMessageDetail() {
@@ -94,7 +123,30 @@ public class MessageDetailVM extends BaseVM {
                 for (int i = 1; i<= maxPage; i++) {
                     flipList.add("第"+i+"页");
                 }
+                isGive = "1".equals(data.getData().getGive_state());
+                if (!TextUtils.isEmpty(data.getData().getComment_sum())) {
+                    try {
+                        int commentSum = Integer.valueOf(data.getData().getComment_sum());
+                        if (commentSum > 99)
+                            commentSum = 99;
+                        commentNum.set(commentSum);
+                    }catch (Exception e) {
+                        commentNum.set(0);
+                    }
+                }
+                if (!TextUtils.isEmpty(data.getData().getGive_sum())) {
+                    try {
+                        int giveSum = Integer.valueOf(data.getData().getGive_sum());
+                        zanNumOriginal = giveSum;
+                        if (giveSum > 99)
+                            giveSum = 99;
+                        zanNum.set(Integer.valueOf(giveSum));
+                    } catch (Exception e) {
+                        zanNum.set(0);
+                    }
+                }
                 cb.initView();
+                cb.refreshGiveInfo(zanNumOriginal, data.getData().getGive_info());
             }
 
             @Override
@@ -140,6 +192,93 @@ public class MessageDetailVM extends BaseVM {
         isSortDesc.set(!isSortDesc.get());
 
         getCommentList(true);
+    }
+
+    public void onCommentClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.BBS_ID, messageId);
+        baseCallBck.doIntent(ReplyActivity.class, bundle);
+    }
+
+    /**
+     * 回到评论首部
+     * @param view
+     */
+    public void onCommentBackClick(View view) {
+        cb.scrollToTop();
+    }
+
+    /**
+     * 点赞
+     */
+    public void onZan(final String types, String relation_id, final int position) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("types", types);
+        map.put("relation_id", relation_id);
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_GIVE_INSERT).giveInsert(map),
+                new ServiceCallback<Base>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(Base base) {
+                if ("0".equals(types)) {
+                    //刷新文章攒数量
+                    String giveInfo = "";
+                    if (isGive) {         //取消点赞
+                        zanNumOriginal--;
+                        if (zanNumOriginal == 0) {
+                            giveInfo = detail.get().getGive_info().replaceFirst(user_name, "");
+                        } else {
+                            giveInfo = detail.get().getGive_info().replaceFirst(user_name+"、", "");
+                        }
+                        isGive = false;
+                        detail.get().setGive_state("0");
+                    } else {                //点赞
+                        zanNumOriginal++;
+                        if (zanNumOriginal == 1)
+                            giveInfo = user_name;
+                        else
+                            giveInfo = user_name+"、"+detail.get().getGive_info();
+                        isGive = true;
+                        detail.get().setGive_state("1");
+                    }
+                    detail.get().setGive_info(giveInfo);
+                    setZanNum();//刷新点赞数
+                    cb.refreshGiveInfo(zanNumOriginal, giveInfo);
+                } else {
+                    //刷新评论
+                    cb.onCommentZanRequestFinish(position);
+                }
+            }
+
+            @Override
+            public void onDefeated(Base base) {
+
+            }
+        });
+    }
+
+    public void onZanClick(View view) {
+        onZan("0",messageId,0);
+    }
+
+    private void setZanNum() {
+        if (zanNumOriginal > 99) {
+            zanNum.set(99);
+        }
+        zanNum.set(zanNumOriginal);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.BbsEvent.COMMENT_INSERT://变更
+                getCommentList(true);
+                break;
+        }
     }
 
     public int getPage() {

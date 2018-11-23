@@ -12,6 +12,8 @@ import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.bean.PostContent;
@@ -78,6 +80,7 @@ public class ReplyVM extends BaseVM {
                             baseCallBck.dismissLoaddingDialog();
                             baseCallBck.finishActivity();
                             //刷新消息
+                            RxBus.getInstance().send(RxEvent.BbsEvent.COMMENT_INSERT, null);
                         }
                     }
 

@@ -50,6 +50,12 @@ public class RxEvent {
         }
     }
 
+    public static class BbsEvent extends RxEvent {
+        public static final int VALUE = 200;
+
+        public static final int COMMENT_INSERT = VALUE + 1;
+    }
+
     public int getType() {
         return type;
     }

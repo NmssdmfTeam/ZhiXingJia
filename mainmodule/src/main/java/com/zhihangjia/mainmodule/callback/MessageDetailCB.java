@@ -12,4 +12,7 @@ import java.util.List;
 public interface MessageDetailCB extends BaseCB {
     void initView();
     void refreshComent(boolean isRefresh, List<MessageComment> list);
+    void scrollToTop();
+    void onCommentZanRequestFinish(int position);
+    void refreshGiveInfo(int zanNum, String giveNames);
 }
