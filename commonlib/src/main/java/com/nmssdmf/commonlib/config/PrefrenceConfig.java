@@ -9,4 +9,5 @@ public class PrefrenceConfig {
     public static final String SHARED_INFO = "SHARED_INFO";//sharePrefrence
     public static final String INDEX_INFO = "index";//index
     public static final String BBS_CAT = "bbs_cat"; //消息论坛类型
+    public static final String USER_NAME = "user_name"; //用户名称
 }

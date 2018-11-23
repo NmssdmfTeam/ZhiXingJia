@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -10,11 +11,14 @@ import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -37,6 +41,8 @@ import java.util.Map;
 public class PostVM extends BaseVM {
     private PostCB callBack;
     public String currentCat;
+    public String catId;
+    public String catname;
 
     /**
      * 不需要callback可以传null
@@ -46,6 +52,16 @@ public class PostVM extends BaseVM {
     public PostVM(PostCB callBack) {
         super(callBack);
         this.callBack = callBack;
+        initData();
+    }
+
+    private void initData() {
+        Bundle bundle = callBack.getIntentData();
+        if (bundle != null) {
+            catId = bundle.getString(IntentConfig.CAT_ID);
+            catname = bundle.getString(IntentConfig.NAME);
+            currentCat = catId;
+        }
     }
 
     /**
@@ -61,7 +77,8 @@ public class PostVM extends BaseVM {
      * @param view
      */
     public void onTitleClick(View view) {
-        callBack.showChooseWindow();
+        if (TextUtils.isEmpty(catId))
+            callBack.showChooseWindow();
     }
 
     public void getBbsCat() {
@@ -131,6 +148,7 @@ public class PostVM extends BaseVM {
                     callBack.dismissLoaddingDialog();
                     callBack.finishActivity();
                     //刷新消息
+                    RxBus.getInstance().send(RxEvent.BbsEvent.BBS_INSERT, null);
                 }
             }
 

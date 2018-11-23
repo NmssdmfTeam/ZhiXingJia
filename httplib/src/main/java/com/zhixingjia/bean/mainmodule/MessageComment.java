@@ -21,6 +21,7 @@ public class MessageComment extends BaseObservable{
     private String give_sum;//点赞数量
     private String quote;//引用评论
     private List<ContentsBean> contents;//评论内容,目前只有一条，list是后台为了统一数据格式
+    private String give_state;
 
     public String getComment_id() {
         return comment_id;
@@ -129,5 +130,15 @@ public class MessageComment extends BaseObservable{
                 this.l_url = l_url;
             }
         }
+    }
+
+    @Bindable
+    public String getGive_state() {
+        return give_state;
+    }
+
+    public void setGive_state(String give_state) {
+        this.give_state = give_state;
+        notifyPropertyChanged(BR.give_state);
     }
 }

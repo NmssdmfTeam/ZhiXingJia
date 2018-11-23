@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
-        <import type="com.nmssdmf.commonlib.util.StringUtil"/>
+        <import type="com.nmssdmf.commonlib.util.StringUtil" />
 
         <variable
             name="vm"
-            type="com.zhihangjia.mainmodule.viewmodel.MessageDetailVM"/>
+            type="com.zhihangjia.mainmodule.viewmodel.MessageDetailVM" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <TextView
@@ -26,7 +27,7 @@
             android:paddingRight="16dp"
             android:text="@{vm.detail.title}"
             android:textColor="#FF333333"
-            android:textSize="18dp"/>
+            android:textSize="18dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.detail.read_sum + @string/read}"
                 android:textColor="#FFA5A5A5"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
                 android:layout_marginLeft="12dp"
                 android:text="@{vm.detail.comment_sum + @string/comment}"
                 android:textColor="#FFA5A5A5"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,12 +59,12 @@
                 android:layout_marginLeft="12dp"
                 android:text="@{vm.detail.cate_name}"
                 android:textColor="#FFFF9A14"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
 
 
         </LinearLayout>
 
-        <include layout="@layout/include_recyclerview_cutoff_line"/>
+        <include layout="@layout/include_recyclerview_cutoff_line" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -79,7 +80,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="12dp"
-                app:roundAsCircle="@{true}"/>
+                app:roundAsCircle="@{true}" />
 
             <TextView
                 android:id="@+id/tvName"
@@ -90,7 +91,7 @@
                 android:layout_toRightOf="@+id/ivAvater"
                 android:text="@{vm.detail.nickname}"
                 android:textColor="#FF333333"
-                android:textSize="15dp"/>
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,7 +101,7 @@
                 android:layout_toRightOf="@+id/ivAvater"
                 android:text="@{vm.detail.createtime}"
                 android:textColor="#FFA5A5A5"
-                android:textSize="12dp"/>
+                android:textSize="12dp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -109,8 +110,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            >
+            android:paddingRight="16dp">
 
 
         </LinearLayout>
@@ -123,24 +123,25 @@
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:visibility="@{StringUtil.isEmpty(vm.detail.give_sum)|| Integer.valueOf(vm.detail.give_sum) == 0 ? View.GONE:View.VISIBLE}">
+            android:visibility="@{vm.zanNum == 0 ? View.GONE:View.VISIBLE}">
 
             <com.nmssdmf.commonlib.view.GlideImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_zan"/>
+                android:src="@drawable/icon_zan" />
 
             <TextView
+                android:id="@+id/tvGiveinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="@{vm.detail.give_info+@string/and + vm.detail.give_sum + @string/people_praise}"
                 android:textColor="#FF333333"
-                android:textSize="12dp"/>
+                android:textSize="12dp" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llCommentTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -153,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:text="全部评论"
                 android:textColor="#FF333333"
-                android:textSize="17sp"/>
+                android:textSize="17dp" />
 
             <CheckBox
                 android:id="@+id/cbLookBuilder"
@@ -162,43 +163,42 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="12dp"
                 android:background="@drawable/selector_only_look_builder"
+                android:button="@null"
+                android:checked="@={vm.onlyLookBuilder}"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5.5dp"
                 android:paddingRight="5.5dp"
                 android:paddingTop="2dp"
                 android:text="只看楼主"
                 android:textColor="#FFFF9A14"
-                android:textSize="12dp"
-                android:button="@null"
-                android:checked="@={vm.onlyLookBuilder}"
-                />
+                android:textSize="12dp" />
 
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <CheckBox
                 android:id="@+id/cbHot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@null"
+                android:checked="@={vm.isHot}"
                 android:text="最赞"
                 android:textColor="@{vm.isHot ? @color/main_color : @color/text_money_gray}"
-                android:textSize="14dp"
-                android:checked="@={vm.isHot}"
-                android:button="@null"/>
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/tvSort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:drawableRight="@drawable/icon_acs"
+                android:drawableRight="@{vm.isSortDesc?@drawable/icon_desc:@drawable/icon_acs}"
+                android:onClick="@{(v)->vm.tvSortClick(v)}"
                 android:text="@{vm.isSortDesc ? @string/desc : @string/asc}"
                 android:textColor="@{vm.isHot ? @color/text_money_gray : @color/main_color}"
-                android:textSize="14dp"
-                android:onClick="@{(v)->vm.tvSortClick(v)}"/>
+                android:textSize="14dp" />
         </LinearLayout>
     </LinearLayout>
 </layout>

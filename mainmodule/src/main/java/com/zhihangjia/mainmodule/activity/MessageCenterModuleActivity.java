@@ -2,11 +2,15 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.callback.PostCB;
 import com.zhihangjia.mainmodule.databinding.ActivityMessageCenterModuleBinding;
 import com.zhihangjia.mainmodule.fragment.MessageCenterModuleFragment;
 import com.zhihangjia.mainmodule.viewmodel.MessageCenterModuleVM;
@@ -62,6 +66,22 @@ public class MessageCenterModuleActivity extends BaseTitleActivity {
         binding.tl.getTabAt(2).setText("精华热帖");
         baseTitleBinding.tTitle.inflateMenu(R.menu.messagecenter);
         setTitle(vm.name);
+        setListener();
+    }
+
+    private void setListener() {
+        baseTitleBinding.tTitle.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.publishMessage) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.CAT_ID, vm.cat_id);
+                    bundle.putString(IntentConfig.NAME, vm.name);
+                    doIntent(PostActivity.class, bundle);
+                }
+                return false;
+            }
+        });
     }
 
     @Override

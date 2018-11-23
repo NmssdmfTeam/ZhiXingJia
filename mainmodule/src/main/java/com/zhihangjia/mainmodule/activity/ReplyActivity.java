@@ -104,7 +104,8 @@ public class ReplyActivity extends BaseTitleActivity {
         List<PostContent> postContents = new ArrayList<>();
         PostContent postContent = new PostContent();
         postContent.setNote(binding.etContent.getText().toString());
-        postContent.setImgs(ids);
+        if (ids != null && ids.length > 0)
+            postContent.setImgs(ids);
         postContents.add(postContent);
         vm.comment(postContents);
     }
