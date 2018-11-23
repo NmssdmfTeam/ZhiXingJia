@@ -18,8 +18,6 @@ import java.util.List;
  * 循环滑动adapter
  */
 public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
-    public static final int MAIN_PAGER = 1, PART_PAGER = 2, CAPACITY_PAGER =3;
-    private int type = MAIN_PAGER;
 
     private List<IndexBean.BannersBean> advertisingRotations;
 
@@ -28,9 +26,8 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
     // SetScaleType(ImageView.ScaleType.CENTER_CROP);
     // 按比例扩大图片的size居中显示，使得图片长(宽)等于或大于View的长(宽)
 
-    public AdvertisingRotationViewPagerAdapter(int type, List<IndexBean.BannersBean> advertisingRotations, RollPagerView viewPager) {
+    public AdvertisingRotationViewPagerAdapter(List<IndexBean.BannersBean> advertisingRotations, RollPagerView viewPager) {
         super(viewPager);
-        this.type = type;
         this.advertisingRotations = advertisingRotations;
     }
 

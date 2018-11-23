@@ -63,7 +63,7 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
         fragmentMessageBinding = (FragmentMessageBinding) baseViewBinding;
 
         //初始化首页轮播图
-        viewPagerAdapter = new MessageCategoryViewPagerAdapter(AdvertisingRotationViewPagerAdapter.MAIN_PAGER, new ArrayList<MessageCategory>(), fragmentMessageBinding.rpv);
+        viewPagerAdapter = new MessageCategoryViewPagerAdapter(new ArrayList<MessageCategory>(), fragmentMessageBinding.rpv);
         fragmentMessageBinding.rpv.setAdapter(viewPagerAdapter);
         fragmentMessageBinding.rpv.pause();
 

@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context="com.zhihangjia.mainmodule.activity.LifeServiceActivity">
 
-        <com.nmssdmf.commonlib.rollviewpager.RollPagerView
-            android:id="@+id/rpv"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="12dp">
+            android:layout_height="match_parent">
 
-        </com.nmssdmf.commonlib.rollviewpager.RollPagerView>
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <com.nmssdmf.customerviewlib.CustomerRecyclerView
-            android:id="@+id/crv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/rpv"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp">
+                <com.nmssdmf.commonlib.rollviewpager.RollPagerView
+                    android:id="@+id/rpv"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_scrollFlags="scroll|enterAlways">
 
-        </com.nmssdmf.customerviewlib.CustomerRecyclerView>
+                </com.nmssdmf.commonlib.rollviewpager.RollPagerView>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <com.nmssdmf.customerviewlib.CustomerRecyclerView
+                android:id="@+id/crv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rpv"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            </com.nmssdmf.customerviewlib.CustomerRecyclerView>
+        </android.support.design.widget.CoordinatorLayout>
 
         <View
             android:id="@+id/vBlackBackgroud"
@@ -36,18 +49,40 @@
             android:layout_height="match_parent"
             android:background="@color/search_black_trans"
             android:clickable="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ScrollView
+            android:id="@+id/svTag"
             android:layout_width="match_parent"
             android:layout_height="124.5dp"
-            android:visibility="gone"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:scrollbars="none"
+            android:visibility="gone">
 
-            <com.nmssdmf.commonlib.view.TagLayout
-                android:id="@+id/crvPage"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="124.5dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="板块信息"
+                    android:textColor="#FF999999"
+                    android:textSize="12dp" />
+
+                <com.nmssdmf.commonlib.view.TagLayout
+                    android:id="@+id/tagLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="8dp"
+                    app:horizontal_space="12dp"
+                    app:vertical_space="12dp" />
+            </LinearLayout>
         </ScrollView>
 
 

@@ -66,7 +66,7 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         adapter.setHeaderView(itemMainCrvheadBinding.getRoot());
 
         //初始化首页轮播图
-        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(AdvertisingRotationViewPagerAdapter.MAIN_PAGER, new ArrayList<IndexBean.BannersBean>(), itemMainCrvheadBinding.rpv);
+        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(new ArrayList<IndexBean.BannersBean>(), itemMainCrvheadBinding.rpv);
         itemMainCrvheadBinding.rpv.setAdapter(viewPagerAdapter);
         binding.crv.setAdapter(adapter);
         binding.crv.setLoadMoreEnable(false);
