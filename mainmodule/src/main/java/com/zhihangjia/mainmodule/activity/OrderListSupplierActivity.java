@@ -72,7 +72,6 @@ public class OrderListSupplierActivity extends BaseActivity implements OrderList
         binding.tl.getTabAt(4).setText("待评论");
 
         vm.getData();
-
     }
 
     @Override

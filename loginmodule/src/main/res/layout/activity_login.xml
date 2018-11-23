@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="175dp"
@@ -27,7 +28,7 @@
             android:layout_width="343dp"
             android:layout_height="55dp"
             android:layout_marginTop="45dp"
-            android:background="#FFFFFFFF"
+            android:background="@null"
             android:hint="请输入手机号码"
             android:inputType="phone"
             android:textColorHint="#FFCCCCCC"

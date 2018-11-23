@@ -2,8 +2,8 @@ package com.zhixingjia.goodsmanagemodule.viewmodel;
 
 import android.view.View;
 
-import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhixingjia.goodsmanagemodule.activity.SelectStandardActivity;
 import com.zhixingjia.goodsmanagemodule.callback.AddOrEditProductCB;
 
 /**
@@ -13,7 +13,7 @@ import com.zhixingjia.goodsmanagemodule.callback.AddOrEditProductCB;
 * @version v3.2.0
 */
 public class AddOrEditProductVM extends BaseVM {
-    private AddOrEditProductCB callback;
+    private AddOrEditProductCB cb;
 
     /**
      * 不需要callback可以传null
@@ -22,14 +22,18 @@ public class AddOrEditProductVM extends BaseVM {
      */
     public AddOrEditProductVM(AddOrEditProductCB callBack) {
         super(callBack);
-        this.callback = callBack;
+        this.cb = callBack;
     }
 
     public void onSelectBrandClick(View view) {
-        callback.showBrandWindow();
+        cb.showBrandWindow();
     }
 
     public void onSelectCategoryClick(View view) {
-        callback.showCategoryWindow();
+        cb.showCategoryWindow();
+    }
+
+    public void selectSpecificationClick(View view) {
+        cb.doIntent(SelectStandardActivity.class, null);
     }
 }

@@ -75,23 +75,27 @@
         <activity
             android:name=".activity.MyPostActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.OrderListPurchaserActivity"
-                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.OrderListPurchaserActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.AddOrEditAddressActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.OrderDetailActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ShopCouponListActivity"
-                  android:screenOrientation="portrait">
-            <activity
-                android:name=".activity.OrderListSupplierActivity"
-                android:screenOrientation="portrait"/>
-        </activity>
-        <activity android:name=".activity.SetCouponActivity"
+        <activity
+            android:name=".activity.OrderDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ReplyActivity"
-            android:screenOrientation="portrait"></activity>
-    </application>
+        <activity
+            android:name=".activity.ShopCouponListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.OrderListSupplierActivity"
+            android:screenOrientation="portrait"/>
+    <activity
+        android:name=".activity.SetCouponActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".activity.ReplyActivity"
+        android:screenOrientation="portrait"></activity>
+</application>
 
-</manifest>
+    </manifest>
