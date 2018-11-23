@@ -38,6 +38,7 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentShopcarBinding) baseBinding;
+        binding.setVm(vm);
         vm.getData();
         adapter = new ShopCarAdapter(vm.getList());
         binding.crv.setAdapter(adapter);
