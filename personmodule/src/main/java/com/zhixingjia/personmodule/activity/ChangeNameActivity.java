@@ -10,6 +10,9 @@ import com.zhixingjia.personmodule.R;
 import com.zhixingjia.personmodule.databinding.ActivityChangeNameBinding;
 import com.zhixingjia.personmodule.viewmodule.ChangeNameVM;
 
+/**
+ * 修改名称
+ */
 public class ChangeNameActivity extends BaseTitleActivity {
     private final String TAG = ChangeNameActivity.class.getSimpleName();
     private ActivityChangeNameBinding binding;
@@ -39,11 +42,8 @@ public class ChangeNameActivity extends BaseTitleActivity {
         baseTitleBinding.tTitle.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.iSave:{
-                        vm.changeName();
-                        break;
-                    }
+                if (menuItem.getItemId() ==  R.id.iSave) {
+                    vm.changeName();
                 }
                 return true;
             }

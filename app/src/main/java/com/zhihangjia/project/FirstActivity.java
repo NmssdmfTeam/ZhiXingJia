@@ -3,7 +3,7 @@ package com.zhihangjia.project;
 import android.os.Bundle;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
-import com.nmssdmf.commonlib.config.AcitivityNameConfig;
+import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
 public class FirstActivity extends BaseActivity {
@@ -26,6 +26,6 @@ public class FirstActivity extends BaseActivity {
 
     @Override
     protected void initAll(Bundle savedInstanceState) {
-        doIntentClassName(AcitivityNameConfig.MAIN_ACTIVITY, null);
+        doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
     }
 }

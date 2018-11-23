@@ -1,12 +1,12 @@
-package com.zhihangjia.mainmodule.adapter;
+package com.zhixingjia.personmodule.adapter;
 
 import android.support.annotation.Nullable;
 
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
-import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.databinding.ItemAddressListBinding;
+import com.zhixingjia.personmodule.R;
+import com.zhixingjia.personmodule.databinding.ItemAddressListBinding;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.os.Bundle;
+
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.zhihangjia.mainmodule.callback.OrderListFragmentCB;
@@ -9,6 +11,7 @@ import com.zhihangjia.mainmodule.callback.OrderListFragmentCB;
  */
 
 public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM {
+    private OrderListFragmentCB cb;
     /**
      * 不需要callback可以传null
      *
@@ -16,10 +19,13 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM {
      */
     public OrderListFragmentVM(OrderListFragmentCB callBack) {
         super(callBack);
+        cb = callBack;
     }
 
     @Override
     public void initData(boolean isRefresh) {
+
+
         list.add(new Base());
         list.add(new Base());
         list.add(new Base());

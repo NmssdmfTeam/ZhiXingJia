@@ -9,7 +9,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.databinding.FragmentMineCustomerBinding;
-import com.zhihangjia.mainmodule.viewmodel.MineCustomerVM;
+import com.zhihangjia.mainmodule.viewmodel.MineCustomerFragmentVM;
 
 /**
 * @description 我的买家版
@@ -20,11 +20,11 @@ import com.zhihangjia.mainmodule.viewmodel.MineCustomerVM;
 public class MineCustomerFragment extends BaseFragment {
     private final String TAG = MineCustomerFragment.class.getSimpleName();
     private FragmentMineCustomerBinding binding;
-    private MineCustomerVM vm;
+    private MineCustomerFragmentVM vm;
 
     @Override
     public BaseVM initViewModel() {
-        vm = new MineCustomerVM(this);
+        vm = new MineCustomerFragmentVM(this);
         return vm;
     }
 

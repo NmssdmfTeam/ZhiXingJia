@@ -1,7 +1,10 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.view.View;
+
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.callback.ShopCarFragmentCB;
 
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ import java.util.List;
 
 public class ShopCarFragmentVM extends BaseVM {
     private List<Base> list = new ArrayList<>();
-
+    private ShopCarFragmentCB cb;
     /**
      * 不需要callback可以传null
      *
@@ -21,6 +24,7 @@ public class ShopCarFragmentVM extends BaseVM {
      */
     public ShopCarFragmentVM(ShopCarFragmentCB callBack) {
         super(callBack);
+        cb = callBack;
     }
 
     public void getData(){
@@ -29,6 +33,10 @@ public class ShopCarFragmentVM extends BaseVM {
         list.add(new Base());
         list.add(new Base());
         list.add(new Base());
+    }
+
+    public void tvSettleAccountsClick(View view){
+        cb.doIntent(ConfirmOrderActivity.class, null);
     }
 
     public List<Base> getList() {

@@ -5,7 +5,7 @@ import android.databinding.ObservableField;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.BaseData;
-import com.nmssdmf.commonlib.config.AcitivityNameConfig;
+import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
@@ -93,7 +93,7 @@ public class LoginVM extends BaseVM {
             public void onSuccess(BaseData<LoginResult> data) {
                 ToastUtil.showMsg(data.getMessage());
                 PreferenceUtil.setStringValue(PrefrenceConfig.TOKEN, data.getData().getToken());
-                cb.doIntentClassName(AcitivityNameConfig.MAIN_ACTIVITY, null);
+                cb.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
                 cb.finishActivity();
             }
 

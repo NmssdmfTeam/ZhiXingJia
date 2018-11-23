@@ -290,18 +290,11 @@
                             android:textColor="@color/text_black"
                             android:textSize="15dp"
                             android:gravity="center"
-                            android:layout_toLeftOf="@+id/tv_choose_standard"
-                            android:background="@null"/>
-                        <TextView
-                            android:id="@+id/tv_choose_standard"
-                            android:layout_width="10.85dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:layout_gravity="right"
+                            android:background="@null"
                             android:drawableRight="@drawable/icon_next"
-                            android:gravity="center"
-                            android:textColor="@color/text_gray"
-                            android:textSize="@dimen/font_size_small" />
+                            android:layout_alignParentRight="true"
+                            android:onClick="@{(v)->vm.selectSpecificationClick(v)}"/>
+
                     </RelativeLayout>
 
                     <include layout="@layout/include_recyclerview_cutoff_line" />
@@ -322,26 +315,6 @@
                             android:textColor="@color/text_black"
                             android:textSize="16dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:hint="请设置"
-                            android:textColorHint="#FFCCCCCC"
-                            android:textColor="@color/text_black"
-                            android:textSize="15dp"
-                            android:gravity="center"
-                            android:layout_toLeftOf="@+id/tv_choose_price"
-                            android:background="@null"/>
-                        <TextView
-                            android:id="@+id/tv_choose_price"
-                            android:layout_width="10.85dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:layout_gravity="right"
-                            android:drawableRight="@drawable/icon_next"
-                            android:gravity="center"
-                            android:textColor="@color/text_gray"
-                            android:textSize="@dimen/font_size_small" />
                     </RelativeLayout>
 
                     <include layout="@layout/include_recyclerview_cutoff_line" />
@@ -401,18 +374,11 @@
                             android:textColor="@color/text_black"
                             android:textSize="15dp"
                             android:gravity="center"
-                            android:layout_toLeftOf="@+id/tv_choose_detail"
-                            android:background="@null"/>
-                        <TextView
-                            android:id="@+id/tv_choose_detail"
-                            android:layout_width="10.85dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:layout_gravity="right"
+                            android:background="@null"
                             android:drawableRight="@drawable/icon_next"
-                            android:gravity="center"
-                            android:textColor="@color/text_gray"
-                            android:textSize="@dimen/font_size_small" />
+                            android:layout_alignParentRight="true"/>
+
+
                     </RelativeLayout>
                 </LinearLayout>
             </ScrollView>

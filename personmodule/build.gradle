@@ -31,6 +31,16 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            if (modularization.toBoolean()) {
+                manifest.srcFile 'src/main/modularization/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+
     dataBinding {
         enabled = true
     }

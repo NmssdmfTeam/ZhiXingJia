@@ -15,7 +15,7 @@ import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
-import com.zhihangjia.mainmodule.activity.message.MessageCenterActivity;
+import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MainAdapter;
 import com.zhihangjia.mainmodule.bean.MainBean;
