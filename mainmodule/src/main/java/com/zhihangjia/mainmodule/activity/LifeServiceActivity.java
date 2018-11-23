@@ -38,6 +38,8 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
         vm.getData();
         adapter = new LifeServiceAdapter(vm.getList());
         binding.crv.setAdapter(adapter);
+        //模拟广告数据
+
     }
 
     @Override

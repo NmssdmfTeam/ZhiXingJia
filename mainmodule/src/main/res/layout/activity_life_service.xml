@@ -47,8 +47,7 @@
             <com.nmssdmf.commonlib.view.TagLayout
                 android:id="@+id/crvPage"
                 android:layout_width="match_parent"
-                android:layout_height="124.5dp"
-                />
+                android:layout_height="124.5dp" />
         </ScrollView>
 
 
