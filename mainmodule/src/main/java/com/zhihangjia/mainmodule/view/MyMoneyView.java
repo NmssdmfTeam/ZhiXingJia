@@ -9,12 +9,10 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ViewMyMoneyBinding;
-import com.zhihangjia.mainmodule.databinding.ViewNumAddMinusBinding;
 
 
 /**
@@ -76,8 +74,8 @@ public class MyMoneyView extends FrameLayout {
         binding.tvBottom.setText(bottomText);
     }
 
-    @BindingAdapter(value = {"topText"}, requireAll = false)
-    public void setMoneyText(final AddMinusView view, String topText){
+    @BindingAdapter(value = {"top_text"}, requireAll = false)
+    public void setMoneyText(final MyMoneyView view, String topText){
         binding.tvAmount.setText(topText);
     }
 }

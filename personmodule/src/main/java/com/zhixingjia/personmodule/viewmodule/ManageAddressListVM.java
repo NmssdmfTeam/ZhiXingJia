@@ -1,7 +1,18 @@
 package com.zhixingjia.personmodule.viewmodule;
 
-import com.nmssdmf.commonlib.callback.BaseCB;
+import com.nmssdmf.commonlib.bean.BaseListData;
+import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhixingjia.bean.personmodule.Address;
+import com.zhixingjia.personmodule.callback.ManageAddressCB;
+import com.zhixingjia.service.PersonService;
 
 /**
  * Create by chenbin on 2018/11/20
@@ -9,12 +20,70 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
  * <p>
  */
 public class ManageAddressListVM extends BaseVM {
+    private int page = 0;
+    private ManageAddressCB callback;
+
     /**
      * 不需要callback可以传null
      *
      * @param callBack
      */
-    public ManageAddressListVM(BaseCB callBack) {
+    public ManageAddressListVM(ManageAddressCB callBack) {
         super(callBack);
+        this.callback = callBack;
     }
+
+    public void getAddressList(final boolean isRefresh) {
+        if (isRefresh)
+            page = 0;
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(PersonService.class, HttpVersionConfig.API_ADDRESS).getCommentList(page),
+                new ServiceCallback<BaseListData<Address>>() {
+            @Override
+            public void onError(Throwable error) {
+                callback.endFresh();
+            }
+
+            @Override
+            public void onSuccess(BaseListData<Address> addressBaseListData) {
+                callback.endFresh();
+                if (StringConfig.OK.equals(addressBaseListData.getStatus_code())) {
+                    callback.setData(addressBaseListData.getData(),isRefresh);
+                    page++;
+                }
+            }
+
+            @Override
+            public void onDefeated(BaseListData<Address> addressBaseListData) {
+                callback.endFresh();
+            }
+        });
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.PersonInfoEvent.ADDRESS_INSERT, this);
+        RxBus.getInstance().register(RxEvent.PersonInfoEvent.ADDRESS_SAVE, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.ADDRESS_INSERT, this);
+        RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.ADDRESS_SAVE, this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.PersonInfoEvent.ADDRESS_INSERT:
+                getAddressList(true);
+                break;
+            case RxEvent.PersonInfoEvent.ADDRESS_SAVE:
+                Address address = (Address) info.getContent();
+                callback.setAddress(address, info.getIndex());
+                break;
+        }
+    }
+
 }

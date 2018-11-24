@@ -1,5 +1,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.personmodule.Address"/>
+    </data>
     <RelativeLayout
         android:id="@+id/ll_root"
         android:layout_width="match_parent"
@@ -7,7 +12,6 @@
 
         <LinearLayout
             android:id="@+id/ll_left"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -25,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="收件人：张小褚"
+                    android:text="@{@string/receiver_name+data.names}"
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/font_size_big" />
 
@@ -38,7 +42,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="13212345123"
+                    android:text="@{data.mobile}"
                     android:textColor="@color/text_black"
                     android:layout_marginRight="18.5dp"
                     android:textSize="@dimen/font_size_big" />
@@ -54,18 +58,19 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tvIsDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="[默认]"
                     android:textColor="#FFFF9A14"
-                    android:textSize="14sp" />
+                    android:textSize="14dp"/>
 
                 <TextView
                     android:id="@+id/tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="1"
-                    android:text="宜城镇龙潭西路290号"
+                    android:text="@{data.area+data.addr}"
                     android:textColor="@color/text_black"
                     android:textSize="14dp" />
 
