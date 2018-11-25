@@ -32,9 +32,7 @@ public class WheelPickerWindow extends PopupWindow {
         setHeight(DensityUtil.dpToPx(context, 256.5f));
         setWidth(MATCH_PARENT);
 
-        if (list == null || list.size() == 0) {
-            return;
-        }
+
         binding.tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,11 +44,12 @@ public class WheelPickerWindow extends PopupWindow {
             @Override
             public void onClick(View v) {
                 dismiss();
-                cb.tvSureClick(list.get(binding.wp.getCurrentItemPosition()), binding.wp.getCurrentItemPosition());
+                cb.tvSureClick((String) binding.wp.getData().get(binding.wp.getCurrentItemPosition()), binding.wp.getCurrentItemPosition());
             }
         });
-
-        binding.wp.setData(list);
+        if (list != null && list.size() > 0) {
+            binding.wp.setData(list);
+        }
 
 
         setOnDismissListener(new OnDismissListener() {
@@ -72,6 +71,9 @@ public class WheelPickerWindow extends PopupWindow {
 
     @Override
     public void showAtLocation(View parent, int gravity, int x, int y) {
+        // 设置PopupWindow是否能响应外部点击事件
+        setOutsideTouchable(true);
+        setTouchable(true);
         super.showAtLocation(parent, gravity, x, y);
         WindowUtil.setBackgroundAlpha((Activity) parent.getContext(), 0.5f);
     }

@@ -57,6 +57,14 @@ public class RxEvent {
         public static final int BBS_INSERT = VALUE + 2;     //添加帖子
     }
 
+    public static class PersonInfoEvent extends RxEvent {
+        public static final int VALUE = 300;
+
+        public static final int ADDRESS_INSERT = VALUE + 1;     //添加地址
+
+        public static final int ADDRESS_SAVE = VALUE + 2;     //编辑地址
+    }
+
     public int getType() {
         return type;
     }

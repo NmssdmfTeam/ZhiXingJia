@@ -9,6 +9,7 @@ import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
+import com.zhixingjia.bean.mainmodule.UserInfo;
 
 import java.util.Map;
 
@@ -90,4 +91,11 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/bbs/give_insert")
     Observable<Base> giveInsert(@FieldMap Map<String,Object> params);
+
+    /**
+     * 首页
+     * @return
+     */
+    @GET("/api/my")
+    Observable<BaseData<UserInfo>> getUserInfo(@Query("identity")String identity);
 }

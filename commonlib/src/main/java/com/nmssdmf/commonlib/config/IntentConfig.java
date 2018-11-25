@@ -17,4 +17,7 @@ public class IntentConfig {
 
     public static final String COMMENT_ID = "comment_id";       //
     public static final String POSITION = "POSITION";
+
+    public static final String ADDRID = "address_id";
+    public static final String ADDR = "address";
 }
