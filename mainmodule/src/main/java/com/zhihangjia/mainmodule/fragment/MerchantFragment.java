@@ -1,12 +1,14 @@
 package com.zhihangjia.mainmodule.fragment;
 
+import android.os.Bundle;
+import android.view.View;
+
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.adapter.MerchantAdapter;
 import com.zhihangjia.mainmodule.callback.MerchantFragmentCB;
 import com.zhihangjia.mainmodule.viewmodel.MerchantFragmentVM;
-import com.zhixingjia.bean.mainmodule.Seller;
 
 import java.util.List;
 
@@ -25,7 +27,6 @@ public class MerchantFragment extends BaseRecyclerViewFragment implements Mercha
 
     @Override
     public BaseDataBindingAdapter initAdapter(List list) {
-        list.add(new Seller());
         adapter = new MerchantAdapter(list);
         return adapter;
     }
@@ -34,4 +35,19 @@ public class MerchantFragment extends BaseRecyclerViewFragment implements Mercha
     public String getTAG() {
         return TAG;
     }
+
+    @Override
+    public void initAll(View view, Bundle savedInstanceState) {
+        vm.getIntentData();
+        super.initAll(view, savedInstanceState);
+    }
+
+    public MerchantFragmentVM getVm() {
+        return vm;
+    }
+
+    public void setVm(MerchantFragmentVM vm) {
+        this.vm = vm;
+    }
+
 }

@@ -24,6 +24,7 @@ public class MerchandiseAdapter extends BaseDataBindingAdapter<Commodity, ItemMe
     @Override
     protected void convert2(BaseBindingViewHolder<ItemMerchandiseBinding> helper, Commodity item, int position) {
         ItemMerchandiseBinding binding = helper.getBinding();
+        binding.setData(item);
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

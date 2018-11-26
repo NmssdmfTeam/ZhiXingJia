@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="com.zhihangjia.mainmodule.viewmodel.MerchantMerchandiseVM"/>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.zhihangjia.mainmodule.viewmodel.MerchantMerchandiseVM"/>
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,24 +26,25 @@
                 android:layout_width="44dp"
                 android:layout_height="match_parent"
                 android:scaleType="center"
-                android:src="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back"/>
 
             <LinearLayout
                 android:layout_width="214dp"
                 android:layout_height="32dp"
                 android:layout_centerInParent="true"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tvMerchant"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@{vm.type == MerchantMerchandiseVM.TYPE_MERCHANT ? @drawable/shape_douable_title_selected_left : @drawable/shape_douable_title_unselected_left}"
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.tvMerchantClick(v)}"
                     android:text="商家"
                     android:textColor="@{vm.type == MerchantMerchandiseVM.TYPE_MERCHANT ? @color/white : @color/light_black}"
                     android:textSize="14dp"
-                    android:gravity="center"
-                    android:onClick="@{(v)->vm.tvMerchantClick(v)}"
                     />
 
                 <TextView
@@ -48,11 +53,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@{vm.type == MerchantMerchandiseVM.TYPE_MERCHANDISE ? @drawable/shape_douable_title_selected_right : @drawable/shape_douable_title_unselected_right}"
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.tvMerchandiseClick(v)}"
                     android:text="商品"
                     android:textColor="@{vm.type == MerchantMerchandiseVM.TYPE_MERCHANDISE ? @color/white : @color/light_black}"
-                    android:textSize="14dp"
-                    android:gravity="center"
-                    android:onClick="@{(v)->vm.tvMerchandiseClick(v)}"/>
+                    android:textSize="14dp"/>
             </LinearLayout>
 
             <ImageView
@@ -61,7 +66,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:scaleType="center"
-                android:src="@drawable/icon_search_orange" />
+                android:src="@drawable/icon_search_orange"
+                android:onClick="@{(v)->vm.search(v)}"/>
 
         </RelativeLayout>
 
@@ -76,12 +82,12 @@
                 android:layout_weight="1"
                 android:drawableRight="@{vm.tvMerchantChooseSelect ? @drawable/filtrate_arrow_orange : @drawable/filtrate_arrow_gray}"
                 android:gravity="center"
+                android:onClick="@{(v)->vm.tvMerchantChooseClick(v)}"
                 android:paddingLeft="38dp"
                 android:paddingRight="38dp"
+                android:text="商圈"
                 android:textColor="@{vm.tvMerchantChooseSelect ? @color/main_color : @color/light_black2}"
-                android:text="商家"
-                android:textSize="14dp"
-                android:onClick="@{(v)->vm.tvMerchantChooseClick(v)}"/>
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/tvPopularity"
@@ -89,12 +95,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{(v)->vm.tvPopularityClick(v, true)}"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:text="人气最高"
-                android:textSize="14dp"
                 android:textColor="@{vm.tvPopularitySelect ? @color/main_color : @color/light_black2}"
-                android:onClick="@{(v)->vm.tvPopularityClick(v)}"/>
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/tvComment"
@@ -102,21 +108,51 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{(v)->vm.tvPopularityClick(v, false)}"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:textColor="@{vm.tvCommentSelect ? @color/main_color : @color/light_black2}"
                 android:text="好评优先"
-                android:textSize="14dp"
-                android:onClick="@{(v)->vm.tvCommentClick(v)}"/>
+                android:textColor="@{!vm.tvPopularitySelect ? @color/main_color : @color/light_black2}"
+                android:textSize="14dp"/>
 
         </LinearLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </android.support.v4.view.ViewPager>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="@{vm.tvMerchantChooseSelect ? View.VISIBLE : View.GONE}">
+
+                <com.nmssdmf.customerviewlib.CustomerRecyclerView
+                    android:id="@+id/crv"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@color/white"
+                    app:refresh_enable="false"
+                    app:loadmore_enable="false"/>
+
+                <View
+                    android:id="@+id/vBlackBackgroud"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/search_black_trans"
+                    android:clickable="true"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

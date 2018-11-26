@@ -3,14 +3,17 @@ package com.zhixingjia.service;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.HotHistory;
+import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
 import com.zhixingjia.bean.mainmodule.Seller;
+import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 
 import java.util.Map;
@@ -123,6 +126,18 @@ public interface MainService {
     @GET ("/api/house/seller")
     Observable<BaseListData<Seller>> getSeller(@QueryMap Map<String, String> map);
 
+    /**
+     * 商品搜索
+     * @param map
+     * @return
+     */
     @GET ("/api/house/commodity")
     Observable<BaseListData<Commodity>> getCommodity(@QueryMap Map<String, String> map);
+
+    /**
+     * 所在商圈
+     * @return
+     */
+    @GET ("/api/trade_area")
+    Observable<BaseListData<TradeArea>> getTradeArea();
 }
