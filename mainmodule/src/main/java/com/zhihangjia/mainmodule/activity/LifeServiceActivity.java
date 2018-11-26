@@ -15,11 +15,15 @@ import com.zhihangjia.mainmodule.callback.LifeServiceCB;
 import com.zhihangjia.mainmodule.databinding.ActivityLifeServiceBinding;
 import com.zhihangjia.mainmodule.databinding.ItemPostTagBinding;
 import com.zhihangjia.mainmodule.viewmodel.LifeServiceVM;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 生活服务
+ */
 public class LifeServiceActivity extends BaseTitleActivity implements LifeServiceCB {
     private final String TAG = LifeServiceActivity.class.getSimpleName();
 
@@ -52,10 +56,10 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
         adapter = new LifeServiceAdapter(vm.getList());
         binding.crv.setAdapter(adapter);
         //模拟广告数据
-        List<IndexBean.BannersBean> bannersBeans = new ArrayList<>();
-        bannersBeans.add(new IndexBean.BannersBean());
-        bannersBeans.add(new IndexBean.BannersBean());
-        bannersBeans.add(new IndexBean.BannersBean());
+        List<Banner.CommomBanner> bannersBeans = new ArrayList<>();
+        bannersBeans.add(new Banner.CommomBanner());
+        bannersBeans.add(new Banner.CommomBanner());
+        bannersBeans.add(new Banner.CommomBanner());
         //初始化轮播广告
         viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(bannersBeans,binding.rpv);
         binding.rpv.setAdapter(viewPagerAdapter);

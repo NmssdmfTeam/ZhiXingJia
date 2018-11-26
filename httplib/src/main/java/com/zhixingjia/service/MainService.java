@@ -96,10 +96,25 @@ public interface MainService {
 
     /**
      * 首页
+     * 广告汇总
+     * @return
+     */
+    @GET ("/api/banners")
+    Observable<BaseData<Banner>> getBanner(@Query("source") String source);
+
+    /**
+     * 我的
      * @return
      */
     @GET("/api/my")
     Observable<BaseData<UserInfo>> getUserInfo(@Query("identity")String identity);
+
+    /**
+     * 建材家居 首页
+     * @return
+     */
+    @GET("/api/house")
+    Observable<BaseData<HouseBean>> getHouseIndex();
 
     /**
      * 商家搜索

@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.callback;
 
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.zhihangjia.mainmodule.bean.MainBean;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface MainFragmentCB extends BaseCB {
      * 顶部广告栏
      * @param bannersBeans
      */
-    void setRollPagerView(List<IndexBean.BannersBean> bannersBeans);
+    void setRollPagerView(List<Banner.CommomBanner> bannersBeans);
 
     /**
      * 头条
@@ -23,7 +24,13 @@ public interface MainFragmentCB extends BaseCB {
      * 初始化固定广告位图片
      * @param bannerFixedBeans
      */
-    void setBannerFixed(List<IndexBean.BannerFixedBean> bannerFixedBeans);
+    void setBannerFixed(List<Banner.CommomBanner> bannerFixedBeans);
+
+    /**
+     * 刷新中间的广告图片
+     * @param bannerMiddle
+     */
+    void setBannerMiddle(Banner.CommomBanner bannerMiddle);
 
     /**
      * 优秀建材商家

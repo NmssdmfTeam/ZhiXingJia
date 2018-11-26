@@ -84,6 +84,11 @@ public class HttpVersionConfig {
     public static final int API_MY = 1;
 
     /**
+     * 建材家居--首页
+     */
+    public static final int API_HOUSE = 1;
+
+    /**
      *根据分类或者搜索关键字来获取商家列表
      */
     public static final int API_HOUSE_SELLER = 1;

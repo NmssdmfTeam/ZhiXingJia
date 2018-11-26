@@ -6,8 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingMultiItemQuickAdapter;
 import com.zhihangjia.mainmodule.R;
@@ -57,6 +61,10 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                 }
             }
             itemRecommendGoodsBinding.setData(item);
+            if (item.getBannerMiddle() == null)
+                itemRecommendGoodsBinding.ivBottomAdvertisement.setVisibility(View.GONE);
+            else
+                itemRecommendGoodsBinding.ivBottomAdvertisement.setVisibility(View.VISIBLE);
         } else if (item.getItemType() == 2) {
             ItemXyLifeServiceBinding itemLifeServiceBinding = (ItemXyLifeServiceBinding) helper.getBinding();
             if (itemLifeServiceBinding.rvService.getLayoutManager() == null)
@@ -92,6 +100,15 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                 adapter = (MessageAdapter) binding.rvMessage.getAdapter();
                 adapter.setNewData(item.getForumBeans());
             }
+            binding.tvMessageCenter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //切换到信息中心页面
+                    EventInfo eventInfo = new EventInfo();
+                    eventInfo.setIndex(2);
+                    RxBus.getInstance().send(RxEvent.BbsEvent.INDEX_SWITCH, eventInfo);
+                }
+            });
             adapter.notifyDataSetChanged();
         } else if (item.getItemType() == 0) {
             ItemExcellentSellerBinding itemExcellentSellerBinding = (ItemExcellentSellerBinding) helper.getBinding();

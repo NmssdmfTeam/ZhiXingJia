@@ -14,6 +14,9 @@ import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.behavior.BottomBehavior;
+import com.zhihangjia.mainmodule.behavior.CommonBehavior;
+import com.zhihangjia.mainmodule.callback.MainCB;
 import com.zhihangjia.mainmodule.databinding.ActivityMainBinding;
 import com.zhihangjia.mainmodule.fragment.MainFragment;
 import com.zhihangjia.mainmodule.fragment.MaterialsMarketFragment;
@@ -32,10 +35,11 @@ import java.util.List;
  * @description 知行家首页
  * @date 2018/11/13 15:00
  */
-public class MainActivity extends BaseActivity implements TabHost.OnTabChangeListener {
+public class MainActivity extends BaseActivity implements TabHost.OnTabChangeListener, MainCB {
     private String TAG = MainActivity.class.getSimpleName();
     private MainVM vm;
     private ActivityMainBinding binding;
+    private CommonBehavior bottomBehavior;
 
     private int current_index = 0;
 
@@ -80,7 +84,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         binding.mfth.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         binding.mfth.getTabWidget().setDividerDrawable(null); // 去掉分割线
         initTabsView();
-
+        bottomBehavior = BottomBehavior.from(binding.llBottomNavigation);
     }
 
     private void initTabsView() {
@@ -178,5 +182,11 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
 
     public void setCurrentTabsIndex(int index) {
         binding.mfth.setCurrentTab(index);
+    }
+
+    @Override
+    public void switchFragment(int index) {
+        bottomBehavior.show();
+        setCurrentTabsIndex(index);
     }
 }
