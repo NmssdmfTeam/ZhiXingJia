@@ -7,6 +7,7 @@ import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.Commodity;
+import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
@@ -140,4 +141,11 @@ public interface MainService {
      */
     @GET ("/api/trade_area")
     Observable<BaseListData<TradeArea>> getTradeArea();
+
+    /**
+     * 商品详情
+     * @return
+     */
+    @GET ("/api/house/commodity_view")
+    Observable<BaseData<CommodityDetail>> getCommodity(@Query("commodity_id") String commodity_id);
 }

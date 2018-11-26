@@ -74,8 +74,12 @@ public class MyMoneyView extends FrameLayout {
         binding.tvBottom.setText(bottomText);
     }
 
+    public void setTopText(String amount) {
+        binding.tvAmount.setText(amount);
+    }
+
     @BindingAdapter(value = {"top_text"}, requireAll = false)
-    public void setMoneyText(final MyMoneyView view, String topText){
-        binding.tvAmount.setText(topText);
+    public static void setMoneyText(final MyMoneyView view, String topText){
+        view.setTopText(topText);
     }
 }

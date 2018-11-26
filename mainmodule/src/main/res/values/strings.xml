@@ -21,8 +21,16 @@
     <string name="asc">正序</string>
 
     <string name="main_product">主营：</string>
+    <string name="separator">/</string>
+    <string name="cost_freight">配送费&#160;￥</string>
+    <string name="stock">库存&#160;</string>
+    <string name="sold">销量&#160;</string>
+    <string name="rating_commodity_score">商品描述&#160;</string>
+    <string name="rating_service_score">卖家服务&#160;</string>
+    <string name="rating_logistics_score">物流服务&#160;</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
