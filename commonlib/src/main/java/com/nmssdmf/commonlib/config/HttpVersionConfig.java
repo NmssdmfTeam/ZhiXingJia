@@ -82,4 +82,13 @@ public class HttpVersionConfig {
      * 首页
      */
     public static final int API_MY = 1;
+
+    /**
+     *根据分类或者搜索关键字来获取商家列表
+     */
+    public static final int API_HOUSE_SELLER = 1;
+    /**
+     *根据分类或者搜索关键字来获取商品列表
+     */
+    public static final int API_HOUSE_COMMODITY = 1;
 }

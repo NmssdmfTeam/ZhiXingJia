@@ -20,4 +20,6 @@ public class IntentConfig {
 
     public static final String ADDRID = "address_id";
     public static final String ADDR = "address";
+    public static final String TYPE = "TYPE";
+    public static final String KEYWORD = "KEYWORD";
 }

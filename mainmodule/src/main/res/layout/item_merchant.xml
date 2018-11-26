@@ -1,122 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        android:layout_width="343dp"
-        android:layout_height="186.5dp">
+    <data>
 
-        <com.nmssdmf.commonlib.view.GlideImageView
-            android:id="@+id/givIcon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="16dp"
-            />
+        <import type="android.view.View"/>
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:text="栾雅床上用品"
-            android:textColor="#FF333333"
-            android:textSize="15dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/givIcon"
-            />
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.Seller"/>
+    </data>
 
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="16.5dp"
-            android:text="主营：餐桌、空调、一切建材"
-            android:textColor="#FF999999"
-            android:textSize="12dp"
-            android:layout_below="@+id/tvName"
-            android:layout_alignLeft="@+id/tvName"
-            android:layout_marginTop="4dp"
-            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="16.5dp"
-            android:text="江干区宾前大厦F23-103"
-            android:textColor="#FF999999"
-            android:textSize="12dp"
-            android:layout_below="@+id/tvDescription"
-            android:layout_alignLeft="@+id/tvDescription"
-            android:layout_marginTop="2dp"
-            android:drawableLeft="@drawable/icon_address"
-            android:drawablePadding="2dp"
-            />
-
-        <TextView
-            android:id="@+id/tvScore"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:text="4.7"
-            android:textColor="#FF666666"
-            android:textSize="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="18dp"
-            android:gravity="center"/>
-
-        <android.support.v7.widget.AppCompatRatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:numStars="5"
-            android:rating="4.1"
-            android:stepSize="0.1"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_alignTop="@+id/tvScore"
-            android:layout_toLeftOf="@+id/tvScore"
-            android:layout_marginRight="2dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="16.5dp"
-            android:text="1.09km"
-            android:textColor="#FF999999"
-            android:textSize="12dp"
-            android:layout_alignBottom="@+id/givIcon"
-            android:layout_alignParentRight="true"
-            />
-
-        <include
-            android:id="@+id/iCutOffLine"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            layout="@layout/include_recyclerview_cutoff_line"/>
+            android:layout_height="88dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/givIcon"
+                src="@{data.avatar}"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="18dp"
+                android:layout_toRightOf="@+id/givIcon"
+                android:text="@{data.company_name}"
+                android:textColor="#FF333333"
+                android:textSize="15dp"
+                />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_alignLeft="@+id/tvName"
+                android:layout_below="@+id/tvName"
+                android:layout_marginTop="4dp"
+                android:text="@{@string/main_product + data.main_camp}"
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_alignLeft="@+id/tvDescription"
+                android:layout_below="@+id/tvDescription"
+                android:layout_marginTop="2dp"
+                android:drawableLeft="@drawable/icon_address"
+                android:drawablePadding="2dp"
+                android:text="@{data.co_addr}"
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                />
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="18dp"
+                android:gravity="center"
+                android:text="@{data.score}"
+                android:textColor="#FF666666"
+                android:textSize="10dp"/>
+
+            <android.support.v7.widget.AppCompatRatingBar
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/tvScore"
+                android:layout_marginRight="2dp"
+                android:layout_toLeftOf="@+id/tvScore"
+                android:numStars="5"
+                android:rating="@{Float.valueOf(data.score)}"
+                android:stepSize="0.1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:layout_alignBottom="@+id/givIcon"
+                android:layout_alignParentRight="true"
+                android:text="1.09km"
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                />
+
+        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/llImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/iCutOffLine"
             android:layout_below="@+id/givIcon"
             android:layout_marginTop="8dp"
-            android:layout_above="@+id/iCutOffLine">
+            android:visibility="@{data.goods_info == null || data.goods_info.size() == 0 ? View.GONE : View.VISIBLE}">
 
             <com.nmssdmf.commonlib.view.GlideImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                src="@{data.goods_info[0].imgs}"
+                android:layout_width="110dp"
+                android:layout_height="82.5dp"
+                android:background="@drawable/shape_glide_image_bg"
                 />
 
             <com.nmssdmf.commonlib.view.GlideImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                src="@{data.goods_info[1].imgs}"
+                android:layout_width="110dp"
+                android:layout_height="82.5dp"
                 android:layout_marginLeft="6.5dp"
+                android:background="@drawable/shape_glide_image_bg"
+                android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size() &gt; 1 ? View.VISIBLE : View.GONE}"
                 />
 
             <com.nmssdmf.commonlib.view.GlideImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                src="@{data.goods_info[2].imgs}"
+                android:layout_width="110dp"
+                android:layout_height="82.5dp"
                 android:layout_marginLeft="6.5dp"
+                android:background="@drawable/shape_glide_image_bg"
+                android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size()== 3 ? View.VISIBLE : View.GONE}"
                 />
 
         </LinearLayout>
 
 
-    </RelativeLayout>
+        <include
+            android:id="@+id/iCutOffLine"
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"/>
+
+
+    </LinearLayout>
+
+
 </layout>
