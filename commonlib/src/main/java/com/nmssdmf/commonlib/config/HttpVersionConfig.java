@@ -87,4 +87,13 @@ public class HttpVersionConfig {
      * 建材家居--首页
      */
     public static final int API_HOUSE = 1;
+
+    /**
+     *根据分类或者搜索关键字来获取商家列表
+     */
+    public static final int API_HOUSE_SELLER = 1;
+    /**
+     *根据分类或者搜索关键字来获取商品列表
+     */
+    public static final int API_HOUSE_COMMODITY = 1;
 }

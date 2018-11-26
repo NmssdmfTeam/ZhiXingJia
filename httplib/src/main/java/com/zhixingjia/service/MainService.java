@@ -6,11 +6,13 @@ import com.nmssdmf.commonlib.bean.BaseListData;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
+import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
+import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 
 import java.util.Map;
@@ -114,4 +116,14 @@ public interface MainService {
      */
     @GET("/api/house")
     Observable<BaseData<HouseBean>> getHouseIndex();
+
+    /**
+     * 商家搜索
+     * @return
+     */
+    @GET ("/api/house/seller")
+    Observable<BaseListData<Seller>> getSeller(@QueryMap Map<String, String> map);
+
+    @GET ("/api/house/commodity")
+    Observable<BaseListData<Commodity>> getCommodity(@QueryMap Map<String, String> map);
 }

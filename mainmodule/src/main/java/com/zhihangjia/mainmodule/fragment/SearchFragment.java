@@ -35,7 +35,9 @@ public class SearchFragment extends BaseFragment implements SearchFragmentCB {
 
     @Override
     public BaseVM initViewModel() {
-        vm = new SearchFragmentVM(this);
+        if (vm == null) {
+            vm = new SearchFragmentVM(this);
+        }
         return vm;
     }
 
@@ -49,6 +51,7 @@ public class SearchFragment extends BaseFragment implements SearchFragmentCB {
         binding = (FragmentSearchBinding) baseBinding;
         binding.setVm(vm);
         initSearchHistory();
+        vm.getHistroyData();
         binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -140,13 +143,10 @@ public class SearchFragment extends BaseFragment implements SearchFragmentCB {
      * @param type
      */
     public void setType(String type) {
-        if (vm != null) {
-            vm.setType(type);
-            vm.getHistroyData();
-        } else {
-            JLog.d(TAG, "vm == null");
+        if (vm == null) {//设置type时，vm没有new
+            vm = new SearchFragmentVM(this);
         }
-
+        vm.setType(type);
     }
 
     @Override
