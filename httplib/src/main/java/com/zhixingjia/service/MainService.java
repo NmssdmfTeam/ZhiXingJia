@@ -90,4 +90,11 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/bbs/give_insert")
     Observable<Base> giveInsert(@FieldMap Map<String,Object> params);
+
+    /**
+     * 分类
+     * @return
+     */
+    @GET ("/api/banners")
+    Observable<BaseListData<BbsCategory>> getBbsCate();
 }
