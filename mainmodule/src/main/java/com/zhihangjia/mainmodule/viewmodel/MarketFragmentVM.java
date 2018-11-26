@@ -123,7 +123,7 @@ public class MarketFragmentVM extends BaseVM {
     private void setData(HouseBean houseBean) {
         if (houseBean != null) {
             HouseBean.CateBean cateBean = new HouseBean.CateBean();
-            cateBean.setCate_name("全部");
+            cateBean.setCate_name("全部分类");
             houseBean.getCate().add(cateBean);
             callBack.setCatData(houseBean.getCate());
 

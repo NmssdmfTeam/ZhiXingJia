@@ -6,7 +6,6 @@ import android.widget.LinearLayout;
 
 import com.amap.api.maps2d.AMapUtils;
 import com.amap.api.maps2d.model.LatLng;
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.GlideImageView;

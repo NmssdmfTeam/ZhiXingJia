@@ -1,13 +1,17 @@
 package com.zhihangjia.mainmodule.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
+import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
 import com.zhihangjia.mainmodule.bean.MaterialsCategoryBean;
 import com.zhihangjia.mainmodule.databinding.ItemMaterialsCategoryBinding;
 import com.zhixingjia.bean.mainmodule.HouseBean;
@@ -32,12 +36,17 @@ public class MaterialsCategoryAdapter extends BaseDataBindingAdapter<HouseBean.C
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("0".equals(item.getCate_id()) && "全部分类".equals(item.getCate_name())) {
+                if (TextUtils.isEmpty(item.getCate_id()) && "全部分类".equals(item.getCate_name())) {
                     Intent intent = new Intent();
                     intent.setClass(mContext, AllCategoriesActivity.class);
                     mContext.startActivity(intent);
-                } else { //TODO 跳转商品搜索结果页面
-
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, MerchantMerchandiseActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.ID, item.getCate_id());
+                    intent.putExtras(bundle);
+                    mContext.startActivity(intent);
                 }
             }
         });
