@@ -24,6 +24,7 @@ import com.zhihangjia.mainmodule.databinding.FragmentMainBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMainCrvheadBinding;
 import com.zhihangjia.mainmodule.databinding.ItemViewflipperBinding;
 import com.zhihangjia.mainmodule.viewmodel.MainFragmentVM;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         adapter.setHeaderView(itemMainCrvheadBinding.getRoot());
 
         //初始化首页轮播图
-        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(new ArrayList<IndexBean.BannersBean>(), itemMainCrvheadBinding.rpv);
+        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(new ArrayList<Banner.CommomBanner>(), itemMainCrvheadBinding.rpv);
         itemMainCrvheadBinding.rpv.setAdapter(viewPagerAdapter);
         binding.crv.setAdapter(adapter);
         binding.crv.setLoadMoreEnable(false);
@@ -74,6 +75,7 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
 
         binding.crv.setRefreshing(true);
         vm.getIndex(true);
+        vm.getIndexBanner(true);
         setListener();
     }
 
@@ -119,6 +121,7 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
             @Override
             public void onRefresh() {
                 vm.getIndex(false);
+                vm.getIndexBanner(false);
             }
 
             @Override
@@ -149,7 +152,7 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
 
 
     @Override
-    public void setRollPagerView(List<IndexBean.BannersBean> bannersBeans) {
+    public void setRollPagerView(List<Banner.CommomBanner> bannersBeans) {
         viewPagerAdapter.getAdvertisingRotations().clear();
         viewPagerAdapter.getAdvertisingRotations().addAll(bannersBeans);
         viewPagerAdapter.notifyDataSetChanged();
@@ -161,9 +164,9 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
     }
 
     @Override
-    public void setBannerFixed(List<IndexBean.BannerFixedBean> bannerFixedBeans) {
+    public void setBannerFixed(List<Banner.CommomBanner> bannerFixedBeans) {
         if (bannerFixedBeans != null) {
-            for (IndexBean.BannerFixedBean bannerFixedBean : bannerFixedBeans) {
+            for (Banner.CommomBanner bannerFixedBean : bannerFixedBeans) {
                 if ("left".equals(bannerFixedBean.getModel_name())) {
                     GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementFirst,bannerFixedBean.getImg_url());
                 } else if ("right_up".equals(bannerFixedBean.getModel_name())) {
@@ -171,6 +174,17 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
                 } else if ("right_down".equals(bannerFixedBean.getModel_name())) {
                     GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementThird,bannerFixedBean.getImg_url());
                 }
+            }
+        }
+    }
+
+    @Override
+    public void setBannerMiddle(Banner.CommomBanner bannerMiddle) {
+        for (int i=0; i < adapter.getData().size(); i++) {
+            MainBean mainBean = adapter.getData().get(i);
+            if (mainBean.getItemType() == 1) {
+                adapter.getData().get(i).setBannerMiddle(bannerMiddle);
+                adapter.notifyItemChanged(i+1);
             }
         }
     }

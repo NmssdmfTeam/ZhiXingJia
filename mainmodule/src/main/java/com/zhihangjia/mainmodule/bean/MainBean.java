@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.customerviewlib.entity.MultiItemEntity;
 import com.zhihangjia.mainmodule.BR;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MainBean extends Base implements MultiItemEntity {
     private List<IndexBean.SellerBean> sellerBeans;
     private List<IndexBean.CommodityBean> commodityBeans;
-    private IndexBean.BannerFixedBean bannerFixedBean;
+    private Banner.CommomBanner bannerMiddle;
     private List<IndexBean.ForumBean> forumBeans;
 
 
@@ -54,13 +55,13 @@ public class MainBean extends Base implements MultiItemEntity {
     }
 
     @Bindable
-    public IndexBean.BannerFixedBean getBannerFixedBean() {
-        return bannerFixedBean;
+    public Banner.CommomBanner getBannerMiddle() {
+        return bannerMiddle;
     }
 
-    public void setBannerFixedBean(IndexBean.BannerFixedBean bannerFixedBean) {
-        this.bannerFixedBean = bannerFixedBean;
-        notifyPropertyChanged(BR.bannerFixedBean);
+    public void setBannerMiddle(Banner.CommomBanner bannerMiddle) {
+        this.bannerMiddle = bannerMiddle;
+        notifyPropertyChanged(BR.bannerMiddle);
     }
 
     @Bindable

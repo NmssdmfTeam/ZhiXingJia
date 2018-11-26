@@ -9,6 +9,7 @@ import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingMultiItemQuickAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.bean.House;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.databinding.ItemHotGoodsBinding;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendSellerBinding;
@@ -22,7 +23,7 @@ import java.util.List;
  * <p>
  * <p>
  */
-public class MaterialsMarketAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> {
+public class MaterialsMarketAdapter extends BaseDataBindingMultiItemQuickAdapter<House> {
 
     public MaterialsMarketAdapter(@Nullable List data) {
         super(data);
@@ -31,7 +32,7 @@ public class MaterialsMarketAdapter extends BaseDataBindingMultiItemQuickAdapter
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ViewDataBinding> helper, MainBean item, int position) {
+    protected void convert2(BaseBindingViewHolder<ViewDataBinding> helper, House item, int position) {
         if (item.getItemType() == 0) {
             ItemHotGoodsBinding itemHotGoodsBinding = (ItemHotGoodsBinding)helper.getBinding();
             if (itemHotGoodsBinding.crv.getLayoutManager() == null) {

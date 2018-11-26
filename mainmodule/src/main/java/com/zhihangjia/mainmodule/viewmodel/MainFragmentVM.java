@@ -17,6 +17,7 @@ import com.zhihangjia.mainmodule.activity.LifeServiceActivity;
 import com.zhihangjia.mainmodule.activity.XYTelecomActivity;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.callback.MainFragmentCB;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.service.MainService;
 
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class MainFragmentVM extends BaseVM {
     private MainFragmentCB cb;
-    private List<IndexBean.BannerFixedBean> fixedBeanList;
+    private Banner.CommomBanner banner_middle;
 
     /**
      * 不需要callback可以传null
@@ -79,13 +80,43 @@ public class MainFragmentVM extends BaseVM {
                 });
     }
 
+    public void getIndexBanner(boolean isReadCash) {
+        if (isReadCash) {
+            String indexBanner = PreferenceUtil.getString(PrefrenceConfig.INDEX_BANNER, "");
+            if (!TextUtils.isEmpty(indexBanner)) {
+                try {
+                    BaseData<Banner> indexBannerData = new Gson().fromJson(indexBanner, new TypeToken<BaseData<Banner>>() {
+                    }.getType());
+                    if (indexBannerData != null) {
+                        setBanner(indexBannerData.getData());
+                    }
+
+                } catch (Exception e) {
+
+                }
+            }
+        }
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_INDEX).getBanner("index"),
+                new ServiceCallback<BaseData<Banner>>() {
+                    @Override
+                    public void onError(Throwable error) {
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData<Banner> indexBeanBaseData) {
+                        setBanner(indexBeanBaseData.getData());
+                        PreferenceUtil.setStringValue(PrefrenceConfig.INDEX_INFO, new Gson().toJson(indexBeanBaseData));
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData<Banner> indexBeanBaseData) {
+                    }
+                });
+    }
+
     private void setData(BaseData<IndexBean> indexBeanBaseData) {
-        cb.setRollPagerView(indexBeanBaseData.getData().getBanners());
 
         cb.setFillerView(indexBeanBaseData.getData().getArticle());
-
-        fixedBeanList = indexBeanBaseData.getData().getBanner_fixed();
-        cb.setBannerFixed(indexBeanBaseData.getData().getBanner_fixed());
 
         MainBean sellerBean = new MainBean();
         sellerBean.setItemType(0);
@@ -94,11 +125,7 @@ public class MainFragmentVM extends BaseVM {
 
         MainBean commodityBean = new MainBean();
         commodityBean.setItemType(1);
-        for (IndexBean.BannerFixedBean bannerFixedBean : fixedBeanList) {
-            if ("all".equals(bannerFixedBean.getModel_name())) {
-                commodityBean.setBannerFixedBean(bannerFixedBean);
-            }
-        }
+        commodityBean.setBannerMiddle(banner_middle);
         commodityBean.setCommodityBeans(indexBeanBaseData.getData().getCommodity());
         cb.setCommodity(commodityBean);
 
@@ -109,7 +136,20 @@ public class MainFragmentVM extends BaseVM {
     }
 
     /**
+     * 这只广告内容
+     */
+    private void setBanner(Banner banner) {
+        cb.setRollPagerView(banner.getBanner_top());                //设置化轮播图广告
+        if (banner.getBanner_middle().size() > 0) {                 //设置列表中间的广告
+            banner_middle = banner.getBanner_middle().get(0);
+            cb.setBannerMiddle(banner_middle);
+        }
+        cb.setBannerFixed(banner.getBanner_fixed());                //设置左上下广告
+    }
+
+    /**
      * 点击建材家居
+     *
      * @param view
      */
     public void onMaterialsClick(View view) {
@@ -118,6 +158,7 @@ public class MainFragmentVM extends BaseVM {
 
     /**
      * 点击信息中心
+     *
      * @param view
      */
     public void onMessageCenterClick(View view) {

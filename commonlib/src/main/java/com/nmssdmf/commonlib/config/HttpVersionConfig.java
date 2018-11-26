@@ -82,4 +82,9 @@ public class HttpVersionConfig {
      * 首页
      */
     public static final int API_MY = 1;
+
+    /**
+     * 建材家居--首页
+     */
+    public static final int API_HOUSE = 1;
 }

@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.rollviewpager.RollPagerView;
 import com.nmssdmf.commonlib.rollviewpager.adapter.LoopPagerAdapter;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
@@ -19,14 +20,14 @@ import java.util.List;
  */
 public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
 
-    private List<IndexBean.BannersBean> advertisingRotations;
+    private List<Banner.CommomBanner> advertisingRotations;
 
     private ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
     // SetScaleType(ImageView.ScaleType.CENTER_CROP);
     // 按比例扩大图片的size居中显示，使得图片长(宽)等于或大于View的长(宽)
 
-    public AdvertisingRotationViewPagerAdapter(List<IndexBean.BannersBean> advertisingRotations, RollPagerView viewPager) {
+    public AdvertisingRotationViewPagerAdapter(List<Banner.CommomBanner> advertisingRotations, RollPagerView viewPager) {
         super(viewPager);
         this.advertisingRotations = advertisingRotations;
     }
@@ -60,7 +61,7 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
         return relativeLayout;
     }
 
-    public List<IndexBean.BannersBean> getAdvertisingRotations() {
+    public List<Banner.CommomBanner> getAdvertisingRotations() {
         return advertisingRotations;
     }
 

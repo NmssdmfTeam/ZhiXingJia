@@ -3,9 +3,11 @@ package com.zhixingjia.service;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.HotHistory;
+import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
@@ -93,16 +95,23 @@ public interface MainService {
     Observable<Base> giveInsert(@FieldMap Map<String,Object> params);
 
     /**
-     * 分类
+     * 广告汇总
      * @return
      */
     @GET ("/api/banners")
-    Observable<BaseListData<BbsCategory>> getBbsCate();
+    Observable<BaseData<Banner>> getBanner(@Query("source") String source);
 
     /**
-     * 首页
+     * 我的
      * @return
      */
     @GET("/api/my")
     Observable<BaseData<UserInfo>> getUserInfo(@Query("identity")String identity);
+
+    /**
+     * 建材家居 首页
+     * @return
+     */
+    @GET("/api/house")
+    Observable<BaseData<HouseBean>> getHouseIndex();
 }

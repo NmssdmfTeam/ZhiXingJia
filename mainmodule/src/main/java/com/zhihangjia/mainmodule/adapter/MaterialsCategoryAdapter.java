@@ -10,6 +10,7 @@ import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.bean.MaterialsCategoryBean;
 import com.zhihangjia.mainmodule.databinding.ItemMaterialsCategoryBinding;
+import com.zhixingjia.bean.mainmodule.HouseBean;
 
 import java.util.List;
 
@@ -18,23 +19,26 @@ import java.util.List;
  * <p>
  * <p>
  */
-public class MaterialsCategoryAdapter extends BaseDataBindingAdapter<MaterialsCategoryBean,ItemMaterialsCategoryBinding> {
+public class MaterialsCategoryAdapter extends BaseDataBindingAdapter<HouseBean.CateBean,ItemMaterialsCategoryBinding> {
 
-    public MaterialsCategoryAdapter(@Nullable List<MaterialsCategoryBean> data) {
+    public MaterialsCategoryAdapter(@Nullable List<HouseBean.CateBean> data) {
         super(R.layout.item_materials_category,data);
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ItemMaterialsCategoryBinding> helper, MaterialsCategoryBean item, int position) {
+    protected void convert2(BaseBindingViewHolder<ItemMaterialsCategoryBinding> helper, final HouseBean.CateBean item, int position) {
         ItemMaterialsCategoryBinding binding = helper.getBinding();
-        binding.ivIcon.setImageResource(item.getResIconId());
-        binding.tvName.setText(item.getTitle());
+        binding.setData(item);
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(mContext, AllCategoriesActivity.class);
-                mContext.startActivity(intent);
+                if ("0".equals(item.getCate_id()) && "全部分类".equals(item.getCate_name())) {
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, AllCategoriesActivity.class);
+                    mContext.startActivity(intent);
+                } else { //TODO 跳转商品搜索结果页面
+
+                }
             }
         });
     }

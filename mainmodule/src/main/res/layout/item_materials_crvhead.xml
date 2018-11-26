@@ -27,6 +27,7 @@
             android:paddingRight="17.5dp" />
 
         <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/ivMiddleBanner"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginLeft="16dp"

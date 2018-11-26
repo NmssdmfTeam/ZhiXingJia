@@ -4,10 +4,12 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
@@ -18,7 +20,9 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.loginmodule.Activity.ForgetPwdActivity;
 import com.zhihangjia.loginmodule.callback.LoginCB;
 import com.zhixingjia.bean.loginmodule.LoginResult;
+import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.service.LoginService;
+import com.zhixingjia.service.MainService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,7 +90,6 @@ public class LoginVM extends BaseVM {
         HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_LOGIN).login(map), new ServiceCallback<BaseData<LoginResult>>() {
             @Override
             public void onError(Throwable error) {
-
             }
 
             @Override
@@ -94,13 +97,37 @@ public class LoginVM extends BaseVM {
                 ToastUtil.showMsg(data.getMessage());
                 PreferenceUtil.setStringValue(PrefrenceConfig.TOKEN, data.getData().getToken());
                 cb.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
-                cb.finishActivity();
+                getUserInfo();
             }
 
             @Override
             public void onDefeated(BaseData<LoginResult> data) {
-
             }
         });
+    }
+
+    /**
+     * 获取用户信息
+     */
+    public void getUserInfo() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_MY).getUserInfo("buyer"),
+                new ServiceCallback<BaseData<UserInfo>>() {
+                    @Override
+                    public void onError(Throwable error) {
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData<UserInfo> userInfoBaseData) {
+                        if (StringConfig.OK.equals(userInfoBaseData.getStatus_code())) {
+                            PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfoBaseData.getData()));
+                            cb.finishActivity();
+                        }
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData<UserInfo> userInfoBaseData) {
+                    }
+                });
     }
 }

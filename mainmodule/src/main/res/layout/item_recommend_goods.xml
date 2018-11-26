@@ -30,7 +30,7 @@
             android:id="@+id/ivBottomAdvertisement"
             android:layout_width="343dp"
             android:layout_height="80dp"
-            app:src="@{data.bannerFixedBean.img_url}"/>
+            app:src="@{data.bannerMiddle.img_url}"/>
 
     </LinearLayout>
 </layout>
