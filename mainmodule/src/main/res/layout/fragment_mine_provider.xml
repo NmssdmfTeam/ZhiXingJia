@@ -120,8 +120,8 @@
                                     android:layout_width="67dp"
                                     android:layout_height="67dp"
                                     android:layout_centerInParent="true"
-                                    android:src="@drawable/no_pic"
-                                    app:roundAsCircle="@{true}"/>
+                                    app:roundAsCircle="@{true}"
+                                    app:src="@{vm.userinfo.avatar}"/>
                             </RelativeLayout>
 
                             <TextView
@@ -129,7 +129,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="12dp"
-                                android:text="城龙一切之人"
+                                android:text="@{vm.userinfo.nickname}"
                                 android:textColor="#FFFFFFFF"
                                 android:textSize="20dp"/>
                         </LinearLayout>
@@ -156,7 +156,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 app:bottom_text="钱包"
-                                app:top_text="134123.4"/>
+                                app:top_text="@{vm.userinfo.wallet}"/>
 
                         </FrameLayout>
 
@@ -170,7 +170,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 app:bottom_text="今日销售额"
-                                app:top_text="134123.4"/>
+                                app:top_text="@{vm.userinfo.sales_today}"/>
 
                         </FrameLayout>
 
@@ -184,7 +184,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 app:bottom_text="本月销售额"
-                                app:top_text="134123.4"/>
+                                app:top_text="@{vm.userinfo.sales_month}"/>
 
                         </FrameLayout>
 

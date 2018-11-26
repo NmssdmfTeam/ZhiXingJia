@@ -30,6 +30,18 @@
             android:layout_height="50dp"
             android:text="设置"
             />
+        <Button
+            android:id="@+id/btnEditAddress"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="添加编辑地址"
+            />
+        <Button
+            android:id="@+id/btnAddressList"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="地址管理"
+            />
 
     </LinearLayout>
 

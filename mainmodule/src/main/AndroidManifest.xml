@@ -79,9 +79,6 @@
             android:name=".activity.OrderListPurchaserActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.AddOrEditAddressActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.OrderDetailActivity"
             android:screenOrientation="portrait"/>
         <activity

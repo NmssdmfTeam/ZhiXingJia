@@ -1,4 +1,4 @@
-package com.zhihangjia.mainmodule.activity;
+package com.zhixingjia.personmodule.activity;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -8,9 +8,10 @@ import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.commonlib.window.WheelPickerWindow;
-import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.databinding.ActivityAddOrEditAddressBinding;
-import com.zhihangjia.mainmodule.viewmodel.AddOrEditAddressVM;
+import com.zhixingjia.personmodule.R;
+import com.zhixingjia.personmodule.callback.AddOrEditAddressCB;
+import com.zhixingjia.personmodule.databinding.ActivityAddOrEditAddressBinding;
+import com.zhixingjia.personmodule.viewmodule.AddOrEditAddressVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  * <p>
  * <p>
  */
-public class AddOrEditAddressActivity extends BaseTitleActivity {
+public class AddOrEditAddressActivity extends BaseTitleActivity implements AddOrEditAddressCB {
     private final String TAG = AddOrEditAddressActivity.class.getSimpleName();
     private AddOrEditAddressVM vm;
     private ActivityAddOrEditAddressBinding binding;
@@ -35,16 +36,16 @@ public class AddOrEditAddressActivity extends BaseTitleActivity {
     @Override
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityAddOrEditAddressBinding) baseViewBinding;
-        List<String> list = new ArrayList<>();
-        list.add("宜城街道");
-        list.add("新街街道");
-        list.add("新庄街道");
-        selectAddressWindow = new WheelPickerWindow(this, list, new WheelPickerWindowCB() {
+        selectAddressWindow = new WheelPickerWindow(this, new ArrayList<String>(), new WheelPickerWindowCB() {
             @Override
             public void tvSureClick(String item, int position) {
-
+                vm.area.set(item);
             }
         });
+        vm.getArea();
+    }
+
+    private void setListener() {
         binding.tvNewLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,5 +68,12 @@ public class AddOrEditAddressActivity extends BaseTitleActivity {
     public BaseVM initViewModel() {
         vm = new AddOrEditAddressVM(this);
         return vm;
+    }
+
+    @Override
+    public void setArea(List<String> areas) {
+        selectAddressWindow.changeDataList(areas);
+        binding.setVm(vm);
+        setListener();
     }
 }

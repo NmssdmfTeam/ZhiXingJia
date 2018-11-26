@@ -1,6 +1,7 @@
 package com.zhihangjia.mainmodule.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.nmssdmf.commonlib.config.StringConfig;
@@ -8,6 +9,7 @@ import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.callback.MineCustomerFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMineCustomerBinding;
 import com.zhihangjia.mainmodule.viewmodel.MineCustomerFragmentVM;
 
@@ -17,7 +19,7 @@ import com.zhihangjia.mainmodule.viewmodel.MineCustomerFragmentVM;
 * @date 2018/11/20 13:25
 * @version v3.2.0
 */
-public class MineCustomerFragment extends BaseFragment {
+public class MineCustomerFragment extends BaseFragment implements MineCustomerFragmentCB {
     private final String TAG = MineCustomerFragment.class.getSimpleName();
     private FragmentMineCustomerBinding binding;
     private MineCustomerFragmentVM vm;
@@ -36,9 +38,9 @@ public class MineCustomerFragment extends BaseFragment {
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMineCustomerBinding) baseBinding;
-        binding.setVm(vm);
         binding.msfl.setSwipeableChildren(R.id.sv_customer_my);
         setListener();
+        vm.getUserInfo();
     }
 
     private void setListener() {
@@ -51,10 +53,31 @@ public class MineCustomerFragment extends BaseFragment {
                 }
             }
         });
+        binding.msfl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                vm.getUserInfo();
+            }
+        });
     }
 
     @Override
     public String getTAG() {
         return TAG;
+    }
+
+    @Override
+    public void bindVM() {
+        binding.setVm(vm);
+    }
+
+    @Override
+    public void endFresh() {
+        binding.msfl.setRefreshing(false);
+    }
+
+    @Override
+    public void initView() {
+        binding.tvAprovelState.setText(vm.userinfo.get().getVerify_status());
     }
 }

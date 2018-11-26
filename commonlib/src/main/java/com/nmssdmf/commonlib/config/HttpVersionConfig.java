@@ -62,4 +62,24 @@ public class HttpVersionConfig {
      * 帖子评论保存
      */
     public static final int API_BBS_GIVE_INSERT = 1;
+
+    /**
+     * 所在地区
+     */
+    public static final int API_AREA = 1;
+
+    /**
+     * 收货地址 - 添加
+     */
+    public static final int API_ADDRESS_INSERT = 1;
+
+    /**
+     * 收货地址 - 添加
+     */
+    public static final int API_ADDRESS = 1;
+
+    /**
+     * 首页
+     */
+    public static final int API_MY = 1;
 }

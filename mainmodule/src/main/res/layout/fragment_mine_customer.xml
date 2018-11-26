@@ -7,6 +7,7 @@
         <variable
             name="vm"
             type="com.zhihangjia.mainmodule.viewmodel.MineCustomerFragmentVM"/>
+        <import type="android.view.View"></import>
     </data>
 
     <LinearLayout
@@ -63,7 +64,8 @@
                                 android:paddingTop="3.5dp"
                                 android:text="切换为卖家"
                                 android:textColor="@color/white"
-                                android:textSize="13dp"/>
+                                android:textSize="13dp"
+                                android:visibility="@{vm.isProvider?View.VISIBLE:View.GONE}"/>
 
                             <RelativeLayout
                                 android:id="@+id/rl_message"
@@ -120,8 +122,8 @@
                                     android:layout_width="67dp"
                                     android:layout_height="67dp"
                                     android:layout_centerInParent="true"
-                                    android:src="@drawable/no_pic"
-                                    app:roundAsCircle="@{true}"/>
+                                    app:roundAsCircle="@{true}"
+                                    app:src="@{vm.userinfo.avatar}"/>
                             </RelativeLayout>
 
                             <TextView
@@ -129,9 +131,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="12dp"
-                                android:text="城龙一切之人"
+                                android:text="@{vm.userinfo.nickname}"
                                 android:textColor="#FFFFFFFF"
-                                android:textSize="20dp"/>
+                                android:textSize="20dp" />
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -379,22 +381,33 @@
 
                             </FrameLayout>
 
-                            <FrameLayout
+                            <RelativeLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:onClick="@{(v)->vm.applySupplierActivity(v)}">
 
                                 <TextView
+                                    android:id="@+id/tvBecomeProvider"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:drawableTop="@drawable/icon_become_provider"
                                     android:text="成为卖家"
+                                    android:layout_centerInParent="true"
                                     android:textColor="#FF333333"
                                     android:textSize="13dp"/>
+                                <TextView
+                                    android:id="@+id/tvAprovelState"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvBecomeProvider"
+                                    android:layout_centerHorizontal="true"
+                                    android:textSize="9dp"
+                                    android:textColor="@color/red"
+                                    android:text="未申请"/>
 
-                            </FrameLayout>
+                            </RelativeLayout>
 
                             <FrameLayout
                                 android:layout_width="0dp"

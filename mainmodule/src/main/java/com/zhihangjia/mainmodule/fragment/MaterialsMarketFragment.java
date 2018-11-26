@@ -2,9 +2,7 @@ package com.zhihangjia.mainmodule.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -69,7 +67,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         ItemMaterialsCrvheadBinding itemMaterialsCrvheadBinding = inflate(getLayoutInflater(), R.layout.item_materials_crvhead, null, false);
         adapter.setHeaderView(itemMaterialsCrvheadBinding.getRoot());
         //初始化首页轮播图
-        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(AdvertisingRotationViewPagerAdapter.MAIN_PAGER, new ArrayList<IndexBean.BannersBean>(), itemMaterialsCrvheadBinding.rpv);
+        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(new ArrayList<IndexBean.BannersBean>(), itemMaterialsCrvheadBinding.rpv);
         itemMaterialsCrvheadBinding.rpv.setAdapter(viewPagerAdapter);
         //模拟轮播图数据
         IndexBean.BannersBean bannersBean = new IndexBean.BannersBean();

@@ -65,7 +65,7 @@
             android:name=".activity.OrderListSupplierActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.AddOrEditAddressActivity"
+            android:name="com.zhixingjia.personmodule.activity.AddOrEditAddressActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.OrderDetailActivity"

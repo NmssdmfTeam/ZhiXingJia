@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PersonModule</string>
+    <string name="receiver_name">收件人：</string>
 </resources>

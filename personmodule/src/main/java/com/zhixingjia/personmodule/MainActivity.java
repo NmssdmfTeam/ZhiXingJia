@@ -5,14 +5,19 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhixingjia.personmodule.activity.AddOrEditAddressActivity;
+import com.zhixingjia.personmodule.activity.ManageAddressListActivity;
 import com.zhixingjia.personmodule.activity.MyCouponsActivity;
 import com.zhixingjia.personmodule.activity.PersonInfoActivity;
 import com.zhixingjia.personmodule.activity.SetActivity;
 import com.zhixingjia.personmodule.databinding.ActivityMainBinding;
+import com.zhixingjia.personmodule.viewmodule.MainVM;
 
 public class MainActivity extends BaseTitleActivity {
     private final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
+    private MainVM vm;
+
     @Override
     public String getTAG() {
         return TAG;
@@ -20,7 +25,8 @@ public class MainActivity extends BaseTitleActivity {
 
     @Override
     public BaseVM initViewModel() {
-        return null;
+        vm = new MainVM(this);
+        return vm;
     }
 
     @Override
@@ -30,6 +36,7 @@ public class MainActivity extends BaseTitleActivity {
 
     @Override
     public void initContent(Bundle savedInstanceState) {
+        vm.doLogin();
         binding = (ActivityMainBinding) baseViewBinding;
 
         binding.btnPersonInfo.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +57,18 @@ public class MainActivity extends BaseTitleActivity {
             @Override
             public void onClick(View v) {
                 doIntent(SetActivity.class, null);
+            }
+        });
+        binding.btnEditAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(AddOrEditAddressActivity.class,null);
+            }
+        });
+        binding.btnAddressList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(ManageAddressListActivity.class,null);
             }
         });
     }

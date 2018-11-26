@@ -7,14 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.rollviewpager.RollPagerView;
 import com.nmssdmf.commonlib.rollviewpager.adapter.LoopPagerAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.bean.MessageCategory;
 import com.zhihangjia.mainmodule.databinding.ItemMessageCategoryBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +21,6 @@ import java.util.List;
  * 循环滑动adapter
  */
 public class MessageCategoryViewPagerAdapter extends LoopPagerAdapter {
-    public static final int MAIN_PAGER = 1, PART_PAGER = 2, CAPACITY_PAGER =3;
-    private int type = MAIN_PAGER;
 
     private List<MessageCategory> messageCategory;
 
@@ -34,9 +30,8 @@ public class MessageCategoryViewPagerAdapter extends LoopPagerAdapter {
     // SetScaleType(ImageView.ScaleType.CENTER_CROP);
     // 按比例扩大图片的size居中显示，使得图片长(宽)等于或大于View的长(宽)
 
-    public MessageCategoryViewPagerAdapter(int type, List<MessageCategory> messageCategory, RollPagerView viewPager) {
+    public MessageCategoryViewPagerAdapter(List<MessageCategory> messageCategory, RollPagerView viewPager) {
         super(viewPager);
-        this.type = type;
         this.messageCategory = messageCategory;
         this.context = viewPager.getContext();
     }
