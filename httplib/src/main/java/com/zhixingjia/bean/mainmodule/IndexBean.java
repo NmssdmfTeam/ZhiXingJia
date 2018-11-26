@@ -15,29 +15,10 @@ import java.util.List;
  * <p>
  */
 public class IndexBean extends BaseObservable implements Serializable {
-
-    private List<BannersBean> banners;              //顶部滚动广告位
-    private List<BannerFixedBean> banner_fixed;     //固定广告位
     private List<ArticleBean> article;              //宜兴头条
     private List<SellerBean> seller;                //优秀商家
     private List<CommodityBean> commodity;          //商品推荐
-    private List<ForumBean> forum;
-
-    public List<BannersBean> getBanners() {
-        return banners;
-    }
-
-    public void setBanners(List<BannersBean> banners) {
-        this.banners = banners;
-    }
-
-    public List<BannerFixedBean> getBanner_fixed() {
-        return banner_fixed;
-    }
-
-    public void setBanner_fixed(List<BannerFixedBean> banner_fixed) {
-        this.banner_fixed = banner_fixed;
-    }
+    private List<ForumBean> forum;                  //信息中心
 
     public List<ArticleBean> getArticle() {
         return article;
@@ -231,7 +212,8 @@ public class IndexBean extends BaseObservable implements Serializable {
         private String commodity_id;
         private String commodity_name;
         private String imgs;
-        private String company;
+        private String unit;
+        private String company_name;
         private String price;
 
         @Bindable
@@ -265,13 +247,23 @@ public class IndexBean extends BaseObservable implements Serializable {
         }
 
         @Bindable
-        public String getCompany() {
-            return company;
+        public String getUnit() {
+            return unit;
         }
 
-        public void setCompany(String company) {
-            this.company = company;
-            notifyPropertyChanged(BR.company);
+        public void setUnit(String unit) {
+            this.unit = unit;
+            notifyPropertyChanged(BR.unit);
+        }
+
+        @Bindable
+        public String getCompany_name() {
+            return company_name;
+        }
+
+        public void setCompany_name(String company_name) {
+            this.company_name = company_name;
+            notifyPropertyChanged(BR.company_name);
         }
 
         @Bindable
@@ -296,32 +288,22 @@ public class IndexBean extends BaseObservable implements Serializable {
          * createtime : 5分钟前
          */
 
-        private String types;
-        private String forum_id;
+        private String bbs_id;
         private String title;
-        private String member_name;
-        private String read_number;
+        private String read_sum;
         private String createtime;
+        private String nickname;
+        private String types;
         private List<String> imgs;
 
         @Bindable
-        public String getTypes() {
-            return types;
+        public String getBbs_id() {
+            return bbs_id;
         }
 
-        public void setTypes(String types) {
-            this.types = types;
-            notifyPropertyChanged(BR.types);
-        }
-
-        @Bindable
-        public String getForum_id() {
-            return forum_id;
-        }
-
-        public void setForum_id(String forum_id) {
-            this.forum_id = forum_id;
-            notifyPropertyChanged(BR.forum_id);
+        public void setBbs_id(String bbs_id) {
+            this.bbs_id = bbs_id;
+            notifyPropertyChanged(BR.bbs_id);
         }
 
         @Bindable
@@ -335,23 +317,13 @@ public class IndexBean extends BaseObservable implements Serializable {
         }
 
         @Bindable
-        public String getMember_name() {
-            return member_name;
+        public String getRead_sum() {
+            return read_sum;
         }
 
-        public void setMember_name(String member_name) {
-            this.member_name = member_name;
-            notifyPropertyChanged(BR.member_name);
-        }
-
-        @Bindable
-        public String getRead_number() {
-            return read_number;
-        }
-
-        public void setRead_number(String read_number) {
-            this.read_number = read_number;
-            notifyPropertyChanged(BR.read_number);
+        public void setRead_sum(String read_sum) {
+            this.read_sum = read_sum;
+            notifyPropertyChanged(BR.read_sum);
         }
 
         @Bindable
@@ -362,6 +334,26 @@ public class IndexBean extends BaseObservable implements Serializable {
         public void setCreatetime(String createtime) {
             this.createtime = createtime;
             notifyPropertyChanged(BR.createtime);
+        }
+
+        @Bindable
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+            notifyPropertyChanged(BR.nickname);
+        }
+
+        @Bindable
+        public String getTypes() {
+            return types;
+        }
+
+        public void setTypes(String types) {
+            this.types = types;
+            notifyPropertyChanged(BR.types);
         }
 
         @Bindable

@@ -58,7 +58,7 @@
             android:id="@+id/tv_shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{data.company}"
+            android:text="@{data.company_name}"
             android:textColor="#FF999999"
             android:textSize="13dp"
             android:layout_alignParentRight="true"

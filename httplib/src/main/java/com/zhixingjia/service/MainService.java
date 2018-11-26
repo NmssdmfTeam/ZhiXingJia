@@ -95,6 +95,13 @@ public interface MainService {
     Observable<Base> giveInsert(@FieldMap Map<String,Object> params);
 
     /**
+     * 分类
+     * @return
+     */
+    @GET ("/api/banners")
+    Observable<BaseListData<BbsCategory>> getBbsCate();
+
+    /**
      * 首页
      * @return
      */

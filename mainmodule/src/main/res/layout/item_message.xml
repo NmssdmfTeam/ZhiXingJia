@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.member_name}"
+                android:text="@{data.nickname}"
                 android:textColor="#FF999999"
                 android:textSize="13dp"
                 android:drawableLeft="@drawable/icon_author"
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.read_number+@string/read}"
+                android:text="@{data.read_sum+@string/read}"
                 android:textColor="#FF999999"
                 android:layout_marginLeft="12dp"
                 android:textSize="13dp" />

@@ -43,7 +43,6 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
     private MainAdapter adapter;
     private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
     private ViewFlipper viewFlipper;
-    private int firstY = 0;
 
     @Override
     public BaseVM initViewModel() {
