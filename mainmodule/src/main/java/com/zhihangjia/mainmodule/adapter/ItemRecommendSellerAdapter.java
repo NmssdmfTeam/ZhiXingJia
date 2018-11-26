@@ -1,34 +1,54 @@
 package com.zhihangjia.mainmodule.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendSellerInfoBinding;
+import com.zhixingjia.bean.mainmodule.HouseBean;
 
 import java.util.List;
 
-public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<Base,ItemRecommendSellerInfoBinding> {
-    public ItemRecommendSellerAdapter(@Nullable List<Base> data) {
+public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<HouseBean.SellerBean,ItemRecommendSellerInfoBinding> {
+    public ItemRecommendSellerAdapter(@Nullable List<HouseBean.SellerBean> data) {
         super(R.layout.item_recommend_seller_info, data);
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ItemRecommendSellerInfoBinding> helper, Base item, int position) {
-        for (int i=0; i < 3; i++) {
-            GlideImageView imageView = new GlideImageView(mContext);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DensityUtil.dpToPx(mContext,110),DensityUtil.dpToPx(mContext,82.5f));
-            if (i != 2)
-                layoutParams.rightMargin = DensityUtil.dpToPx(mContext,6.5f);
-            imageView.setLayoutParams(layoutParams);
-            imageView.setImageResource(R.drawable.no_pic);
-            imageView.setBackgroundColor(mContext.getResources().getColor(R.color.main_color));
-            helper.getBinding().llPics.addView(imageView);
+    protected void convert2(BaseBindingViewHolder<ItemRecommendSellerInfoBinding> helper, HouseBean.SellerBean item, int position) {
+        ItemRecommendSellerInfoBinding itemRecommendSellerInfoBinding = helper.getBinding();
+        itemRecommendSellerInfoBinding.setData(item);
+        itemRecommendSellerInfoBinding.rb.setNumStars(5);
+        try {
+            itemRecommendSellerInfoBinding.rb.setRating(Float.valueOf(item.getScore()));
+        }catch (Exception e) {
+
+        }
+        //初始化图片
+        if (item.getGoods_info() != null && item.getGoods_info().size() > 0) {
+            helper.getBinding().llPics.setVisibility(View.VISIBLE);
+            helper.getBinding().llPics.removeAllViews();
+            int i = 0;
+            for (HouseBean.SellerBean.GoodsInfo goodsInfo : item.getGoods_info()) {
+                GlideImageView imageView = new GlideImageView(mContext);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DensityUtil.dpToPx(mContext, 110), DensityUtil.dpToPx(mContext, 82.5f));
+                if (i != 2)
+                    layoutParams.rightMargin = DensityUtil.dpToPx(mContext, 6.5f);
+                imageView.setLayoutParams(layoutParams);
+                GlideUtil.load(imageView, goodsInfo.getImgs());
+                helper.getBinding().llPics.addView(imageView);
+                i++;
+            }
+        } else {
+            helper.getBinding().llPics.removeAllViews();
+            helper.getBinding().llPics.setVisibility(View.GONE);
         }
     }
 }

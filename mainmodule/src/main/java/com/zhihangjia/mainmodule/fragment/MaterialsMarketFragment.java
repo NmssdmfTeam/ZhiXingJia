@@ -11,6 +11,7 @@ import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsCategoryAdapter;
@@ -68,7 +69,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         binding = (FragmentMarketBinding) baseBinding;
         adapter = new MaterialsMarketAdapter(new ArrayList());
         binding.crv.setAdapter(adapter);
-        adapter.loadMoreEnd(false);
+        binding.crv.setLoadMoreEnable(false);
         //初始化首页头部
         itemMaterialsCrvheadBinding = inflate(getLayoutInflater(), R.layout.item_materials_crvhead, null, false);
         adapter.setHeaderView(itemMaterialsCrvheadBinding.getRoot());
@@ -81,7 +82,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         materialsCategoryAdapter = new MaterialsCategoryAdapter(new ArrayList<HouseBean.CateBean>());
         itemMaterialsCrvheadBinding.crv.setAdapter(materialsCategoryAdapter);
 
-        //有品位模拟数据
+        //有品位
         for (int i = 0; i < 4; i++) {
             GlideImageView imageView = new GlideImageView(getContext());
             imageView.setRoundRadius(DensityUtil.dpToPx(getContext(), 2));
@@ -93,28 +94,24 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
             imageView.setImageResource(R.drawable.pic_kitchen);
             itemMaterialsCrvheadBinding.llHome.addView(imageView);
         }
-
-        //模拟热门品牌数据
-        for (int i = 0; i < 4; i++) {
-            ItemHotBrandBinding itemHotBrandBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_hot_brand, null, false);
-            itemMaterialsCrvheadBinding.llBrand.addView(itemHotBrandBinding.getRoot());
-        }
-
-        //爆款推荐模块模拟数据
-        House mainBean = new House();
-        mainBean.setItemType(0);
-        adapter.addData(mainBean);
-
-        //推荐商家模块模拟数据
-        mainBean = new House();
-        mainBean.setItemType(1);
-        adapter.addData(mainBean);
-
+        vm.getHouseIndex(true);
+        vm.getHouseBanner(true);
         setListener();
     }
 
     private void setListener() {
+        binding.crv.setOnDataChangeListener(new OnDataChangeListener() {
+            @Override
+            public void onRefresh() {
+                vm.getHouseBanner(false);
+                vm.getHouseIndex(false);
+            }
 
+            @Override
+            public void onLoadMore() {
+
+            }
+        });
     }
 
     @Override
@@ -146,5 +143,20 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         viewPagerAdapter.getAdvertisingRotations().clear();
         viewPagerAdapter.getAdvertisingRotations().addAll(topBanner);
         viewPagerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setBrandData(List<HouseBean.BrandsBean> brandData) {
+        itemMaterialsCrvheadBinding.llBrand.removeAllViews();
+        for (HouseBean.BrandsBean brandsBean : brandData) {
+            ItemHotBrandBinding itemHotBrandBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_hot_brand, null, false);
+            itemHotBrandBinding.setData(brandsBean);
+            itemMaterialsCrvheadBinding.llBrand.addView(itemHotBrandBinding.getRoot());
+        }
+    }
+
+    @Override
+    public void setListData(List<House> houses) {
+        adapter.notifyDataChangedAfterLoadMore(true,houses);
     }
 }

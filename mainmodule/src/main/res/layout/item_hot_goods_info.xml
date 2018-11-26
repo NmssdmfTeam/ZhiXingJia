@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.HouseBean.ProductBean"/>
+    </data>
     <LinearLayout
         android:layout_width="110dp"
         android:layout_height="wrap_content"
@@ -13,7 +18,7 @@
             android:id="@+id/ivPic"
             android:layout_width="match_parent"
             android:layout_height="82.5dp"
-            android:src="@drawable/no_pic"/>
+            app:src="@{data.imgs}"/>
 
         <TextView
             android:id="@+id/tvName"
@@ -21,9 +26,9 @@
             android:layout_height="16.5dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="程辉世纪装饰工装工装ffffff"
+            android:text="@{data.commodity_name}"
             android:textColor="#FF333333"
-            android:textSize="12sp" />
+            android:textSize="12dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,11 +46,11 @@
                 android:id="@+id/ivPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="44.7"
+                android:text="@{data.price}"
                 android:textColor="#FFFF5C4A"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textSize="15sp"/>
+                android:textSize="12dp"/>
         </LinearLayout>
 
     </LinearLayout>

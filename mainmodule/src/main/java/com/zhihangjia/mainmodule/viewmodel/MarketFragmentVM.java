@@ -13,11 +13,15 @@ import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.bean.House;
 import com.zhihangjia.mainmodule.callback.MarketFragmentCB;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.service.MainService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Create by chenbin on 2018/11/15
@@ -40,7 +44,7 @@ public class MarketFragmentVM extends BaseVM {
     /**
      * 首页建材家具内容
      */
-    private void getHouseIndex(boolean isReadCash) {
+    public void getHouseIndex(boolean isReadCash) {
         if (isReadCash) {
             String indexInfo = PreferenceUtil.getString(PrefrenceConfig.HOUSE_INDEX, "");
             if (!TextUtils.isEmpty(indexInfo)) {
@@ -122,6 +126,21 @@ public class MarketFragmentVM extends BaseVM {
             cateBean.setCate_name("全部");
             houseBean.getCate().add(cateBean);
             callBack.setCatData(houseBean.getCate());
+
+            callBack.setBrandData(houseBean.getBrands());
+            List<House> houses = new ArrayList<>();
+            //爆款推荐
+            House hothouse = new House();
+            hothouse.setItemType(0);
+            hothouse.setProduct(houseBean.getProduct());
+            houses.add(hothouse);
+
+            //推荐商家
+            House seller = new House();
+            seller.setItemType(1);
+            seller.setSeller(houseBean.getSeller());
+            houses.add(seller);
+            callBack.setListData(houses);
         }
     }
 

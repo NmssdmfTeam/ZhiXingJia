@@ -13,8 +13,6 @@ import java.util.List;
 */
 public class House implements MultiItemEntity {
     private int itemType;
-    private List<HouseBean.CateBean> cate;
-    private List<HouseBean.BrandsBean> brands;
     private List<HouseBean.SellerBean> seller;
     private List<HouseBean.ProductBean> product;
     
@@ -26,22 +24,6 @@ public class House implements MultiItemEntity {
 
     public void setItemType(int itemType) {
         this.itemType = itemType;
-    }
-
-    public List<HouseBean.CateBean> getCate() {
-        return cate;
-    }
-
-    public void setCate(List<HouseBean.CateBean> cate) {
-        this.cate = cate;
-    }
-
-    public List<HouseBean.BrandsBean> getBrands() {
-        return brands;
-    }
-
-    public void setBrands(List<HouseBean.BrandsBean> brands) {
-        this.brands = brands;
     }
 
     public List<HouseBean.SellerBean> getSeller() {

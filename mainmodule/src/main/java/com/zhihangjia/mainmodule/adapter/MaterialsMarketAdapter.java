@@ -38,34 +38,26 @@ public class MaterialsMarketAdapter extends BaseDataBindingMultiItemQuickAdapter
             if (itemHotGoodsBinding.crv.getLayoutManager() == null) {
                 itemHotGoodsBinding.crv.setLayoutManager(new GridLayoutManager(mContext,3));
             }
-            List<Base> list = new ArrayList<>();
-            for (int i=0; i < 9; i++) {
-                list.add(new Base());
-            }
             ItemGoodsInfoAdapter adapter = null;
             if (itemHotGoodsBinding.crv.getAdapter() == null) {
-                adapter = new ItemGoodsInfoAdapter(list);
+                adapter = new ItemGoodsInfoAdapter(item.getProduct());
                 itemHotGoodsBinding.crv.setAdapter(adapter);
             } else {
                 adapter = (ItemGoodsInfoAdapter) itemHotGoodsBinding.crv.getAdapter();
-                adapter.setNewData(list);
+                adapter.setNewData(item.getProduct());
             }
         } else if (item.getItemType() == 1) {
             ItemRecommendSellerBinding itemRecommendSellerBinding = (ItemRecommendSellerBinding)helper.getBinding();
             if (itemRecommendSellerBinding.crv.getLayoutManager() == null) {
                 itemRecommendSellerBinding.crv.setLayoutManager(new LinearLayoutManager(mContext));
             }
-            List<Base> list = new ArrayList<>();
-            for (int i=0; i < 9; i++) {
-                list.add(new Base());
-            }
             ItemRecommendSellerAdapter adapter = null;
             if (itemRecommendSellerBinding.crv.getAdapter() == null) {
-                adapter = new ItemRecommendSellerAdapter(list);
+                adapter = new ItemRecommendSellerAdapter(item.getSeller());
                 itemRecommendSellerBinding.crv.setAdapter(adapter);
             } else {
                 adapter = (ItemRecommendSellerAdapter) itemRecommendSellerBinding.crv.getAdapter();
-                adapter.setNewData(list);
+                adapter.setNewData(item.getSeller());
             }
         }
     }
