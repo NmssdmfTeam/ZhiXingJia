@@ -17,12 +17,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service android:name="com.amap.api.location.APSService"/>
         <meta-data
             android:name="design_width_in_dp"
             android:value="375"/>
         <meta-data
             android:name="design_height_in_dp"
             android:value="667"/>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="e767c747963614c652bec05b6afaa578"/>
     </application>
 
 </manifest>

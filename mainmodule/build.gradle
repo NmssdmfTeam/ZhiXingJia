@@ -19,6 +19,15 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+    //签名配置
+    signingConfigs {
+        debug {
+            storeFile file("../debug.keystore") //签名证书文件
+            storePassword "android" //签名证书密码
+            keyAlias 'androiddebugkey' //别名
+            keyPassword "android" //别名密码
+        }
+    }
 
     buildTypes {
         release {

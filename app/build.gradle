@@ -16,7 +16,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    //签名配置
+    signingConfigs {
+        debug {
+            storeFile file("../debug.keystore") //签名证书文件
+            storePassword "android" //签名证书密码
+            keyAlias 'androiddebugkey' //别名
+            keyPassword "android" //别名密码
+        }
+    }
     dataBinding {
         enabled = true
     }

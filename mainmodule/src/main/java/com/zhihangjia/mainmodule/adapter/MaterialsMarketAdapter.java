@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.amap.api.maps2d.model.LatLng;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingMultiItemQuickAdapter;
@@ -24,6 +25,7 @@ import java.util.List;
  * <p>
  */
 public class MaterialsMarketAdapter extends BaseDataBindingMultiItemQuickAdapter<House> {
+    private LatLng location;
 
     public MaterialsMarketAdapter(@Nullable List data) {
         super(data);
@@ -54,10 +56,29 @@ public class MaterialsMarketAdapter extends BaseDataBindingMultiItemQuickAdapter
             ItemRecommendSellerAdapter adapter = null;
             if (itemRecommendSellerBinding.crv.getAdapter() == null) {
                 adapter = new ItemRecommendSellerAdapter(item.getSeller());
+                adapter.setLocation(location);
                 itemRecommendSellerBinding.crv.setAdapter(adapter);
             } else {
                 adapter = (ItemRecommendSellerAdapter) itemRecommendSellerBinding.crv.getAdapter();
+                adapter.setLocation(location);
                 adapter.setNewData(item.getSeller());
+            }
+        }
+    }
+
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
+
+    public void setLocation(double longitude,double latitude) {
+        location = new LatLng(latitude, longitude);
+        for (int i = 0 ;i < getData().size(); i++) {
+            if (getData().get(i).getItemType() == 1) {
+                notifyItemChanged(i+1);
             }
         }
     }

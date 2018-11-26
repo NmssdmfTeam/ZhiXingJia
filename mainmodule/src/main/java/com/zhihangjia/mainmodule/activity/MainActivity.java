@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.util.JLog;
+import com.nmssdmf.commonlib.util.PermissionCompat;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
@@ -85,6 +86,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         binding.mfth.getTabWidget().setDividerDrawable(null); // 去掉分割线
         initTabsView();
         bottomBehavior = BottomBehavior.from(binding.llBottomNavigation);
+        PermissionCompat.getInstance().checkLocationPermission(this);
     }
 
     private void initTabsView() {

@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.amap.api.maps2d.AMapUtils;
+import com.amap.api.maps2d.model.LatLng;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
@@ -17,6 +19,8 @@ import com.zhixingjia.bean.mainmodule.HouseBean;
 import java.util.List;
 
 public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<HouseBean.SellerBean,ItemRecommendSellerInfoBinding> {
+    private LatLng location;
+
     public ItemRecommendSellerAdapter(@Nullable List<HouseBean.SellerBean> data) {
         super(R.layout.item_recommend_seller_info, data);
     }
@@ -26,11 +30,19 @@ public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<HouseBean
         ItemRecommendSellerInfoBinding itemRecommendSellerInfoBinding = helper.getBinding();
         itemRecommendSellerInfoBinding.setData(item);
         itemRecommendSellerInfoBinding.rb.setNumStars(5);
+        LatLng latLng = null;
         try {
             itemRecommendSellerInfoBinding.rb.setRating(Float.valueOf(item.getScore()));
+            latLng = new LatLng(Double.valueOf(item.getLatitude()), Double.valueOf(item.getLongitude()));
         }catch (Exception e) {
 
         }
+
+        //测量距离
+        float distance = AMapUtils.calculateLineDistance(location,latLng);
+        //精确到小数点后两位
+        distance = ((int)(distance * 100 + 0.005)) / 100f;
+        itemRecommendSellerInfoBinding.tvDistance.setText(distance+"km");
         //初始化图片
         if (item.getGoods_info() != null && item.getGoods_info().size() > 0) {
             helper.getBinding().llPics.setVisibility(View.VISIBLE);
@@ -50,5 +62,13 @@ public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<HouseBean
             helper.getBinding().llPics.removeAllViews();
             helper.getBinding().llPics.setVisibility(View.GONE);
         }
+    }
+
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
     }
 }

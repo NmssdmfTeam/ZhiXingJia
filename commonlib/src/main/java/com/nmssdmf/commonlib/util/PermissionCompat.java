@@ -86,6 +86,11 @@ public class PermissionCompat {
 
     private final static String[] PERMISSIONS_READ_CONTACTS = {Manifest.permission.READ_CONTACTS};
 
+    /**
+     * 定位权限
+     */
+    private static String[] PERMISSION_LOCATION = {Manifest.permission.ACCESS_COARSE_LOCATION};
+
     private PermissionCompat() {
         //
     }
@@ -150,6 +155,18 @@ public class PermissionCompat {
     public boolean checkReadContactsPermission(Activity activity) {
         return checkPermission(activity, PERMISSIONS_READ_CONTACTS,REQUEST_READ_CONTACTS);
     }
+
+    /**
+     * 检测定位
+     */
+    public boolean checkLocationPermission(Activity activity) {
+        return checkPermission(activity, PERMISSION_LOCATION, REQUEST_LOCATION);
+    }
+
+    /**
+     * 定位权限
+     */
+    public final static int REQUEST_LOCATION = 10097;
 
     /**
      * 最底层的全新检测方法
