@@ -13,6 +13,7 @@ import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
 import com.zhixingjia.bean.mainmodule.Seller;
+import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 
 import java.util.Map;
@@ -97,6 +98,7 @@ public interface MainService {
     Observable<Base> giveInsert(@FieldMap Map<String,Object> params);
 
     /**
+     * 首页
      * 广告汇总
      * @return
      */
@@ -124,6 +126,18 @@ public interface MainService {
     @GET ("/api/house/seller")
     Observable<BaseListData<Seller>> getSeller(@QueryMap Map<String, String> map);
 
+    /**
+     * 商品搜索
+     * @param map
+     * @return
+     */
     @GET ("/api/house/commodity")
     Observable<BaseListData<Commodity>> getCommodity(@QueryMap Map<String, String> map);
+
+    /**
+     * 所在商圈
+     * @return
+     */
+    @GET ("/api/trade_area")
+    Observable<BaseListData<TradeArea>> getTradeArea();
 }

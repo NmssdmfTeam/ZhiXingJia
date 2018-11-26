@@ -2,18 +2,27 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.Commodity"/>
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingTop="4dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <com.nmssdmf.commonlib.view.GlideImageView
             android:id="@+id/ivGoodsImg"
             android:layout_width="120dp"
             android:layout_height="90dp"
-            android:src="@drawable/no_pic"/>
+            src="@{data.imgs}"
+            android:background="@drawable/shape_glide_image_bg"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -23,7 +32,7 @@
             android:layout_marginTop="5dp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:text="程辉世纪装饰工装家装设计施工"/>
+            android:text="@{data.commodity_name}"/>
 
         <TextView
             android:id="@+id/tv_yuan"
@@ -41,7 +50,7 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="44.7"
+            android:text="@{data.price}"
             android:textColor="#FFFF5C4A"
             android:textSize="17dp"
             android:layout_toRightOf="@+id/tv_yuan"
@@ -54,7 +63,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已售 1.23万"
+            android:text="@{`已售` + data.sold}"
             android:textColor="#FF999999"
             android:textSize="12dp"
             android:layout_marginBottom="2.5dp"
@@ -66,7 +75,7 @@
             android:id="@+id/tv_shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="德尔地板"
+            android:text="@{data.company_name}"
             android:textColor="#FF999999"
             android:textSize="13dp"
             android:layout_alignParentRight="true"

@@ -29,6 +29,7 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
     private String keyword;
 
     private int page = 1;
+
     /**
      * 不需要callback可以传null
      *
@@ -39,7 +40,7 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
         cb = callBack;
     }
 
-    public void getData(){
+    public void getData() {
         Bundle bundle = cb.getIntentData();
         type = bundle.getString(IntentConfig.TYPE);
         keyword = bundle.getString(IntentConfig.KEYWORD);
@@ -48,28 +49,30 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
 
     @Override
     public void initData(final boolean isRefresh) {
+        if (isRefresh)
+            page = 1;
         switch (type) {
-            case SearchFragmentVM.TYPE_MATERIALS_MERCHANT:{
+            case SearchFragmentVM.TYPE_MATERIALS_MERCHANT: {
                 getMerchantData(isRefresh);
                 break;
             }
-            case SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE:{
+            case SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE: {
                 getMerchanDise(isRefresh);
                 break;
             }
-            case SearchFragmentVM.TYPE_INFORMATION_CENTER:{
+            case SearchFragmentVM.TYPE_INFORMATION_CENTER: {
                 break;
             }
         }
 
     }
 
-    public void getMerchanDise(final boolean isRefresh){
+    public void getMerchanDise(final boolean isRefresh) {
         Map<String, String> map = new HashMap<>();
         map.put("source", "search");
         map.put("pages", String.valueOf(page));
         map.put("keyword", keyword);
-        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_SELLER).getCommodity(map), new ServiceCallback<BaseListData<Commodity>>() {
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY).getCommodity(map), new ServiceCallback<BaseListData<Commodity>>() {
             @Override
             public void onError(Throwable error) {
 
@@ -78,7 +81,7 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
             @Override
             public void onSuccess(BaseListData<Commodity> data) {
                 cb.refreshAdapter(isRefresh, data.getData());
-
+                page += 1;
             }
 
             @Override
@@ -88,7 +91,7 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
         });
     }
 
-    public void getMerchantData(final boolean isRefresh){
+    public void getMerchantData(final boolean isRefresh) {
         Map<String, String> map = new HashMap<>();
         map.put("source", "search");
         map.put("pages", String.valueOf(page));
@@ -103,6 +106,7 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
             public void onSuccess(BaseListData<Seller> data) {
                 if (data.getData() != null && data.getData().size() > 0) {
                     cb.refreshAdapter(isRefresh, data.getData());
+                    page += 1;
                 }
             }
 

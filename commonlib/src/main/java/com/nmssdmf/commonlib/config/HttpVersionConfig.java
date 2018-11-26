@@ -96,4 +96,8 @@ public class HttpVersionConfig {
      *根据分类或者搜索关键字来获取商品列表
      */
     public static final int API_HOUSE_COMMODITY = 1;
+    /**
+     * 所在商圈
+     */
+    public static final int API_TRADE_AREA = 1;
 }
