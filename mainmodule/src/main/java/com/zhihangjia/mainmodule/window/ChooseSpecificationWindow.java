@@ -10,7 +10,6 @@ import android.widget.PopupWindow;
 
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
-import com.nmssdmf.commonlib.util.MapUtils;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.view.TagView;
 import com.zhihangjia.mainmodule.R;
@@ -18,9 +17,7 @@ import com.zhihangjia.mainmodule.callback.ChooseSpecificationWindowCB;
 import com.zhihangjia.mainmodule.databinding.ItemPostTagBinding;
 import com.zhihangjia.mainmodule.databinding.ItemStockTypeBinding;
 import com.zhihangjia.mainmodule.databinding.WindowChooseSpecificationBinding;
-import com.zhihangjia.mainmodule.viewmodel.ChooseShopCouponWindowVM;
 import com.zhihangjia.mainmodule.viewmodel.ChooseSpecificationWindowVM;
-import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.bean.mainmodule.SkuBean;
 
@@ -149,7 +146,7 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
         return productSkuId;
     }
 
-    public int goodsSum() {
+    public String goodsSum() {
         return binding.amv.getCurrentNum();
     }
 }
