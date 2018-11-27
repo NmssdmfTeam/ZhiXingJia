@@ -141,7 +141,7 @@ public class ShopCarFragmentVM extends BaseVM {
         } else {
             String carIntentsString = getCrdIntents();
             Bundle bundle = new Bundle();
-            bundle.putString(IntentConfig.SKU_JSON, carIntentsString);
+            bundle.putString(IntentConfig.CART_INFO, carIntentsString);
             cb.doIntent(ConfirmOrderActivity.class, bundle);
         }
     }

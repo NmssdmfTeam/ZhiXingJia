@@ -25,7 +25,7 @@ public class IntentConfig {
     public static final String KEYWORD = "KEYWORD";
 
     public static final String CART_INFO = "CART_INFO";
-    public static final String PRODUCT_SKU_ID = "SKU_JSON";
+    public static final String PRODUCT_SKU_ID = "PRODUCT_SKU_ID";
     public static final String GOODS_SUM = "goods_sum";
 
 }
