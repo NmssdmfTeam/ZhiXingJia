@@ -12,7 +12,7 @@ import com.amap.api.location.AMapLocationListener;
 
 public class MapUtils {
 
-    public static MapUtils instance;
+    private static MapUtils instance;
 
     private MapUtils() {
         //
