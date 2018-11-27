@@ -4,14 +4,22 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
+import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.callback.ConfirmOrderCB;
+import com.zhixingjia.service.MainService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConfirmOrderVM extends BaseVM implements WheelPickerWindowCB{
     private int type = 1;//1:购物车 2:立即购买
@@ -33,7 +41,7 @@ public class ConfirmOrderVM extends BaseVM implements WheelPickerWindowCB{
         cb = callBack;
     }
 
-    public void initData(){
+    public void getIntentData(){
         Bundle bundle = cb.getIntentData();
         if (bundle == null)
             return;
@@ -49,7 +57,27 @@ public class ConfirmOrderVM extends BaseVM implements WheelPickerWindowCB{
         deliveryMethodList.add("商家配送");
         deliveryMethodList.add("上门自提");
 
+        getData();
+    }
 
+    private void getData(){
+        Map<String, String> map = new HashMap<>();
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_CART_SETTLE).getConformData(map), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
     }
 
     public void tvSubmitClick(View view){

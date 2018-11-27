@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.ShopCar"/>
+    </data>
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -24,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="xxxxx"
+                android:text="@{data.company_name}"
                 android:textColor="#FF333333"
                 android:textSize="14dp"
                 android:drawableLeft="@drawable/icon_shop"
@@ -65,7 +71,7 @@
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="21dp"
-                android:text="44.7"
+                android:text="@{data.totalPrice}"
                 android:textColor="#FFFF5C4A"
                 android:textSize="15dp"
                 android:layout_alignParentRight="true"

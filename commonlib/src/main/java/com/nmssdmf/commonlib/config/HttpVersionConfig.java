@@ -105,4 +105,12 @@ public class HttpVersionConfig {
      * 商品详情
      */
     public static final int API_HOUSE_COMMODITY_VIEW = 1;
+    /**
+     * 确认订单
+     */
+    public static final int API_CART_SETTLE = 1;
+    /**
+     * 购物车
+     */
+    public static final int API_CART = 1;
 }

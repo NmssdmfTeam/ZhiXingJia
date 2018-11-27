@@ -21,14 +21,17 @@ import java.math.BigDecimal;
 /**
  * Created by ${nmssdmf} on 2018/11/19 0019.
  */
-
 public class AddMinusView extends LinearLayout {
     private int addImageOn;
     private int addImageOff;
     private int minusImageOn;
     private int minusImageOff;
     private int maxNum = 0;
-    private int currentNum = 0;
+    private String currentNum = "0";
+
+    private AddMinusViewListener listener;
+
+    private ViewNumAddMinusBinding binding;
 
     public AddMinusView(Context context) {
         super(context);
@@ -42,18 +45,18 @@ public class AddMinusView extends LinearLayout {
         initView(typedArray);
     }
 
-    private void initView(TypedArray typedArray){
+    private void initView(TypedArray typedArray) {
 
-        if (typedArray!= null) {
+        if (typedArray != null) {
             maxNum = typedArray.getInteger(R.styleable.AddMinusView_maxNum, 0);
-            currentNum = typedArray.getInteger(R.styleable.AddMinusView_currentNum, 0);
+            currentNum = typedArray.getString(R.styleable.AddMinusView_currentNum);
             addImageOn = typedArray.getResourceId(R.styleable.AddMinusView_addImageOn, R.drawable.icon_shop_car_add_on);
             addImageOff = typedArray.getResourceId(R.styleable.AddMinusView_addImageOff, R.drawable.icon_shop_car_add_off);
             minusImageOn = typedArray.getResourceId(R.styleable.AddMinusView_minusImageOn, R.drawable.icon_shop_car_minus_on);
             minusImageOff = typedArray.getResourceId(R.styleable.AddMinusView_minusImageOff, R.drawable.icon_shop_car_minus_off);
         }
 
-        final ViewNumAddMinusBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.view_num_add_minus, null, false);
+         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.view_num_add_minus, null, false);
         addView(binding.getRoot());
 
         binding.tvNum.setText(String.valueOf(currentNum));
@@ -87,7 +90,11 @@ public class AddMinusView extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (new BigDecimal(s.toString()).intValue() <= 0) {
+                if (currentNum.equals(s.toString())) {
+                    return;
+                }
+                currentNum = s.toString();
+                if (Integer.valueOf(currentNum) <= 0) {
                     binding.ivMinus.setEnabled(false);
                     binding.ivMinus.setImageResource(minusImageOff);
                 } else {
@@ -95,15 +102,33 @@ public class AddMinusView extends LinearLayout {
                     binding.ivMinus.setImageResource(minusImageOn);
                 }
 
-                if (new BigDecimal(s.toString()).intValue() >= maxNum) {
+                if (Integer.valueOf(currentNum) >= maxNum) {
                     binding.ivAdd.setEnabled(false);
                     binding.ivAdd.setImageResource(addImageOff);
                 } else {
                     binding.ivAdd.setEnabled(true);
                     binding.ivAdd.setImageResource(addImageOn);
                 }
+                if (listener != null)
+                    listener.currentNumChange(currentNum);
             }
         });
+    }
+
+    public ViewNumAddMinusBinding getBinding() {
+        return binding;
+    }
+
+    public void setBinding(ViewNumAddMinusBinding binding) {
+        this.binding = binding;
+    }
+
+    public AddMinusViewListener getListener() {
+        return listener;
+    }
+
+    public void setListener(AddMinusViewListener listener) {
+        this.listener = listener;
     }
 
     public int getMaxNum() {
@@ -114,18 +139,23 @@ public class AddMinusView extends LinearLayout {
         this.maxNum = maxNum;
     }
 
-    public int getCurrentNum() {
+    public String getCurrentNum() {
         return currentNum;
     }
 
-    public void setCurrentNum(int currentNum) {
+    public void setCurrentNum(String currentNum) {
         this.currentNum = currentNum;
     }
 
+    public interface AddMinusViewListener{
+        void currentNumChange(String currentNum);
+    }
+
     @BindingAdapter(value = {"maxNum", "currentNum"}, requireAll = false)
-    public void setMaxNum(final AddMinusView view, int maxNum, int currentNum){
-        setMaxNum(maxNum);
-        setCurrentNum(currentNum);
+    public static void setMaxNum(final AddMinusView view, int maxNum, String currentNum){
+        view.maxNum = maxNum;
+        view.currentNum = currentNum;
+        view.getBinding().tvNum.setText(currentNum);
     }
 
 }
