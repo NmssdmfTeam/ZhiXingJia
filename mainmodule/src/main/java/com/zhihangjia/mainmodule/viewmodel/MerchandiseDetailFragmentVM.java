@@ -65,7 +65,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
      */
     public void getCommondityDetail() {
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity(commodityId),
+                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity("1"),
                 new ServiceCallback<BaseData<CommodityDetail>>() {
                     @Override
                     public void onError(Throwable error) {
