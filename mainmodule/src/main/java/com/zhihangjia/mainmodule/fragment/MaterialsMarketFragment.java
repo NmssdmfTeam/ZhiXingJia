@@ -18,6 +18,7 @@ import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.DensityUtil;
+import com.nmssdmf.commonlib.util.MapUtils;
 import com.nmssdmf.commonlib.util.PermissionCompat;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -57,13 +58,6 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
     private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
     private MaterialsCategoryAdapter materialsCategoryAdapter;
     private ItemMaterialsCrvheadBinding itemMaterialsCrvheadBinding;
-    private int[] materialsIconRes = new int[]{R.drawable.air_conditioner, R.drawable.air_conditioner,
-            R.drawable.air_conditioner, R.drawable.air_conditioner, R.drawable.air_conditioner,
-            R.drawable.air_conditioner, R.drawable.air_conditioner, R.drawable.air_conditioner,
-            R.drawable.air_conditioner, R.drawable.air_conditioner};
-    private String[] materialsName = new String[]{"空调", "冰箱", "凳子", "组合柜", "空调", "沙发", "椅子", "衣柜", "餐桌", "全部"};
-    private double latitude;
-    private double longitude;
 
 
     @Override
@@ -110,7 +104,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         vm.getHouseIndex(true);
         vm.getHouseBanner(true);
         setListener();
-        getLocation();
+        MapUtils.getInstance().getLocation(getActivity(),mLocationListener);
     }
 
     private void setListener() {
@@ -119,7 +113,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
             public void onRefresh() {
                 vm.getHouseBanner(false);
                 vm.getHouseIndex(false);
-                getLocation();
+                MapUtils.getInstance().getLocation(getActivity(),mLocationListener);
             }
 
             @Override
@@ -127,39 +121,6 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
 
             }
         });
-    }
-
-    //声明AMapLocationClient类对象
-    public AMapLocationClient mLocationClient = null;
-    public AMapLocationClientOption mLocationOption = null;
-
-    /**
-     * 获取定位
-     */
-    private void getLocation() {
-        if (!PermissionCompat.getInstance().checkLocationPermission(getActivity())) {
-            return;
-        }
-        if (!CommonUtils.CheckAPSService(getActivity())) {
-            new AlertDialog.Builder(getActivity()).setMessage("请打开GPS或者WIFI开关").setPositiveButton("开启", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);//开定系统定位服务设置，需添加 import android.provider.Settings;
-                    startActivity(intent);
-                }
-            }).show();
-            return;
-        }
-        if (mLocationClient == null)
-            mLocationClient = new AMapLocationClient(getActivity().getApplicationContext());//初始化定位
-        //设置定位回调监听
-        mLocationClient.setLocationListener(mLocationListener);
-        if (mLocationOption == null)
-            mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationOption.setOnceLocation(true);
-        mLocationClient.setLocationOption(mLocationOption);
-        mLocationClient.startLocation();
     }
 
     //声明定位回调监听器
