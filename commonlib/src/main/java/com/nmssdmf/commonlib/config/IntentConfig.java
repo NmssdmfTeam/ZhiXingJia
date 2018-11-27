@@ -23,4 +23,7 @@ public class IntentConfig {
     public static final String TYPE = "TYPE";
     public static final String KEYWORD = "KEYWORD";
 
+    public static final String SKU_JSON = "SKU_JSON";
+    public static final String PRODUCT_SKU_ID = "SKU_JSON";
+
 }
