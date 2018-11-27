@@ -27,8 +27,6 @@ import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsCategoryAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsMarketAdapter;
 import com.zhihangjia.mainmodule.bean.House;
-import com.zhihangjia.mainmodule.bean.MainBean;
-import com.zhihangjia.mainmodule.bean.MaterialsCategoryBean;
 import com.zhihangjia.mainmodule.callback.MarketFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMarketBinding;
 import com.zhihangjia.mainmodule.databinding.ItemHotBrandBinding;
@@ -36,7 +34,6 @@ import com.zhihangjia.mainmodule.databinding.ItemMaterialsCrvheadBinding;
 import com.zhihangjia.mainmodule.viewmodel.MarketFragmentVM;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.HouseBean;
-import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +62,9 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
     private double latitude;
     private double longitude;
 
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+    public AMapLocationClientOption mLocationOption = null;
 
     @Override
     public BaseVM initViewModel() {
@@ -128,10 +128,6 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
             }
         });
     }
-
-    //声明AMapLocationClient类对象
-    public AMapLocationClient mLocationClient = null;
-    public AMapLocationClientOption mLocationOption = null;
 
     /**
      * 获取定位

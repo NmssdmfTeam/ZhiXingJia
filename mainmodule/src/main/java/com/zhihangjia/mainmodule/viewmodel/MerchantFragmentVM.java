@@ -39,8 +39,6 @@ public class MerchantFragmentVM extends BaseRecyclerViewFragmentVM {
         Bundle bundle = cb.getIntentData();
         if (bundle != null) {
             cateId = bundle.getString(IntentConfig.ID);
-        } else {
-            cateId = "2";
         }
     }
 
