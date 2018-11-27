@@ -1,25 +1,17 @@
 package com.zhihangjia.mainmodule.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
-import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.MapUtils;
-import com.nmssdmf.commonlib.util.PermissionCompat;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
@@ -28,8 +20,6 @@ import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsCategoryAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsMarketAdapter;
 import com.zhihangjia.mainmodule.bean.House;
-import com.zhihangjia.mainmodule.bean.MainBean;
-import com.zhihangjia.mainmodule.bean.MaterialsCategoryBean;
 import com.zhihangjia.mainmodule.callback.MarketFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMarketBinding;
 import com.zhihangjia.mainmodule.databinding.ItemHotBrandBinding;
@@ -37,8 +27,6 @@ import com.zhihangjia.mainmodule.databinding.ItemMaterialsCrvheadBinding;
 import com.zhihangjia.mainmodule.viewmodel.MarketFragmentVM;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.HouseBean;
-import com.zhixingjia.bean.mainmodule.IndexBean;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +46,6 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
     private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
     private MaterialsCategoryAdapter materialsCategoryAdapter;
     private ItemMaterialsCrvheadBinding itemMaterialsCrvheadBinding;
-
 
     @Override
     public BaseVM initViewModel() {

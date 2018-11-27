@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.CommodityDetail.OrderComment"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/ivAvater"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            app:src="@{data.avatar}"
+            app:roundAsCircle="@{true}"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.nickname}"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#FF999999"
+            android:layout_toRightOf="@+id/ivAvater"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="8dp"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{data.contents}"
+            android:textColor="#FF333333"
+            android:textSize="13dp"
+            android:layout_below="@id/tvName"
+            android:layout_marginTop="6dp"/>
+
+        <include
+            android:id="@+id/includeBottomLine"
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/tvComment"/>
+
+    </RelativeLayout>
+</layout>

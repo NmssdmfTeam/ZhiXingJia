@@ -1,21 +1,33 @@
 package com.zhihangjia.mainmodule.fragment;
 
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.nmssdmf.commonlib.fragment.BaseFragment;
+import com.nmssdmf.commonlib.glide.util.GlideUtil;
+import com.nmssdmf.commonlib.util.DensityUtil;
+import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.adapter.MerchandiseDetailViewPagerAdapter;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;
+import com.zhihangjia.mainmodule.databinding.ItemCommodityDetailCommentBinding;
+import com.zhihangjia.mainmodule.databinding.ItemMessageDetailBinding;
 import com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailFragmentVM;
 import com.zhihangjia.mainmodule.window.ChooseSpecificationWindow;
 import com.zhihangjia.mainmodule.window.GetShopCouponWindow;
+import com.zhixingjia.bean.mainmodule.CommodityDetail;
+import com.zhixingjia.bean.mainmodule.ContentsBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +46,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     private GetShopCouponWindow getShopCouponWindow;
     private ChooseSpecificationWindow chooseSpecificationWindow;
     private MerchandiseDetailViewPagerAdapter viewPagerAdapter;
+
     @Override
     public BaseVM initViewModel() {
         vm = new MerchandiseDetailFragmentVM(this);
@@ -53,6 +66,8 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
         //初始化商品图片轮播图
         viewPagerAdapter = new MerchandiseDetailViewPagerAdapter(new ArrayList<String>(), binding.rpv);
         binding.rpv.setAdapter(viewPagerAdapter);
+        vm.getCommondityDetail();
+        chooseSpecificationWindow = new ChooseSpecificationWindow(getActivity());
     }
 
     @Override
@@ -75,9 +90,6 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
 
     @Override
     public void showChooseSpecificationWindow() {
-        if (chooseSpecificationWindow == null) {
-            chooseSpecificationWindow = new ChooseSpecificationWindow(getActivity());
-        }
         chooseSpecificationWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 
@@ -103,6 +115,43 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
         } catch (Exception e) {
 
         }
+        //设置商品详情内容
+        binding.llCommodityDetail.removeAllViews();
+        for (ContentsBean contentsBean : vm.commodityDetail.get().getContent()) {
+            ItemMessageDetailBinding itemMessageDetailBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.item_message_detail, null, false);
+            itemMessageDetailBinding.content.setText(contentsBean.getNote());
+            if (contentsBean.getImgs() != null && contentsBean.getImgs().size() > 0) {
+                for (String img : contentsBean.getImgs()) {
+                    GlideImageView imageView = new GlideImageView(getContext());
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    layoutParams.topMargin = DensityUtil.dpToPx(getContext(), 12);
+                    layoutParams.bottomMargin = DensityUtil.dpToPx(getContext(), 12);
+                    imageView.setLayoutParams(layoutParams);
+                    GlideUtil.load(imageView, img);
+                    itemMessageDetailBinding.llContent.addView(imageView);
+                }
+            }
+            binding.llCommodityDetail.addView(itemMessageDetailBinding.getRoot());
+        }
+        binding.rvBrand.setVisibility(TextUtils.isEmpty(vm.commodityDetail.get().getBrand()) ? View.GONE : View.VISIBLE);
+        binding.rvBn.setVisibility(TextUtils.isEmpty(vm.commodityDetail.get().getBn()) ? View.GONE : View.VISIBLE);
 
+        //设置选择规格内容
+        chooseSpecificationWindow.setData(vm.commodityDetail.get());
+    }
+
+    @Override
+    public void setCommodityComment(List<CommodityDetail.OrderComment> orderComments) {
+        binding.llCommentContent.removeAllViews();
+        if (orderComments != null) {
+            binding.llComment.setVisibility(View.VISIBLE);
+            for (CommodityDetail.OrderComment orderComment : orderComments) {
+                ItemCommodityDetailCommentBinding itemCommodityDetailCommentBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_commodity_detail_comment, null, false);
+                itemCommodityDetailCommentBinding.setData(orderComment);
+                binding.llCommentContent.addView(itemCommodityDetailCommentBinding.getRoot());
+            }
+        } else {
+            binding.llComment.setVisibility(View.GONE);
+        }
     }
 }
