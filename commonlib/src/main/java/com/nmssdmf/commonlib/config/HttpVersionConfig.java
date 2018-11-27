@@ -100,4 +100,9 @@ public class HttpVersionConfig {
      * 所在商圈
      */
     public static final int API_TRADE_AREA = 1;
+
+    /**
+     * 商品详情
+     */
+    public static final int API_HOUSE_COMMODITY_VIEW = 1;
 }

@@ -182,6 +182,8 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     public void changeIdentify(String identify) {
         vm.identify = identify;
         binding.mfth.clearAllTabs();
+        ivs.clear();
+        tvs.clear();
         binding.mfth.setOnTabChangedListener(null);
         //初始化fragment及底部导航栏
         initTabsView();

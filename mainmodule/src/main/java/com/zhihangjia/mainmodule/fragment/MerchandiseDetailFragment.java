@@ -10,11 +10,15 @@ import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
+import com.zhihangjia.mainmodule.adapter.MerchandiseDetailViewPagerAdapter;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;
 import com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailFragmentVM;
-import com.zhihangjia.mainmodule.window.GetShopCouponWindow;
 import com.zhihangjia.mainmodule.window.ChooseSpecificationWindow;
+import com.zhihangjia.mainmodule.window.GetShopCouponWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -29,6 +33,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
 
     private GetShopCouponWindow getShopCouponWindow;
     private ChooseSpecificationWindow chooseSpecificationWindow;
+    private MerchandiseDetailViewPagerAdapter viewPagerAdapter;
     @Override
     public BaseVM initViewModel() {
         vm = new MerchandiseDetailFragmentVM(this);
@@ -44,6 +49,10 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMerchandiseDetailBinding) baseBinding;
         binding.setVm(vm);
+
+        //初始化商品图片轮播图
+        viewPagerAdapter = new MerchandiseDetailViewPagerAdapter(new ArrayList<String>(), binding.rpv);
+        binding.rpv.setAdapter(viewPagerAdapter);
     }
 
     @Override
@@ -78,5 +87,22 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
             MerchandiseDetailActivity merchandiseDetailActivity = (MerchandiseDetailActivity) getActivity();
             merchandiseDetailActivity.switchToCommentFragment();
         }
+    }
+
+    @Override
+    public void setCommodityImgs(List<String> imgs) {
+        viewPagerAdapter.getImgs().clear();
+        viewPagerAdapter.getImgs().addAll(imgs);
+        viewPagerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void initView() {
+        try {
+            binding.acrbStore.setRating(Float.valueOf(vm.commodityDetail.get().getProvider_info().getScore()));
+        } catch (Exception e) {
+
+        }
+
     }
 }
