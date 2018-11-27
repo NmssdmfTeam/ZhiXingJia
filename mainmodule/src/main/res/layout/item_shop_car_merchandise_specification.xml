@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.ShopCar.ProductListBean.SkuListBean"/>
+    </data>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -12,20 +17,21 @@
             android:layout_marginLeft="46dp"
             android:layout_alignParentBottom="true"/>
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/rbSelect"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:button="@null"
-            android:drawableLeft="@drawable/icon_select"
+            android:drawableLeft="@{data.select ? @drawable/icon_select:@drawable/icon_un_select}"
             android:paddingLeft="16dp"
+            android:checked="@={data.select}"
             />
 
         <TextView
             android:id="@+id/tvSpecification"
             android:layout_width="wrap_content"
             android:layout_height="16.5dp"
-            android:text="规格：红色+90cm"
+            android:text="@{data.sku_product_text}"
             android:textColor="#FF333333"
             android:textSize="12dp"
             android:layout_toRightOf="@+id/rbSelect"
@@ -50,7 +56,7 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="44.7"
+            android:text="@{data.sku_price}"
             android:textColor="#FFFF5C4A"
             android:textSize="14dp"
             android:layout_alignBaseline="@+id/tvPriceUnit"
@@ -74,7 +80,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            app:maxNum="10"
+            app:maxNum="@{Integer.valueOf(data.stock)}"
+            app:currentNum="@{data.sku_sum}"
             />
 
     </RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -67,7 +68,7 @@
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
-                android:text="88.8"
+                android:text="@{vm.totalPrice}"
                 android:textColor="#FFFF5C4A"
                 android:textSize="20dp"
                 android:layout_toLeftOf="@+id/tvSettleAccounts"
@@ -117,9 +118,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/rlBottom"
-            android:layout_below="@+id/rlTitle">
+            android:layout_below="@+id/rlTitle"
+            app:loadmore_enable="false"/>
 
-        </com.nmssdmf.customerviewlib.CustomerRecyclerView>
 
         <TextView
             android:layout_above="@+id/rlBottom"

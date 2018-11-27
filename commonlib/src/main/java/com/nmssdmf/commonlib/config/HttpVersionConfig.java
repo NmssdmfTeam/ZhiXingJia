@@ -115,4 +115,12 @@ public class HttpVersionConfig {
      * 加入购物车（保存）
      */
     public static final int API_CART_STORE = 1;
+    /**
+     * 确认订单
+     */
+    public static final int API_CART_SETTLE = 1;
+    /**
+     * 购物车
+     */
+    public static final int API_CART = 1;
 }

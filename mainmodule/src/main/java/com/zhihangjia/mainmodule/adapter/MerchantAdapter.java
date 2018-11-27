@@ -33,5 +33,6 @@ public class MerchantAdapter extends BaseDataBindingAdapter<Seller, ItemMerchant
                 mContext.startActivity(intent);
             }
         });
+
     }
 }

@@ -18,7 +18,7 @@
 
     <declare-styleable name="AddMinusView">
         <attr name="maxNum" format="integer"></attr>
-        <attr name="currentNum" format="integer"></attr>
+        <attr name="currentNum" format="string"></attr>
         <attr name="addImageOn" format="reference"></attr>
         <attr name="minusImageOn" format="reference"></attr>
         <attr name="addImageOff" format="reference"></attr>

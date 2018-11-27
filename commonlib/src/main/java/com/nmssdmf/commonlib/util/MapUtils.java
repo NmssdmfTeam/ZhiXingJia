@@ -14,13 +14,17 @@ public class MapUtils {
 
     private static MapUtils instance;
 
+    //声明AMapLocationClient类对象
+    private AMapLocationClient mLocationClient = null;
+    private AMapLocationClientOption mLocationOption = null;
+
     private MapUtils() {
         //
     }
 
     public static MapUtils getInstance() {
         if (instance == null) {
-            synchronized (ToastUtil.class) {
+            synchronized (MapUtils.class) {
                 if (instance == null) {
                     instance = new MapUtils();
                 }
@@ -29,9 +33,7 @@ public class MapUtils {
         return instance;
     }
 
-    //声明AMapLocationClient类对象
-    private AMapLocationClient mLocationClient = null;
-    private AMapLocationClientOption mLocationOption = null;
+
 
     /**
      * 获取定位

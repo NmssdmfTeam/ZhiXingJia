@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.ShopCar.ProductListBean"/>
+    </data>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -28,7 +32,9 @@
                 android:layout_height="90dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@+id/rbSelect"/>
+                android:layout_toRightOf="@+id/rbSelect"
+                android:background="@drawable/shape_glide_image_bg"
+                src="@{data.imgs}"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -36,7 +42,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="18dp"
                 android:layout_toRightOf="@+id/ivIcon"
-                android:text="程辉世纪装饰工装家装设计施工工装家装设计施工"
+                android:text="@{data.commodity_name}"
                 android:textColor="#FF333333"
                 android:textSize="14dp"
                 />

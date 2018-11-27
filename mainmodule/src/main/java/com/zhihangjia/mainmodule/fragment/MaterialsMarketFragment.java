@@ -27,6 +27,7 @@ import com.zhihangjia.mainmodule.databinding.ItemMaterialsCrvheadBinding;
 import com.zhihangjia.mainmodule.viewmodel.MarketFragmentVM;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.HouseBean;
+
 import java.util.ArrayList;
 import java.util.List;
 

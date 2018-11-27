@@ -15,6 +15,7 @@ import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
 import com.zhixingjia.bean.mainmodule.Seller;
+import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 
@@ -149,6 +150,20 @@ public interface MainService {
      */
     @GET ("/api/house/commodity_view")
     Observable<BaseData<CommodityDetail>> getCommodity(@Query("commodity_id") String commodity_id);
+
+    /**
+     * 确认订单
+     */
+    @FormUrlEncoded
+    @POST ("/api/cart/settle")
+    Observable<BaseData> getConformData(@FieldMap Map<String, String> map);
+
+    /**
+     * 购物车
+     * @return
+     */
+    @GET ("/api/cart")
+    Observable<BaseListData<ShopCar>> getShopCarData();
 
     /**
      * 商品详情 - 评论列表

@@ -50,7 +50,7 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
         binding = (ActivityConfirmOrderBinding) baseViewBinding;
         binding.setVm(vm);
 
-        vm.initData();
+        vm.getIntentData();
         adapter = new ConfirmOrderAdapter(vm.getList(), this);
         HeaderConfirmOrderBinding headerBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.header_confirm_order, null, false);
         adapter.addHeaderView(headerBinding.getRoot());
