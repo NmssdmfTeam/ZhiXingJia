@@ -27,6 +27,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
     public MerchandiseDetailFragmentVM(MerchandiseDetailFragmentCB callBack) {
         super(callBack);
         cb = callBack;
+        commodityDetail.set(new CommodityDetail());
     }
 
     public void ivShareClick(View view){
@@ -58,7 +59,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
      */
     public void getCommondityDetail() {
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity(commodityId),
+                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity("1"),
                 new ServiceCallback<BaseData<CommodityDetail>>() {
                     @Override
                     public void onError(Throwable error) {
@@ -68,6 +69,9 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
                     @Override
                     public void onSuccess(BaseData<CommodityDetail> commodityDetailBaseData) {
                         commodityDetail.set(commodityDetailBaseData.getData());
+                        cb.setCommodityImgs(commodityDetailBaseData.getData().getImgs());
+                        cb.initView();
+                        cb.setCommodityComment(commodityDetailBaseData.getData().getOrder_comment());
                     }
 
                     @Override

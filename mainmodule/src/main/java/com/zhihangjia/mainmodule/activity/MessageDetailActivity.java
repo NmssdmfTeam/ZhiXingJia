@@ -134,7 +134,7 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
             itemMessageDetailHeadBinding.llContent.removeAllViews();
             for (MessageDetail.ContentsBean contentsBean : vm.detail.get().getContents()) {
                 ItemMessageDetailBinding itemMessageDetailBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.item_message_detail, null, false);
-                itemMessageDetailBinding.setData(contentsBean);
+                itemMessageDetailBinding.content.setText(contentsBean.getNote());
                 if (contentsBean.getImgs() != null && contentsBean.getImgs().size() > 0) {
                     for (String img : contentsBean.getImgs()) {
                         GlideImageView imageView = new GlideImageView(this);

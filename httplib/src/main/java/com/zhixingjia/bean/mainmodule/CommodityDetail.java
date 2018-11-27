@@ -77,7 +77,7 @@ public class CommodityDetail extends BaseObservable {
 
     @Bindable
     public String getPrice() {
-        return price;
+        return price==null?"":price;
     }
 
     public void setPrice(String price) {
@@ -87,7 +87,7 @@ public class CommodityDetail extends BaseObservable {
 
     @Bindable
     public String getUnit() {
-        return unit;
+        return unit==null?"":unit;
     }
 
     public void setUnit(String unit) {
@@ -97,7 +97,7 @@ public class CommodityDetail extends BaseObservable {
 
     @Bindable
     public String getCost_freight() {
-        return cost_freight;
+        return cost_freight==null?"":cost_freight;
     }
 
     public void setCost_freight(String cost_freight) {
@@ -107,7 +107,7 @@ public class CommodityDetail extends BaseObservable {
 
     @Bindable
     public String getBrand() {
-        return brand;
+        return brand==null?"":brand;
     }
 
     public void setBrand(String brand) {
@@ -117,7 +117,7 @@ public class CommodityDetail extends BaseObservable {
 
     @Bindable
     public String getStock() {
-        return stock;
+        return stock==null?"":stock;
     }
 
     public void setStock(String stock) {
@@ -236,7 +236,7 @@ public class CommodityDetail extends BaseObservable {
 
         @Bindable
         public String getCommodity_score() {
-            return commodity_score;
+            return commodity_score == null?"":commodity_score;
         }
 
         public void setCommodity_score(String commodity_score) {
@@ -246,7 +246,7 @@ public class CommodityDetail extends BaseObservable {
 
         @Bindable
         public String getService_score() {
-            return service_score;
+            return service_score == null?"":service_score;
         }
 
         public void setService_score(String service_score) {
@@ -256,7 +256,7 @@ public class CommodityDetail extends BaseObservable {
 
         @Bindable
         public String getLogistics_score() {
-            return logistics_score;
+            return logistics_score == null?"":logistics_score;
         }
 
         public void setLogistics_score(String logistics_score) {
