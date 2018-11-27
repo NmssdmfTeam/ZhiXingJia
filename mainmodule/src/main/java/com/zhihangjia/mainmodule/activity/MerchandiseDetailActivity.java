@@ -6,16 +6,21 @@ import android.support.v4.app.FragmentTransaction;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.callback.MerchandiseDetailCB;
+import com.zhihangjia.mainmodule.databinding.ActivityMerchandiseDetailBinding;
 import com.zhihangjia.mainmodule.fragment.MerchandiseDetailFragment;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.fragment.CommentDetailListFragment;
+import com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailVM;
 
 /**
  * 商品详情
  */
-public class MerchandiseDetailActivity extends BaseActivity {
+public class MerchandiseDetailActivity extends BaseActivity implements MerchandiseDetailCB {
 
     private final String TAG = MerchandiseDetailActivity.class.getSimpleName();
+    private MerchandiseDetailVM vm;
+    private ActivityMerchandiseDetailBinding binding;
 
     private MerchandiseDetailFragment merchandiseDetailFragment;
     private CommentDetailListFragment commentDetailListFragment;
@@ -32,13 +37,15 @@ public class MerchandiseDetailActivity extends BaseActivity {
 
     @Override
     public BaseVM initViewModel() {
-        return null;
+        vm = new MerchandiseDetailVM(this);
+        return vm;
     }
 
     @Override
     protected void initAll(Bundle savedInstanceState) {
         WindowUtil.setWindowStatusBarTransParent(this);
-
+        binding = (ActivityMerchandiseDetailBinding) baseBinding;
+        binding.setVm(vm);
         merchandiseDetailFragment = new MerchandiseDetailFragment();
         commentDetailListFragment = new CommentDetailListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(R.id.fl, merchandiseDetailFragment);
@@ -55,5 +62,10 @@ public class MerchandiseDetailActivity extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(R.id.fl, commentDetailListFragment);
         transaction.addToBackStack("commentDetailListFragment");
         transaction.commit();
+    }
+
+    @Override
+    public void addCart() {
+        merchandiseDetailFragment.onAddCartClick();
     }
 }

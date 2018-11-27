@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MerchandiseDetailFragment extends BaseFragment implements MerchandiseDetailFragmentCB {
+public class MerchandiseDetailFragment extends BaseFragment implements MerchandiseDetailFragmentCB, ChooseSpecificationWindow.ViewClickListener {
 
     private final String TAG = MerchandiseDetailFragment.class.getSimpleName();
     private MerchandiseDetailFragmentVM vm;
@@ -67,7 +67,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
         viewPagerAdapter = new MerchandiseDetailViewPagerAdapter(new ArrayList<String>(), binding.rpv);
         binding.rpv.setAdapter(viewPagerAdapter);
         vm.getCommondityDetail();
-        chooseSpecificationWindow = new ChooseSpecificationWindow(getActivity());
+        chooseSpecificationWindow = new ChooseSpecificationWindow(getActivity(), this);
     }
 
     @Override
@@ -153,5 +153,28 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
         } else {
             binding.llComment.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * 获取选择的规格
+     */
+    @Override
+    public String getProductSkuId() {
+        return chooseSpecificationWindow.getProductSkuId();
+    }
+
+    @Override
+    public int getGoodsSum() {
+        return chooseSpecificationWindow.goodsSum();
+    }
+
+    @Override
+    public void onAddCartClick() {
+        vm.addCartStore();
+    }
+
+    @Override
+    public void onBuyClick() {
+
     }
 }

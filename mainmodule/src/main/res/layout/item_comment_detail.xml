@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.Comment"/>
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,13 +18,15 @@
             android:id="@+id/ivAvater"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_marginTop="12dp"/>
+            android:layout_marginTop="12dp"
+            app:src="@{data.avatar}"
+            app:roundAsCircle="@{true}"/>
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="城内人"
+            android:text="@{data.nickname}"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="#FF333333"
@@ -31,7 +38,7 @@
             android:id="@+id/tvDate"
             android:layout_width="83dp"
             android:layout_height="wrap_content"
-            android:text="2018-11-12"
+            android:text="@{data.createtime}"
             android:textColor="#FF999999"
             android:textSize="12dp"
             android:layout_below="@+id/ivAvater"
@@ -41,7 +48,7 @@
             android:id="@+id/tvStandard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="规格：原木色+90cm"
+            android:text="@{@string/spec_info+data.spec_info}"
             android:textColor="#FF999999"
             android:textSize="12dp"
             android:layout_toRightOf="@+id/tvDate"
@@ -53,7 +60,6 @@
             android:id="@+id/tvComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="等了老久，特能装 大容量 好看哈哈哈哈等了老久，特能装 大容量 好看哈哈哈哈"
             android:textColor="#FF000000"
             android:textSize="15dp"
             android:layout_below="@id/tvStandard"

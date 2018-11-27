@@ -21,7 +21,6 @@ import com.zhixingjia.bean.mainmodule.UserInfo;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -173,4 +172,19 @@ public interface MainService {
     @FormUrlEncoded
     @POST ("/api/cart/del")
     Observable<BaseData> shopCarDelete(@Field("cart_id") String cart_id);
+
+    /**
+     * 商品详情 - 评论列表
+     * @return
+     */
+    @GET ("/api/house/commodity_comment")
+    Observable<BaseListData<Comment>> getCommodityComment(@Query("commodity_id") String commodity_id, @Query("pages") String pages);
+
+    /**
+     * 商品详情 - 评论列表
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/cart/store")
+    Observable<Base> getCartStore(@FieldMap Map<String,String> params);
 }
