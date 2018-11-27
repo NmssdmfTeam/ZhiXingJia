@@ -164,7 +164,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     }
 
     @Override
-    public int getGoodsSum() {
+    public String getGoodsSum() {
         return chooseSpecificationWindow.goodsSum();
     }
 

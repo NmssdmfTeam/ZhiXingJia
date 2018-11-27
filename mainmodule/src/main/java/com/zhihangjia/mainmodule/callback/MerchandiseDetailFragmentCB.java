@@ -17,5 +17,5 @@ public interface MerchandiseDetailFragmentCB extends BaseCB {
     void setCommodityComment(List<CommodityDetail.OrderComment> orderComments);
 
     String getProductSkuId();
-    int getGoodsSum();
+    String getGoodsSum();
 }

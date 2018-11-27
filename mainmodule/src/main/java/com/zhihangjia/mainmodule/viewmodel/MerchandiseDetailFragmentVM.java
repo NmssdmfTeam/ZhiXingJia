@@ -101,8 +101,8 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
             }
             map.put("product_sku_id", product_sku_id);
         }
-        int goodsSum = cb.getGoodsSum();
-        map.put("goods_sum", String.valueOf(goodsSum));
+        String goodsSum = cb.getGoodsSum();
+        map.put("goods_sum", goodsSum);
         map.put("commodity_id", commodityId);
         cb.showLoaddingDialog();
         HttpUtils.doHttp(subscription,
