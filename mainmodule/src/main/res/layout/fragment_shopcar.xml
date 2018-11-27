@@ -3,10 +3,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
             type="com.zhihangjia.mainmodule.viewmodel.ShopCarFragmentVM"/>
     </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,23 +24,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
                 android:text="购物车(2)"
                 android:textColor="#FF333333"
                 android:textSize="18dp"
-                android:layout_centerInParent="true"
-                android:gravity="center_vertical"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:gravity="center_vertical"
+                android:onClick="@{(v)->vm.editClick(v)}"
                 android:text="编辑"
                 android:textColor="#FFFF9A14"
                 android:textSize="16dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
-                android:gravity="center_vertical"
                 />
 
         </RelativeLayout>
@@ -48,67 +51,67 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:background="#FFFFF2E2"
-            android:layout_marginBottom="49dp">
+            android:layout_marginBottom="49dp"
+            android:background="#FFFFF2E2">
 
             <TextView
                 android:id="@+id/tvSettleAccounts"
                 android:layout_width="102dp"
                 android:layout_height="50dp"
-                android:background="#FFFF9A14"
-                android:text="结算"
-                android:textColor="#FFFFFFFF"
-                android:textSize="16dp"
                 android:layout_alignParentRight="true"
+                android:background="@{vm.edit ? @color/dark_orange:@color/main_color}"
                 android:gravity="center"
                 android:onClick="@{(v)->vm.tvSettleAccountsClick(v)}"
+                android:text="@{vm.edit ? @string/delete:@string/settle_accounts}"
+                android:textColor="@color/white"
+                android:textSize="16dp"
                 />
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@+id/tvSettleAccounts"
                 android:text="@{vm.totalPrice}"
                 android:textColor="#FFFF5C4A"
                 android:textSize="20dp"
-                android:layout_toLeftOf="@+id/tvSettleAccounts"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
                 />
 
             <TextView
                 android:id="@+id/tvPriceUnit"
                 android:layout_width="15.5dp"
                 android:layout_height="21dp"
+                android:layout_alignBaseline="@+id/tvPrice"
+                android:layout_toLeftOf="@+id/tvPrice"
                 android:text="￥"
                 android:textColor="#FFFF5C4A"
                 android:textSize="15dp"
-                android:layout_toLeftOf="@+id/tvPrice"
-                android:layout_alignBaseline="@+id/tvPrice"
                 />
 
             <TextView
                 android:layout_width="43.5dp"
                 android:layout_height="20dp"
+                android:layout_alignBaseline="@+id/tvPriceUnit"
+                android:layout_toLeftOf="@+id/tvPriceUnit"
                 android:text="合计："
                 android:textColor="#FF333333"
                 android:textSize="14dp"
-                android:layout_toLeftOf="@+id/tvPriceUnit"
-                android:layout_alignBaseline="@+id/tvPriceUnit"
                 />
 
-            <RadioButton
+            <TextView
                 android:id="@+id/rbSelectAll"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:drawableLeft="@{vm.select ? @drawable/icon_select : @drawable/icon_un_select}"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
                 android:text="全选"
                 android:textColor="#FF333333"
                 android:textSize="14dp"
-                android:button="@null"
-                android:drawableLeft="@drawable/icon_select"
-                android:drawablePadding="8dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="10dp"
                 />
 
         </RelativeLayout>
@@ -123,9 +126,9 @@
 
 
         <TextView
-            android:layout_above="@+id/rlBottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/rlBottom"
             android:visibility="gone"/>
 
 

@@ -1,8 +1,8 @@
 package com.zhihangjia.mainmodule.bean;
 
+import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.nmssdmf.commonlib.bean.Base;
 import com.zhihangjia.mainmodule.BR;
 
 /**
@@ -11,7 +11,7 @@ import com.zhihangjia.mainmodule.BR;
  * <p>
  * <p>
  */
-public class MaterialsCategoryBean extends Base {
+public class MaterialsCategoryBean extends BaseObservable{
     private int resIconId;              //资源图标id
     private String title;                  //名称
 

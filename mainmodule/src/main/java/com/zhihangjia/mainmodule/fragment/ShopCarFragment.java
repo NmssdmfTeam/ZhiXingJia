@@ -48,7 +48,9 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
             @Override
             public void changePrice() {
                 vm.countTotalPrice();
+                vm.changeSelect();
             }
+
         });
         binding.crv.setAdapter(adapter);
         binding.crv.setOnDataChangeListener(new OnDataChangeListener() {
@@ -60,6 +62,13 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
             @Override
             public void onLoadMore() {
 
+            }
+        });
+
+        binding.rbSelectAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vm.select.set(!vm.select.get());
             }
         });
     }

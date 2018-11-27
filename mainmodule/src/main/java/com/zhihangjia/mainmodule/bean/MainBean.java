@@ -1,8 +1,8 @@
 package com.zhihangjia.mainmodule.bean;
 
+import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.customerviewlib.entity.MultiItemEntity;
 import com.zhihangjia.mainmodule.BR;
 import com.zhixingjia.bean.mainmodule.Banner;
@@ -16,7 +16,7 @@ import java.util.List;
  * <p>
  * <p>
  */
-public class MainBean extends Base implements MultiItemEntity {
+public class MainBean extends BaseObservable implements MultiItemEntity {
     private List<IndexBean.SellerBean> sellerBeans;
     private List<IndexBean.CommodityBean> commodityBeans;
     private Banner.CommomBanner bannerMiddle;

@@ -21,6 +21,7 @@ import com.zhixingjia.bean.mainmodule.UserInfo;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -163,4 +164,13 @@ public interface MainService {
      */
     @GET ("/api/cart")
     Observable<BaseListData<ShopCar>> getShopCarData();
+
+    /**
+     * 删除购物车
+     * @param cart_id 必填，JSON格式,JOSN里面需要双引号，['1','3','2']，选择要删除的规格中的cart_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/cart/del")
+    Observable<BaseData> shopCarDelete(@Field("cart_id") String cart_id);
 }
