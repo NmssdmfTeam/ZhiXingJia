@@ -244,6 +244,7 @@
                 <include layout="@layout/include_recyclerview_cutoff_line" />
 
                 <RelativeLayout
+                    android:id="@+id/rlSepc"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="16dp"

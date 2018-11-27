@@ -8,6 +8,7 @@ import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.Comment;
 import com.zhixingjia.bean.mainmodule.Commodity;
+import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
@@ -156,7 +157,7 @@ public interface MainService {
      */
     @FormUrlEncoded
     @POST ("/api/cart/settle")
-    Observable<BaseData> getConformData(@FieldMap Map<String, String> map);
+    Observable<BaseData<CommodityComfirm>> getConformData(@FieldMap Map<String, String> map);
 
     /**
      * 购物车

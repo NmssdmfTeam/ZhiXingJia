@@ -145,6 +145,7 @@ public class AddMinusView extends LinearLayout {
 
     public void setCurrentNum(String currentNum) {
         this.currentNum = currentNum;
+        binding.tvNum.setText(currentNum);
     }
 
     public interface AddMinusViewListener{

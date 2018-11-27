@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailCB;
@@ -47,7 +49,11 @@ public class MerchandiseDetailActivity extends BaseActivity implements Merchandi
         binding = (ActivityMerchandiseDetailBinding) baseBinding;
         binding.setVm(vm);
         merchandiseDetailFragment = new MerchandiseDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.COMMODITY_ID, vm.commodityId);
+        merchandiseDetailFragment.setArguments(bundle);
         commentDetailListFragment = new CommentDetailListFragment();
+        commentDetailListFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(R.id.fl, merchandiseDetailFragment);
         transaction.commit();
     }
@@ -67,5 +73,10 @@ public class MerchandiseDetailActivity extends BaseActivity implements Merchandi
     @Override
     public void addCart() {
         merchandiseDetailFragment.onAddCartClick();
+    }
+
+    @Override
+    public void callPhone() {
+        CommonUtils.callPhone(this, merchandiseDetailFragment.getPhoneNum());
     }
 }

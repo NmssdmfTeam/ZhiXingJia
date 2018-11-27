@@ -3,6 +3,7 @@ package com.zhihangjia.mainmodule.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseTitleRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -26,6 +27,15 @@ public class CommentDetailListFragment extends BaseTitleRecyclerViewFragment {
     public BaseRecyclerViewFragmentVM initRecyclerViewFragmentVM() {
         vm = new CommentDetailListVM(this);
         return vm;
+    }
+
+    @Override
+    public void initAll(View view, Bundle savedInstanceState) {
+        super.initAll(view, savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            vm.commodityId = bundle.getString(IntentConfig.COMMODITY_ID);
+        }
     }
 
     @Override

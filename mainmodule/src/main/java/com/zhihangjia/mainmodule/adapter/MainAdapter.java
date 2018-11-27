@@ -1,7 +1,9 @@
 package com.zhihangjia.mainmodule.adapter;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingMultiItemQuickAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.adapter.message.MessageAdapter;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.databinding.ItemExcellentSellerBinding;
@@ -45,7 +49,7 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ViewDataBinding> helper, MainBean item, int position) {
+    protected void convert2(BaseBindingViewHolder<ViewDataBinding> helper, final MainBean item, int position) {
         if (item.getItemType() == 1) {//推荐商品
             ItemRecommendGoodsBinding itemRecommendGoodsBinding = (ItemRecommendGoodsBinding) helper.getBinding();
             int childeCount = itemRecommendGoodsBinding.llContent.getChildCount();
@@ -53,10 +57,21 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                 itemRecommendGoodsBinding.llContent.removeViewAt(1);
             }
             if (item.getCommodityBeans() != null) {
-                for (IndexBean.CommodityBean commodityBean : item.getCommodityBeans()) {
+                for (final IndexBean.CommodityBean commodityBean : item.getCommodityBeans()) {
                     ItemRecommendGoodsInfoBinding itemRecommendGoodsInfoBinding = DataBindingUtil
                             .inflate(LayoutInflater.from(mContext), R.layout.item_recommend_goods_info, null, false);
                     itemRecommendGoodsInfoBinding.setData(commodityBean);
+                    itemRecommendGoodsInfoBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
+                            intent.setClass(mContext, MerchandiseDetailActivity.class);
+                            bundle.putString(IntentConfig.COMMODITY_ID, commodityBean.getCommodity_id());
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                        }
+                    });
                     itemRecommendGoodsBinding.llContent.addView(itemRecommendGoodsInfoBinding.getRoot(), 1);
                 }
             }

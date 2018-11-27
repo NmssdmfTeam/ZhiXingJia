@@ -16,6 +16,10 @@ import com.zhihangjia.mainmodule.databinding.ActivityConfirmOrderBinding;
 import com.zhihangjia.mainmodule.databinding.HeaderConfirmOrderBinding;
 import com.zhihangjia.mainmodule.viewmodel.ConfirmOrderVM;
 import com.zhihangjia.mainmodule.window.ChooseCouponWindow;
+import com.zhixingjia.bean.mainmodule.CommodityComfirm;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 确认订单
@@ -51,7 +55,7 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
         binding.setVm(vm);
 
         vm.getIntentData();
-        adapter = new ConfirmOrderAdapter(vm.getList(), this);
+        adapter = new ConfirmOrderAdapter(new ArrayList<CommodityComfirm.InfoListBean>(), this);
         HeaderConfirmOrderBinding headerBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.header_confirm_order, null, false);
         adapter.addHeaderView(headerBinding.getRoot());
         binding.crv.setAdapter(adapter);
@@ -78,5 +82,13 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
         }
 
         chooseCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
+    }
+
+    @Override
+    public void setData(List<CommodityComfirm.InfoListBean> infoListBeans, boolean isRefresh) {
+        if (isRefresh) {
+            binding.crv.setRefreshing(false);
+        }
+        adapter.notifyDataChangedAfterLoadMore(isRefresh,infoListBeans);
     }
 }

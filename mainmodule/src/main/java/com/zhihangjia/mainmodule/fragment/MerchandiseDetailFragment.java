@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
@@ -62,6 +63,10 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentMerchandiseDetailBinding) baseBinding;
         binding.setVm(vm);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            vm.commodityId = bundle.getString(IntentConfig.COMMODITY_ID);
+        }
 
         //初始化商品图片轮播图
         viewPagerAdapter = new MerchandiseDetailViewPagerAdapter(new ArrayList<String>(), binding.rpv);
@@ -135,6 +140,11 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
         }
         binding.rvBrand.setVisibility(TextUtils.isEmpty(vm.commodityDetail.get().getBrand()) ? View.GONE : View.VISIBLE);
         binding.rvBn.setVisibility(TextUtils.isEmpty(vm.commodityDetail.get().getBn()) ? View.GONE : View.VISIBLE);
+        if (vm.commodityDetail.get().getSepc_val() == null || vm.commodityDetail.get().getSepc_val().size() == 0) {
+            binding.rlSepc.setVisibility(View.GONE);
+        } else {
+            binding.rlSepc.setVisibility(View.VISIBLE);
+        }
 
         //设置选择规格内容
         chooseSpecificationWindow.setData(vm.commodityDetail.get());
@@ -164,7 +174,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     }
 
     @Override
-    public int getGoodsSum() {
+    public String getGoodsSum() {
         return chooseSpecificationWindow.goodsSum();
     }
 
@@ -176,5 +186,9 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     @Override
     public void onBuyClick() {
 
+    }
+
+    public String getPhoneNum() {
+        return "15547452";
     }
 }

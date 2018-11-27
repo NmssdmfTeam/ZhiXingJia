@@ -17,13 +17,15 @@ public class IntentConfig {
 
     public static final String COMMENT_ID = "comment_id";       //
     public static final String POSITION = "POSITION";
+    public static final String COMMODITY_ID = "commodity_id";                       //id
 
     public static final String ADDRID = "address_id";
     public static final String ADDR = "address";
     public static final String TYPE = "TYPE";
     public static final String KEYWORD = "KEYWORD";
 
-    public static final String SKU_JSON = "SKU_JSON";
+    public static final String CART_INFO = "CART_INFO";
     public static final String PRODUCT_SKU_ID = "SKU_JSON";
+    public static final String GOODS_SUM = "goods_sum";
 
 }

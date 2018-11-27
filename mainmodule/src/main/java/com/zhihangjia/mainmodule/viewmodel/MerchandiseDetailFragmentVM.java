@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class MerchandiseDetailFragmentVM extends BaseVM {
     private MerchandiseDetailFragmentCB cb;
-    private String commodityId = "1";
+    public String commodityId = "1";
 
     public ObservableField<CommodityDetail> commodityDetail = new ObservableField<>();
 
@@ -65,7 +65,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
      */
     public void getCommondityDetail() {
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity("1"),
+                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity(commodityId),
                 new ServiceCallback<BaseData<CommodityDetail>>() {
                     @Override
                     public void onError(Throwable error) {
@@ -101,7 +101,12 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
             }
             map.put("product_sku_id", product_sku_id);
         }
-        int goodsSum = cb.getGoodsSum();
+        String goodsSum = cb.getGoodsSum();
+        if ("0".equals(goodsSum) || TextUtils.isEmpty(goodsSum)) {
+            baseCallBck.showToast("请填写购买数量");
+            cb.showChooseSpecificationWindow();
+            return;
+        }
         map.put("goods_sum", String.valueOf(goodsSum));
         map.put("commodity_id", commodityId);
         cb.showLoaddingDialog();

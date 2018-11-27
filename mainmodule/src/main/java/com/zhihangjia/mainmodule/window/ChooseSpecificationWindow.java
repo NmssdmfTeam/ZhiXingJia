@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
@@ -89,57 +90,75 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
             //动态添加规格
             itemStockTypeBindings.clear();
             binding.llStock.removeAllViews();
-            for (CommodityDetail.SepcValBean sepcValBean : commodityDetail.getSepc_val()) {
-                final ItemStockTypeBinding itemStockTypeBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_stock_type, null,false);
-                itemStockTypeBinding.tvColor.setText(sepcValBean.getSepc_name());
-                for (String tagname : sepcValBean.getChild()) {
-                    final ItemPostTagBinding itemPostTagBinding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.item_post_tag,null,false);
-                    itemPostTagBinding.tvTag.setText(tagname);
-                    itemPostTagBinding.tvTag.setMode(TagView.SINGLEMODE);
-                    itemPostTagBinding.tvTag.setTagId(sepcValBean.getSepc_name());
-                    itemPostTagBinding.tvTag.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            for (int p=0; p < itemStockTypeBinding.tlColor.getChildCount(); p++) {
-                                ItemPostTagBinding itembinding = DataBindingUtil.getBinding(itemStockTypeBinding.tlColor.getChildAt(p));
-                                itembinding.tvTag.setSelected(false);
-                            }
-                            itemPostTagBinding.tvTag.setSelected(true);
-                            stock.put(itemPostTagBinding.tvTag.getTagId(), itemPostTagBinding.tvTag.getText().toString());
-                            boolean isComplete = true;
-                            for (CommodityDetail.SepcValBean sepcValBean:commodityDetail.getSepc_val()) {//判断是否规格选择完了
-                                if (TextUtils.isEmpty(stock.get(sepcValBean.getSepc_name()))) {
-                                    isComplete = false;
-                                    break;
+            if (commodityDetail.getSepc_val() != null && commodityDetail.getSepc_val().size() > 0) {
+                for (CommodityDetail.SepcValBean sepcValBean : commodityDetail.getSepc_val()) {
+                    final ItemStockTypeBinding itemStockTypeBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_stock_type, null, false);
+                    itemStockTypeBinding.tvColor.setText(sepcValBean.getSepc_name());
+                    for (String tagname : sepcValBean.getChild()) {
+                        final ItemPostTagBinding itemPostTagBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_post_tag, null, false);
+                        itemPostTagBinding.tvTag.setText(tagname);
+                        itemPostTagBinding.tvTag.setMode(TagView.SINGLEMODE);
+                        itemPostTagBinding.tvTag.setTagId(sepcValBean.getSepc_name());
+                        itemPostTagBinding.tvTag.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                for (int p = 0; p < itemStockTypeBinding.tlColor.getChildCount(); p++) {
+                                    ItemPostTagBinding itembinding = DataBindingUtil.getBinding(itemStockTypeBinding.tlColor.getChildAt(p));
+                                    itembinding.tvTag.setSelected(false);
                                 }
-                            }
-                            if (isComplete) {//显示库存个数
-                                for (SkuBean skuBean : commodityDetail.getSku()) {
-                                    boolean isEqual = true;
-                                    for (SkuBean.SpecInfoBean specInfoBean:skuBean.getSpec_info()) {
-                                        if (!specInfoBean.getValue().equals(stock.get(specInfoBean.getKey()))) {
-                                            isEqual = false;
-                                            break;
-                                        }
+                                itemPostTagBinding.tvTag.setSelected(true);
+                                stock.put(itemPostTagBinding.tvTag.getTagId(), itemPostTagBinding.tvTag.getText().toString());
+                                boolean isComplete = true;
+                                for (CommodityDetail.SepcValBean sepcValBean : commodityDetail.getSepc_val()) {//判断是否规格选择完了
+                                    if (TextUtils.isEmpty(stock.get(sepcValBean.getSepc_name()))) {
+                                        isComplete = false;
+                                        break;
                                     }
-                                    if (isEqual) {
-                                        try {
-                                            binding.amv.setMaxNum(Integer.valueOf(skuBean.getStock()));
-                                        } catch (Exception e) {
+                                }
+                                if (isComplete) {//显示库存个数
+                                    for (SkuBean skuBean : commodityDetail.getSku()) {
+                                        boolean isEqual = true;
+                                        for (SkuBean.SpecInfoBean specInfoBean : skuBean.getSpec_info()) {
+                                            if (!specInfoBean.getValue().equals(stock.get(specInfoBean.getKey()))) {
+                                                isEqual = false;
+                                                break;
+                                            }
+                                        }
+                                        if (isEqual) {
+                                            try {
+                                                binding.amv.setMaxNum(Integer.valueOf(skuBean.getStock()));
+                                                binding.amv.setCurrentNum("0");
+                                                binding.amv.setVisibility(View.VISIBLE);
+                                            } catch (Exception e) {
 
+                                            }
+                                            binding.tvPrice.setText(skuBean.getPrice());
+                                            binding.tvStock.setText(context.getText(R.string.stock) + skuBean.getStock());
+                                            productSkuId = skuBean.getProduct_id();
                                         }
-                                        binding.tvPrice.setText(skuBean.getPrice());
-                                        binding.tvStock.setText(context.getText(R.string.stock)+skuBean.getStock());
-                                        productSkuId = skuBean.getProduct_id();
                                     }
                                 }
                             }
-                        }
-                    });
-                    itemStockTypeBinding.tlColor.addView(itemPostTagBinding.getRoot());
+                        });
+                        itemStockTypeBinding.tlColor.addView(itemPostTagBinding.getRoot());
+                    }
+                    itemStockTypeBindings.add(itemStockTypeBinding);
+                    binding.llStock.addView(itemStockTypeBinding.getRoot());
+                    setHeight(DensityUtil.dpToPx(context, 477.5f));
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)binding.sv.getLayoutParams();
+                    layoutParams.height = DensityUtil.dpToPx(context, 300.0f);
+                    binding.sv.setLayoutParams(layoutParams);
                 }
-                itemStockTypeBindings.add(itemStockTypeBinding);
-                binding.llStock.addView(itemStockTypeBinding.getRoot());
+            } else {
+                binding.tvStock.setText(commodityDetail.getStock());
+                binding.tvPrice.setText(commodityDetail.getPrice());
+                binding.amv.setMaxNum(Integer.valueOf(commodityDetail.getStock()));
+                binding.amv.setCurrentNum("0");
+                binding.amv.setVisibility(View.VISIBLE);
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)binding.sv.getLayoutParams();
+                layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                binding.sv.setLayoutParams(layoutParams);
+                setHeight(DensityUtil.dpToPx(context, 300.5f));
             }
         }
     }
@@ -149,7 +168,7 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
         return productSkuId;
     }
 
-    public int goodsSum() {
+    public String goodsSum() {
         return binding.amv.getCurrentNum();
     }
 }

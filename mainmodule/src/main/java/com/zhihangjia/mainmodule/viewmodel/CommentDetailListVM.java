@@ -22,7 +22,7 @@ import java.util.List;
  * <p>
  */
 public class CommentDetailListVM extends BaseRecyclerViewFragmentVM {
-    private String commodityId = "1";
+    public String commodityId = "1";
     private String page = "0";
 
     /**

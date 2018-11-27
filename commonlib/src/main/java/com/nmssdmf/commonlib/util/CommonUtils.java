@@ -1,7 +1,18 @@
 package com.nmssdmf.commonlib.util;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+
+import com.nmssdmf.commonlib.R;
 
 import java.util.List;
 
@@ -55,5 +66,40 @@ public class CommonUtils {
         }
 
         return false;
+    }
+
+    /**
+     * 拨打电话
+     *
+     * @param phone
+     * @return
+     * @description AlertDialog如果不引用support包，则是居中显示底部按钮
+     */
+    public static void callPhone(final Activity activity, final String phone) {
+
+        if (!PermissionCompat.getInstance().checkCallPhonePermission(activity)) {
+            ToastUtil.getInstance().showToast( "没有获取到拨打电话权限");
+            return;
+        }
+        if (isEmpty(phone)) {
+            ToastUtil.getInstance().showToast( "用户尚未填写联系方式");
+        } else {
+            new AlertDialog.Builder(activity).setMessage(phone).setPositiveButton("拨打", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    activity.startActivity(intent);
+                }
+            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).show();
+        }
     }
 }
