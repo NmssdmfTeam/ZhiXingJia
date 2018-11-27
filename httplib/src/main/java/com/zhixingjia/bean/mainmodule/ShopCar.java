@@ -18,7 +18,20 @@ public class ShopCar extends BaseObservable{
     private String company_name;//店铺名称
     private String cart_sort;//这个字段客户端不需要理会，是用于失效排序之用
     private List<ProductListBean> product_list;//商品数组
-    private String totalPrice;//不是接口返回
+    private String totalPrice = "0";//不是接口返回
+
+    private boolean select;//不是接口返回
+
+    @Bindable
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
+        notifyPropertyChanged(BR.select);
+    }
+
 
     @Bindable
     public String getTotalPrice() {
@@ -72,6 +85,18 @@ public class ShopCar extends BaseObservable{
         private String status;//商品状态 1=正常 0=失效
         private String cart_sort;//这个字段客户端不需要理会，是用于失效排序之用
         private List<SkuListBean> sku_list;//商品规格数组
+
+        private boolean select;//不是接口返回
+
+        @Bindable
+        public boolean isSelect() {
+            return select;
+        }
+
+        public void setSelect(boolean select) {
+            this.select = select;
+            notifyPropertyChanged(BR.select);
+        }
 
         @Bindable
         public String getCommodity_name() {

@@ -1,8 +1,8 @@
 package com.zhihangjia.mainmodule.bean;
 
+import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.nmssdmf.commonlib.bean.Base;
 import com.zhihangjia.mainmodule.BR;
 
 /**
@@ -11,7 +11,7 @@ import com.zhihangjia.mainmodule.BR;
 * @date 2018/11/14 9:58
 * @version v3.2.0
 */
-public class Headline extends Base {
+public class Headline extends BaseObservable {
     private int article_id;
 
     private String title;

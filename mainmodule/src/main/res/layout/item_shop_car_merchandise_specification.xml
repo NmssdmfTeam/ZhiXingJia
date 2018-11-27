@@ -17,14 +17,12 @@
             android:layout_marginLeft="46dp"
             android:layout_alignParentBottom="true"/>
 
-        <CheckBox
+        <ImageView
             android:id="@+id/rbSelect"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:button="@null"
-            android:drawableLeft="@{data.select ? @drawable/icon_select:@drawable/icon_un_select}"
+            android:src="@{data.select ? @drawable/icon_select:@drawable/icon_un_select}"
             android:paddingLeft="16dp"
-            android:checked="@={data.select}"
             />
 
         <TextView
