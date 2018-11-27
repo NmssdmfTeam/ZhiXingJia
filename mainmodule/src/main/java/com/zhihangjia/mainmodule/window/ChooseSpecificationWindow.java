@@ -33,14 +33,20 @@ import java.util.Map;
  * 商品详情 选择规格
  */
 public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpecificationWindowCB{
+    public interface ViewClickListener {
+        void onAddCartClick();
 
+        void onBuyClick();
+    }
     private ChooseSpecificationWindowVM vm;
     private WindowChooseSpecificationBinding binding;
     private Context context;
     private List<ItemStockTypeBinding> itemStockTypeBindings = new ArrayList<>();
     private Map<String,String> stock = new HashMap<>();
+    private String productSkuId;                //所选的规格ID
+    private ViewClickListener viewClickListener;
 
-    public ChooseSpecificationWindow(final Context context){
+    public ChooseSpecificationWindow(final Context context, ViewClickListener viewClickListener){
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_choose_specification, null, false);
         setContentView(binding.getRoot());
         this.context = context;
@@ -55,6 +61,7 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
                 WindowUtil.setBackgroundAlpha((Activity) context, 1);
             }
         });
+        this.viewClickListener = viewClickListener;
     }
 
     @Override
@@ -66,6 +73,11 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
     @Override
     public void closeWindow() {
         dismiss();
+    }
+
+    @Override
+    public void addCart() {
+        viewClickListener.onAddCartClick();
     }
 
     public void setData(final CommodityDetail commodityDetail) {
@@ -118,6 +130,7 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
                                         }
                                         binding.tvPrice.setText(skuBean.getPrice());
                                         binding.tvStock.setText(context.getText(R.string.stock)+skuBean.getStock());
+                                        productSkuId = skuBean.getProduct_id();
                                     }
                                 }
                             }
@@ -129,5 +142,14 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
                 binding.llStock.addView(itemStockTypeBinding.getRoot());
             }
         }
+    }
+
+
+    public String getProductSkuId() {
+        return productSkuId;
+    }
+
+    public int goodsSum() {
+        return binding.amv.getCurrentNum();
     }
 }

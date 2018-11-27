@@ -144,7 +144,8 @@
                 android:gravity="center"
                 android:text="加入购物车"
                 android:textColor="#FFFFFFFF"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:onClick="@{(v)->vm.onAddCartClick(v)}"/>
 
             <TextView
                 android:layout_width="0dp"

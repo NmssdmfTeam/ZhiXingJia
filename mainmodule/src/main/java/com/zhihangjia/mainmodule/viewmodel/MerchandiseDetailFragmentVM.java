@@ -1,10 +1,13 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
@@ -13,9 +16,12 @@ import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.service.MainService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MerchandiseDetailFragmentVM extends BaseVM {
     private MerchandiseDetailFragmentCB cb;
-    private String commodityId;
+    private String commodityId = "1";
 
     public ObservableField<CommodityDetail> commodityDetail = new ObservableField<>();
 
@@ -79,5 +85,43 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
 
                     }
                 });
+    }
+
+    /**
+     * 加入购物车
+     */
+    public void addCartStore() {
+        Map<String,String> map = new HashMap<>();
+        if (commodityDetail.get().getSepc_val() != null && commodityDetail.get().getSepc_val().size() > 0) {
+            String product_sku_id = cb.getProductSkuId();
+            if (TextUtils.isEmpty(product_sku_id)) {
+                cb.showToast("请选择规格");
+                cb.showChooseSpecificationWindow();
+                return;
+            }
+            map.put("product_sku_id", product_sku_id);
+        }
+        int goodsSum = cb.getGoodsSum();
+        map.put("goods_sum", String.valueOf(goodsSum));
+        map.put("commodity_id", commodityId);
+        cb.showLoaddingDialog();
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_CART_STORE).getCartStore(map),
+                new ServiceCallback<Base>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(Base base) {
+                cb.showToast("添加购物车成功");
+            }
+
+            @Override
+            public void onDefeated(Base base) {
+
+            }
+        });
     }
 }

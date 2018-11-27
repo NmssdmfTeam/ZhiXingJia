@@ -14,4 +14,8 @@ public class ChooseSpecificationWindowVM {
     public void ivCloseClick(View view) {
         cb.closeWindow();
     }
+
+    public void onAddCartClick(View view) {
+        cb.addCart();
+    }
 }

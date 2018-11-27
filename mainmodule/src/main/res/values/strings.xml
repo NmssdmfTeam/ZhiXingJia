@@ -25,6 +25,7 @@
     <string name="cost_freight">配送费&#160;￥</string>
     <string name="stock">库存&#160;</string>
     <string name="sold">销量&#160;</string>
+    <string name="spec_info">规格:&#160;</string>
     <string name="rating_commodity_score">商品描述&#160;</string>
     <string name="rating_service_score">卖家服务&#160;</string>
     <string name="rating_logistics_score">物流服务&#160;</string>

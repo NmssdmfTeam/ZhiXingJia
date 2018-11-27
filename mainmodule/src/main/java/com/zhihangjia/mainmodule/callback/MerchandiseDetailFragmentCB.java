@@ -15,4 +15,7 @@ public interface MerchandiseDetailFragmentCB extends BaseCB {
     void setCommodityImgs(List<String> imgs);
     void initView();
     void setCommodityComment(List<CommodityDetail.OrderComment> orderComments);
+
+    String getProductSkuId();
+    int getGoodsSum();
 }

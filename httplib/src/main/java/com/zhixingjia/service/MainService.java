@@ -6,6 +6,7 @@ import com.nmssdmf.commonlib.bean.BaseListData;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
+import com.zhixingjia.bean.mainmodule.Comment;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.bean.mainmodule.HotHistory;
@@ -148,4 +149,19 @@ public interface MainService {
      */
     @GET ("/api/house/commodity_view")
     Observable<BaseData<CommodityDetail>> getCommodity(@Query("commodity_id") String commodity_id);
+
+    /**
+     * 商品详情 - 评论列表
+     * @return
+     */
+    @GET ("/api/house/commodity_comment")
+    Observable<BaseListData<Comment>> getCommodityComment(@Query("commodity_id") String commodity_id, @Query("pages") String pages);
+
+    /**
+     * 商品详情 - 评论列表
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/cart/store")
+    Observable<Base> getCartStore(@FieldMap Map<String,String> params);
 }

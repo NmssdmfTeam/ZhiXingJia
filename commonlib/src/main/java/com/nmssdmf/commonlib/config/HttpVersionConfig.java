@@ -105,4 +105,14 @@ public class HttpVersionConfig {
      * 商品详情
      */
     public static final int API_HOUSE_COMMODITY_VIEW = 1;
+
+    /**
+     * 商品详情 - 评论列表
+     */
+    public static final int API_HOUSE_COMMODITY_COMMENT = 1;
+
+    /**
+     * 加入购物车（保存）
+     */
+    public static final int API_CART_STORE = 1;
 }
