@@ -131,4 +131,12 @@ public class HttpVersionConfig {
      * 宜兴头条，政务公告
      */
     public static final int API_NEWS = 1;
+    /**
+     * 订单列表
+     */
+    public static final int API_ORDER = 1;
+    /**
+     * 订单详情
+     */
+    public static final int API_ORDER_SHOW = 1;
 }

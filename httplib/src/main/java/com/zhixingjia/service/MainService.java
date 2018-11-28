@@ -16,6 +16,8 @@ import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
 import com.zhixingjia.bean.mainmodule.New;
+import com.zhixingjia.bean.mainmodule.Order;
+import com.zhixingjia.bean.mainmodule.OrderDetail;
 import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.TradeArea;
@@ -200,4 +202,19 @@ public interface MainService {
      */
     @GET ("/api/news")
     Observable<BaseListData<New>> getNews(@Query("types") String types, @Query("page") String page );
+
+    /**
+     * 订单列表
+     * @param map
+     * @return
+     */
+    @GET ("/api/order")
+    Observable<BaseListData<Order>> getOrderList(@QueryMap Map<String, String> map);
+
+    /**
+     * 订单详情
+     * @return
+     */
+    @GET ("/api/order/show")
+    Observable<BaseData<OrderDetail>> getOrderDetail(@Query("order_id") String order_id);
 }

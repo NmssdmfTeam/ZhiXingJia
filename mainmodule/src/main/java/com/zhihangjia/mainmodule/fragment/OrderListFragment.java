@@ -19,7 +19,9 @@ public class OrderListFragment extends BaseRecyclerViewFragment implements Order
     private OrderAdapter adapter;
     @Override
     public BaseRecyclerViewFragmentVM initRecyclerViewFragmentVM() {
-        vm = new OrderListFragmentVM(this);
+        if (vm == null) {
+            vm = new OrderListFragmentVM(this);
+        }
         return vm;
     }
 
@@ -32,5 +34,13 @@ public class OrderListFragment extends BaseRecyclerViewFragment implements Order
     @Override
     public String getTAG() {
         return TAG;
+    }
+
+    public void setInfo(String identity, int status){
+        if (vm == null) {
+            vm = new OrderListFragmentVM(this);
+        }
+        vm.setIdentity(identity);
+        vm.setStatus(status);
     }
 }

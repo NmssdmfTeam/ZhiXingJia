@@ -72,6 +72,12 @@ public class OrderListPurchaserActivity extends BaseActivity implements OrderLis
         binding.tl.getTabAt(3).setText("待收货");
         binding.tl.getTabAt(4).setText("待评论");
 
+        allFragment.setInfo("buyer", 0);
+//        waitPayFragment.setInfo("buyer", 1);
+        waitDeliverFragment.setInfo("buyer", 2);
+        waitReceiveFragment.setInfo("buyer", 3);
+        waitCommentFragment.setInfo("buyer", 4);
+
         vm.getData();
 
     }

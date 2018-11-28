@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.OrderDetailVM"/>
+    </data>
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -20,11 +25,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:background="#FFFF9A14"
-                android:text="买家已支付，请尽快发货！"
+                android:text="@{vm.detail.remaining_time}"
                 android:textColor="@color/white"
                 android:textSize="14dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="16dp"/>
+                android:paddingLeft="16dp"
+                />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -46,7 +52,7 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="12dp"
                     android:layout_toRightOf="@+id/ivAddress"
-                    android:text="张小褚"
+                    android:text="@{vm.detail.consignee}"
                     android:textColor="#FF333333"
                     android:textSize="16dp" />
 
@@ -56,7 +62,7 @@
                     android:layout_below="@+id/tvReceiverName"
                     android:layout_alignLeft="@+id/tvReceiverName"
                     android:layout_marginTop="8dp"
-                    android:text="宜城镇龙潭西路290号"
+                    android:text="@{vm.detail.consignee_address}"
                     android:textColor="#FF333333"
                     android:textSize="14dp" />
 
@@ -66,7 +72,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="12dp"
                     android:layout_marginRight="16dp"
-                    android:text="13212345123"
+                    android:text="@{vm.detail.consignee_phone}"
                     android:textColor="#FF333333"
                     android:textSize="16dp" />
             </RelativeLayout>
@@ -90,7 +96,7 @@
                     android:drawableRight="@drawable/icon_arrow_item_title_right"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="栾雅床上用品"
+                    android:text="@{vm.detail.nickname}"
                     android:textColor="#FF333333"
                     android:textSize="14dp" />
 
@@ -100,7 +106,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
-                    android:text="待付款"
+                    android:text="@{vm.detail.order_status_name}"
                     android:textColor="#FFFF9A14"
                     android:textSize="13dp" />
 
@@ -135,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/tvTotalPriceDes"
                     android:layout_alignParentRight="true"
-                    android:text="￥167.3"
+                    android:text="@{`￥`+vm.detail.goods_amount}"
                     android:textColor="#FF999999"
                     android:textSize="12dp" />
 
@@ -154,7 +160,7 @@
                     android:layout_height="16.5dp"
                     android:layout_alignBaseline="@+id/tvFreightDes"
                     android:layout_alignParentRight="true"
-                    android:text="￥10"
+                    android:text="@{`￥`+vm.detail.cost_freight}"
                     android:textColor="#FF999999"
                     android:textSize="12dp" />
 
@@ -173,7 +179,7 @@
                     android:layout_height="16.5dp"
                     android:layout_alignBaseline="@+id/tvCouponDes"
                     android:layout_alignParentRight="true"
-                    android:text="-￥10"
+                    android:text="@{`-￥`+vm.detail.discount_amount}"
                     android:textColor="#FF999999"
                     android:textSize="12dp" />
 
@@ -192,7 +198,7 @@
                     android:layout_height="16.5dp"
                     android:layout_alignBaseline="@+id/tvOrderTotalPriceDes"
                     android:layout_alignParentRight="true"
-                    android:text="￥167.3"
+                    android:text="@{`￥`+vm.detail.goods_amount}"
                     android:textColor="#FF999999"
                     android:textSize="12dp" />
             </RelativeLayout>
@@ -221,7 +227,7 @@
                     android:layout_alignBaseline="@+id/tvPay"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp"
-                    android:text="44.7"
+                    android:text="@{vm.detail.order_amount}"
                     android:textColor="#FFFF5C4A"
                     android:textSize="15dp" />
 
@@ -251,23 +257,34 @@
                 android:textSize="17dp" />
 
             <TextView
+                android:id="@+id/tvLog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:text="@{vm.log}"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                android:background="@color/white"/>
 
             <include layout="@layout/include_recyclerview_cutoff_line" />
 
-            <com.nmssdmf.commonlib.view.TagLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingTop="12dp"
-                android:paddingBottom="16dp">
-
-            </com.nmssdmf.commonlib.view.TagLayout>
-
+                android:paddingRight="16dp">
+                <com.nmssdmf.commonlib.view.TagLayout
+                    android:id="@+id/tl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="16dp"
+                    app:horizontal_space="12dp"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"

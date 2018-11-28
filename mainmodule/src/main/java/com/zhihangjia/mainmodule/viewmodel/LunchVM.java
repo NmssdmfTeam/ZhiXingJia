@@ -33,7 +33,7 @@ public class LunchVM extends BaseVM {
 
     public void doLogin(){
         Map<String, String> map = new HashMap<>();
-        map.put("login_account", "15700103112");
+        map.put("login_account", "15606813948");
         map.put("password", "123456");
         baseCallBck.showLoaddingDialog();
         HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_LOGIN).login(map), new ServiceCallback<BaseData<LoginResult>>() {

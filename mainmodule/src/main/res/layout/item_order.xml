@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.Order"/>
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +25,7 @@
                 android:drawableRight="@drawable/icon_arrow_item_title_right"
                 android:drawablePadding="4dp"
                 android:gravity="center_vertical"
-                android:text="栾雅床上用品"
+                android:text="@{data.nickname}"
                 android:textColor="#FF333333"
                 android:textSize="14dp"
                 />
@@ -30,7 +36,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
-                android:text="待付款"
+                android:text="@{data.order_status_name}"
                 android:textColor="#FFFF9A14"
                 android:textSize="13dp" />
 
@@ -58,7 +64,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="16dp"
-                android:text="44.7"
+                android:text="@{data.order_amount}"
                 android:textColor="#FF333333"
                 android:textSize="15dp" />
 
@@ -77,19 +83,20 @@
                 android:layout_height="18.5dp"
                 android:layout_alignBaseline="@+id/tvTotalPriceUnit"
                 android:layout_toLeftOf="@+id/tvTotalPriceUnit"
-                android:text="共23件商品，合计："
+                android:text="@{`共`+ data.good_sum+`件商品，合计：`}"
                 android:textColor="#FF333333"
                 android:textSize="13dp" />
 
             <com.nmssdmf.commonlib.view.TagLayout
                 android:id="@+id/tl"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="27dp"
                 android:layout_below="@+id/tvTotalPriceUnit"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="13dp"
                 android:layout_marginRight="16dp"
-                app:horizontal_space="12dp">
+                app:horizontal_space="12dp"
+                android:layout_alignParentRight="true">
 
             </com.nmssdmf.commonlib.view.TagLayout>
 
