@@ -14,11 +14,16 @@ import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.bean.ShopCarIntent;
 import com.zhihangjia.mainmodule.callback.ShopCarFragmentCB;
+import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.ShopCar;
+import com.zhixingjia.bean.personmodule.Address;
 import com.zhixingjia.service.MainService;
 
 import java.math.BigDecimal;
@@ -140,6 +145,10 @@ public class ShopCarFragmentVM extends BaseVM {
             delete();
         } else {
             String carIntentsString = getCrdIntents();
+            if (carIntentsString == null) {
+                baseCallBck.showToast("请选择购物车商品");
+                return;
+            }
             Bundle bundle = new Bundle();
             bundle.putString(IntentConfig.CART_INFO, carIntentsString);
             cb.doIntent(ConfirmOrderActivity.class, bundle);
@@ -148,7 +157,6 @@ public class ShopCarFragmentVM extends BaseVM {
 
     private String getCrdIntents(){
         List<ShopCarIntent> carIntents = new ArrayList<>();
-        List<String> ids = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < list.get(i).getProduct_list().size(); j++) {
                 List<ShopCar.ProductListBean.SkuListBean> skuListBeans = list.get(i).getProduct_list().get(j).getSku_list();
@@ -157,11 +165,15 @@ public class ShopCarFragmentVM extends BaseVM {
                         if (skuListBeans.get(k).isSelect()) {
                             ShopCarIntent shopCarIntent = new ShopCarIntent();
                             shopCarIntent.setSku_sum(skuListBeans.get(k).getSku_sum());
-                            shopCarIntent.setId(skuListBeans.get(k).getCart_id());
+                            shopCarIntent.setCart_id(skuListBeans.get(k).getCart_id());
+                            carIntents.add(shopCarIntent);
                         }
                     }
                 }
             }
+        }
+        if (carIntents.size() == 0) {
+            return null;
         }
         return new Gson().toJson(carIntents);
     }
@@ -202,6 +214,26 @@ public class ShopCarFragmentVM extends BaseVM {
             }
         }
         return new Gson().toJson(ids.toArray());
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER,this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER,this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER:
+                getData(true);
+                break;
+        }
     }
 
     public void editClick(View view) {
