@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+        <variable
+            name="vm"
+            type="com.zhixingjia.personmodule.viewmodule.SetVM"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -22,11 +25,9 @@
             android:paddingRight="16dp"
             android:text="关于我们"
             android:textColor="#FF333333"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
 
-        <include
-            layout="@layout/include_recyclerview_cutoff_line"/>
+        <include layout="@layout/include_recyclerview_cutoff_line" />
 
         <TextView
             android:layout_width="match_parent"
@@ -38,11 +39,9 @@
             android:paddingRight="16dp"
             android:text="登录密码修改"
             android:textColor="#FF333333"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
 
-        <include
-            layout="@layout/include_recyclerview_cutoff_line"/>
+        <include layout="@layout/include_recyclerview_cutoff_line" />
 
 
         <RelativeLayout
@@ -57,8 +56,7 @@
                 android:paddingLeft="16dp"
                 android:text="变更登录账号"
                 android:textColor="#FF333333"
-                android:textSize="16dp"
-                />
+                android:textSize="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,13 +68,11 @@
                 android:paddingRight="16dp"
                 android:text="134****2342"
                 android:textColor="#FFCCCCCC"
-                android:textSize="15dp"
-                />
+                android:textSize="15dp" />
         </RelativeLayout>
 
 
-        <include
-            layout="@layout/include_recyclerview_cutoff_line"/>
+        <include layout="@layout/include_recyclerview_cutoff_line" />
 
         <TextView
             android:layout_width="match_parent"
@@ -88,11 +84,9 @@
             android:paddingRight="16dp"
             android:text="意见反馈"
             android:textColor="#FF333333"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
 
-        <include
-            layout="@layout/include_recyclerview_cutoff_line"/>
+        <include layout="@layout/include_recyclerview_cutoff_line" />
 
         <TextView
             android:layout_width="match_parent"
@@ -104,11 +98,9 @@
             android:paddingRight="16dp"
             android:text="隐私政策"
             android:textColor="#FF333333"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
 
-        <include
-            layout="@layout/include_recyclerview_cutoff_line"/>
+        <include layout="@layout/include_recyclerview_cutoff_line" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -122,8 +114,7 @@
                 android:paddingLeft="16dp"
                 android:text="清理缓存"
                 android:textColor="#FF333333"
-                android:textSize="16dp"
-                />
+                android:textSize="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -135,12 +126,10 @@
                 android:paddingRight="16dp"
                 android:text="32M"
                 android:textColor="#FFCCCCCC"
-                android:textSize="15dp"
-                />
+                android:textSize="15dp" />
         </RelativeLayout>
 
-        <include
-            layout="@layout/include_recyclerview_cutoff_line"/>
+        <include layout="@layout/include_recyclerview_cutoff_line" />
 
         <TextView
             android:layout_width="match_parent"
@@ -152,8 +141,21 @@
             android:paddingRight="16dp"
             android:text="版本更新"
             android:textColor="#FF333333"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="退出账号"
+            android:background="@color/white"
+            android:textColor="#FFFF5C4A"
             android:textSize="16dp"
-            />
+            android:onClick="@{(v)->vm.onLogoutClick(v)}"/>
     </LinearLayout>
 </layout>
 

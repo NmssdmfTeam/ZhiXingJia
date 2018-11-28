@@ -6,4 +6,6 @@ public interface MerchandiseDetailCB extends BaseCB {
     void addCart();
 
     void callPhone();
+
+    void buyNow();
 }

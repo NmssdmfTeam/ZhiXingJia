@@ -213,6 +213,7 @@ public class CommodityDetail extends BaseObservable {
         private String service_score;               //卖家服务评分
         private String logistics_score;             //物流服务评分
         private String avatar;                      //头像
+        private String co_phone;                    //公司电话
 
         @Bindable
         public String getCompany_name() {
@@ -272,6 +273,14 @@ public class CommodityDetail extends BaseObservable {
         public void setAvatar(String avatar) {
             this.avatar = avatar;
             notifyPropertyChanged(BR.avatar);
+        }
+
+        public String getCo_phone() {
+            return co_phone;
+        }
+
+        public void setCo_phone(String co_phone) {
+            this.co_phone = co_phone;
         }
     }
 

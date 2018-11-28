@@ -29,4 +29,9 @@ public class IntentConfig {
     public static final String GOODS_SUM = "goods_sum";
     public static final String LINK = "LINK";
 
+    public static final String IS_SELECT = "is_select";
+
+    public static final String ORDERS = "orders";
+    public static final String PAY_IDS = "pay_ids";
+
 }

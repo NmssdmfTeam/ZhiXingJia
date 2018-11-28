@@ -68,7 +68,7 @@
                 android:textColor="#FFFFFFFF"
                 android:textSize="15dp"
                 android:gravity="center"
-                />
+                android:onClick="@{(v)->vm.onPayClick(v)}"/>
 
         </LinearLayout>
 

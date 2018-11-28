@@ -32,6 +32,8 @@
 
     <string name="delete">删除</string>
     <string name="settle_accounts">结算</string>
+    <string name="receiver">收件人：</string>
+    <string name="enable_coupon_num">张可用</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

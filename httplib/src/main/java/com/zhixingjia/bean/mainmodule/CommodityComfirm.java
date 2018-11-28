@@ -52,7 +52,7 @@ public class CommodityComfirm extends BaseObservable {
     public static class AddressInfoBean extends BaseObservable {
 
         private String addr_id;                 //收货地址ID
-        private String name;                    //名称
+        private String name = "";                    //名称
         private String mobile;                  //手机号码
         private String location;                //地址
 
@@ -106,6 +106,8 @@ public class CommodityComfirm extends BaseObservable {
         private String sum_total;                       //商品总件数
         private String product_amount;                  //商品总金额（包括运费）
         private List<ListInfoBean> list_info;           //商品数组
+        private String memo;                            //买家留言
+        private int freight_type;                       //配送方式：0 商家配送，1 上门自提
 
         @Bindable
         public String getProvider_id() {
@@ -175,6 +177,26 @@ public class CommodityComfirm extends BaseObservable {
         public void setList_info(List<ListInfoBean> list_info) {
             this.list_info = list_info;
             notifyPropertyChanged(BR.list_info);
+        }
+
+        @Bindable
+        public String getMemo() {
+            return memo;
+        }
+
+        public void setMemo(String memo) {
+            this.memo = memo;
+            notifyPropertyChanged(BR.memo);
+        }
+
+        @Bindable
+        public int getFreight_type() {
+            return freight_type;
+        }
+
+        public void setFreight_type(int freight_type) {
+            this.freight_type = freight_type;
+            notifyPropertyChanged(BR.freight_type);
         }
 
         public static class ListInfoBean extends BaseObservable {

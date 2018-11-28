@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.CommodityComfirm.AddressInfoBean"/>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.ConfirmOrderVM"/>
+    </data>
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-        android:layout_height="86.5dp"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="86.5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{(v)->vm.onSelectAddressClick(v)}">
             <TextView
                 android:id="@+id/tvReceiver"
                 android:layout_width="wrap_content"
                 android:layout_height="22.5dp"
-                android:text="收件人：张小褚"
+                android:text="@{@string/receiver + data.name}"
                 android:textColor="#FF333333"
                 android:textSize="16dp"
                 android:layout_marginLeft="16dp"
@@ -20,7 +31,7 @@
                 android:layout_height="20dp"
                 android:layout_below="@+id/tvReceiver"
                 android:layout_marginTop="8dp"
-                android:text="宜城镇龙潭西路290号"
+                android:text="@{data.location}"
                 android:textColor="#FF333333"
                 android:textSize="14dp"
                 android:layout_alignLeft="@+id/tvReceiver"/>
@@ -40,26 +51,28 @@
                 android:layout_height="22.5dp"
                 android:layout_marginRight="8dp"
                 android:layout_toLeftOf="@+id/ivAddressArrow"
-                android:text="13212345123"
+                android:text="@{data.mobile}"
                 android:textColor="#FF333333"
                 android:textSize="16dp"
                 android:layout_marginTop="12dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="#FFF6F6F6"
+                android:layout_below="@+id/tvAddress"
+                android:layout_marginTop="12dp"/>
+        </RelativeLayout>
 
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:background="#FFF6F6F6"
-            android:layout_below="@+id/tvAddress"
-            android:layout_marginTop="12dp"/>
 
         <ImageView
             android:id="@+id/ivAddAddress"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="74.5dp"
             android:layout_marginBottom="12dp"
             android:src="@drawable/icon_add_address"
+            android:background="@color/white"
             android:scaleType="center"
+            android:onClick="@{(v)->vm.onAddAddressClick(v)}"
             android:visibility="gone"/>
     </RelativeLayout>
 </layout>

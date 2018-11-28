@@ -6,6 +6,7 @@ import android.view.View;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailCB;
 
 /**
@@ -41,5 +42,9 @@ public class MerchandiseDetailVM extends BaseVM {
 
     public void onPhoneCallClick(View view) {
         callback.callPhone();
+    }
+
+    public void onPayClick(View view) {
+        callback.buyNow();
     }
 }

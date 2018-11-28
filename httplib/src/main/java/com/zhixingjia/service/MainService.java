@@ -195,6 +195,14 @@ public interface MainService {
     Observable<Base> getCartStore(@FieldMap Map<String,String> params);
 
     /**
+     * 提交订单
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/cart/submitorder")
+    Observable<BaseData<String>> submitOrder(@Field("addr_id") String addr_id, @Field("orders") String orders);
+
+    /**
      * 宜兴头条
      * @param types 必填，类型，0=宜兴头条 1=要闻动态 2=基层动态 3=基层动态
      * @param page 选填，分页的时候传输数组中是后一条数据的ID值，一页10条数据，默认为0

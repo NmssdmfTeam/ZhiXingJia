@@ -6,6 +6,7 @@ import android.view.View;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
+import com.zhihangjia.mainmodule.activity.CommentActivity;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
@@ -181,7 +182,12 @@ public class LunchActivity extends BaseTitleActivity {
                 doIntent(ReplyActivity.class,null);
             }
         });
-
+        binding.btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doIntent(CommentActivity.class,null);
+            }
+        });
     }
 
     @Override

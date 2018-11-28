@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.CommodityComfirm.InfoListBean.ListInfoBean"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="114dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="12dp">
+
+        <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/givIcon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:src="@{data.imgs}"/>
+
+        <LinearLayout
+            android:id="@+id/llMerchandiseNameAndPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/givIcon">
+            <TextView
+                android:id="@+id/tvMerchandiseName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:text="@{data.commodity_name}"
+                android:textColor="#FF333333"
+                android:textSize="14dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="6dp"
+                android:text="￥"
+                android:textColor="#FF333333"
+                android:textSize="12dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.sku_price}"
+                android:layout_marginTop="6dp"
+                android:textColor="#FF333333"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="96dp"
+            android:layout_height="16.5dp"
+            android:layout_alignLeft="@+id/llMerchandiseNameAndPrice"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:text="@{data.sku_product_text}"
+            android:textColor="#FF999999"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="16.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:text='@{"x"+data.sku_sum}'
+            android:textColor="#FF999999"
+            android:textSize="12dp" />
+    </RelativeLayout>
+</layout>

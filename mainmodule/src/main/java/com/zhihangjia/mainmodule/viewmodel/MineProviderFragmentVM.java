@@ -86,4 +86,8 @@ public class MineProviderFragmentVM extends BaseVM {
                     }
                 });
     }
+
+    public void onSettingClick(View view) {
+        callback.doIntentClassName(ActivityNameConfig.SET_ACTIVITY, null);
+    }
 }

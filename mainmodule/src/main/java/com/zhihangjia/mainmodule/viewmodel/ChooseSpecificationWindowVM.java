@@ -18,4 +18,8 @@ public class ChooseSpecificationWindowVM {
     public void onAddCartClick(View view) {
         cb.addCart();
     }
+
+    public void onBuyClick(View view) {
+        cb.buyNow();
+    }
 }

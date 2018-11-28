@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp" />
+
+            <TextView
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:text="描述相符"
+                android:textColor="#FF666666"
+                android:textSize="14dp" />
+
+            <RatingBar
+                android:id="@+id/rb"
+                style="@style/myRatingBarBig"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="0.1" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvCommentTx"
+                android:layout_width="42dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
+                android:text="非常好"
+                android:textColor="#FFCCCCCC"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:background="@null"
+            android:hint="商品满足你的期待吗？说说你的使用心得，分享给想买的他们吧"
+            android:gravity="top|left"
+            android:paddingBottom="13dp"
+            android:paddingTop="13dp"
+            android:textColorHint="#FFCCCCCC"
+            android:textSize="15dp" />
+
+        <com.nmssdmf.commonlib.view.ImageSelectView
+            android:id="@+id/isv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginBottom="16dp"/>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="#FFF6F6F6"/>
+    </LinearLayout>
+</layout>

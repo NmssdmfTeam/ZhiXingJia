@@ -79,4 +79,9 @@ public class MerchandiseDetailActivity extends BaseActivity implements Merchandi
     public void callPhone() {
         CommonUtils.callPhone(this, merchandiseDetailFragment.getPhoneNum());
     }
+
+    @Override
+    public void buyNow() {
+        merchandiseDetailFragment.onBuyClick();
+    }
 }

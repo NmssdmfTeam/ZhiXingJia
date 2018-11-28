@@ -6,7 +6,7 @@ package com.zhihangjia.mainmodule.bean;
 
 public class ShopCarIntent {
     private String sku_sum;
-    private String id;
+    private String cart_id;
 
     public String getSku_sum() {
         return sku_sum;
@@ -16,11 +16,11 @@ public class ShopCarIntent {
         this.sku_sum = sku_sum;
     }
 
-    public String getId() {
-        return id;
+    public String getCart_id() {
+        return cart_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCart_id(String cart_id) {
+        this.cart_id = cart_id;
     }
 }

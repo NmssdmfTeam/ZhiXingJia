@@ -19,6 +19,7 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.personmodule.Address;
 import com.zhixingjia.bean.personmodule.AddressInsertResult;
 import com.zhixingjia.personmodule.callback.AddOrEditAddressCB;
@@ -104,7 +105,15 @@ public class AddOrEditAddressVM extends BaseVM {
                     public void onSuccess(BaseData<AddressInsertResult> addressInsertResultBaseData) {
                         callback.dismissLoaddingDialog();
                         if (StringConfig.OK.equals(addressInsertResultBaseData.getStatus_code())) {
-                            RxBus.getInstance().send(RxEvent.PersonInfoEvent.ADDRESS_INSERT, null);
+                            Address addressInfo = new Address();
+                            addressInfo.setAddr_id(addressInsertResultBaseData.getData().getAddr_id());
+                            addressInfo.setAddr(address.get());
+                            addressInfo.setArea(area.get());
+                            addressInfo.setMobile(phonenum.get());
+                            addressInfo.setNames(username.get());
+                            EventInfo eventInfo = new EventInfo();
+                            eventInfo.setContent(addressInfo);
+                            RxBus.getInstance().send(RxEvent.PersonInfoEvent.ADDRESS_INSERT, eventInfo);
                             callback.finishActivity();
                         }
                     }

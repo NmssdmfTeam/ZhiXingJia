@@ -33,8 +33,6 @@ public class MapUtils {
         return instance;
     }
 
-
-
     /**
      * 获取定位
      * 用完注意
@@ -65,4 +63,7 @@ public class MapUtils {
         mLocationClient.startLocation();
     }
 
+    public void unRegisterListener(AMapLocationListener listener) {
+        mLocationClient.unRegisterLocationListener(listener);
+    }
 }
