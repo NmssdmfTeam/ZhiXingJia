@@ -66,6 +66,9 @@ public class AddMinusView extends LinearLayout {
         binding.ivAdd.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Integer.valueOf(binding.tvNum.getText().toString()) == maxNum) {
+                    return;
+                }
                 binding.tvNum.setText(new BigDecimal(binding.tvNum.getText().toString()).add(new BigDecimal(1)).toString());
             }
         });
@@ -73,6 +76,9 @@ public class AddMinusView extends LinearLayout {
         binding.ivMinus.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Integer.valueOf(binding.tvNum.getText().toString()) == 0) {
+                    return;
+                }
                 binding.tvNum.setText(new BigDecimal(binding.tvNum.getText().toString()).subtract(new BigDecimal(1)).toString());
             }
         });
