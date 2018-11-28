@@ -71,6 +71,10 @@ public class RxEvent {
         public static final int VALUE = 400;
 
         public static final int SELECT_ADDRESS = VALUE + 1;
+
+        public static final int SHOP_CAR_CONFIRM_ORDER = VALUE + 2;
+
+        public static final int CONFIRM_ORDER = VALUE + 3;
     }
 
     public int getType() {

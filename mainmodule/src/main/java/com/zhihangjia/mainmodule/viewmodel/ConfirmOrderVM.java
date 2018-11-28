@@ -157,6 +157,11 @@ public class ConfirmOrderVM extends BaseVM {
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.PAY_IDS, base.getData());
                 cb.doIntent(ConfirmPayActivity.class, bundle);
+                if (!TextUtils.isEmpty(cart_info)) {
+                    RxBus.getInstance().send(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER, null);
+                } else {
+                    RxBus.getInstance().send(RxEvent.OrderEvent.CONFIRM_ORDER, null);
+                }
             }
 
             @Override
