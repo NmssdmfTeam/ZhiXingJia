@@ -15,6 +15,7 @@ import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
+import com.zhixingjia.bean.mainmodule.New;
 import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.TradeArea;
@@ -190,4 +191,13 @@ public interface MainService {
     @FormUrlEncoded
     @POST ("/api/cart/store")
     Observable<Base> getCartStore(@FieldMap Map<String,String> params);
+
+    /**
+     * 宜兴头条
+     * @param types 必填，类型，0=宜兴头条 1=要闻动态 2=基层动态 3=基层动态
+     * @param page 选填，分页的时候传输数组中是后一条数据的ID值，一页10条数据，默认为0
+     * @return
+     */
+    @GET ("/api/news")
+    Observable<BaseListData<New>> getNews(@Query("types") String types, @Query("page") String page );
 }

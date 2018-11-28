@@ -127,4 +127,8 @@ public class HttpVersionConfig {
      * 删除购物车
      */
     public static final int API_CART_DEL = 1;
+    /**
+     * 宜兴头条，政务公告
+     */
+    public static final int API_NEWS = 1;
 }

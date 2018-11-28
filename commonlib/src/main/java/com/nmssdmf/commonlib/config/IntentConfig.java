@@ -27,5 +27,6 @@ public class IntentConfig {
     public static final String CART_INFO = "CART_INFO";
     public static final String PRODUCT_SKU_ID = "PRODUCT_SKU_ID";
     public static final String GOODS_SUM = "goods_sum";
+    public static final String LINK = "LINK";
 
 }
