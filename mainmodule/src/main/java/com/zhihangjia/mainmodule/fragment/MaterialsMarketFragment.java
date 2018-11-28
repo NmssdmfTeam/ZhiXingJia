@@ -95,6 +95,12 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         MapUtils.getInstance().getLocation(getActivity(),mLocationListener);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MapUtils.getInstance().unRegisterListener(mLocationListener);
+    }
+
     private void setListener() {
         binding.crv.setOnDataChangeListener(new OnDataChangeListener() {
             @Override

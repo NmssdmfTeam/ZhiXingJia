@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.CommodityComfirm.InfoListBean" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvShopDetail"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:drawableLeft="@drawable/icon_shop"
-            android:drawableRight="@drawable/icon_arrow_item_right"
             android:drawablePadding="4dp"
+            android:drawableRight="@drawable/icon_arrow_item_right"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -21,116 +29,71 @@
 
         <include layout="@layout/include_recyclerview_cutoff_line" />
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/llInfoList"
             android:layout_width="match_parent"
-            android:layout_height="114dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <com.nmssdmf.commonlib.view.GlideImageView
-                android:id="@+id/givIcon"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                />
 
-            <TextView
-                android:id="@+id/tvMerchandiseName"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="程辉世纪装饰工装家装设计施工工装家装设计施工"
-                android:textColor="#FF333333"
-                android:textSize="14dp"
-                android:layout_toRightOf="@+id/givIcon"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="10dp"
-                />
-
-            <TextView
-                android:layout_width="96dp"
-                android:layout_height="16.5dp"
-                android:text="规格：红色+90cm"
-                android:textColor="#FF999999"
-                android:textSize="12dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
-                android:layout_alignLeft="@+id/tvMerchandiseName"
-                />
-
-            <TextView
-                android:layout_width="20dp"
-                android:layout_height="16.5dp"
-                android:text="x23"
-                android:textColor="#FF999999"
-                android:textSize="12sp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="8dp"
-                />
-        </RelativeLayout>
+        </LinearLayout>
 
         <include
+            layout="@layout/include_recyclerview_cutoff_line"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            layout="@layout/include_recyclerview_cutoff_line"/>
+            android:layout_marginRight="16dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            >
+            android:paddingRight="16dp">
 
             <TextView
                 android:layout_width="54dp"
                 android:layout_height="18.5dp"
+                android:layout_centerVertical="true"
                 android:text="配送方式"
                 android:textColor="#FF333333"
-                android:textSize="13dp"
-                android:layout_centerVertical="true"
-                />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/tvDeliveryMethod"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="6dp"
+                android:drawableRight="@drawable/icon_arrow_item_right"
+                android:gravity="center_vertical"
                 android:text="商家配送 ￥10"
                 android:textColor="#FF333333"
-                android:textSize="13dp"
-                android:layout_centerVertical="true"
-                android:drawableRight="@drawable/icon_arrow_item_right"
-                android:layout_alignParentRight="true"
-                android:drawablePadding="6dp"
-                android:gravity="center_vertical"
-                />
+                android:textSize="13dp" />
 
         </RelativeLayout>
 
         <include
+            layout="@layout/include_recyclerview_cutoff_line"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            layout="@layout/include_recyclerview_cutoff_line"/>
+            android:layout_marginRight="16dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            >
+            android:paddingRight="16dp">
 
             <TextView
                 android:layout_width="67.5dp"
                 android:layout_height="18.5dp"
+                android:layout_centerVertical="true"
                 android:text="商家优惠券"
                 android:textColor="#FF333333"
-                android:textSize="13dp"
-                android:layout_centerVertical="true"
-                />
+                android:textSize="13dp" />
 
             <ImageView
                 android:id="@+id/ivCouponArrow"
@@ -144,24 +107,23 @@
                 android:id="@+id/tvCouponCount"
                 android:layout_width="wrap_content"
                 android:layout_height="18.5dp"
-                android:text="5张可用"
-                android:textColor="#FFFF9A14"
-                android:textSize="13dp"
-                android:background="@drawable/shape_shop_discount_coupon"
-                android:layout_toLeftOf="@+id/ivCouponArrow"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="6dp"
+                android:layout_toLeftOf="@+id/ivCouponArrow"
+                android:background="@drawable/shape_shop_discount_coupon"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                />
+                android:text="@{data.shop_coupon+@string/enable_coupon_num}"
+                android:textColor="#FFFF9A14"
+                android:textSize="13dp" />
         </RelativeLayout>
 
         <include
+            layout="@layout/include_recyclerview_cutoff_line"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            layout="@layout/include_recyclerview_cutoff_line"/>
+            android:layout_marginRight="16dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -173,76 +135,71 @@
                 android:id="@+id/tvLeaveMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="18.5dp"
+                android:layout_marginTop="12.5dp"
                 android:text="买家留言"
                 android:textColor="#FF333333"
-                android:textSize="13dp"
-                android:layout_marginTop="12.5dp"
-                />
+                android:textSize="13dp" />
 
-            <TextView
+            <EditText
+                android:id="@+id/etMemo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="你有什么话要跟商家说的嘛？"
-                android:textColorHint="#FFCCCCCC"
-                android:minHeight="18.dp"
-                android:textSize="13dp"
-                android:layout_toRightOf="@+id/tvLeaveMessage"
+                android:layout_height="44dp"
                 android:layout_marginLeft="23.5dp"
-                android:layout_marginTop="12.5dp"
-                android:layout_marginBottom="13dp"
-                />
+                android:layout_toRightOf="@+id/tvLeaveMessage"
+                android:hint="你有什么话要跟商家说的嘛？"
+                android:text="@={data.memo}"
+                android:background="@null"
+                android:minHeight="18.dp"
+                android:textColorHint="#FFCCCCCC"
+                android:textSize="13dp" />
         </RelativeLayout>
 
         <include
+            layout="@layout/include_recyclerview_cutoff_line"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            layout="@layout/include_recyclerview_cutoff_line"/>
+            android:layout_marginRight="16dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:paddingRight="16dp"
-            >
+            android:paddingRight="16dp">
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="21dp"
-                android:text="44.7"
-                android:textColor="#FFFF5C4A"
-                android:textSize="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="12dp"
-                />
+                android:text="@{data.product_amount}"
+                android:textColor="#FFFF5C4A"
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="12.5dp"
                 android:layout_height="16.5dp"
-                android:text="￥"
-                android:textColor="#FFFF5C4A"
-                android:textSize="12dp"
                 android:layout_alignBaseline="@+id/tvPrice"
                 android:layout_toLeftOf="@+id/tvPrice"
-                />
+                android:text="￥"
+                android:textColor="#FFFF5C4A"
+                android:textSize="12dp" />
 
             <TextView
+                android:id="@+id/tvAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="18.5dp"
-                android:text="共23件"
-                android:textColor="#FF333333"
-                android:textSize="13dp"
-                android:layout_toLeftOf="@+id/tvPrice"
                 android:layout_marginRight="24.5dp"
                 android:layout_marginTop="13.5dp"
-                />
+                android:layout_toLeftOf="@+id/tvPrice"
+                android:text="共23件"
+                android:textColor="#FF333333"
+                android:textSize="13dp" />
         </RelativeLayout>
 
         <View
             android:layout_width="375dp"
             android:layout_height="12dp"
-            android:background="#FFF6F6F6"
-            />
+            android:background="#FFF6F6F6" />
     </LinearLayout>
 </layout>

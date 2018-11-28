@@ -190,4 +190,12 @@ public interface MainService {
     @FormUrlEncoded
     @POST ("/api/cart/store")
     Observable<Base> getCartStore(@FieldMap Map<String,String> params);
+
+    /**
+     * 提交订单
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/cart/submitorder")
+    Observable<BaseData<String>> submitOrder(@Field("addr_id") String addr_id, @Field("orders") String orders);
 }

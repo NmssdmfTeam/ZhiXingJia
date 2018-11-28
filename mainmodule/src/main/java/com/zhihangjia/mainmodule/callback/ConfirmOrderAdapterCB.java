@@ -5,6 +5,6 @@ package com.zhihangjia.mainmodule.callback;
  */
 
 public interface ConfirmOrderAdapterCB {
-    void chooseDeliveryMethod();
+    void chooseDeliveryMethod(int position);
     void chooseCoupon();
 }

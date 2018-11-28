@@ -78,6 +78,11 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
         viewClickListener.onAddCartClick();
     }
 
+    @Override
+    public void buyNow() {
+        viewClickListener.onBuyClick();
+    }
+
     public void setData(final CommodityDetail commodityDetail) {
         if (commodityDetail != null){
             binding.setData(commodityDetail);

@@ -1,7 +1,10 @@
 package com.zhixingjia.personmodule.viewmodule;
 
+import android.os.Bundle;
+
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
@@ -22,6 +25,7 @@ import com.zhixingjia.service.PersonService;
 public class ManageAddressListVM extends BaseVM {
     private int page = 0;
     private ManageAddressCB callback;
+    public boolean isSelect;
 
     /**
      * 不需要callback可以传null
@@ -31,6 +35,14 @@ public class ManageAddressListVM extends BaseVM {
     public ManageAddressListVM(ManageAddressCB callBack) {
         super(callBack);
         this.callback = callBack;
+        initData();
+    }
+
+    private void initData() {
+        Bundle bundle = callback.getIntentData();
+        if (bundle != null) {
+            isSelect = bundle.getBoolean(IntentConfig.IS_SELECT,false);
+        }
     }
 
     public void getAddressList(final boolean isRefresh) {

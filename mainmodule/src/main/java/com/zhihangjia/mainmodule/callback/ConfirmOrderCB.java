@@ -8,5 +8,6 @@ import java.util.List;
 public interface ConfirmOrderCB extends BaseCB {
 
     void setData(List<CommodityComfirm.InfoListBean> infoListBeans, boolean isRefresh);
-
+    void setAddressData(CommodityComfirm.AddressInfoBean addressData);
+    List<CommodityComfirm.InfoListBean> getPayData();
 }

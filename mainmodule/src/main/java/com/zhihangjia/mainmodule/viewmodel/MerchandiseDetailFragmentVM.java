@@ -1,18 +1,24 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
+import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
+import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.service.MainService;
 
@@ -41,7 +47,9 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
     }
 
     public void ivAddShoppingCarClick(View view){
-
+        Bundle bundle = new Bundle();
+        bundle.putInt(IntentConfig.POSITION, 3);
+        cb.doIntent(MainActivity.class, bundle);
     }
 
     public void ivBackClick(View view){
@@ -60,12 +68,16 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
         cb.showChooseSpecificationWindow();
     }
 
+    public void onMerchantsClick(View view) {
+        cb.doIntent(MerchantMainActivity.class, null);
+    }
+
     /**
      * 获取商品详情
      */
     public void getCommondityDetail() {
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity("1"),
+                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity(commodityId),
                 new ServiceCallback<BaseData<CommodityDetail>>() {
                     @Override
                     public void onError(Throwable error) {
@@ -92,22 +104,11 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
      */
     public void addCartStore() {
         Map<String,String> map = new HashMap<>();
-        if (commodityDetail.get().getSepc_val() != null && commodityDetail.get().getSepc_val().size() > 0) {
-            String product_sku_id = cb.getProductSkuId();
-            if (TextUtils.isEmpty(product_sku_id)) {
-                cb.showToast("请选择规格");
-                cb.showChooseSpecificationWindow();
-                return;
-            }
-            map.put("product_sku_id", product_sku_id);
-        }
-        String goodsSum = cb.getGoodsSum();
-        if ("0".equals(goodsSum) || TextUtils.isEmpty(goodsSum)) {
-            baseCallBck.showToast("请填写购买数量");
-            cb.showChooseSpecificationWindow();
+        Map<String,String> inputData = isDataValidate();
+        if (inputData == null) {
             return;
         }
-        map.put("goods_sum", String.valueOf(goodsSum));
+        map.putAll(inputData);
         map.put("commodity_id", commodityId);
         cb.showLoaddingDialog();
         HttpUtils.doHttp(subscription,
@@ -128,5 +129,38 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
 
             }
         });
+    }
+
+    private Map<String,String> isDataValidate() {
+        Map<String,String> map = new HashMap<>();
+        if (commodityDetail.get().getSepc_val() != null && commodityDetail.get().getSepc_val().size() > 0) {
+            String product_sku_id = cb.getProductSkuId();
+            if (TextUtils.isEmpty(product_sku_id)) {
+                cb.showToast("请选择规格");
+                cb.showChooseSpecificationWindow();
+                return null;
+            }
+            map.put("product_sku_id", product_sku_id);
+        }
+        String goodsSum = cb.getGoodsSum();
+        if ("0".equals(goodsSum) || TextUtils.isEmpty(goodsSum)) {
+            baseCallBck.showToast("请填写购买数量");
+            cb.showChooseSpecificationWindow();
+            return null;
+        }
+        map.put("goods_sum", String.valueOf(goodsSum));
+        return map;
+    }
+
+    public void buyNow() {
+        Map<String,String> inputData = isDataValidate();
+        if (inputData == null) {
+            return;
+        }
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.COMMODITY_ID, commodityId);
+        bundle.putString(IntentConfig.PRODUCT_SKU_ID, inputData.get("product_sku_id"));
+        bundle.putString(IntentConfig.GOODS_SUM, inputData.get("goods_sum"));
+        baseCallBck.doIntent(ConfirmOrderActivity.class, bundle);
     }
 }

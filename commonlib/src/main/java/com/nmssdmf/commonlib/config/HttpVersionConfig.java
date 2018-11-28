@@ -127,4 +127,9 @@ public class HttpVersionConfig {
      * 删除购物车
      */
     public static final int API_CART_DEL = 1;
+
+    /**
+     * 提交订单
+     */
+    public static final int API_CART_SUBMITORDER = 1;
 }

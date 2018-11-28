@@ -1,11 +1,15 @@
 package com.zhixingjia.personmodule.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhixingjia.bean.personmodule.Address;
@@ -24,9 +28,11 @@ import java.util.List;
 public class ManageAddressListAdapter extends BaseDataBindingAdapter<Address,ItemAddressListBinding> {
 
     private int defaultPosition = -1;
+    private boolean isSelect;           //是否用于选择地址
 
-    public ManageAddressListAdapter(@Nullable List<Address> data) {
+    public ManageAddressListAdapter(@Nullable List<Address> data, boolean isSelect) {
         super(R.layout.item_address_list, data);
+        this.isSelect = isSelect;
     }
 
     @Override
@@ -42,14 +48,23 @@ public class ManageAddressListAdapter extends BaseDataBindingAdapter<Address,Ite
         itemAddressListBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.ADDRID, item.getAddr_id());
-                bundle.putInt(IntentConfig.POSITION, position);
-                bundle.putSerializable(IntentConfig.ADDR, item);
-                intent.putExtras(bundle);
-                intent.setClass(mContext, AddOrEditAddressActivity.class);
-                mContext.startActivity(intent);
+                if (!isSelect) {
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.ADDRID, item.getAddr_id());
+                    bundle.putInt(IntentConfig.POSITION, position);
+                    bundle.putSerializable(IntentConfig.ADDR, item);
+                    intent.putExtras(bundle);
+                    intent.setClass(mContext, AddOrEditAddressActivity.class);
+                    mContext.startActivity(intent);
+                } else {
+                    if (mContext instanceof Activity) {
+                        ((Activity) mContext).finish();
+                    }
+                    EventInfo eventInfo = new EventInfo();
+                    eventInfo.setContent(item);
+                    RxBus.getInstance().send(RxEvent.OrderEvent.SELECT_ADDRESS, eventInfo);
+                }
             }
         });
     }

@@ -36,7 +36,7 @@ public class ManageAddressListActivity extends BaseTitleActivity implements Mana
     @Override
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityManageAddresslistBinding) baseViewBinding;
-        adapter = new ManageAddressListAdapter(new ArrayList<Address>());
+        adapter = new ManageAddressListAdapter(new ArrayList<Address>(), vm.isSelect);
         binding.crv.setAdapter(adapter);
         setListener();
         vm.getAddressList(true);

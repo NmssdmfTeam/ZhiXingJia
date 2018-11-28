@@ -4,8 +4,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.commonlib.window.WheelPickerWindow;
 import com.zhihangjia.mainmodule.R;
@@ -18,13 +20,14 @@ import com.zhihangjia.mainmodule.viewmodel.ConfirmOrderVM;
 import com.zhihangjia.mainmodule.window.ChooseCouponWindow;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 确认订单
  */
-public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOrderCB, ConfirmOrderAdapterCB {
+public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOrderCB, ConfirmOrderAdapterCB, WheelPickerWindowCB {
     private final String TAG = ConfirmOrderActivity.class.getSimpleName();
     private ActivityConfirmOrderBinding binding;
     private ConfirmOrderVM vm;
@@ -32,6 +35,9 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     private ConfirmOrderAdapter adapter;
     private WheelPickerWindow deliveryMethodWindow;
     private ChooseCouponWindow chooseCouponWindow;
+
+    private HeaderConfirmOrderBinding headerBinding;
+    private int position;
 
     @Override
     public String getTAG() {
@@ -55,8 +61,11 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
         binding.setVm(vm);
 
         vm.getIntentData();
-        adapter = new ConfirmOrderAdapter(new ArrayList<CommodityComfirm.InfoListBean>(), this);
-        HeaderConfirmOrderBinding headerBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.header_confirm_order, null, false);
+        adapter = new ConfirmOrderAdapter(new ArrayList<>(), this);
+        headerBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.header_confirm_order, null, false);
+        headerBinding.setData(new CommodityComfirm.AddressInfoBean());
+        headerBinding.setVm(vm);
+        headerBinding.setData(new CommodityComfirm.AddressInfoBean());
         adapter.addHeaderView(headerBinding.getRoot());
         binding.crv.setAdapter(adapter);
     }
@@ -67,11 +76,11 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     }
 
     @Override
-    public void chooseDeliveryMethod() {
+    public void chooseDeliveryMethod(int position) {
         if (deliveryMethodWindow == null) {
-            deliveryMethodWindow = new WheelPickerWindow(this, vm.getDeliveryMethodList(), vm);
+            deliveryMethodWindow = new WheelPickerWindow(this, vm.getDeliveryMethodList(), this);
         }
-
+        vm.position = position;
         deliveryMethodWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 
@@ -90,5 +99,39 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
             binding.crv.setRefreshing(false);
         }
         adapter.notifyDataChangedAfterLoadMore(isRefresh,infoListBeans);
+    }
+
+    @Override
+    public void setAddressData(CommodityComfirm.AddressInfoBean addressData) {
+        if (addressData == null) {
+            headerBinding.ivAddAddress.setVisibility(View.VISIBLE);
+        } else {
+            headerBinding.ivAddAddress.setVisibility(View.GONE);
+            headerBinding.setData(addressData);
+        }
+    }
+
+    @Override
+    public List<CommodityComfirm.InfoListBean> getPayData() {
+        return adapter.getData();
+    }
+
+    @Override
+    public void tvSureClick(String item, int position) {
+        CommodityComfirm.InfoListBean infoListBean = adapter.getData().get(vm.position - 1);
+        adapter.getData().get(vm.position - 1).setFreight_type(position);
+        //重新计算金额
+        BigDecimal amount;
+        BigDecimal total;
+        if (infoListBean.getFreight_type() == 0) {
+            amount = new BigDecimal(infoListBean.getProduct_amount()).add(new BigDecimal(infoListBean.getCost_freight()));
+            total = new BigDecimal(vm.totalAmount.get()).add(new BigDecimal(infoListBean.getCost_freight()));
+        } else {
+            amount = new BigDecimal(infoListBean.getProduct_amount()).subtract(new BigDecimal(infoListBean.getCost_freight()));
+            total = new BigDecimal(vm.totalAmount.get()).subtract(new BigDecimal(infoListBean.getCost_freight()));
+        }
+        adapter.getData().get(vm.position - 1).setProduct_amount(amount.toString());
+        vm.totalAmount.set(total.toString());
+        adapter.notifyItemChanged(vm.position);
     }
 }

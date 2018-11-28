@@ -44,6 +44,7 @@ public class RxEvent {
          */
         public static final int LOGIN_SUCCESS = VALUE + 1;
         public static final int RE_LOGIN = VALUE + 2;
+        public static final int LOGOUT = VALUE + 3;
 
         public LoginEvent() {
             super(VALUE);
@@ -64,6 +65,12 @@ public class RxEvent {
         public static final int ADDRESS_INSERT = VALUE + 1;     //添加地址
 
         public static final int ADDRESS_SAVE = VALUE + 2;     //编辑地址
+    }
+
+    public static class OrderEvent extends RxEvent {
+        public static final int VALUE = 400;
+
+        public static final int SELECT_ADDRESS = VALUE + 1;
     }
 
     public int getType() {

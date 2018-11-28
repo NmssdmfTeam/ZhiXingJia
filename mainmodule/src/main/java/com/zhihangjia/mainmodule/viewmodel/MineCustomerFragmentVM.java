@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
@@ -97,5 +98,9 @@ public class MineCustomerFragmentVM extends BaseVM {
                         callback.endFresh();
                     }
                 });
+    }
+
+    public void onSettingClick(View view) {
+        callback.doIntentClassName(ActivityNameConfig.SET_ACTIVITY, null);
     }
 }

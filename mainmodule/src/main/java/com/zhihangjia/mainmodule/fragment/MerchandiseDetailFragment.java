@@ -185,10 +185,10 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
 
     @Override
     public void onBuyClick() {
-
+        vm.buyNow();
     }
 
     public String getPhoneNum() {
-        return "15547452";
+        return vm.commodityDetail.get().getProvider_info().getCo_phone();
     }
 }

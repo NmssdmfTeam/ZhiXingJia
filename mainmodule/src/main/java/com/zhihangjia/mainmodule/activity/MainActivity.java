@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -9,6 +10,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PermissionCompat;
@@ -87,6 +89,17 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         initTabsView();
         bottomBehavior = BottomBehavior.from(binding.llBottomNavigation);
         PermissionCompat.getInstance().checkLocationPermission(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Bundle bundle = intent.getExtras();
+        int index = bundle.getInt(IntentConfig.POSITION);
+        current_index = index;
+        switchFragment(current_index);
+        setSelectedTab(current_index,true);
+        setSelectedTab(0,false);
     }
 
     private void initTabsView() {
