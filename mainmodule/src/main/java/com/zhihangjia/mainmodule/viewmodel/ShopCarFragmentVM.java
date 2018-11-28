@@ -1,6 +1,5 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
-import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
@@ -21,9 +20,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.bean.ShopCarIntent;
 import com.zhihangjia.mainmodule.callback.ShopCarFragmentCB;
-import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.ShopCar;
-import com.zhixingjia.bean.personmodule.Address;
 import com.zhixingjia.service.MainService;
 
 import java.math.BigDecimal;
@@ -51,27 +48,6 @@ public class ShopCarFragmentVM extends BaseVM {
     public ShopCarFragmentVM(ShopCarFragmentCB callBack) {
         super(callBack);
         cb = callBack;
-
-        select.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                for (int i = 0; i < list.size(); i++) {
-                    list.get(i).setSelect(select.get());
-                    for (int j = 0; j < list.get(i).getProduct_list().size(); j++) {
-                        list.get(i).getProduct_list().get(j).setSelect(select.get());
-                        List<ShopCar.ProductListBean.SkuListBean> skuListBeans = list.get(i).getProduct_list().get(j).getSku_list();
-                        if (skuListBeans != null && skuListBeans.size() > 0) {
-                            for (int k = 0; k < skuListBeans.size(); k++) {
-                                skuListBeans.get(k).setSelect(select.get());
-                            }
-                        }
-                    }
-                    list.get(i).setTotalPrice(getTotalPrice(list.get(i)));
-                }
-
-                countTotalPrice();
-            }
-        });
     }
 
     public void getData(final boolean refresh) {
@@ -86,6 +62,7 @@ public class ShopCarFragmentVM extends BaseVM {
                 if (data.getData() != null && data.getData().size() > 0) {
                 }
                 cb.refreshData(data.getData(), refresh);
+                countTotalPrice();
             }
 
             @Override
@@ -135,6 +112,7 @@ public class ShopCarFragmentVM extends BaseVM {
     public void countTotalPrice() {
         String price = "0";
         for (int i = 0; i < list.size(); i++) {
+            list.get(i).setTotalPrice(getTotalPrice(list.get(i)));
             price = new BigDecimal(price).add(new BigDecimal(list.get(i).getTotalPrice())).toString();
         }
         totalPrice.set(new BigDecimal(price).setScale(2, BigDecimal.ROUND_DOWN).toString());
@@ -214,6 +192,23 @@ public class ShopCarFragmentVM extends BaseVM {
             }
         }
         return new Gson().toJson(ids.toArray());
+    }
+
+    public void selectAll(View view) {
+        select.set(!select.get());
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setSelect(select.get());
+            for (int j = 0; j < list.get(i).getProduct_list().size(); j++) {
+                list.get(i).getProduct_list().get(j).setSelect(select.get());
+                List<ShopCar.ProductListBean.SkuListBean> skuListBeans = list.get(i).getProduct_list().get(j).getSku_list();
+                if (skuListBeans != null && skuListBeans.size() > 0) {
+                    for (int k = 0; k < skuListBeans.size(); k++) {
+                        skuListBeans.get(k).setSelect(select.get());
+                    }
+                }
+            }
+        }
+        countTotalPrice();
     }
 
     @Override

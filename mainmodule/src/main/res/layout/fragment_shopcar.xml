@@ -112,6 +112,7 @@
                 android:text="全选"
                 android:textColor="#FF333333"
                 android:textSize="14dp"
+                android:onClick="@{(v)->vm.selectAll(v)}"
                 />
 
         </RelativeLayout>

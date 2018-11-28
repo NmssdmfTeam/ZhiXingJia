@@ -53,7 +53,7 @@ public class ShopCarAdapter extends BaseDataBindingAdapter<ShopCar, ItemShopCarB
                         }
                     }
                 }
-                item.setTotalPrice(getTotalPrice(item));
+//                item.setTotalPrice(getTotalPrice(item));
                 if (listener != null) {
                     listener.changePrice();
                 }
@@ -88,7 +88,7 @@ public class ShopCarAdapter extends BaseDataBindingAdapter<ShopCar, ItemShopCarB
                     }
                     item.setSelect(select);
 
-                    item.setTotalPrice(getTotalPrice(item));
+//                    item.setTotalPrice(getTotalPrice(item));
                     if (listener != null) {
                         listener.changePrice();
                     }
@@ -139,7 +139,7 @@ public class ShopCarAdapter extends BaseDataBindingAdapter<ShopCar, ItemShopCarB
                             item.setSelect(select);
 
 
-                            item.setTotalPrice(getTotalPrice(item));
+//                            item.setTotalPrice(getTotalPrice(item));
                             if (listener != null) {
                                 listener.changePrice();
                             }
