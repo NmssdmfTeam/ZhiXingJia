@@ -99,7 +99,8 @@
                                 android:layout_marginRight="15dp"
                                 android:layout_toLeftOf="@+id/rl_message"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/icon_mine_setting"/>
+                                android:src="@drawable/icon_mine_setting"
+                                android:onClick="@{(v)->vm.onSettingClick(v)}"/>
                         </RelativeLayout>
 
                         <LinearLayout
