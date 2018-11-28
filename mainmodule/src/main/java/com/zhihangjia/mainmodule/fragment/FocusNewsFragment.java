@@ -21,7 +21,9 @@ public class FocusNewsFragment extends BaseRecyclerViewFragment {
 
     @Override
     public BaseRecyclerViewFragmentVM initRecyclerViewFragmentVM() {
-        vm = new FocusNewsVM(this);
+        if (vm == null) {
+            vm = new FocusNewsVM(this);
+        }
         return vm;
     }
 
@@ -34,5 +36,10 @@ public class FocusNewsFragment extends BaseRecyclerViewFragment {
     @Override
     public String getTAG() {
         return TAG;
+    }
+
+    public void setType(int type){
+        vm = new FocusNewsVM(this);
+        vm.setType(type);
     }
 }
