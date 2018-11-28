@@ -8,9 +8,7 @@ import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ActivityPoliticsNoticeBinding;
-import com.zhihangjia.mainmodule.fragment.BasicDynamicFragment;
 import com.zhihangjia.mainmodule.fragment.FocusNewsFragment;
-import com.zhihangjia.mainmodule.fragment.NoticeFragment;
 import com.zhihangjia.mainmodule.viewmodel.PoliticsNoticeVM;
 
 import java.util.ArrayList;
@@ -28,8 +26,8 @@ public class PoliticsNoticeActivity extends BaseTitleActivity {
     private PoliticsNoticeVM vm;
 
     private FocusNewsFragment focusNewsFragment;
-    private BasicDynamicFragment basicDynamicFragment;
-    private NoticeFragment noticeFragment;
+    private FocusNewsFragment basicDynamicFragment;
+    private FocusNewsFragment noticeFragment;
     private List<Fragment> list = new ArrayList<>();
 
     private FragmentPagerAdapter adapter;
@@ -44,19 +42,24 @@ public class PoliticsNoticeActivity extends BaseTitleActivity {
         binding = (ActivityPoliticsNoticeBinding) baseViewBinding;
 
         focusNewsFragment = new FocusNewsFragment();
-        basicDynamicFragment = new BasicDynamicFragment();
-        noticeFragment = new NoticeFragment();
+        basicDynamicFragment = new FocusNewsFragment();
+        noticeFragment = new FocusNewsFragment();
         list.add(focusNewsFragment);
         list.add(basicDynamicFragment);
         list.add(noticeFragment);
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), this, list);
 
         binding.vp.setAdapter(adapter);
+        binding.vp.setOffscreenPageLimit(2);
         binding.tl.setupWithViewPager(binding.vp);
 
         binding.tl.getTabAt(0).setText("要闻动态");
         binding.tl.getTabAt(1).setText("基层动态");
         binding.tl.getTabAt(2).setText("公告公示");
+
+        focusNewsFragment.setType(1);
+        basicDynamicFragment.setType(2);
+        noticeFragment.setType(3);
     }
 
     @Override

@@ -132,4 +132,8 @@ public class HttpVersionConfig {
      * 提交订单
      */
     public static final int API_CART_SUBMITORDER = 1;
+    /**
+     * 宜兴头条，政务公告
+     */
+    public static final int API_NEWS = 1;
 }
