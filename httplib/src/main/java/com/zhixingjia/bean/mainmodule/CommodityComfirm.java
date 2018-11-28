@@ -52,7 +52,7 @@ public class CommodityComfirm extends BaseObservable {
     public static class AddressInfoBean extends BaseObservable {
 
         private String addr_id;                 //收货地址ID
-        private String name;                    //名称
+        private String name = "";                    //名称
         private String mobile;                  //手机号码
         private String location;                //地址
 

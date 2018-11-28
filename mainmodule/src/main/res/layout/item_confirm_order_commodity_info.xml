@@ -20,21 +20,45 @@
             android:layout_height="90dp"
             app:src="@{data.imgs}"/>
 
-        <TextView
-            android:id="@+id/tvMerchandiseName"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="6dp"
-            android:layout_toRightOf="@+id/givIcon"
-            android:text="@{data.commodity_name}"
-            android:textColor="#FF333333"
-            android:textSize="14dp" />
+        <LinearLayout
+            android:id="@+id/llMerchandiseNameAndPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/givIcon">
+            <TextView
+                android:id="@+id/tvMerchandiseName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:text="@{data.commodity_name}"
+                android:textColor="#FF333333"
+                android:textSize="14dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="6dp"
+                android:text="￥"
+                android:textColor="#FF333333"
+                android:textSize="12dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.sku_price}"
+                android:layout_marginTop="6dp"
+                android:textColor="#FF333333"
+                android:textSize="14dp" />
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="96dp"
             android:layout_height="16.5dp"
-            android:layout_alignLeft="@+id/tvMerchandiseName"
+            android:layout_alignLeft="@+id/llMerchandiseNameAndPrice"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="8dp"
             android:text="@{data.sku_product_text}"
