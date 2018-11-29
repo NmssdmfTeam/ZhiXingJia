@@ -149,9 +149,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         TextView payView = new OrderBtnTextView(this);
         payView.setText("支付");
         layout.addView(payView);
-        payView.setOnClickListener(v -> {
-
-        });
+        payView.setOnClickListener(v -> vm.pay());
 
         TextView offLinePayView = new OrderBtnTextView(this);
         offLinePayView.setText("到店付");

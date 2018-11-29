@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
-import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
@@ -117,7 +116,7 @@ public class CommentVM extends BaseVM {
             @Override
             public void onSuccess(Base base) {
                 callback.showToast("发表评论成功");
-                RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_JUDGE_SAVE, null);
+                RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_COMMENT, null);
             }
 
             @Override

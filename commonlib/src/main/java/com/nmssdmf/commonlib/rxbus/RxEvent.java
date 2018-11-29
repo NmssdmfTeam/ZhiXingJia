@@ -81,6 +81,8 @@ public class RxEvent {
         public static final int ORDER_PAY = VALUE + 6;//支付
         public static final int ORDER_OFFLINE_PAY = VALUE + 7;//到店付
         public static final int ORDER_CHECK_OFFLINE_PAY = VALUE + 8;//确认到店付
+        public static final int ORDER_COMMENT = VALUE + 9;//评价
+        public static final int ORDER_CHECK_RECEIVER = VALUE + 10;//确认收货
 
     }
 

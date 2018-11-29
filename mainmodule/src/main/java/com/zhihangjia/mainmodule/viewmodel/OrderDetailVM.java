@@ -9,6 +9,9 @@ import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.OrderDetailCB;
@@ -85,6 +88,8 @@ public class OrderDetailVM extends BaseVM {
             @Override
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
+
+                RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_CANCEL, new EventInfo(index));
             }
 
             @Override
@@ -92,6 +97,10 @@ public class OrderDetailVM extends BaseVM {
 
             }
         });
+    }
+
+    public void pay(){
+
     }
 
     public void offlinePayOrder() {
@@ -107,6 +116,7 @@ public class OrderDetailVM extends BaseVM {
                 ToastUtil.showMsg(data.getMessage());
                 detail.get().setOrder_status("99");
                 detail.get().setOrder_status_name("到店付审核中");
+                RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, new EventInfo(index));
             }
 
             @Override
@@ -126,6 +136,7 @@ public class OrderDetailVM extends BaseVM {
             @Override
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
+                RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_CHECK_OFFLINE_PAY, new EventInfo(index));
             }
 
             @Override
@@ -145,6 +156,7 @@ public class OrderDetailVM extends BaseVM {
             @Override
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
+                RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_SEND, new EventInfo(index));
             }
 
             @Override
@@ -164,6 +176,7 @@ public class OrderDetailVM extends BaseVM {
             @Override
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
+                RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_CHECK_RECEIVER, new EventInfo(index));
             }
 
             @Override
