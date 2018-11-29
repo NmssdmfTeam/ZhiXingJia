@@ -103,7 +103,8 @@
             android:name=".activity.CommentActivity"
             android:screenOrientation="portrait">
         </activity>
-
+        <activity android:name=".activity.OrderDetailSupplierActivity">
+        </activity>
     </application>
 
 </manifest>

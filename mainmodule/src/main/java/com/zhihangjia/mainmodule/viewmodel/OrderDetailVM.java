@@ -12,7 +12,6 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.OrderDetailCB;
-import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
 import com.zhixingjia.service.MainService;
 
@@ -24,6 +23,7 @@ public class OrderDetailVM extends BaseVM {
     private OrderDetailCB cb;
     private String id;
     private int index;
+    private String identity = "buyer";
     public final ObservableField<OrderDetail> detail = new ObservableField<>();
     public final ObservableField<String> log = new ObservableField<>();
     /**
@@ -42,6 +42,7 @@ public class OrderDetailVM extends BaseVM {
             return;
         id = bundle.getString(IntentConfig.ID);
         index = bundle.getInt(IntentConfig.POSITION);
+        identity = bundle.getString(IntentConfig.IDENTITY);
         initData();
     }
 
@@ -170,5 +171,13 @@ public class OrderDetailVM extends BaseVM {
 
             }
         });
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 }

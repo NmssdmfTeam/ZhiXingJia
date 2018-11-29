@@ -3,7 +3,6 @@ package com.zhihangjia.mainmodule.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -59,23 +58,42 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         //买家待发货：无按钮
         //买家待收货：确认收货
         //买家待评价：评价
-        binding.tl.removeAllViews();
-        switch (status) { //0=待支付 1=待发货 2=待收货 3=待评价 4=已完成  99=到店付
-            case "0":{
-                initWaitPay(binding.tl);
-                break;
+
+        if ("buyer".equals(vm.getIdentity())) {
+            binding.tl.removeAllViews();
+            switch (status) { //0=待支付 1=待发货 2=待收货 3=待评价 4=已完成  99=到店付
+                case "0": {
+                    initWaitPay(binding.tl);
+                    break;
+                }
+                case "2": {
+                    initWaitSend(binding.tl);
+                    break;
+                }
+                case "3": {
+                    initWaitComment(binding.tl);
+                    break;
+                }
+                case "99": {
+                    initOffLinePay(binding.tl);
+                    break;
+                }
             }
-            case "2":{
-                initWaitSend(binding.tl);
-                break;
-            }
-            case "3":{
-                initWaitComment(binding.tl);
-                break;
-            }
-            case "99":{
-                initOffLinePay(binding.tl);
-                break;
+        } else {
+//            卖家代付款：无按钮
+//            卖家到店付后：确认收款
+//            卖家待发货：发货
+//            卖家待收货：无按钮
+//            卖家待评价：无按钮
+            switch (status) { //0=待支付 1=待发货 2=待收货 3=待评价 4=已完成  99=到店付
+                case "1": {
+                    sendOrder(binding.tl);
+                    break;
+                }
+                case "99": {
+                    checkOfflinePay(binding.tl);
+                    break;
+                }
             }
         }
     }
@@ -90,27 +108,33 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         }
     }
 
+    public void checkOfflinePay(TagLayout layout){
+        TextView payView = new OrderBtnTextView(this);
+        payView.setText("确认收款");
+        layout.addView(payView);
+        payView.setOnClickListener(v -> vm.checkOfflinePayOrder());
+    }
+
+    public void sendOrder(TagLayout layout){
+        TextView payView = new OrderBtnTextView(this);
+        payView.setText("发货");
+        layout.addView(payView);
+        payView.setOnClickListener(v -> vm.sendOrder());
+    }
+
     public void initOffLinePay(TagLayout layout){
         TextView payView = new OrderBtnTextView(this);
         payView.setText("取消订单");
         layout.addView(payView);
-        payView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.cancelOrder();
-            }
-        });
+        payView.setOnClickListener(v -> vm.cancelOrder());
     }
 
     public void initWaitComment(TagLayout layout){
         TextView payView = new OrderBtnTextView(this);
         payView.setText("评价");
         layout.addView(payView);
-        payView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        payView.setOnClickListener(v -> {
 
-            }
         });
     }
 
@@ -118,43 +142,25 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         TextView payView = new OrderBtnTextView(this);
         payView.setText("确认收货");
         layout.addView(payView);
-        payView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.checkReceiver();
-            }
-        });
+        payView.setOnClickListener(v -> vm.checkReceiver());
     }
 
     public void initWaitPay(TagLayout layout){
         TextView payView = new OrderBtnTextView(this);
         payView.setText("支付");
         layout.addView(payView);
-        payView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        payView.setOnClickListener(v -> {
 
-            }
         });
 
         TextView offLinePayView = new OrderBtnTextView(this);
         offLinePayView.setText("到店付");
         layout.addView(offLinePayView);
-        offLinePayView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.offlinePayOrder();
-            }
-        });
+        offLinePayView.setOnClickListener(v -> vm.offlinePayOrder());
 
         TextView cancelView = new OrderBtnTextView(this);
         cancelView.setText("取消订单");
         layout.addView(cancelView);
-        cancelView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.cancelOrder();
-            }
-        });
+        cancelView.setOnClickListener(v -> vm.cancelOrder());
     }
 }

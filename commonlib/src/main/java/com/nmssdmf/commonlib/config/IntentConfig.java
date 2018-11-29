@@ -34,4 +34,6 @@ public class IntentConfig {
     public static final String ORDERS = "orders";
     public static final String PAY_IDS = "pay_ids";
 
+    public static final String IDENTITY = "IDENTITY";
+
 }

@@ -189,6 +189,7 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
                 list.remove(index);
+                cb.cancelOrder();
             }
 
             @Override

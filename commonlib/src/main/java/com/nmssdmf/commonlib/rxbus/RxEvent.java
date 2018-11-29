@@ -75,6 +75,13 @@ public class RxEvent {
         public static final int SHOP_CAR_CONFIRM_ORDER = VALUE + 2;
 
         public static final int CONFIRM_ORDER = VALUE + 3;
+
+        public static final int ORDER_CANCEL = VALUE + 4;//取消订单
+        public static final int ORDER_SEND = VALUE + 5;//发货
+        public static final int ORDER_PAY = VALUE + 6;//支付
+        public static final int ORDER_OFFLINE_PAY = VALUE + 7;//到店付
+        public static final int ORDER_CHECK_OFFLINE_PAY = VALUE + 8;//确认到店付
+
     }
 
     public int getType() {
