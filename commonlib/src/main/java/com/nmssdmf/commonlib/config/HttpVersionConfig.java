@@ -164,4 +164,9 @@ public class HttpVersionConfig {
      * 确认收货
      */
     public static final int API_ORDER_CONFIRM_RECEIPT = 1;
+
+    /**
+     * 评价保存
+     */
+    public static final int API_ORDER_JUDGE_SAVE = 1;
 }

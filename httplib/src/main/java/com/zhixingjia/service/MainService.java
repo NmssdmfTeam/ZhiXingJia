@@ -269,4 +269,11 @@ public interface MainService {
     @POST ("/api/order/confirm_receipt")
     Observable<BaseData> checkReceiver(@Field("order_id") String order_id);
 
+
+    /**
+     * 评价保存
+     */
+    @FormUrlEncoded
+    @POST ("/api/order/judge_save")
+    Observable<Base> orderJudgeSave(@FieldMap() Map<String,String> map);
 }
