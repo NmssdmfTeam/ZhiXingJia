@@ -1,11 +1,14 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
+import com.zhihangjia.mainmodule.adapter.OrderAdapter;
 import com.zhihangjia.mainmodule.callback.OrderListFragmentCB;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.service.MainService;
@@ -17,7 +20,7 @@ import java.util.Map;
  * Created by ${nmssdmf} on 2018/11/20 0020.
  */
 
-public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM {
+public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements OrderAdapter.OrderAdapterListener{
     private OrderListFragmentCB cb;
     private String identity = "buyer";
     private int status = 0;//订单状态值，0=全部 1=待付款 2=待发货 3=待收货 4=待评价
@@ -74,5 +77,124 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    /**
+     * 取消订单
+     * @param index
+     */
+    @Override
+    public void cancelOrder(int index) {
+        cb.showLoaddingDialog();
+        Order item = (Order) list.get(index);
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_CANCEL).cancelOrder(item.getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                list.remove(index);
+                cb.cancelOrder();
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    @Override
+    public void offlinePayOrder(int index) {
+        cb.showLoaddingDialog();
+        Order item = (Order) list.get(index);
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_SHOPPAY).offlinePay(item.getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                item.setOrder_status("99");
+                item.setOrder_status_name("到店付审核中");
+                cb.nofityItem(index);
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    @Override
+    public void checkOfflinePayOrder( int index) {
+        Order item = (Order) list.get(index);
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_SHOPPAY_CONFIRM).checkOfflinePay(item.getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                list.remove(index);
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    @Override
+    public void sendOrder(int index) {
+        Order item = (Order) list.get(index);
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_DELIVER).send(item.getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                list.remove(index);
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    @Override
+    public void checkReceiver(int index) {
+        Order item = (Order) list.get(index);
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_CONFIRM_RECEIPT).checkReceiver(item.getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                list.remove(index);
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
     }
 }

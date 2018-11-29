@@ -144,6 +144,26 @@ public class HttpVersionConfig {
      * 订单详情
      */
     public static final int API_ORDER_SHOW = 1;
+    /**
+     * 取消订单
+     */
+    public static final int API_ORDER_CANCEL = 1;
+    /**
+     * 到店付
+     */
+    public static final int API_ORDER_SHOPPAY = 1;
+    /**
+     * 确认到店付
+     */
+    public static final int API_ORDER_SHOPPAY_CONFIRM = 1;
+    /**
+     * 卖家发货
+     */
+    public static final int API_ORDER_DELIVER = 1;
+    /**
+     * 确认收货
+     */
+    public static final int API_ORDER_CONFIRM_RECEIPT = 1;
 
     /**
      * 评价保存

@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -146,7 +145,6 @@ public class TagLayout extends LinearLayout {
             if (right > maxRight) {
                 maxRight = right;
             }
-            Log.d(TAG, "left = " + left + "  top = " + top + "  right= " + right + "  bottom = " + bottom);
             getRectF(rectF, left, top, right, bottom);
             map.put(child, rectF);
             left = right + horizontalSpace;

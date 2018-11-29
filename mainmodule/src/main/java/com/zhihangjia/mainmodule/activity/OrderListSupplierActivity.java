@@ -47,13 +47,20 @@ public class OrderListSupplierActivity extends BaseActivity implements OrderList
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityOrderListBinding) baseBinding;
 
-
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         OrderListFragment allFragment = new OrderListFragment();
         OrderListFragment waitPayFragment = new OrderListFragment();
         OrderListFragment waitDeliverFragment = new OrderListFragment();
         OrderListFragment waitReceiveFragment = new OrderListFragment();
         OrderListFragment waitCommentFragment = new OrderListFragment();
+
+        allFragment.setInfo("provider", 0);
+        waitPayFragment.setInfo("provider", 1);
+        waitDeliverFragment.setInfo("provider", 2);
+        waitReceiveFragment.setInfo("provider", 3);
+        waitCommentFragment.setInfo("provider", 4);
 
         fragments.add(allFragment);
         fragments.add(waitPayFragment);
@@ -71,11 +78,7 @@ public class OrderListSupplierActivity extends BaseActivity implements OrderList
         binding.tl.getTabAt(3).setText("待收货");
         binding.tl.getTabAt(4).setText("待评论");
 
-        allFragment.setInfo("provider", 0);
-        waitPayFragment.setInfo("provider", 1);
-        waitDeliverFragment.setInfo("provider", 2);
-        waitReceiveFragment.setInfo("provider", 3);
-        waitCommentFragment.setInfo("provider", 4);
+
 
         vm.getData();
     }

@@ -1,11 +1,14 @@
 package com.zhihangjia.mainmodule.fragment;
 
+import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.adapter.OrderWaitForPayAdapter;
 import com.zhihangjia.mainmodule.callback.OrderListWaitForPayFragmentCB;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.service.MainService;
@@ -15,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OrderListWaitForPayFragmentVM extends BaseVM {
+public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitForPayAdapter.OrderWaitForPayAdapterListener{
     private OrderListWaitForPayFragmentCB cb;
     private List<Order> list = new ArrayList<>();
     private String identity = "buyer";
@@ -63,5 +66,54 @@ public class OrderListWaitForPayFragmentVM extends BaseVM {
 
     public void setList(List<Order> list) {
         this.list = list;
+    }
+
+    @Override
+    public void cancelOrder( int index) {
+        cb.showLoaddingDialog();
+        Order item = list.get(index);
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_CANCEL).cancelOrder(item.getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                list.remove(index);
+                cb.cancelOrder();
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    @Override
+    public void offlinePayOrder(int index) {
+        cb.showLoaddingDialog();
+        Order item =  list.get(index);
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_SHOPPAY).offlinePay(item.getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                item.setOrder_status("99");
+                item.setOrder_status_name("到店付审核中");
+                cb.nofityItem(index);
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
     }
 }

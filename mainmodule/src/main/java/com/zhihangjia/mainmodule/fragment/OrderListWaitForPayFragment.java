@@ -40,7 +40,7 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentOrderListWaitForPayBinding) baseBinding;
-        adapter = new OrderWaitForPayAdapter(vm.getList());
+        adapter = new OrderWaitForPayAdapter(vm.getList(), vm);
 
         binding.crv.setAdapter(adapter);
         binding.crv.setOnDataChangeListener(new OnDataChangeListener() {
@@ -68,5 +68,15 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
         if (isRefresh)
             binding.crv.setRefreshing(false);
         adapter.notifyDataChangedAfterLoadMore(isRefresh, list);
+    }
+
+    @Override
+    public void cancelOrder() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void nofityItem(int index) {
+        adapter.notifyItemChanged(index);
     }
 }

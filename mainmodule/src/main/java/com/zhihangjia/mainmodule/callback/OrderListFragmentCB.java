@@ -7,4 +7,6 @@ import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
  */
 
 public interface OrderListFragmentCB extends BaseRecyclerViewFragmentCB {
+    void cancelOrder();
+    void nofityItem(int index);
 }

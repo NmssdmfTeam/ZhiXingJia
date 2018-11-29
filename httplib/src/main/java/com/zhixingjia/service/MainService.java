@@ -227,6 +227,50 @@ public interface MainService {
     Observable<BaseData<OrderDetail>> getOrderDetail(@Query("order_id") String order_id);
 
     /**
+     * 取消订单
+     * @param order_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/order/cancel")
+    Observable<BaseData> cancelOrder(@Field("order_id") String order_id);
+
+    /**
+     * 到店付
+     * @param order_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/order/shoppay")
+    Observable<BaseData> offlinePay(@Field("order_id") String order_id);
+
+    /**
+     * 确认到店付
+     * @param order_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/order/shoppay_confirm")
+    Observable<BaseData> checkOfflinePay(@Field("order_id") String order_id);
+
+    /**
+     * 卖家发货
+     */
+    @FormUrlEncoded
+    @POST ("/api/order/deliver")
+    Observable<BaseData> send(@Field("order_id") String order_id);
+
+    /**
+     * 确认收货
+     * @param order_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/order/confirm_receipt")
+    Observable<BaseData> checkReceiver(@Field("order_id") String order_id);
+
+
+    /**
      * 评价保存
      */
     @FormUrlEncoded
