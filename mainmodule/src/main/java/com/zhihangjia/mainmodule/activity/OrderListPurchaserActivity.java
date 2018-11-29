@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
@@ -19,7 +20,7 @@ import java.util.List;
 /**
  * 采购商，订单列表
  */
-public class OrderListPurchaserActivity extends BaseActivity implements OrderListCB{
+public class OrderListPurchaserActivity extends BaseActivity implements OrderListCB {
     private final String TAG = OrderListPurchaserActivity.class.getSimpleName();
     private ActivityOrderListBinding binding;
 
@@ -47,8 +48,6 @@ public class OrderListPurchaserActivity extends BaseActivity implements OrderLis
     @Override
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityOrderListBinding) baseBinding;
-
-
 
         OrderListFragment allFragment = new OrderListFragment();
         OrderListWaitForPayFragment waitPayFragment = new OrderListWaitForPayFragment();
@@ -80,11 +79,39 @@ public class OrderListPurchaserActivity extends BaseActivity implements OrderLis
 
         vm.getData();
 
+        binding.vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setCurrent(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                //
+            }
+        });
     }
 
     @Override
     public void setCurrentTab(int position) {
         //需要在设置adapter之后才有效
         binding.vp.setCurrentItem(position);
+        setCurrent(position);
+    }
+
+    public void setCurrent(int position) {
+        for (int i = 0; i < fragments.size(); i++) {
+            if (i == 1) {
+                ((OrderListWaitForPayFragment) fragments.get(i)).getVm().setCurrent(i == position);
+            } else {
+                ((OrderListFragment) fragments.get(i)).getVm().setCurrent(i == position);
+            }
+        }
+
     }
 }

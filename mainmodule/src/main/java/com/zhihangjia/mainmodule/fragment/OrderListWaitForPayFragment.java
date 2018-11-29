@@ -26,6 +26,8 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
     private OrderListWaitForPayFragmentVM vm;
     private FragmentOrderListWaitForPayBinding binding;
 
+    private boolean current;//是否是当前显示的fragment
+
     @Override
     public BaseVM initViewModel() {
         vm = new OrderListWaitForPayFragmentVM(this);
@@ -71,6 +73,12 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        vm.getData(true);
+    }
+
+    @Override
     public void cancelOrder() {
         adapter.notifyDataSetChanged();
     }
@@ -78,5 +86,21 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
     @Override
     public void nofityItem(int index) {
         adapter.notifyItemChanged(index);
+    }
+
+    public OrderListWaitForPayFragmentVM getVm() {
+        return vm;
+    }
+
+    public void setVm(OrderListWaitForPayFragmentVM vm) {
+        this.vm = vm;
+    }
+
+    public boolean isCurrent() {
+        return current;
+    }
+
+    public void setCurrent(boolean current) {
+        this.current = current;
     }
 }

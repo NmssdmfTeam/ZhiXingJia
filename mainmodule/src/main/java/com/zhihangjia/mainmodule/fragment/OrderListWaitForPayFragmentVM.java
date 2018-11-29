@@ -6,6 +6,9 @@ import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.adapter.OrderWaitForPayAdapter;
@@ -23,6 +26,7 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
     private List<Order> list = new ArrayList<>();
     private String identity = "buyer";
         private int status = 1;//订单状态值，0=全部 1=待付款 2=待发货 3=待收货 4=待评价
+    private boolean current;//是否是当前显示的fragment
     /**
      * 不需要callback可以传null
      *
@@ -33,6 +37,23 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
         cb = callBack;
     }
 
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CANCEL, this);
+        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_PAY, this);
+        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CANCEL, this);
+        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_PAY, this);
+        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
+    }
+
+
     public void getData(boolean isRefresh){
         if (isRefresh)
             list.clear();
@@ -42,6 +63,7 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
         if (!isRefresh && list.size() > 0) {
             map.put("page", (list.get(list.size() - 1)).getId());
         }
+        cb.showLoaddingDialog();
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER).getOrderList(map), new ServiceCallback<BaseListData<Order>>() {
             @Override
             public void onError(Throwable error) {
@@ -115,5 +137,39 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
 
             }
         });
+    }
+
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        if (!current) {//不是当前的fragment,不刷新数据
+            return;
+        }
+        switch (event.getType()) {
+            case RxEvent.OrderEvent.ORDER_CANCEL:{
+                list.remove(info.getIndex());
+                cb.cancelOrder();
+                break;
+            }
+            case RxEvent.OrderEvent.ORDER_PAY:{
+                list.remove(info.getIndex());
+                cb.cancelOrder();
+                break;
+            }
+            case RxEvent.OrderEvent.ORDER_OFFLINE_PAY:{
+                Order item = (Order)list.get(info.getIndex());
+                item.setOrder_status("99");
+                item.setOrder_status_name("到店付审核中");
+                cb.nofityItem(info.getIndex());
+                break;
+            }
+        }
+    }
+
+    public boolean isCurrent() {
+        return current;
+    }
+
+    public void setCurrent(boolean current) {
+        this.current = current;
     }
 }

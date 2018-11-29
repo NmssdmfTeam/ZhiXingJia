@@ -46,6 +46,12 @@ public class OrderListFragment extends BaseRecyclerViewFragment implements Order
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        vm.initData(true);
+    }
+
+    @Override
     public void cancelOrder() {
         adapter.notifyDataSetChanged();
     }
@@ -53,5 +59,13 @@ public class OrderListFragment extends BaseRecyclerViewFragment implements Order
     @Override
     public void nofityItem(int index) {
         adapter.notifyItemChanged(index);
+    }
+
+    public OrderListFragmentVM getVm() {
+        return vm;
+    }
+
+    public void setVm(OrderListFragmentVM vm) {
+        this.vm = vm;
     }
 }
