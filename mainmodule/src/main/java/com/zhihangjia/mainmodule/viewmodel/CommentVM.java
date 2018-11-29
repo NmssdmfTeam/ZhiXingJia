@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.viewmodel;
 
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -9,6 +10,7 @@ import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
@@ -45,6 +47,14 @@ public class CommentVM extends BaseVM {
     public CommentVM(CommentCB callBack) {
         super(callBack);
         this.callback = callBack;
+        iniData();
+    }
+
+    private void iniData() {
+        Bundle bundle = callback.getIntentData();
+        if (bundle != null) {
+            orderId = bundle.getString(IntentConfig.ORDER_ID);
+        }
     }
 
     /**

@@ -82,6 +82,10 @@
             android:name=".activity.ReplyActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".activity.CommentActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
