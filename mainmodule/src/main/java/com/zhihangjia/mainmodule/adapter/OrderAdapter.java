@@ -17,6 +17,7 @@ import com.nmssdmf.commonlib.view.TagLayout;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.CommentActivity;
 import com.zhihangjia.mainmodule.activity.OrderDetailActivity;
 import com.zhihangjia.mainmodule.databinding.ItemOrderBinding;
 import com.zhihangjia.mainmodule.databinding.ItemOrderMerchandiseBinding;
@@ -77,7 +78,7 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
                 break;
             }
             case "3": {
-                initWaitComment(binding.tl);
+                initWaitComment(binding.tl, item, position);
                 break;
             }
             case "99": {
@@ -132,13 +133,18 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
      *
      * @param layout
      */
-    public void initWaitComment(TagLayout layout) {
+    public void initWaitComment(TagLayout layout,Order item, final int position) {
         if (identity.equals("buyer")) {
             TextView payView = new OrderBtnTextView(mContext);
             payView.setText("评价");
             layout.addView(payView);
             payView.setOnClickListener(v -> {
-
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.ORDER_ID, item.getOrder_id());
+                intent.putExtras(bundle);
+                intent.setClass(mContext ,CommentActivity.class);
+                mContext.startActivity(intent);
             });
         } else {
 

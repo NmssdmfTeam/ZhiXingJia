@@ -6,6 +6,7 @@ import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.zhihangjia.mainmodule.adapter.OrderAdapter;
@@ -145,6 +146,7 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
                 list.remove(index);
+                cb.cancelOrder();
             }
 
             @Override
@@ -167,6 +169,7 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
                 list.remove(index);
+                cb.cancelOrder();
             }
 
             @Override

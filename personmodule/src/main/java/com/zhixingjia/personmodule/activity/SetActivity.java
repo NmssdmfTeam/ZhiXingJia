@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.widget.LinearLayout;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.personmodule.R;
 import com.zhixingjia.personmodule.callback.SetCB;
@@ -47,7 +49,7 @@ public class SetActivity extends BaseTitleActivity implements SetCB {
 
     @Override
     public void confirmLogout() {
-        new AlertDialog.Builder(this).setMessage("请打开GPS或者WIFI开关").setPositiveButton("确认", new DialogInterface.OnClickListener() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).setMessage("是否退出登录").setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -59,5 +61,7 @@ public class SetActivity extends BaseTitleActivity implements SetCB {
                 dialog.dismiss();
             }
         }).show();
+        int width = DensityUtil.dpToPx(this, 340);
+        alertDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 }

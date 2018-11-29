@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.viewmodel;
 
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -9,9 +10,12 @@ import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.bean.GoodsComment;
 import com.zhihangjia.mainmodule.callback.CommentCB;
@@ -45,6 +49,14 @@ public class CommentVM extends BaseVM {
     public CommentVM(CommentCB callBack) {
         super(callBack);
         this.callback = callBack;
+        iniData();
+    }
+
+    private void iniData() {
+        Bundle bundle = callback.getIntentData();
+        if (bundle != null) {
+            orderId = bundle.getString(IntentConfig.ORDER_ID);
+        }
     }
 
     /**
@@ -105,6 +117,7 @@ public class CommentVM extends BaseVM {
             @Override
             public void onSuccess(Base base) {
                 callback.showToast("发表评论成功");
+                RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_JUDGE_SAVE, null);
             }
 
             @Override
