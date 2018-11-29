@@ -97,7 +97,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         payView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                vm.cancelOrder();
             }
         });
     }
@@ -121,7 +121,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         payView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                vm.checkReceiver();
             }
         });
     }
@@ -143,7 +143,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         offLinePayView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                vm.offlinePayOrder();
             }
         });
 
@@ -153,7 +153,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         cancelView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                vm.cancelOrder();
             }
         });
     }

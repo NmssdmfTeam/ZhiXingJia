@@ -69,8 +69,9 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
     }
 
     @Override
-    public void cancelOrder(Order item, int index) {
+    public void cancelOrder( int index) {
         cb.showLoaddingDialog();
+        Order item = list.get(index);
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_CANCEL).cancelOrder(item.getOrder_id()), new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
@@ -92,7 +93,27 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
     }
 
     @Override
-    public void offlinePayOrder(Order item, int index) {
+    public void offlinePayOrder(int index) {
+        cb.showLoaddingDialog();
+        Order item =  list.get(index);
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_SHOPPAY).offlinePay(item.getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
 
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                item.setOrder_status("99");
+                item.setOrder_status_name("到店付审核中");
+                cb.nofityItem(index);
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
     }
 }

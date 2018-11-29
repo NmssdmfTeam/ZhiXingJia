@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.util.DensityUtil;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.view.TagLayout;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -36,7 +37,7 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ItemOrderBinding> helper, Order item, int position) {
+    protected void convert2(BaseBindingViewHolder<ItemOrderBinding> helper, Order item,final int position) {
         ItemOrderBinding binding = helper.getBinding();
         binding.setData(item);
         binding.llOrderMerchandise.removeAllViews();
@@ -51,6 +52,7 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putString(IntentConfig.ID, item.getOrder_id());
+            bundle.putInt(IntentConfig.POSITION, position);
             intent.setClass(mContext, OrderDetailActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
@@ -100,7 +102,7 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
             TextView payView = new OrderBtnTextView(mContext);
             payView.setText("发货");
             layout.addView(payView);
-            payView.setOnClickListener(v -> showDialog(item, index, 5, "确认发货么"));
+            payView.setOnClickListener(v -> showDialog(index, 5, "确认发货么"));
         }
     }
 
@@ -116,12 +118,12 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
             TextView payView = new OrderBtnTextView(mContext);
             payView.setText("取消订单");
             layout.addView(payView);
-            payView.setOnClickListener(v -> showDialog(item, index, 2, "确认取消订单么"));
+            payView.setOnClickListener(v -> showDialog(index, 2, "确认取消订单么"));
         } else {
             TextView payView = new OrderBtnTextView(mContext);
             payView.setText("确认收款");
             layout.addView(payView);
-            payView.setOnClickListener(v -> showDialog(item, index, 4, "确认收款么"));
+            payView.setOnClickListener(v -> showDialog(index, 4, "确认收款么"));
         }
     }
 
@@ -153,7 +155,7 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
             TextView payView = new OrderBtnTextView(mContext);
             payView.setText("确认收货");
             layout.addView(payView);
-            payView.setOnClickListener(v -> showDialog(item, index, 3, "确认收货么"));
+            payView.setOnClickListener(v -> showDialog(index, 3, "确认收货么"));
         } else {
 
         }
@@ -178,19 +180,19 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
             TextView offLinePayView = new OrderBtnTextView(mContext);
             offLinePayView.setText("到店付");
             layout.addView(offLinePayView);
-            offLinePayView.setOnClickListener(v -> showDialog(item, index, 1, "确认到店付么"));
+            offLinePayView.setOnClickListener(v -> showDialog(index, 1, "确认到店付么"));
 
             TextView cancelView = new OrderBtnTextView(mContext);
             cancelView.setText("取消订单");
             layout.addView(cancelView);
-            cancelView.setOnClickListener(v -> showDialog(item, index, 2, "确认取消订单么"));
+            cancelView.setOnClickListener(v -> showDialog(index, 2, "确认取消订单么"));
         } else {
 
         }
     }
 
 
-    public void showDialog(Order item, int index, int i, String message) {
+    public void showDialog(int index, int i, String message) {
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -199,34 +201,35 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
         if (normalDialog == null) {
             normalDialog = new AlertDialog.Builder(mContext);
             normalDialog.setTitle("提示");
-            normalDialog.setPositiveButton("确定",
-                    (dialog, which) -> {
-                        switch (i) {
-                            case 1: {//到店付
-                                listener.offlinePayOrder(item, index);
-                                break;
-                            }
-                            case 2: {//取消订单
-                                listener.cancelOrder(item, index);
-                                break;
-                            }
-                            case 3: {
-                                listener.checkReceiver(item, index);
-                                break;
-                            }
-                            case 4: {
-                                listener.checkOfflinePayOrder(item, index);
-                                break;
-                            }
-                            case 5: {
-                                listener.sendOrder(item, index);
-                                break;
-                            }
-                        }
-                    });
             normalDialog.setNegativeButton("取消",
                     (dialog, which) -> dialog.dismiss());
         }
+        normalDialog.setPositiveButton("确定",
+                (dialog, which) -> {
+                    JLog.d(TAG, "index = " + index + ": i = " + i);
+                    switch (i) {
+                        case 1: {//到店付
+                            listener.offlinePayOrder(index);
+                            break;
+                        }
+                        case 2: {//取消订单
+                            listener.cancelOrder(index);
+                            break;
+                        }
+                        case 3: {
+                            listener.checkReceiver(index);
+                            break;
+                        }
+                        case 4: {
+                            listener.checkOfflinePayOrder(index);
+                            break;
+                        }
+                        case 5: {
+                            listener.sendOrder(index);
+                            break;
+                        }
+                    }
+                });
         normalDialog.setMessage(message);
 
         // 显示
@@ -234,14 +237,14 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
     }
 
     public interface OrderAdapterListener {
-        void cancelOrder(Order item, int index);
+        void cancelOrder(int index);
 
-        void offlinePayOrder(Order item, int index);
+        void offlinePayOrder(int index);
 
-        void checkOfflinePayOrder(Order item, int index);
+        void checkOfflinePayOrder(int index);
 
-        void sendOrder(Order item, int index);
+        void sendOrder(int index);
 
-        void checkReceiver(Order item, int index);
+        void checkReceiver(int index);
     }
 }

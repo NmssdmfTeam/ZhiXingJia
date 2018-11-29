@@ -74,4 +74,9 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
     public void cancelOrder() {
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void nofityItem(int index) {
+        adapter.notifyItemChanged(index);
+    }
 }

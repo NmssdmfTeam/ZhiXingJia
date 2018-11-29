@@ -44,8 +44,14 @@ public class OrderListFragment extends BaseRecyclerViewFragment implements Order
         vm.setStatus(status);
     }
 
+
     @Override
-    public void refreshAdapter(int index) {
+    public void cancelOrder() {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void nofityItem(int index) {
+        adapter.notifyItemChanged(index);
     }
 }

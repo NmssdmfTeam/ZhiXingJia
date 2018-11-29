@@ -9,8 +9,10 @@ import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.OrderDetailCB;
+import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
 import com.zhixingjia.service.MainService;
 
@@ -21,6 +23,7 @@ import com.zhixingjia.service.MainService;
 public class OrderDetailVM extends BaseVM {
     private OrderDetailCB cb;
     private String id;
+    private int index;
     public final ObservableField<OrderDetail> detail = new ObservableField<>();
     public final ObservableField<String> log = new ObservableField<>();
     /**
@@ -38,6 +41,7 @@ public class OrderDetailVM extends BaseVM {
         if (bundle == null)
             return;
         id = bundle.getString(IntentConfig.ID);
+        index = bundle.getInt(IntentConfig.POSITION);
         initData();
     }
 
@@ -63,6 +67,106 @@ public class OrderDetailVM extends BaseVM {
 
             @Override
             public void onDefeated(BaseData<OrderDetail> data) {
+
+            }
+        });
+    }
+
+
+    public void cancelOrder() {
+        cb.showLoaddingDialog();
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_CANCEL).cancelOrder(detail.get().getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    public void offlinePayOrder() {
+        cb.showLoaddingDialog();
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_SHOPPAY).offlinePay(detail.get().getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+                detail.get().setOrder_status("99");
+                detail.get().setOrder_status_name("到店付审核中");
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    public void checkOfflinePayOrder() {
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_SHOPPAY_CONFIRM).checkOfflinePay(detail.get().getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    public void sendOrder() {
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_DELIVER).send(detail.get().getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
+    }
+
+    public void checkReceiver() {
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_CONFIRM_RECEIPT).checkReceiver(detail.get().getOrder_id()), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
 
             }
         });

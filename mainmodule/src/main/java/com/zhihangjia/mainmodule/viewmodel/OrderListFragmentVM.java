@@ -81,12 +81,12 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
 
     /**
      * 取消订单
-     * @param item
      * @param index
      */
     @Override
-    public void cancelOrder(Order item, int index) {
+    public void cancelOrder(int index) {
         cb.showLoaddingDialog();
+        Order item = (Order) list.get(index);
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_CANCEL).cancelOrder(item.getOrder_id()), new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
@@ -97,7 +97,7 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
                 list.remove(index);
-                cb.refreshAdapter(index);
+                cb.cancelOrder();
             }
 
             @Override
@@ -108,7 +108,9 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
     }
 
     @Override
-    public void offlinePayOrder(Order item, int index) {
+    public void offlinePayOrder(int index) {
+        cb.showLoaddingDialog();
+        Order item = (Order) list.get(index);
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_SHOPPAY).offlinePay(item.getOrder_id()), new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
@@ -118,8 +120,9 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
             @Override
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
-                list.remove(index);
-                cb.refreshAdapter(index);
+                item.setOrder_status("99");
+                item.setOrder_status_name("到店付审核中");
+                cb.nofityItem(index);
             }
 
             @Override
@@ -130,7 +133,8 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
     }
 
     @Override
-    public void checkOfflinePayOrder(Order item, int index) {
+    public void checkOfflinePayOrder( int index) {
+        Order item = (Order) list.get(index);
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_SHOPPAY_CONFIRM).checkOfflinePay(item.getOrder_id()), new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
@@ -141,7 +145,6 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
                 list.remove(index);
-                cb.refreshAdapter(index);
             }
 
             @Override
@@ -152,7 +155,8 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
     }
 
     @Override
-    public void sendOrder(Order item, int index) {
+    public void sendOrder(int index) {
+        Order item = (Order) list.get(index);
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_DELIVER).send(item.getOrder_id()), new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
@@ -163,7 +167,6 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
                 list.remove(index);
-                cb.refreshAdapter(index);
             }
 
             @Override
@@ -174,7 +177,8 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
     }
 
     @Override
-    public void checkReceiver(Order item, int index) {
+    public void checkReceiver(int index) {
+        Order item = (Order) list.get(index);
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_ORDER_CONFIRM_RECEIPT).checkReceiver(item.getOrder_id()), new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
@@ -185,7 +189,6 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
             public void onSuccess(BaseData data) {
                 ToastUtil.showMsg(data.getMessage());
                 list.remove(index);
-                cb.refreshAdapter(index);
             }
 
             @Override

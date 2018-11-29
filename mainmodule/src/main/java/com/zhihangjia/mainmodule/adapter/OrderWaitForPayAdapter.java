@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,16 +44,14 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
             binding.llOrderMerchandise.addView(merchandiseBinding.getRoot(), params);
         }
 
-        binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.ID, item.getOrder_id());
-                intent.setClass(mContext, OrderDetailActivity.class);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-            }
+        binding.getRoot().setOnClickListener(v -> {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString(IntentConfig.ID, item.getOrder_id());
+            bundle.putInt(IntentConfig.POSITION, position);
+            intent.setClass(mContext, OrderDetailActivity.class);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
         });
 
         //买家代付款：到店付、取消订单、支付
@@ -65,61 +62,43 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
         binding.tl.removeAllViews();
         switch (item.getOrder_status()) { //0=待支付 1=待发货 2=待收货 3=待评价 4=已完成  99=到店付
             case "0":{
-                initWaitPay(binding.tl);
+                initWaitPay(binding.tl, position);
                 break;
             }
             case "99":{
-                initOffLinePay(binding.tl);
+                initOffLinePay(binding.tl,position);
                 break;
             }
         }
     }
 
-    public void initOffLinePay(TagLayout layout){
+    public void initOffLinePay(TagLayout layout, int index){
         TextView payView = new OrderBtnTextView(mContext);
         payView.setText("取消订单");
         layout.addView(payView);
-        payView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        payView.setOnClickListener(v -> showDialog(index, 2, "确认取消订单么"));
     }
 
-    public void initWaitPay(TagLayout layout){
+    public void initWaitPay(TagLayout layout, int index){
         TextView payView = new OrderBtnTextView(mContext);
         payView.setText("支付");
         layout.addView(payView);
-        payView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        payView.setOnClickListener(v -> {
 
-            }
         });
 
         TextView offLinePayView = new OrderBtnTextView(mContext);
         offLinePayView.setText("到店付");
         layout.addView(offLinePayView);
-        offLinePayView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        offLinePayView.setOnClickListener(v -> showDialog(index, 1, "确认到店付么"));
 
         TextView cancelView = new OrderBtnTextView(mContext);
         cancelView.setText("取消订单");
         layout.addView(cancelView);
-        cancelView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        cancelView.setOnClickListener(v -> showDialog(index, 2, "确认取消订单么"));
     }
 
-    public void showDialog(Order item, int index, int i, String message) {
+    public void showDialog(int index, int i, String message) {
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -128,22 +107,22 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
         if (normalDialog == null) {
             normalDialog = new AlertDialog.Builder(mContext);
             normalDialog.setTitle("提示");
-            normalDialog.setPositiveButton("确定",
-                    (dialog, which) -> {
-                        switch (i) {
-                            case 1: {//到店付
-                                listener.offlinePayOrder(item, index);
-                                break;
-                            }
-                            case 2: {//取消订单
-                                listener.cancelOrder(item, index);
-                                break;
-                            }
-                        }
-                    });
             normalDialog.setNegativeButton("取消",
                     (dialog, which) -> dialog.dismiss());
         }
+        normalDialog.setPositiveButton("确定",
+                (dialog, which) -> {
+                    switch (i) {
+                        case 1: {//到店付
+                            listener.offlinePayOrder(index);
+                            break;
+                        }
+                        case 2: {//取消订单
+                            listener.cancelOrder(index);
+                            break;
+                        }
+                    }
+                });
         normalDialog.setMessage(message);
 
         // 显示
@@ -151,8 +130,8 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
     }
 
     public interface OrderWaitForPayAdapterListener{
-        void cancelOrder(Order item, int index);
+        void cancelOrder(int index);
 
-        void offlinePayOrder(Order item, int index);
+        void offlinePayOrder(int index);
     }
 }
