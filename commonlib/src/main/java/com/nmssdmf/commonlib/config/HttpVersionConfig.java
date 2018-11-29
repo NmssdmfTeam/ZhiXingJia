@@ -144,4 +144,9 @@ public class HttpVersionConfig {
      * 订单详情
      */
     public static final int API_ORDER_SHOW = 1;
+
+    /**
+     * 评价保存
+     */
+    public static final int API_ORDER_JUDGE_SAVE = 1;
 }

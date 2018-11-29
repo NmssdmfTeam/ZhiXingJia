@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.zhihangjia.mainmodule.bean.GoodsComment"/>
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +23,8 @@
 
             <com.nmssdmf.commonlib.view.GlideImageView
                 android:layout_width="36dp"
-                android:layout_height="36dp" />
+                android:layout_height="36dp"
+                app:src="@{data.item_img}"/>
 
             <TextView
                 android:layout_width="56dp"
@@ -36,9 +42,9 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="12dp"
+                android:rating="@{data.commodity_score}"
                 android:numStars="5"
-                android:rating="5"
-                android:stepSize="0.1" />
+                android:stepSize="1" />
 
             <View
                 android:layout_width="0dp"
@@ -47,11 +53,11 @@
 
             <TextView
                 android:id="@+id/tvCommentTx"
-                android:layout_width="42dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="42dp"
-                android:text="非常好"
+                android:text=""
                 android:textColor="#FFCCCCCC"
                 android:textSize="14dp" />
 
@@ -72,6 +78,7 @@
             android:gravity="top|left"
             android:paddingBottom="13dp"
             android:paddingTop="13dp"
+            android:text="@={data.note}"
             android:textColorHint="#FFCCCCCC"
             android:textSize="15dp" />
 

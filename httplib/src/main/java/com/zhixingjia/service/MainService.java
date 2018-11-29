@@ -225,4 +225,11 @@ public interface MainService {
      */
     @GET ("/api/order/show")
     Observable<BaseData<OrderDetail>> getOrderDetail(@Query("order_id") String order_id);
+
+    /**
+     * 评价保存
+     */
+    @FormUrlEncoded
+    @POST ("/api/order/judge_save")
+    Observable<Base> orderJudgeSave(@FieldMap() Map<String,String> map);
 }

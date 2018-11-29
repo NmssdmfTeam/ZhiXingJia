@@ -175,6 +175,7 @@ public class OrderDetail extends BaseObservable {
         private String price;//单价
         private String number;//数量
         private String spec_info;//规格信息
+        private String item_id; //订单明细ID
 
         @Bindable
         public String getCommodity_name() {
@@ -225,5 +226,37 @@ public class OrderDetail extends BaseObservable {
             this.spec_info = spec_info;
             notifyPropertyChanged(BR.spec_info);
         }
+
+        @Bindable
+        public String getItem_id() {
+            return item_id;
+        }
+
+        public void setItem_id(String item_id) {
+            this.item_id = item_id;
+            notifyPropertyChanged(BR.item_id);
+        }
+    }
+
+    public static String fomatScore(int score) {
+        String scoreTx = "";
+        switch (score) {
+            case 1:
+                scoreTx = "非常差";
+                break;
+            case 2:
+                scoreTx = "差";
+                break;
+            case 3:
+                scoreTx = "一般";
+                break;
+            case 4:
+                scoreTx = "好";
+                break;
+            case 5:
+                scoreTx = "非常好";
+            default:
+        }
+        return scoreTx;
     }
 }
