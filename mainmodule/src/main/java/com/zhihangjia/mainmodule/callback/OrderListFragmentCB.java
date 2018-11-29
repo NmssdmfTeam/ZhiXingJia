@@ -7,4 +7,5 @@ import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
  */
 
 public interface OrderListFragmentCB extends BaseRecyclerViewFragmentCB {
+    void refreshAdapter(int index);
 }

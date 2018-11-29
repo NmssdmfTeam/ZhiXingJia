@@ -48,7 +48,8 @@ public class OrderListPurchaserActivity extends BaseActivity implements OrderLis
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityOrderListBinding) baseBinding;
 
-
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         OrderListFragment allFragment = new OrderListFragment();
         OrderListWaitForPayFragment waitPayFragment = new OrderListWaitForPayFragment();

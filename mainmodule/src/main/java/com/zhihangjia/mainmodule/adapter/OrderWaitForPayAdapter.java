@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,11 @@ import com.zhixingjia.bean.mainmodule.Order;
 import java.util.List;
 
 public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOrderWaitForPayBinding> {
-    public OrderWaitForPayAdapter(@Nullable List<Order> data) {
+    private AlertDialog.Builder normalDialog;
+    private OrderWaitForPayAdapterListener listener;
+    public OrderWaitForPayAdapter(@Nullable List<Order> data, OrderWaitForPayAdapterListener listener) {
         super(R.layout.item_order_wait_for_pay, data);
+        this.listener = listener;
     }
 
     @Override
@@ -113,5 +117,42 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
 
             }
         });
+    }
+
+    public void showDialog(Order item, int index, int i, String message) {
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        if (normalDialog == null) {
+            normalDialog = new AlertDialog.Builder(mContext);
+            normalDialog.setTitle("提示");
+            normalDialog.setPositiveButton("确定",
+                    (dialog, which) -> {
+                        switch (i) {
+                            case 1: {//到店付
+                                listener.offlinePayOrder(item, index);
+                                break;
+                            }
+                            case 2: {//取消订单
+                                listener.cancelOrder(item, index);
+                                break;
+                            }
+                        }
+                    });
+            normalDialog.setNegativeButton("取消",
+                    (dialog, which) -> dialog.dismiss());
+        }
+        normalDialog.setMessage(message);
+
+        // 显示
+        normalDialog.show();
+    }
+
+    public interface OrderWaitForPayAdapterListener{
+        void cancelOrder(Order item, int index);
+
+        void offlinePayOrder(Order item, int index);
     }
 }

@@ -27,7 +27,7 @@ public class OrderListFragment extends BaseRecyclerViewFragment implements Order
 
     @Override
     public BaseDataBindingAdapter initAdapter(List list) {
-        adapter = new OrderAdapter(list);
+        adapter = new OrderAdapter(vm.getIdentity(), list, vm);
         return adapter;
     }
 
@@ -42,5 +42,10 @@ public class OrderListFragment extends BaseRecyclerViewFragment implements Order
         }
         vm.setIdentity(identity);
         vm.setStatus(status);
+    }
+
+    @Override
+    public void refreshAdapter(int index) {
+        adapter.notifyDataSetChanged();
     }
 }

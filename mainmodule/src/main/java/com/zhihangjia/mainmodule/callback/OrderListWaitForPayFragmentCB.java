@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderListWaitForPayFragmentCB extends BaseCB {
     void refreshAdapter(boolean isRefresh, List<Order> list);
+    void cancelOrder();
 }
