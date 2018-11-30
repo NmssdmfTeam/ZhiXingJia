@@ -222,7 +222,7 @@
                         android:layout_toRightOf="@+id/tvShopDiscountCoupon"
                         android:background="@drawable/bg_coupon"
                         android:gravity="center"
-                        android:text="满200-100"
+                        android:text="@{vm.commodityDetail.coupon_tab}"
                         android:textColor="#FFFF9A14"
                         android:textSize="12dp" />
 

@@ -270,7 +270,6 @@ public interface MainService {
     @POST ("/api/order/confirm_receipt")
     Observable<BaseData> checkReceiver(@Field("order_id") String order_id);
 
-
     /**
      * 评价保存
      */
@@ -302,4 +301,13 @@ public interface MainService {
     @FormUrlEncoded
     @POST ("/api/coupon/del")
     Observable<Base> couponDel(@Field("coupon_id") String coupon_id);
+
+    /**
+     * 领取商家优惠券
+     * @param coupon_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/coupon/receive")
+    Observable<BaseData> getCoupon(@Field("coupon_id") String coupon_id);
 }

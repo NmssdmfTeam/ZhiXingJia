@@ -88,7 +88,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     @Override
     public void showChooseCouponWindow() {
         if (getShopCouponWindow == null) {
-            getShopCouponWindow = new GetShopCouponWindow(getActivity());
+            getShopCouponWindow = new GetShopCouponWindow(getActivity(), vm.commodityDetail.get().getSeller_coupon(), vm);
         }
         getShopCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }

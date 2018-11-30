@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
         <variable
             name="data"
-            type="com.zhixingjia.bean.personmodule.Coupon"/>
+            type="com.zhixingjia.bean.mainmodule.CommodityDetail.SellerCoupon"/>
     </data>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,8 +12,6 @@
         android:layout_height="87dp"
         android:paddingLeft="12dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:background="@drawable/bg_choose_coupon">
 
         <TextView
@@ -50,17 +49,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:layout_alignTop="@+id/tvCondition"
-            android:layout_toRightOf="@+id/tvCondition"
-            android:layout_marginLeft="16dp"
-            android:text="@{data.company_name}"
-            android:textColor="#FFFF9A14"
-            android:textSize="11dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
             android:text="@{data.validity}"
             android:textColor="#FFFF9A14"
             android:textSize="11dp"
@@ -68,10 +56,10 @@
             />
 
         <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="92dp"
+            android:id="@+id/tvGet"
+            android:layout_width="103dp"
             android:layout_height="87dp"
-            android:text="使用说明"
+            android:text="立即领取"
             android:textColor="#FFFF9A14"
             android:textSize="15dp"
             android:layout_alignParentRight="true"

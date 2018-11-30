@@ -49,6 +49,9 @@ public class OrderListPurchaserActivity extends BaseActivity implements OrderLis
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityOrderListBinding) baseBinding;
 
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
         OrderListFragment allFragment = new OrderListFragment();
         OrderListWaitForPayFragment waitPayFragment = new OrderListWaitForPayFragment();
         OrderListFragment waitDeliverFragment = new OrderListFragment();
@@ -63,6 +66,8 @@ public class OrderListPurchaserActivity extends BaseActivity implements OrderLis
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), this, fragments);
         binding.vp.setAdapter(adapter);
 
+        binding.vp.setOffscreenPageLimit(4);
+
         binding.tl.setupWithViewPager(binding.vp);
 
         binding.tl.getTabAt(0).setText("全部");
@@ -72,7 +77,7 @@ public class OrderListPurchaserActivity extends BaseActivity implements OrderLis
         binding.tl.getTabAt(4).setText("待评论");
 
         allFragment.setInfo("buyer", 0);
-//        waitPayFragment.setInfo("buyer", 1);
+        waitPayFragment.setInfo();
         waitDeliverFragment.setInfo("buyer", 2);
         waitReceiveFragment.setInfo("buyer", 3);
         waitCommentFragment.setInfo("buyer", 4);

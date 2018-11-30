@@ -30,7 +30,9 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
 
     @Override
     public BaseVM initViewModel() {
-        vm = new OrderListWaitForPayFragmentVM(this);
+        if (vm == null) {
+            vm = new OrderListWaitForPayFragmentVM(this);
+        }
         return vm;
     }
 
@@ -76,6 +78,12 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
     public void onResume() {
         super.onResume();
         vm.getData(true);
+    }
+
+    public void setInfo(){
+        if (vm == null) {
+            vm = new OrderListWaitForPayFragmentVM(this);
+        }
     }
 
     @Override

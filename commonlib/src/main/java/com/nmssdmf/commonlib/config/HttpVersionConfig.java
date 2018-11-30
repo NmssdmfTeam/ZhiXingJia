@@ -184,4 +184,16 @@ public class HttpVersionConfig {
      * 卖家优惠券删除
      */
     public static final int API_COUPON_DEL = 1;
+    /**
+     * 个人信息保存
+     */
+    public static final int API_MY_INFO_SAVE = 1;
+    /**
+     * 买家优惠券列表
+     */
+    public static final int API_COUPON_INFO = 1;
+    /**
+     * 领取商家优惠券
+     */
+    public static final int API_COUPON_RECEIVE = 1;
 }
