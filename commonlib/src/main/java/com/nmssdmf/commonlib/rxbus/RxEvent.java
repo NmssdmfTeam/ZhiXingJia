@@ -71,6 +71,8 @@ public class RxEvent {
         public static final int COUPON_SAVE = VALUE + 4;     //编辑优惠券
 
         public static final int COUPON_DELTE = VALUE + 5;     //删除优惠券
+
+        public static final int IDENTIFY_CHANGE = VALUE + 6;    //切换身份
     }
 
     public static class OrderEvent extends RxEvent {

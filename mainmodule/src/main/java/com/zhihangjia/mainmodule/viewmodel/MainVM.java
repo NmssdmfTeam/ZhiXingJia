@@ -2,9 +2,12 @@ package com.zhihangjia.mainmodule.viewmodel;
 
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.MainCB;
 
@@ -17,7 +20,7 @@ import com.zhihangjia.mainmodule.callback.MainCB;
 public class MainVM extends BaseVM {
     private MainCB callback;
 
-    public String identify = "buyer";
+    public String identify;
     /**
      * 不需要callback可以传null
      *
@@ -26,6 +29,7 @@ public class MainVM extends BaseVM {
     public MainVM(MainCB callBack) {
         super(callBack);
         this.callback = callBack;
+        identify = PreferenceUtil.getString(PrefrenceConfig.IDENTIFY, "buyer");
     }
 
     @Override
@@ -34,6 +38,7 @@ public class MainVM extends BaseVM {
         RxBus.getInstance().register(RxEvent.BbsEvent.INDEX_SWITCH, this);
         RxBus.getInstance().register(RxEvent.LoginEvent.RE_LOGIN, this);
         RxBus.getInstance().register(RxEvent.LoginEvent.LOGOUT, this);
+        RxBus.getInstance().register(RxEvent.LoginEvent.LOGIN_SUCCESS, this);
     }
 
     @Override
@@ -42,6 +47,7 @@ public class MainVM extends BaseVM {
         RxBus.getInstance().unregister(RxEvent.BbsEvent.INDEX_SWITCH, this);
         RxBus.getInstance().unregister(RxEvent.LoginEvent.RE_LOGIN, this);
         RxBus.getInstance().unregister(RxEvent.LoginEvent.LOGOUT, this);
+        RxBus.getInstance().unregister(RxEvent.LoginEvent.LOGIN_SUCCESS, this);
     }
 
     public void onRxEvent(RxEvent event, EventInfo info) {
@@ -54,6 +60,9 @@ public class MainVM extends BaseVM {
                 break;
             case RxEvent.LoginEvent.LOGOUT:
                 callback.switchFragment(0);
+                break;
+            case RxEvent.LoginEvent.LOGIN_SUCCESS:
+                callback.initTab();
                 break;
         }
     }

@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.viewmodel;
 
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -14,9 +15,13 @@ import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.OrderListSupplierActivity;
+import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
 import com.zhihangjia.mainmodule.callback.MineProviderFragmentCB;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.service.MainService;
@@ -74,9 +79,7 @@ public class MineProviderFragmentVM extends BaseVM {
                         if (StringConfig.OK.equals(userInfoBaseData.getStatus_code())) {
                             PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfoBaseData.getData()));
                             UserInfo userInfo = userInfoBaseData.getData();
-                            userinfo.set(userInfo);
-                            callback.bindVM();
-                            callback.initView();
+                            setData(userInfo);
                         }
                     }
 
@@ -87,7 +90,50 @@ public class MineProviderFragmentVM extends BaseVM {
                 });
     }
 
+    public void setData(UserInfo userInfo) {
+        if (userInfo == null) {
+            String userinfoPrefrence = PreferenceUtil.getString(PrefrenceConfig.USER_INFO, null);
+            if (!TextUtils.isEmpty(userinfoPrefrence))
+                userInfo = new Gson().fromJson(userinfoPrefrence, UserInfo.class);
+            if (userInfo == null) {
+                callback.doIntentClassName(ActivityNameConfig.LOGIN_ACTIVITY, null);
+                RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, null);
+            }
+        }
+        try {
+            userinfo.set(userInfo);
+            callback.bindVM();
+            callback.initView();
+        } catch (Exception e) {
+
+        }
+    }
+
     public void onSettingClick(View view) {
         callback.doIntentClassName(ActivityNameConfig.SET_ACTIVITY, null);
+    }
+
+    public void onCouponManagementClick(View view) {
+        callback.doIntent(ShopCouponListActivity.class, null);
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.PersonInfoEvent.IDENTIFY_CHANGE, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.IDENTIFY_CHANGE, this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.PersonInfoEvent.IDENTIFY_CHANGE:
+                getUserInfo();
+                break;
+        }
     }
 }

@@ -13,6 +13,8 @@ import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
@@ -96,7 +98,6 @@ public class LoginVM extends BaseVM {
             public void onSuccess(BaseData<LoginResult> data) {
                 ToastUtil.showMsg(data.getMessage());
                 PreferenceUtil.setStringValue(PrefrenceConfig.TOKEN, data.getData().getToken());
-                cb.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
                 getUserInfo();
             }
 
@@ -121,6 +122,8 @@ public class LoginVM extends BaseVM {
                     public void onSuccess(BaseData<UserInfo> userInfoBaseData) {
                         if (StringConfig.OK.equals(userInfoBaseData.getStatus_code())) {
                             PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfoBaseData.getData()));
+                            RxBus.getInstance().send(RxEvent.LoginEvent.LOGIN_SUCCESS, null);
+                            cb.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
                             cb.finishActivity();
                         }
                     }

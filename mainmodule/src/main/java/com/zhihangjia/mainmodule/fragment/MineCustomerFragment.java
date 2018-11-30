@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MainActivity;
@@ -41,6 +44,12 @@ public class MineCustomerFragment extends BaseFragment implements MineCustomerFr
         binding.msfl.setSwipeableChildren(R.id.sv_customer_my);
         setListener();
         vm.getUserInfo();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        vm.setData(null);
     }
 
     private void setListener() {
