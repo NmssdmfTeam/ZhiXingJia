@@ -36,5 +36,7 @@ public class IntentConfig {
     public static final String ORDER_ID = "order_id";
 
     public static final String IDENTITY = "IDENTITY";
+    public static final String COUPON_ID = "coupon_id";
+    public static final String COUPON_SELLER = "coupon_seller";
 
 }

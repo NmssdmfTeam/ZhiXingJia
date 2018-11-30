@@ -34,6 +34,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api 'com.amap.api:map2d:latest.integration'             //2D地图
     api 'com.amap.api:location:latest.integration'          //定位
+    api 'com.wdullaer:materialdatetimepicker:1.5.1'         //日期选择器
 
     /**
      * OkHttp-3.2.0 contains library:okhttp-3.2.0,okio-1.6.0
