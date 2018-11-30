@@ -9,4 +9,6 @@ import com.nmssdmf.commonlib.callback.BaseCB;
 public interface SetCouponCB extends BaseCB {
     void showUseConditionWindow();
     void chooseTimeTypeWindow();
+    void showDateStartSelected(String inp);
+    void showDateEndSelected(String inp);
 }

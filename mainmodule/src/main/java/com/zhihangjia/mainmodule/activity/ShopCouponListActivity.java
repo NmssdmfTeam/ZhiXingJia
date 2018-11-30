@@ -4,11 +4,16 @@ import android.os.Bundle;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.ShopCouponAdapter;
 import com.zhihangjia.mainmodule.callback.ShopCouponListCB;
 import com.zhihangjia.mainmodule.databinding.ActivityShopCouponListBinding;
 import com.zhihangjia.mainmodule.viewmodel.ShopCouponListVM;
+import com.zhixingjia.bean.mainmodule.CouponSeller;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 商家优惠券
@@ -38,13 +43,50 @@ public class ShopCouponListActivity extends BaseTitleActivity implements ShopCou
     @Override
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityShopCouponListBinding) baseViewBinding;
-        vm.initData();
-        adapter = new ShopCouponAdapter(vm.getList());
+        binding.setVm(vm);
+        adapter = new ShopCouponAdapter(new ArrayList<>());
         binding.crv.setAdapter(adapter);
+        setListener();
+        vm.getCouponSeller(true);
+    }
+
+    private void setListener() {
+        binding.crv.setOnDataChangeListener(new OnDataChangeListener() {
+            @Override
+            public void onRefresh() {
+                vm.getCouponSeller(true);
+            }
+
+            @Override
+            public void onLoadMore() {
+                vm.getCouponSeller(false);
+            }
+        });
     }
 
     @Override
     public int getContentViewId() {
         return R.layout.activity_shop_coupon_list;
+    }
+
+    @Override
+    public void setData(List<CouponSeller> couponSellers, boolean isRefresh) {
+        if (isRefresh) {
+            binding.crv.setRefreshing(false);
+        }
+        adapter.notifyDataChangedAfterLoadMore(isRefresh, couponSellers);
+    }
+
+    @Override
+    public void setData(CouponSeller couponSeller, int position) {
+        adapter.getData().set(position,couponSeller);
+        adapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void deletData(int position) {
+        adapter.getData().remove(position);
+        vm.page = adapter.getData().get(adapter.getData().size() - 1).getCoupon_id();
+        adapter.notifyItemRemoved(position);
     }
 }

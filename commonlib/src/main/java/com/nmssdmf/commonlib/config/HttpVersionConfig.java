@@ -169,6 +169,21 @@ public class HttpVersionConfig {
      * 评价保存
      */
     public static final int API_ORDER_JUDGE_SAVE = 1;
+
+    /**
+     * 卖家优惠券列表
+     */
+    public static final int API_COUPON_SELLER = 1;
+
+    /**
+     * 卖家优惠券添加、编辑保存
+     */
+    public static final int API_COUPON_SAVEINFO = 1;
+
+    /**
+     * 卖家优惠券删除
+     */
+    public static final int API_COUPON_DEL = 1;
     /**
      * 个人信息保存
      */

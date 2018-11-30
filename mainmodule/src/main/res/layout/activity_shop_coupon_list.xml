@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.ShopCouponListVM"/>
+    </data>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,7 +23,7 @@
             android:textSize="16dp"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            />
+            android:onClick="@{(v)->vm.onAddCouponClick(v)}"/>
 
         <com.nmssdmf.customerviewlib.CustomerRecyclerView
             android:id="@+id/crv"

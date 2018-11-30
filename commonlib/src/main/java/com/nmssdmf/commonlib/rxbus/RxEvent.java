@@ -65,6 +65,12 @@ public class RxEvent {
         public static final int ADDRESS_INSERT = VALUE + 1;     //添加地址
 
         public static final int ADDRESS_SAVE = VALUE + 2;     //编辑地址
+
+        public static final int COUPON_INSERT = VALUE + 3;     //添加优惠券
+
+        public static final int COUPON_SAVE = VALUE + 4;     //编辑优惠券
+
+        public static final int COUPON_DELTE = VALUE + 5;     //删除优惠券
     }
 
     public static class OrderEvent extends RxEvent {

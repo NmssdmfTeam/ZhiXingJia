@@ -10,6 +10,7 @@ import com.zhixingjia.bean.mainmodule.Comment;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
+import com.zhixingjia.bean.mainmodule.CouponSeller;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
@@ -275,6 +276,31 @@ public interface MainService {
     @FormUrlEncoded
     @POST ("/api/order/judge_save")
     Observable<Base> orderJudgeSave(@FieldMap() Map<String,String> map);
+
+    /**
+     * 卖家优惠券列表
+     * @return
+     */
+    @GET ("/api/coupon/seller")
+    Observable<BaseListData<CouponSeller>> getCouponSeller(@Query("page") String page);
+
+    /**
+     * 卖家优惠券添加、编辑保存
+     * @param map
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/coupon/saveinfo")
+    Observable<Base> couponSaveInfo(@FieldMap() Map<String,String> map);
+
+    /**
+     * 卖家优惠券添加、编辑保存
+     * @param coupon_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/coupon/del")
+    Observable<Base> couponDel(@Field("coupon_id") String coupon_id);
 
     /**
      * 领取商家优惠券

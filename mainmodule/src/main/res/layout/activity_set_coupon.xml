@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="android.view.View"/>
@@ -9,9 +10,6 @@
     </data>
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/activity_grey_bg"
@@ -29,7 +27,7 @@
             android:text="确定"
             android:textColor="#FFFFFFFF"
             android:textSize="16dp"
-            />
+            android:onClick="@{(v)->vm.onCouponSaveClick(v)}"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -60,7 +58,7 @@
 
                     <EditText
                         android:layout_width="wrap_content"
-                        android:layout_height="21dp"
+                        android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="16dp"
@@ -68,7 +66,8 @@
                         android:hint="请输入优惠券名称"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
-                        />
+                        android:gravity="right|center_vertical"
+                        android:text="@={vm.couponSeller.title}"/>
                 </RelativeLayout>
 
                 <include
@@ -92,17 +91,22 @@
                         android:textSize="16dp"
                         />
 
-                    <TextView
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="21dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginTop="14.5dp"
+                        android:paddingTop="14.5dp"
+                        android:paddingBottom="14.5dp"
+                        android:gravity="top|left"
                         android:layout_toRightOf="@+id/tvRuleDes"
-                        android:text="请输入优惠券规则描述"
-                        android:textColor="#FFCCCCCC"
+                        android:hint="请输入优惠券规则描述"
+                        android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
-                        />
+                        android:textColor="@color/text_black"
+                        android:background="@null"
+                        android:text="@={vm.couponSeller.description}"/>
 
                 </RelativeLayout>
 
@@ -134,23 +138,28 @@
                         android:layout_marginRight="16dp"
                         android:background="@color/white"
                         android:drawablePadding="3.5dp"
+                        android:gravity="right"
                         android:drawableRight="@drawable/icon_arrow_item_title_right"
-                        android:hint="时间段"
-                        android:text="@{vm.timeType}"
+                        android:hint="请选择时间类型"
+                        android:text='@{vm.timeType}'
                         android:onClick="@{(v)->vm.chooseTimeType(v)}"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
                         />
                 </RelativeLayout>
 
-                <include
-                    layout="@layout/include_recyclerview_cutoff_line"/>
+                <View xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#FFCCCCCC"
+                    android:visibility="@{vm.timeType == null ? View.GONE : View.VISIBLE}"/>
 
                 <RelativeLayout
+                    android:id="@+id/rvSetDay"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#FFFFFFFF"
-                    android:visibility="@{vm.timeType.equals(@string/time_quantum) ? View.GONE : View.VISIBLE}">
+                    android:visibility="@{vm.timeType.equals(@string/postnatal_life_cycle) ? View.VISIBLE : View.GONE}">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -184,13 +193,14 @@
                         android:layout_toLeftOf="@+id/tv"
                         android:background="@color/white"
                         android:gravity="center_vertical"
-                        android:hint="2018-11-11"
+                        android:hint="请输入天数"
                         android:maxWidth="80dp"
                         android:minWidth="75dp"
                         android:singleLine="true"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
-                        />
+                        android:inputType="number"
+                        android:text="@={vm.couponSeller.expireday}"/>
 
                     <TextView
                         android:layout_width="45dp"
@@ -206,10 +216,11 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/rvTimeBegin"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#FFFFFFFF"
-                    android:visibility="@{vm.timeType.equals(@string/postnatal_life_cycle) ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.timeType.equals(@string/time_quantum) ? View.VISIBLE : View.GONE}"
                     >
 
                     <TextView
@@ -222,7 +233,7 @@
                         android:textSize="16dp"
                         />
 
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="21dp"
                         android:layout_alignParentRight="true"
@@ -231,22 +242,27 @@
                         android:background="@color/white"
                         android:drawablePadding="3.5dp"
                         android:drawableRight="@drawable/icon_arrow_item_title_right"
-                        android:hint="2018-11-11"
+                        android:hint="请选择开始时间"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
-                        />
+                        android:gravity="right"
+                        android:text="@{vm.couponSeller.starttime}"
+                        android:onClick="@{(v)->vm.onSetStartDateClick(v)}"/>
                 </RelativeLayout>
 
-                <include
-                    layout="@layout/include_recyclerview_cutoff_line"
-                    android:visibility="@{vm.timeType.equals(@string/postnatal_life_cycle) ? View.GONE : View.VISIBLE}"/>
+                <View xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#FFCCCCCC"
+                    android:visibility="@{vm.timeType.equals(@string/time_quantum) ? View.VISIBLE : View.GONE}"/>
 
 
                 <RelativeLayout
+                    android:id="@+id/rvTimeEnd"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#FFFFFFFF"
-                    android:visibility="@{vm.timeType.equals(@string/postnatal_life_cycle) ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.timeType.equals(@string/time_quantum) ? View.VISIBLE : View.GONE}"
                     >
 
                     <TextView
@@ -259,7 +275,7 @@
                         android:textSize="16dp"
                         />
 
-                    <EditText
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="21dp"
                         android:layout_alignParentRight="true"
@@ -268,10 +284,12 @@
                         android:background="@color/white"
                         android:drawablePadding="3.5dp"
                         android:drawableRight="@drawable/icon_arrow_item_title_right"
-                        android:hint="2018-11-11"
+                        android:hint="请选择结束时间"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
-                        />
+                        android:gravity="right"
+                        android:text="@={vm.couponSeller.endtime}"
+                        android:onClick="@{(v)->vm.onSetEndDateClick(v)}"/>
                 </RelativeLayout>
 
                 <include
@@ -304,16 +322,56 @@
                         android:background="@color/white"
                         android:drawablePadding="3.5dp"
                         android:drawableRight="@drawable/icon_arrow_item_title_right"
-                        android:hint="@{vm.useCondition}"
+                        android:text="@{vm.useCondition}"
                         android:onClick="@{(v)->vm.chooseUseCondition(v)}"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
-                        />
+                        android:gravity="right"/>
                 </RelativeLayout>
 
                 <include
                     layout="@layout/include_recyclerview_cutoff_line"/>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FFFFFFFF"
+                    android:visibility='@{vm.couponSeller.cond.equals("morethan")?View.VISIBLE:View.GONE}'>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="订单金额"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp"
+                        />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/white"
+                        android:drawablePadding="3.5dp"
+                        android:text="@={vm.couponSeller.morethannumber}"
+                        android:minWidth="60dp"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textColor="@color/text_black"
+                        android:textSize="15dp"
+                        android:gravity="right"
+                        android:hint="请输入订单满多少金额才能使用优惠券"
+                        android:inputType="numberDecimal"/>
+
+                </RelativeLayout>
+
+                <View xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#FFCCCCCC"
+                    android:visibility='@{vm.couponSeller.cond.equals("morethan")?View.VISIBLE:View.GONE}'/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -340,11 +398,14 @@
                         android:layout_marginRight="16dp"
                         android:background="@color/white"
                         android:drawablePadding="3.5dp"
-                        android:hint="输入金额"
+                        android:text="@={vm.couponSeller.decrease}"
                         android:minWidth="60dp"
                         android:textColorHint="#FFCCCCCC"
+                        android:textColor="@color/text_black"
+                        android:gravity="right"
                         android:textSize="15dp"
-                        />
+                        android:hint="输入金额"
+                        android:inputType="numberDecimal"/>
 
                     <TextView
                         android:layout_width="16dp"
@@ -371,12 +432,13 @@
                         android:layout_height="22.5dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="16dp"
-                        android:text="使用条件"
+                        android:text="状态"
                         android:textColor="#FF333333"
                         android:textSize="16dp"
                         />
 
                     <Switch
+                        android:id="@+id/swStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
