@@ -53,12 +53,7 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
         setWidth(DensityUtil.dpToPx(context, 375));
         setHeight(DensityUtil.dpToPx(context, 477.5f));
 
-        setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                WindowUtil.setBackgroundAlpha((Activity) context, 1);
-            }
-        });
+        setOnDismissListener(() -> WindowUtil.setBackgroundAlpha((Activity) context, 1));
         this.viewClickListener = viewClickListener;
     }
 

@@ -26,6 +26,7 @@ public class MyCouponAdater extends BaseDataBindingAdapter<Coupon, ItemMyCouponB
     @Override
     protected void convert2(BaseBindingViewHolder<ItemMyCouponBinding> helper, final Coupon item, int position) {
         ItemMyCouponBinding binding = helper.getBinding();
+        binding.setData(item);
         binding.tvDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

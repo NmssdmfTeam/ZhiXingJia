@@ -177,4 +177,8 @@ public class HttpVersionConfig {
      * 买家优惠券列表
      */
     public static final int API_COUPON_INFO = 1;
+    /**
+     * 领取商家优惠券
+     */
+    public static final int API_COUPON_RECEIVE = 1;
 }

@@ -9,23 +9,23 @@ import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
-import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
+import com.zhihangjia.mainmodule.adapter.MerchandiseDetailChooseCouponAdapter;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
-import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.service.MainService;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MerchandiseDetailFragmentVM extends BaseVM {
+public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDetailChooseCouponAdapter.MerchandiseDetailChooseCouponAdapterListener{
     private MerchandiseDetailFragmentCB cb;
     public String commodityId = "1";
 
@@ -76,6 +76,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
      * 获取商品详情
      */
     public void getCommondityDetail() {
+        cb.showLoaddingDialog();
         HttpUtils.doHttp(subscription,
                 RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY_VIEW).getCommodity(commodityId),
                 new ServiceCallback<BaseData<CommodityDetail>>() {
@@ -162,5 +163,26 @@ public class MerchandiseDetailFragmentVM extends BaseVM {
         bundle.putString(IntentConfig.PRODUCT_SKU_ID, inputData.get("product_sku_id"));
         bundle.putString(IntentConfig.GOODS_SUM, inputData.get("goods_sum"));
         baseCallBck.doIntent(ConfirmOrderActivity.class, bundle);
+    }
+
+    @Override
+    public void getCoupon(String id) {
+        cb.showLoaddingDialog();
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_COUPON_RECEIVE).getCoupon(id), new ServiceCallback<BaseData>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData data) {
+                ToastUtil.showMsg(data.getMessage());
+            }
+
+            @Override
+            public void onDefeated(BaseData data) {
+
+            }
+        });
     }
 }

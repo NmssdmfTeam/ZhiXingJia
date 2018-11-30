@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="vm"
@@ -65,7 +65,9 @@
             android:layout_marginTop="12dp"
             android:layout_below="@+id/tvGetCoupon"
             android:layout_above="@+id/tvDone"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:loadmore_enable="false"
+            app:refresh_enable="false">
 
         </com.nmssdmf.customerviewlib.CustomerRecyclerView>
 

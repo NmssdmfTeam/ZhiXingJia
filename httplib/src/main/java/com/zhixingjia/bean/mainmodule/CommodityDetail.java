@@ -26,14 +26,33 @@ public class CommodityDetail extends BaseObservable {
     private String brand;                           //品牌名称
     private String stock;                           //总库存
     private String sold;                            //已售数量
+    private String coupon_tab;                      //优惠券说明Tab
     private List<ContentsBean> content;             //内容循环
     private ProviderInfoBean provider_info;         //供应商信息
     private String sepc_text;                       //规格小注释，无规格时，此处为空
     private List<String> imgs;                      //图片集
-//    private List<?> seller_coupon;                //商家优惠券，先为空，后面再接上去
+    private List<SellerCoupon> seller_coupon;                //商家优惠券，先为空，后面再接上去
     private List<SkuBean> sku;                      //规格数据，用于比例，也供展示库存与价格，购买时需要传规格ID，无规格为空
     private List<SepcValBean> sepc_val;             //规格信息，这个是展示作用，供用户选择购买
     private List<OrderComment> order_comment;       //评价列表，最多5条
+
+    @Bindable
+    public String getCoupon_tab() {
+        return coupon_tab;
+    }
+
+    public void setCoupon_tab(String coupon_tab) {
+        this.coupon_tab = coupon_tab;
+        notifyPropertyChanged(BR.coupon_tab);
+    }
+
+    public List<SellerCoupon> getSeller_coupon() {
+        return seller_coupon;
+    }
+
+    public void setSeller_coupon(List<SellerCoupon> seller_coupon) {
+        this.seller_coupon = seller_coupon;
+    }
 
     @Bindable
     public String getCommodity_id() {
@@ -342,6 +361,51 @@ public class CommodityDetail extends BaseObservable {
         public void setContents(String contents) {
             this.contents = contents;
             notifyPropertyChanged(BR.contents);
+        }
+    }
+
+    public static class SellerCoupon extends BaseObservable {
+        private String coupon_id;//优惠券ID
+        private String decrease;//优惠金额
+        private String validity;//有效期
+        private String cond_name;//使用条件
+
+        public String getCoupon_id() {
+            return coupon_id;
+        }
+
+        public void setCoupon_id(String coupon_id) {
+            this.coupon_id = coupon_id;
+        }
+
+        @Bindable
+        public String getDecrease() {
+            return decrease;
+        }
+
+        public void setDecrease(String decrease) {
+            this.decrease = decrease;
+            notifyPropertyChanged(BR.decrease);
+        }
+
+        @Bindable
+        public String getValidity() {
+            return validity;
+        }
+
+        public void setValidity(String validity) {
+            this.validity = validity;
+            notifyPropertyChanged(BR.validity);
+        }
+
+        @Bindable
+        public String getCond_name() {
+            return cond_name;
+        }
+
+        public void setCond_name(String cond_name) {
+            this.cond_name = cond_name;
+            notifyPropertyChanged(BR.cond_name);
         }
     }
 }
