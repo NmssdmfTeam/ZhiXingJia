@@ -43,6 +43,12 @@ public class MineProviderFragment extends BaseFragment implements MineProviderFr
         setListener();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        vm.setData(null);
+    }
+
     private void setListener() {
         binding.tvChanggeMode.setOnClickListener(new View.OnClickListener() {
             @Override

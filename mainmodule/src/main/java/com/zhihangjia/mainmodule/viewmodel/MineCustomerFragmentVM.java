@@ -3,6 +3,7 @@ package com.zhihangjia.mainmodule.viewmodel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -15,6 +16,8 @@ import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.OrderListPurchaserActivity;
@@ -85,10 +88,7 @@ public class MineCustomerFragmentVM extends BaseVM {
                         if (StringConfig.OK.equals(userInfoBaseData.getStatus_code())) {
                             PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfoBaseData.getData()));
                             UserInfo userInfo = userInfoBaseData.getData();
-                            userinfo.set(userInfoBaseData.getData());
-                            isProvider.set("1".equals(userInfo.getHouse_provider()));
-                            callback.bindVM();
-                            callback.initView();
+                            setData(userInfo);
                         }
                     }
 
@@ -97,6 +97,26 @@ public class MineCustomerFragmentVM extends BaseVM {
                         callback.endFresh();
                     }
                 });
+    }
+
+    public void setData(UserInfo userInfo) {
+        if (userInfo == null) {
+            String userinfoPrefrence = PreferenceUtil.getString(PrefrenceConfig.USER_INFO, null);
+            if (!TextUtils.isEmpty(userinfoPrefrence))
+                userInfo = new Gson().fromJson(userinfoPrefrence, UserInfo.class);
+            if (userInfo == null) {
+                callback.doIntentClassName(ActivityNameConfig.LOGIN_ACTIVITY, null);
+                RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, null);
+            }
+        }
+        try {
+            userinfo.set(userInfo);
+            isProvider.set("1".equals(userInfo.getHouse_provider()));
+            callback.bindVM();
+            callback.initView();
+        } catch (Exception e) {
+
+        }
     }
 
     public void onSettingClick(View view) {

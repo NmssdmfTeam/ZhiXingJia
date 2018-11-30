@@ -11,4 +11,5 @@ import com.nmssdmf.commonlib.callback.BaseCB;
 public interface MainCB extends BaseCB {
 
     void switchFragment(int index);
+    void initTab();
 }

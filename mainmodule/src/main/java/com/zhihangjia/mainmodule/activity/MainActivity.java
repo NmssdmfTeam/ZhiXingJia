@@ -11,9 +11,13 @@ import android.widget.TextView;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PermissionCompat;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
@@ -106,10 +110,10 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
 
     private void initTabsView() {
         // 初始化fragment tab host
-        if (vm.identify.equals(StringConfig.BUYER)) { //是否买家卖家切换fragment
-            fragment_clazz[fragment_clazz.length - 1] = mine_class[0];
-        } else {
+        if (StringConfig.PROVIDER.equals(vm.identify)) { //是否买家卖家切换fragment
             fragment_clazz[fragment_clazz.length - 1] = mine_class[1];
+        } else {
+            fragment_clazz[fragment_clazz.length - 1] = mine_class[0];
         }
         for (int i = 0; i < fragment_clazz.length; i++) {
             // Tab按钮添加文字和图片
@@ -181,14 +185,11 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         /**
          * 因为view被设置为tab widget 点击事件被拦截，所以需要设置onTouch事件
          */
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
+        view.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
 
-                }
-                return false;
             }
+            return false;
         });
 
         return view;
@@ -196,12 +197,15 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
 
     public void changeIdentify(String identify) {
         vm.identify = identify;
+        PreferenceUtil.setStringValue(PrefrenceConfig.IDENTIFY, identify);
         binding.mfth.clearAllTabs();
         ivs.clear();
         tvs.clear();
         binding.mfth.setOnTabChangedListener(null);
         //初始化fragment及底部导航栏
         initTabsView();
+        if (StringConfig.PROVIDER.equals(identify))
+            RxBus.getInstance().send(RxEvent.PersonInfoEvent.IDENTIFY_CHANGE, null);
     }
 
     public void setCurrentTabsIndex(int index) {
@@ -212,5 +216,10 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     public void switchFragment(int index) {
         bottomBehavior.show();
         setCurrentTabsIndex(index);
+    }
+
+    @Override
+    public void initTab() {
+        changeIdentify(StringConfig.BUYER);
     }
 }

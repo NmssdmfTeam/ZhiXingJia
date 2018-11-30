@@ -49,5 +49,6 @@ public class SetVM extends BaseVM {
     private void clearUserInfo() {
         PreferenceUtil.setStringValue(PrefrenceConfig.TOKEN, "");
         PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, "");
+        PreferenceUtil.setStringValue(PrefrenceConfig.IDENTIFY, "");
     }
 }
