@@ -6,5 +6,13 @@ package com.zhihangjia.mainmodule.callback;
 
 public interface ConfirmOrderAdapterCB {
     void chooseDeliveryMethod(int position);
-    void chooseCoupon();
+
+    /**
+     *
+     * @param position
+     * @param id 商家id
+     * @param money 单商家金额
+     */
+    void chooseCoupon(int position, String id, String money);
+
 }

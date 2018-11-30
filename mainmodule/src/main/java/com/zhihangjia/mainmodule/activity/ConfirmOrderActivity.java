@@ -19,6 +19,7 @@ import com.zhihangjia.mainmodule.databinding.HeaderConfirmOrderBinding;
 import com.zhihangjia.mainmodule.viewmodel.ConfirmOrderVM;
 import com.zhihangjia.mainmodule.window.ChooseCouponWindow;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
+import com.zhixingjia.bean.personmodule.Coupon;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -37,7 +38,6 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     private ChooseCouponWindow chooseCouponWindow;
 
     private HeaderConfirmOrderBinding headerBinding;
-    private int position;
 
     @Override
     public String getTAG() {
@@ -85,11 +85,17 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     }
 
     @Override
-    public void chooseCoupon() {
-        if (chooseCouponWindow == null) {
-            chooseCouponWindow = new ChooseCouponWindow(this, ChooseCouponWindow.TYPE_MERCHANT, vm.getCouponList());
-        }
+    public void chooseCoupon(int position, String id, String money) {
+        vm.position = position;
+        vm.getCoupons(true, id, money);
+    }
 
+    @Override
+    public void showCouponWindow(boolean refresh) {
+        if (chooseCouponWindow == null) {
+            chooseCouponWindow = new ChooseCouponWindow(this, ChooseCouponWindow.TYPE_MERCHANT, vm.getCouponMap().get(vm.position), vm);
+        }
+        chooseCouponWindow.refreshAdapter(refresh, vm.getCouponMap().get(vm.position));
         chooseCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 
@@ -117,9 +123,14 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     }
 
     @Override
-    public void tvSureClick(String item, int position) {
+    public void refreshCouponList(boolean isRefresh, List<Coupon> list) {
+
+    }
+
+    @Override
+    public void tvSureClick(String item, int FreightTypePosition) {
         CommodityComfirm.InfoListBean infoListBean = adapter.getData().get(vm.position - 1);
-        adapter.getData().get(vm.position - 1).setFreight_type(position);
+        adapter.getData().get(vm.position - 1).setFreight_type(FreightTypePosition);
         //重新计算金额
         BigDecimal amount;
         BigDecimal total;

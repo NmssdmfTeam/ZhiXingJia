@@ -7,14 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.ChooseCouponAdater;
 import com.zhihangjia.mainmodule.databinding.WindowChooseCouponBinding;
+import com.zhixingjia.bean.personmodule.Coupon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -26,24 +25,19 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 public class ChooseCouponWindow extends PopupWindow{
     public static final String TYPE_PLATFORM = "TYPE_PLATFORM";//平台优惠券
     public static final String TYPE_MERCHANT = "TYPE_MERCHANT";//商家优惠券
-
+    private WindowChooseCouponBinding binding;
     /**
      *
      * @param context
      * @param type 区分商家优惠券还是平台优惠券
      * @param list 优惠券数据
      */
-    public ChooseCouponWindow (final Context context, String type, List<Base> list){
-        WindowChooseCouponBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_choose_coupon, null, false);
+    public ChooseCouponWindow (final Context context, String type, List<Coupon> list, ChooseCouponAdater.ChooseCouponAdaterListener listener){
+         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_choose_coupon, null, false);
         setContentView(binding.getRoot());
         setHeight(DensityUtil.dpToPx(context, 371.5f));
         setWidth(MATCH_PARENT);
-        binding.ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        binding.ivClose.setOnClickListener(v -> dismiss());
 
         switch (type) {
             case TYPE_PLATFORM:{
@@ -56,25 +50,17 @@ public class ChooseCouponWindow extends PopupWindow{
             }
         }
 
-        //测试
-        list = new ArrayList<>();
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
         if (list != null && list.size() > 0) {
-            ChooseCouponAdater adater = new ChooseCouponAdater(list);
+            ChooseCouponAdater adater = new ChooseCouponAdater(list, listener);
             binding.crv.setAdapter(adater);
         }
 
-        setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                WindowUtil.setBackgroundAlpha((Activity) context, 1f);
-            }
-        });
+        setOnDismissListener(() -> WindowUtil.setBackgroundAlpha((Activity) context, 1f));
 
+    }
+
+    public void refreshAdapter(boolean isRefresh, List<Coupon> list){
+        binding.crv.getAdapter().notifyDataChangedAfterLoadMore(isRefresh, list);
     }
 
     @Override

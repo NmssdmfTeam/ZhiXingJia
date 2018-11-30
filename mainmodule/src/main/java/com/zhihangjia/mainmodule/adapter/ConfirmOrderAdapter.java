@@ -3,11 +3,9 @@ package com.zhihangjia.mainmodule.adapter;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.View;
 
-import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
@@ -40,34 +38,21 @@ public class ConfirmOrderAdapter extends BaseDataBindingAdapter<CommodityComfirm
             binding.tvDeliveryMethod.setText("商家配送 ￥"+item.getCost_freight());
         }
 
-        binding.tvShopDetail.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(mContext , MerchantMainActivity.class);
-                mContext.startActivity(intent);
-            }
+        binding.tvShopDetail.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setClass(mContext , MerchantMainActivity.class);
+            mContext.startActivity(intent);
         });
-        binding.tvDeliveryMethod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cb.chooseDeliveryMethod(position);
-            }
+        binding.tvDeliveryMethod.setOnClickListener(v -> cb.chooseDeliveryMethod(position));
+
+        binding.ivCouponArrow.setOnClickListener(v -> {
+            if (!StringUtil.isEmpty(item.getShop_coupon()) && !"0".equals(item.getShop_coupon()))
+                cb.chooseCoupon(position,item.getProvider_id(), item.getProduct_amount());
         });
 
-        binding.ivCouponArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cb.chooseCoupon();
-            }
-        });
-
-        binding.tvCouponCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(item.getShop_coupon()) && !"0".equals(item.getShop_coupon()))
-                    cb.chooseCoupon();
-            }
+        binding.tvCouponCount.setOnClickListener(v -> {
+            if (!StringUtil.isEmpty(item.getShop_coupon()) && !"0".equals(item.getShop_coupon()))
+                cb.chooseCoupon(position,item.getProvider_id(), item.getProduct_amount());
         });
         binding.llInfoList.removeAllViews();
         for (CommodityComfirm.InfoListBean.ListInfoBean listInfoBean : item.getList_info()) {

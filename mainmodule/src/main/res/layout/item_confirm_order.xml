@@ -115,7 +115,8 @@
                 android:paddingRight="12dp"
                 android:text="@{data.shop_coupon+@string/enable_coupon_num}"
                 android:textColor="#FFFF9A14"
-                android:textSize="13dp" />
+                android:textSize="13dp"
+                />
         </RelativeLayout>
 
         <include

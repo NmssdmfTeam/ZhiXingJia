@@ -1,45 +1,43 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
-import android.content.Intent;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.google.gson.Gson;
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
-import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
-import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
-import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
+import com.zhihangjia.mainmodule.adapter.ChooseCouponAdater;
 import com.zhihangjia.mainmodule.bean.ProductBean;
 import com.zhihangjia.mainmodule.bean.ProductParams;
 import com.zhihangjia.mainmodule.callback.ConfirmOrderCB;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.personmodule.Address;
+import com.zhixingjia.bean.personmodule.Coupon;
 import com.zhixingjia.service.MainService;
+import com.zhixingjia.service.PersonService;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ConfirmOrderVM extends BaseVM {
+public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseCouponAdaterListener{
     private ConfirmOrderCB cb;
-    private List<Base> couponList = new ArrayList<>();//优惠券数据
+
+    Map<Integer, List<Coupon>> couponMap = new HashMap<>();
 
     private List<String> deliveryMethodList = new ArrayList<>();
     private String cart_info = "";      //选填(购物车点击结算时必填)，json格式:[{'sku_sum':'8','cart_id':'20731'},{'sku_sum':'8','cart_id':'20732'}]，sku_sum是购物车页上的选择的数量，cart_id是购物车列表规格所对应的cart_id
@@ -171,14 +169,6 @@ public class ConfirmOrderVM extends BaseVM {
         });
     }
 
-    public List<Base> getCouponList() {
-        return couponList;
-    }
-
-    public void setCouponList(List<Base> couponList) {
-        this.couponList = couponList;
-    }
-
     public List<String> getDeliveryMethodList() {
         return deliveryMethodList;
     }
@@ -205,6 +195,44 @@ public class ConfirmOrderVM extends BaseVM {
         Bundle bundle = new Bundle();
         bundle.putBoolean(IntentConfig.IS_SELECT, true);
         cb.doIntentClassName(ActivityNameConfig.MANAGEADDRESSLIST_ACTIVITY, bundle);
+    }
+
+    /**
+     * 获取商家优惠券
+     */
+    public void getCoupons(boolean isRefresh, String providerId, String money){
+        if (couponMap.get(position) != null && couponMap.get(position).size() > 0) {
+            cb.showCouponWindow(true);
+            return;
+        }
+        String page = "0";
+        if (couponMap.get(position) != null && couponMap.get(position).size() > 0) {
+            page = couponMap.get(position).get(couponMap.get(position).size() -1).getCode_id();
+        }
+        Map<String, String> map = new HashMap<>();
+        map.put("type", "3");
+        map.put("amount", money);
+        map.put("page",  page);
+        map.put("provider_id", providerId);
+        HttpUtils.doHttp(subscription, RxRequest.create(PersonService.class, HttpVersionConfig.API_COUPON_INFO).getMyCoupon(map), new ServiceCallback<BaseListData<Coupon>>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseListData<Coupon> data) {
+                if (data.getData() != null && data.getData().size() > 0) {
+                    cb.refreshCouponList(isRefresh, data.getData());
+                }
+                cb.showCouponWindow(isRefresh);
+            }
+
+            @Override
+            public void onDefeated(BaseListData<Coupon> data) {
+
+            }
+        });
     }
 
     @Override
@@ -240,5 +268,18 @@ public class ConfirmOrderVM extends BaseVM {
         addressInfoBean.setMobile(address.getMobile());
         addressInfoBean.setName(address.getNames());
         return addressInfoBean;
+    }
+
+    public Map<Integer, List<Coupon>> getCouponMap() {
+        return couponMap;
+    }
+
+    public void setCouponMap(Map<Integer, List<Coupon>> couponMap) {
+        this.couponMap = couponMap;
+    }
+
+    @Override
+    public void useCoupon() {
+
     }
 }
