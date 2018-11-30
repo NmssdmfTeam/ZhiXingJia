@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="#FFFFFFFF"
+            android:layout_marginTop="12dp"
             >
 
             <TextView
@@ -47,6 +48,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="3.5dp"
                 android:layout_toLeftOf="@+id/ivIconArrow"
+                src="@{vm.userInfo.avatar}"
                 />
 
         </RelativeLayout>
@@ -79,11 +81,11 @@
                 android:drawablePadding="3.5dp"
                 android:drawableRight="@drawable/icon_arrow_item_right"
                 android:gravity="center_vertical|right"
-                android:text="@{vm.nickName}"
+                android:text="@{vm.userInfo.nickname}"
                 android:textColor="#FFCCCCCC"
                 android:textSize="15dp"
                 android:layout_alignParentRight="true"
-                android:onClick="@{(v)->vm.tvNickNameClick(v)}"
+                android:onClick="@{(v)->vm.tvNickNameClick(v, 1)}"
                 />
 
         </RelativeLayout>
@@ -114,10 +116,11 @@
                 android:drawablePadding="3.5dp"
                 android:drawableRight="@drawable/icon_arrow_item_right"
                 android:gravity="center_vertical"
-                android:text="知行家"
+                android:text="@{vm.userInfo.realname}"
                 android:textColor="#FFCCCCCC"
                 android:textSize="15dp"
                 android:layout_alignParentRight="true"
+                android:onClick="@{(v)->vm.tvNickNameClick(v, 2)}"
                 />
 
         </RelativeLayout>
@@ -150,7 +153,7 @@
                 android:drawablePadding="3.5dp"
                 android:drawableRight="@drawable/icon_arrow_item_right"
                 android:gravity="center_vertical|right"
-                android:text="男"
+                android:text="@{vm.userInfo.sex.equals(`0`) ? `男`:`女`}"
                 android:textColor="#FFCCCCCC"
                 android:textSize="15dp"
                 android:layout_alignParentRight="true"

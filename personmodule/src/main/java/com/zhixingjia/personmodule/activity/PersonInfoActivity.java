@@ -43,15 +43,17 @@ public class PersonInfoActivity extends BaseTitleActivity implements PersonInfoC
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityPersonInfoBinding) baseViewBinding;
         binding.setVm(vm);
-
         vm. initData();
+
         binding.tvSelectSex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (selectSexWindow == null) {
                     selectSexWindow = new WheelPickerWindow(PersonInfoActivity.this, vm.getSexList(), vm);
                 }
+
                 selectSexWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
+                selectSexWindow.setCurrentItem(vm.userInfo.get().getSex().equals("0") ? 0 : 1);
             }
         });
     }
@@ -68,7 +70,12 @@ public class PersonInfoActivity extends BaseTitleActivity implements PersonInfoC
         }
         switch (requestCode) {
             case PersonInfoVM.CHANGE_NAME_REQUEST_CODE:{
-                vm.nickName.set(data.getExtras().getString(IntentConfig.NAME));
+                int type = data.getExtras().getInt(IntentConfig.TYPE);
+                if (type == 1) {
+                    vm.userInfo.get().setNickname(data.getExtras().getString(IntentConfig.NAME));
+                } else {
+                    vm.userInfo.get().setRealname(data.getExtras().getString(IntentConfig.NAME));
+                }
                 break;
             }
         }

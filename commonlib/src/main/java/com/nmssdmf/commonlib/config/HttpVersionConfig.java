@@ -169,4 +169,12 @@ public class HttpVersionConfig {
      * 评价保存
      */
     public static final int API_ORDER_JUDGE_SAVE = 1;
+    /**
+     * 个人信息保存
+     */
+    public static final int API_MY_INFO_SAVE = 1;
+    /**
+     * 买家优惠券列表
+     */
+    public static final int API_COUPON_INFO = 1;
 }

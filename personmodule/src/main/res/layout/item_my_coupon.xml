@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.personmodule.Coupon"/>
+    </data>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -24,7 +29,7 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="40.5dp"
-            android:text="30"
+            android:text="@{data.decrease}"
             android:textColor="#FFFF9A14"
             android:textSize="29dp"
             android:layout_toRightOf="@+id/tvPriceUnit"
@@ -35,7 +40,7 @@
             android:id="@+id/tvCondition"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:text="满100元使用"
+            android:text="@{data.cond_name}"
             android:textColor="#FFFF9A14"
             android:textSize="11dp"
             android:layout_below="@+id/tvPrice"
@@ -45,7 +50,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:text="有效期：2018-11-11至2018-12-31"
+            android:layout_alignTop="@+id/tvCondition"
+            android:layout_toRightOf="@+id/tvCondition"
+            android:layout_marginLeft="16dp"
+            android:text="@{data.company_name}"
+            android:textColor="#FFFF9A14"
+            android:textSize="11dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="@{data.validity}"
             android:textColor="#FFFF9A14"
             android:textSize="11dp"
             android:layout_below="@+id/tvCondition"

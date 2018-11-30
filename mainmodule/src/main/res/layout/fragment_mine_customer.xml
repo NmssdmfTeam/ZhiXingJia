@@ -124,7 +124,8 @@
                                     android:layout_height="67dp"
                                     android:layout_centerInParent="true"
                                     app:roundAsCircle="@{true}"
-                                    app:src="@{vm.userinfo.avatar}"/>
+                                    src="@{vm.userinfo.avatar}"
+                                    />
                             </RelativeLayout>
 
                             <TextView

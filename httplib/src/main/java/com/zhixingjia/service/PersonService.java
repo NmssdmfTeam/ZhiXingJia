@@ -4,6 +4,7 @@ import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.zhixingjia.bean.personmodule.Address;
 import com.zhixingjia.bean.personmodule.AddressInsertResult;
+import com.zhixingjia.bean.personmodule.Coupon;
 
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * 个人信息Service
@@ -50,4 +52,20 @@ public interface PersonService {
      */
     @GET("/api/area")
     Observable<BaseListData<String>> getArea();
+
+    /**
+     * 个人资料修改保存
+     * @param map
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/my/info_save")
+    Observable<BaseData> infoSave(@FieldMap Map<String, String> map);
+
+    /**
+     * 买家优惠券列表 、 可用商家优惠券列表、可用平台优惠券列表
+     * @return
+     */
+    @GET ("/api/coupon/info")
+    Observable<BaseListData<Coupon>> getMyCoupon(@QueryMap Map<String, String> map);
 }

@@ -14,6 +14,9 @@ import com.zhixingjia.personmodule.window.CouponDescriptionWindow;
 
 import java.util.List;
 
+/**
+ * 买家优惠券
+ */
 public class MyCouponsActivity extends BaseTitleRecyclerViewActivity implements MyCouponsCB, MyCouponAdater.MyCouponAdaterListner{
 
     private final String TAG = MyCouponsActivity.class.getSimpleName();
@@ -49,9 +52,9 @@ public class MyCouponsActivity extends BaseTitleRecyclerViewActivity implements 
     }
 
     @Override
-    public void showCouponDescriptionWindow() {
+    public void showCouponDescriptionWindow(String des) {
         if (couponDescriptionWindow == null) {
-            couponDescriptionWindow = new CouponDescriptionWindow(this, null);
+            couponDescriptionWindow = new CouponDescriptionWindow(this, des);
         }
 
         couponDescriptionWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
