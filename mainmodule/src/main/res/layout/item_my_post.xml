@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.personmodule.Placard"/>
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,8 +16,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="《刺客信条：起源》11月更新计划 与众神战斗其乐无穷"
+            android:text="@{data.title}"
             android:textColor="#FF000000"
+            android:layout_marginTop="12dp"
             android:textSize="15dp" />
 
         <LinearLayout
@@ -26,14 +31,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3045阅读"
+                android:text="@{data.read_sum+@string/read}"
                 android:textColor="#FF999999"
                 android:textSize="13dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13评论"
+                android:text="@{data.comment_sum+@string/comment}"
                 android:textColor="#FF999999"
                 android:layout_marginLeft="12dp"
                 android:textSize="13dp" />
@@ -41,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="45点赞"
+                android:text="@{data.give_sum+@string/give}"
                 android:textColor="#FF999999"
                 android:layout_marginLeft="12dp"
                 android:textSize="13dp" />
@@ -54,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="昨天 18:43"
+                android:text="@{data.createtime}"
                 android:textColor="#FF999999"
                 android:textSize="13dp" />
         </LinearLayout>

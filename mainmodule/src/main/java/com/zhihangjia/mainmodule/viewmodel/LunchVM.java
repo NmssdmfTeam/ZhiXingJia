@@ -1,17 +1,23 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import com.google.gson.Gson;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.loginmodule.LoginResult;
+import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.service.LoginService;
+import com.zhixingjia.service.MainService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +53,7 @@ public class LunchVM extends BaseVM {
             public void onSuccess(BaseData<LoginResult> data) {
                 ToastUtil.showMsg("登陆成功");
                 PreferenceUtil.setStringValue(PrefrenceConfig.TOKEN, data.getData().getToken());
+                getUserInfo();
             }
 
             @Override
@@ -54,5 +61,30 @@ public class LunchVM extends BaseVM {
 
             }
         });
+    }
+
+    /**
+     * 获取用户信息
+     */
+    public void getUserInfo() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_MY).getUserInfo("buyer"),
+                new ServiceCallback<BaseData<UserInfo>>() {
+                    @Override
+                    public void onError(Throwable error) {
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData<UserInfo> userInfoBaseData) {
+                        if (StringConfig.OK.equals(userInfoBaseData.getStatus_code())) {
+                            PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfoBaseData.getData()));
+                            RxBus.getInstance().send(RxEvent.LoginEvent.LOGIN_SUCCESS, null);
+                        }
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData<UserInfo> userInfoBaseData) {
+                    }
+                });
     }
 }

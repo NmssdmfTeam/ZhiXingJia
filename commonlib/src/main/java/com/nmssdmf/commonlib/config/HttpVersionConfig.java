@@ -196,4 +196,12 @@ public class HttpVersionConfig {
      * 领取商家优惠券
      */
     public static final int API_COUPON_RECEIVE = 1;
+    /**
+     * 我的帖子 - 发帖
+     */
+    public static final int API_MY_PLACARD = 1;
+    /**
+     * 我的帖子 - 回帖
+     */
+    public static final int API_MY_REPLIES = 1;
 }

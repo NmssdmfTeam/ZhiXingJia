@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.personmodule.Reply"/>
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +17,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="质量上乘画风感人《武士崛起》交首付款楚乔质质量上乘画风感人《武士崛起》《武士崛起》《武士崛起》"
+            android:text="@{data.title}"
             android:textColor="#FF000000"
             android:textSize="15dp"
             android:maxLines="2"
@@ -28,7 +32,7 @@
             android:maxWidth="100dp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:text="成龙之人"
+            android:text="@{data.nickname}"
             android:drawableLeft="@drawable/icon_author"
             android:layout_below="@+id/tvTitle"
             android:layout_marginTop="14dp"
@@ -39,7 +43,7 @@
             android:id="@+id/tvReadingVolume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3045阅读"
+            android:text="@{data.read_sum+@string/read}"
             android:textColor="#FF999999"
             android:layout_below="@+id/tvTitle"
             android:layout_toRightOf="@+id/tvAuthor"
@@ -51,7 +55,7 @@
             android:id="@+id/tvCreateDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="前天 18:43"
+            android:text="@{data.createtime}"
             android:textColor="#FF999999"
             android:layout_below="@+id/tvTitle"
             android:layout_marginTop="14dp"

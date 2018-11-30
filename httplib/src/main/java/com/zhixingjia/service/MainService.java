@@ -23,6 +23,8 @@ import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.bean.mainmodule.UserInfo;
+import com.zhixingjia.bean.personmodule.Placard;
+import com.zhixingjia.bean.personmodule.Reply;
 
 import java.util.Map;
 
@@ -310,4 +312,16 @@ public interface MainService {
     @FormUrlEncoded
     @POST ("/api/coupon/receive")
     Observable<BaseData> getCoupon(@Field("coupon_id") String coupon_id);
+
+    /**
+     * 我的帖子 - 发帖
+     */
+    @GET("/api/my/placard")
+    Observable<BaseListData<Placard>> getPlacard(@Query("page") String page);
+
+    /**
+     * 我的帖子 - 回帖
+     */
+    @GET("/api/my/replies")
+    Observable<BaseListData<Reply>> getReplies(@Query("page") String page);
 }
