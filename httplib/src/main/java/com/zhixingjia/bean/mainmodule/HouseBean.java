@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 
 import com.zhixingjia.httplib.BR;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public class HouseBean extends BaseObservable {
         this.product = product;
     }
 
-    public static class CateBean extends BaseObservable {
+    public static class CateBean extends BaseObservable implements Serializable {
         /**
          * cate_id : 2
          * cate_name : 家居2
@@ -62,6 +63,7 @@ public class HouseBean extends BaseObservable {
         private String cate_id;     //分类ID
         private String cate_name;   //分类名称
         private String cate_img;    //分类图片
+        private boolean select;     //是否选中
 
         @Bindable
         public String getCate_id() {
@@ -91,6 +93,16 @@ public class HouseBean extends BaseObservable {
         public void setCate_img(String cate_img) {
             this.cate_img = cate_img;
             notifyPropertyChanged(BR.cate_img);
+        }
+
+        @Bindable
+        public boolean isSelect() {
+            return select;
+        }
+
+        public void setSelect(boolean select) {
+            this.select = select;
+            notifyPropertyChanged(BR.select);
         }
     }
 

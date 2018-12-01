@@ -5,8 +5,8 @@ import com.zhixingjia.bean.mainmodule.HouseBean;
 
 import java.util.List;
 
-public interface AllCategoriesCB extends BaseCB {
+public interface SelectCategoriesCB extends BaseCB {
 
     void setData(List<HouseBean.CateBean> cateBeans);
-
+    List<HouseBean.CateBean> getSelectedData();
 }

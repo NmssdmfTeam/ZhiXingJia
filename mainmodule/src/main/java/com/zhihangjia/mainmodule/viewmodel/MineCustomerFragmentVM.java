@@ -48,7 +48,7 @@ public class MineCustomerFragmentVM extends BaseVM {
     }
 
     public void applySupplierActivity(View view) {
-        if ("审核成功".equals(userinfo.get().getVerify_status()))
+        if ("审核成功".equals(userinfo.get().getVerify_status())) return;
         baseCallBck.doIntentClassName(ActivityNameConfig.APPLY_SUPPLIER_ACTIVITY, null);
     }
 

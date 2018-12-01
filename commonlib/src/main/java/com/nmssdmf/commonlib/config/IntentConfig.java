@@ -38,5 +38,6 @@ public class IntentConfig {
     public static final String IDENTITY = "IDENTITY";
     public static final String COUPON_ID = "coupon_id";
     public static final String COUPON_SELLER = "coupon_seller";
+    public static final String MERCHANT_CATEGORY = "merchant_category";
 
 }

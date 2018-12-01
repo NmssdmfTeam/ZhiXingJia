@@ -204,4 +204,8 @@ public class HttpVersionConfig {
      * 我的帖子 - 回帖
      */
     public static final int API_MY_REPLIES = 1;
+    /**
+     * 分类列表
+     */
+    public static final int API_HOUSE_CATE = 1;
 }

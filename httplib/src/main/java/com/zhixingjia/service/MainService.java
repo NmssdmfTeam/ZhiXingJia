@@ -324,4 +324,17 @@ public interface MainService {
      */
     @GET("/api/my/replies")
     Observable<BaseListData<Reply>> getReplies(@Query("page") String page);
+
+    /**
+     * 成为卖家
+     */
+    @FormUrlEncoded
+    @POST("/api/my/become_seller")
+    Observable<Base> becomeSeller(@FieldMap Map<String,String> map);
+
+    /**
+     * 成为卖家
+     */
+    @GET("/api/house/cate")
+    Observable<BaseListData<HouseBean.CateBean>> getHouseCate();
 }

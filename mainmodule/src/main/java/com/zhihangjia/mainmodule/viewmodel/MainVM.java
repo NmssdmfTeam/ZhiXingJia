@@ -1,9 +1,7 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
-import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
-import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
@@ -56,6 +54,7 @@ public class MainVM extends BaseVM {
                 callback.switchFragment(info.getIndex());
                 break;
             case RxEvent.LoginEvent.RE_LOGIN:
+                callback.switchFragment(0);
                 callback.doIntentClassName(ActivityNameConfig.LOGIN_ACTIVITY, null);
                 break;
             case RxEvent.LoginEvent.LOGOUT:

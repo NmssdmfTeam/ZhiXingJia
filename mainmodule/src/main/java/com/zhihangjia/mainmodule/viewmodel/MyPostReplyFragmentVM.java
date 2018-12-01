@@ -32,7 +32,7 @@ public class MyPostReplyFragmentVM extends BaseRecyclerViewFragmentVM {
         if (isRefresh)
             page = "0";
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_MY_PLACARD).getReplies(page),
+                RxRequest.create(MainService.class, HttpVersionConfig.API_MY_REPLIES).getReplies(page),
                 new ServiceCallback<BaseListData<Reply>>() {
                     @Override
                     public void onError(Throwable error) {

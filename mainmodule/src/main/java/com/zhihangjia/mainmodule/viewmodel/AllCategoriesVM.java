@@ -1,14 +1,17 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import com.nmssdmf.commonlib.bean.BaseListData;
+import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.AllCategoriesCB;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.zhixingjia.bean.mainmodule.HouseBean;
+import com.zhixingjia.service.MainService;
 
 public class AllCategoriesVM extends BaseVM {
+    private AllCategoriesCB callback;
 
     /**
      * 不需要callback可以传null
@@ -17,18 +20,37 @@ public class AllCategoriesVM extends BaseVM {
      */
     public AllCategoriesVM(AllCategoriesCB callBack) {
         super(callBack);
-    }
-
-    public void getData() {
-
+        this.callback = callBack;
+        getHouseCate();
     }
 
     public void doSearch() {
 
     }
 
-    public void changeMainCategory() {
+    /**
+     * 获取建材家居分类列表
+     */
+    public void getHouseCate() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_CATE).getHouseCate(),
+                new ServiceCallback<BaseListData<HouseBean.CateBean>>() {
+                    @Override
+                    public void onError(Throwable error) {
 
+                    }
+
+                    @Override
+                    public void onSuccess(BaseListData<HouseBean.CateBean> cateBeanBaseListData) {
+                        callback.setData(cateBeanBaseListData.getData());
+                    }
+
+                    @Override
+                    public void onDefeated(BaseListData<HouseBean.CateBean> cateBeanBaseListData) {
+
+                    }
+
+                });
     }
 
 }
