@@ -1,11 +1,14 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
-import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.bean.BaseListData;
+import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.XYTelecomCB;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.zhixingjia.bean.mainmodule.YXTelecom;
+import com.zhixingjia.service.MainService;
 
 /**
  * Created by ${nmssdmf} on 2018/11/23 0023.
@@ -13,8 +16,8 @@ import java.util.List;
 
 public class XYTelecomVM extends BaseVM {
     private XYTelecomCB cb;
+    private String page = "0";
 
-    private List<Base> list = new ArrayList<>();
     /**
      * 不需要callback可以传null
      *
@@ -25,26 +28,30 @@ public class XYTelecomVM extends BaseVM {
         cb = callBack;
     }
 
-    public void getData(){
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-    }
+    public void getData(boolean isRefresh){
+        if (isRefresh) {
+            page = "0";
+        }
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_DX_INFOLISTS).getYXInfoList(page),
+                new ServiceCallback<BaseListData<YXTelecom>>() {
+            @Override
+            public void onError(Throwable error) {
 
-    public List<Base> getList() {
-        return list;
-    }
+            }
 
-    public void setList(List<Base> list) {
-        this.list = list;
+            @Override
+            public void onSuccess(BaseListData<YXTelecom> xyTelecomBaseListData) {
+                cb.setData(xyTelecomBaseListData.getData(),isRefresh);
+                if (xyTelecomBaseListData.getData().size() > 0) {
+                    page = xyTelecomBaseListData.getData().get(xyTelecomBaseListData.getData().size() - 1).getId();
+                }
+            }
+
+            @Override
+            public void onDefeated(BaseListData<YXTelecom> xyTelecomBaseListData) {
+
+            }
+        });
     }
 }

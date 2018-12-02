@@ -23,6 +23,7 @@ import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.bean.mainmodule.UserInfo;
+import com.zhixingjia.bean.mainmodule.YXTelecom;
 import com.zhixingjia.bean.personmodule.Placard;
 import com.zhixingjia.bean.personmodule.Reply;
 
@@ -337,4 +338,10 @@ public interface MainService {
      */
     @GET("/api/house/cate")
     Observable<BaseListData<HouseBean.CateBean>> getHouseCate();
+
+    /**
+     * 宜兴电信广告信息列表
+     */
+    @GET("/api/dx/infolists")
+    Observable<BaseListData<YXTelecom>> getYXInfoList(@Query("page") String page);
 }

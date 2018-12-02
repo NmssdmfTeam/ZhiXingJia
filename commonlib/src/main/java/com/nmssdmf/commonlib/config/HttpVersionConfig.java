@@ -212,4 +212,8 @@ public class HttpVersionConfig {
      * 成为卖家
      */
     public static final int API_MY_BECOME_SELLER = 1;
+    /**
+     * 宜兴电信广告信息列表
+     */
+    public static final int API_DX_INFOLISTS = 1;
 }
