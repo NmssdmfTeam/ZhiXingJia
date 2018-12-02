@@ -22,7 +22,8 @@
             android:gravity="center"
             android:text="提交申请"
             android:textColor="#FFFFFFFF"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:onClick="@{(v)->vm.onCommitClick(v)}"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -40,6 +41,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
                     android:background="@color/activity_grey_bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center_vertical"
+                        android:text="店铺名称"
+                        android:textColor="#FF333333"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="30dp"
+                        android:background="@null"
+                        android:drawablePadding="3.5dp"
+                        android:gravity="right"
+                        android:hint="请填写店铺名称"
+                        android:text="@={vm.applySupplier.company_name}"
+                        android:textColor="@color/text_black"
+                        android:textColorHint="#FFCCCCCC"
+                        android:textSize="15dp" />
+
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

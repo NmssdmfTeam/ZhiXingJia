@@ -208,4 +208,8 @@ public class HttpVersionConfig {
      * 分类列表
      */
     public static final int API_HOUSE_CATE = 1;
+    /**
+     * 成为卖家
+     */
+    public static final int API_MY_BECOME_SELLER = 1;
 }
