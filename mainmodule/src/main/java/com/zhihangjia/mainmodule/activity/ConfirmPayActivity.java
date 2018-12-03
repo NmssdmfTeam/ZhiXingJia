@@ -5,13 +5,15 @@ import android.os.Bundle;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.callback.ConfirmPayCB;
 import com.zhihangjia.mainmodule.databinding.ActivityConfirmPayBinding;
 import com.zhihangjia.mainmodule.viewmodel.ConfirmPayVM;
 
-public class ConfirmPayActivity extends BaseTitleActivity {
+public class ConfirmPayActivity extends BaseTitleActivity implements ConfirmPayCB {
     private final String TAG = ConfirmPayActivity.class.getSimpleName();
     private ConfirmPayVM vm;
     private ActivityConfirmPayBinding binding;
+
     @Override
     public String getTAG() {
         return TAG;
@@ -31,11 +33,16 @@ public class ConfirmPayActivity extends BaseTitleActivity {
     @Override
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityConfirmPayBinding) baseViewBinding;
-        binding.setVm(vm);
+        vm.payInfo();
     }
 
     @Override
     public int getContentViewId() {
         return R.layout.activity_confirm_pay;
+    }
+
+    @Override
+    public void setListener() {
+        binding.setVm(vm);
     }
 }

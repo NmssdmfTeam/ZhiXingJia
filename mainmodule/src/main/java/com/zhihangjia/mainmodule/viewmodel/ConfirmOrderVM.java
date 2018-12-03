@@ -29,6 +29,7 @@ import com.zhixingjia.bean.personmodule.Coupon;
 import com.zhixingjia.service.MainService;
 import com.zhixingjia.service.PersonService;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -144,16 +145,16 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
         cb.showLoaddingDialog();
         HttpUtils.doHttp(subscription,
                 RxRequest.create(MainService.class, HttpVersionConfig.API_CART_SUBMITORDER).submitOrder(addrId, orders),
-                new ServiceCallback<BaseData<String>>() {
+                new ServiceCallback<BaseListData<String>>() {
             @Override
             public void onError(Throwable error) {
 
             }
 
             @Override
-            public void onSuccess(BaseData<String> base) {
+            public void onSuccess(BaseListData<String> base) {
                 Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.PAY_IDS, base.getData());
+                bundle.putSerializable(IntentConfig.PAY_IDS, (Serializable) base.getData());
                 cb.doIntent(ConfirmPayActivity.class, bundle);
                 if (!TextUtils.isEmpty(cart_info)) {
                     RxBus.getInstance().send(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER, null);
@@ -163,7 +164,7 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
             }
 
             @Override
-            public void onDefeated(BaseData<String> base) {
+            public void onDefeated(BaseListData<String> base) {
 
             }
         });

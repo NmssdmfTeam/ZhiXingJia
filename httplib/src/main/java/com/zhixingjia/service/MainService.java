@@ -19,6 +19,7 @@ import com.zhixingjia.bean.mainmodule.MessageDetail;
 import com.zhixingjia.bean.mainmodule.New;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
+import com.zhixingjia.bean.mainmodule.PayInfo;
 import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.TradeArea;
@@ -204,7 +205,7 @@ public interface MainService {
      */
     @FormUrlEncoded
     @POST ("/api/cart/submitorder")
-    Observable<BaseData<String>> submitOrder(@Field("addr_id") String addr_id, @Field("orders") String orders);
+    Observable<BaseListData<String>> submitOrder(@Field("addr_id") String addr_id, @Field("orders") String orders);
 
     /**
      * 宜兴头条
@@ -344,4 +345,10 @@ public interface MainService {
      */
     @GET("/api/dx/infolists")
     Observable<BaseListData<YXTelecom>> getYXInfoList(@Query("page") String page);
+
+    /**
+     * 确认支付页面(选择支付方式)
+     */
+    @GET("/api/pay")
+    Observable<BaseData<PayInfo>> apiPay(@Query("order_id") String order_id);
 }
