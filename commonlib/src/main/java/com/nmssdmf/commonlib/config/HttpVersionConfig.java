@@ -216,4 +216,16 @@ public class HttpVersionConfig {
      * 宜兴电信广告信息列表
      */
     public static final int API_DX_INFOLISTS = 1;
+    /**
+     * 店铺首页
+     */
+    public static final int API_SHOPINFO = 1;
+    /**
+     * 店铺的全部商品
+     */
+    public static final int API_SHOPINFO_COMMODITY = 1;
+    /**
+     * 店铺的全部商品
+     */
+    public static final int API_SHOPINFO_EVALUATE = 1;
 }

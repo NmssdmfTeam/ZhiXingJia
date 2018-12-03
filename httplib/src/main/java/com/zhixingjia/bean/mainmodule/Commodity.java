@@ -5,11 +5,13 @@ import android.databinding.Bindable;
 
 import com.zhixingjia.httplib.BR;
 
+import java.io.Serializable;
+
 /**
  * Created by ${nmssdmf} on 2018/11/26 0026.
  */
 
-public class Commodity extends BaseObservable{
+public class Commodity extends BaseObservable implements Serializable{
     private String commodity_id;//商品ID
     private String commodity_name;//商品标题
     private String imgs;//商品图片

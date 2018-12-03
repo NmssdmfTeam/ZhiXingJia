@@ -87,7 +87,7 @@ public class IndexBean extends BaseObservable implements Serializable {
          */
 
         private String member_id;
-        private String company;
+        private String company_name;
         private String score;
         private String imgs;
 
@@ -102,13 +102,13 @@ public class IndexBean extends BaseObservable implements Serializable {
         }
 
         @Bindable
-        public String getCompany() {
-            return company;
+        public String getCompany_name() {
+            return company_name;
         }
 
-        public void setCompany(String company) {
-            this.company = company;
-            notifyPropertyChanged(BR.company);
+        public void setCompany_name(String company_name) {
+            this.company_name = company_name;
+            notifyPropertyChanged(BR.company_name);
         }
 
         @Bindable

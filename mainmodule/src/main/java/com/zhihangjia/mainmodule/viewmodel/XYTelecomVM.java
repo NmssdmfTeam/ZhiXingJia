@@ -37,11 +37,12 @@ public class XYTelecomVM extends BaseVM {
                 new ServiceCallback<BaseListData<YXTelecom>>() {
             @Override
             public void onError(Throwable error) {
-
+                cb.endFresh();
             }
 
             @Override
             public void onSuccess(BaseListData<YXTelecom> xyTelecomBaseListData) {
+                cb.endFresh();
                 cb.setData(xyTelecomBaseListData.getData(),isRefresh);
                 if (xyTelecomBaseListData.getData().size() > 0) {
                     page = xyTelecomBaseListData.getData().get(xyTelecomBaseListData.getData().size() - 1).getId();
@@ -50,7 +51,7 @@ public class XYTelecomVM extends BaseVM {
 
             @Override
             public void onDefeated(BaseListData<YXTelecom> xyTelecomBaseListData) {
-
+                cb.endFresh();
             }
         });
     }

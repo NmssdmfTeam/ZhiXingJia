@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -37,13 +38,9 @@ public class MerchantAllFragment extends BaseRecyclerViewFragment implements Mer
 
     @Override
     public BaseDataBindingAdapter initAdapter(List list) {
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
         adapter = new MerchantAllAdapter(list);
         HeaderMerchantAllBinding headerMerchantMainBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.header_merchant_all, null, false);
+        headerMerchantMainBinding.setVm(vm);
         adapter.addHeaderView(headerMerchantMainBinding.getRoot());
         return adapter;
     }
@@ -55,8 +52,11 @@ public class MerchantAllFragment extends BaseRecyclerViewFragment implements Mer
 
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            vm.memberId = bundle.getString(IntentConfig.ID);
+        }
         super.initAll(view, savedInstanceState);
-        binding.crv.getSrl().setEnabled(false);
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         binding.crv.setLayoutManager(layoutManager);
 

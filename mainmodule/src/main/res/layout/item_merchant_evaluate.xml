@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.Comment"/>
+    </data>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -12,7 +16,8 @@
             android:layout_height="28dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="12dp"
-            />
+            app:roundAsCircle="@{true}"
+            app:src="@{data.avatar}"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -20,7 +25,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="14.5dp"
             android:layout_toRightOf="@+id/givIcon"
-            android:text="城内人"
+            android:text="@{data.nickname}"
             android:textColor="#FF333333"
             android:textSize="16dp"
             />
@@ -31,7 +36,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:layout_marginTop="18dp"
-            android:text="2018-11-12"
+            android:text="@{data.createtime}"
             android:textColor="#FF999999"
             android:textSize="12dp"
             />
@@ -44,7 +49,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:text="商品：老克勒发一发了的商品标题"
+            android:text="@{@string/goods_title + data.commodity_name}"
             android:textColor="#FF999999"
             android:textSize="12dp"
             />
@@ -57,7 +62,6 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="6dp"
-            android:text="等了老久，特能装 大容量 好看哈哈哈哈等了老久，特能装 大容量 好看哈哈哈哈"
             android:textColor="#FF000000"
             android:textSize="15dp"
             />

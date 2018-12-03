@@ -40,4 +40,12 @@ public class IntentConfig {
     public static final String COUPON_SELLER = "coupon_seller";
     public static final String MERCHANT_CATEGORY = "merchant_category";
 
+    public static final String LAT = "lat";             //地址纬度
+    public static final String LONG = "long";           //地址经度
+    public static final String COMPANY_NAME = "company_name";
+    public static final String LOCATION = "location";
+
+    public static final String BANNERS = "banners";                     //广告
+    public static final String COMMODITY_INFO = "commodity_info";       //热卖商品
+    public static final String MEMBER_INFO = "member_info";       //热卖商品
 }

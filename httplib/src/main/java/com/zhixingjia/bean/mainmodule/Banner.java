@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 
 import com.zhixingjia.httplib.BR;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class Banner extends BaseObservable{
@@ -42,7 +43,7 @@ public class Banner extends BaseObservable{
         notifyPropertyChanged(BR.banner_middle);
     }
 
-    public static class CommomBanner extends BaseObservable {
+    public static class CommomBanner extends BaseObservable implements Serializable {
         private String model_name;
         private String img_url;     //图片
         private String link_url;    //链接地址，如空就不需要点击跳转

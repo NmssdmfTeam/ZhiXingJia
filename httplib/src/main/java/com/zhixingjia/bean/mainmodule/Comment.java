@@ -21,6 +21,7 @@ public class Comment extends BaseObservable {
     private String avatar;                      //头像
     private String spec_info;                   //规格
     private String createtime;                  //规格
+    private String commodity_name;              //商品名称
     private List<ContentsBean> contents;        //内容+图片
 
     @Bindable
@@ -71,6 +72,16 @@ public class Comment extends BaseObservable {
     public void setCreatetime(String createtime) {
         this.createtime = createtime;
         notifyPropertyChanged(BR.createtime);
+    }
+
+    @Bindable
+    public String getCommodity_name() {
+        return commodity_name;
+    }
+
+    public void setCommodity_name(String commodity_name) {
+        this.commodity_name = commodity_name;
+        notifyPropertyChanged(BR.commodity_name);
     }
 
     @Bindable
