@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 店铺首页的header -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.ShopInfo.MemberBean"/>
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -16,7 +21,7 @@
                 android:layout_width="0dp"
                 android:layout_height="41dp"
                 android:layout_weight="1"
-                android:text="商品描述  4.9"
+                android:text="@{@string/goods_describe + data.commodity_score}"
                 android:textColor="#FF666666"
                 android:textSize="12dp"
                 android:gravity="center"
@@ -26,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="41dp"
                 android:layout_weight="1"
-                android:text="卖家服务  4.8"
+                android:text="@{@string/provider_service + data.service_score}"
                 android:textColor="#FF666666"
                 android:textSize="12dp"
                 android:gravity="center"
@@ -36,7 +41,7 @@
                 android:layout_width="0dp"
                 android:layout_height="41dp"
                 android:layout_weight="1"
-                android:text="物流服务  4.8"
+                android:text="@{@string/logistics_service + data.logistics_score}"
                 android:textColor="#FF666666"
                 android:textSize="12dp"
                 android:gravity="center"

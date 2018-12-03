@@ -8,20 +8,24 @@ import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ItemMerchantMainBinding;
+import com.zhixingjia.bean.mainmodule.Commodity;
+import com.zhixingjia.bean.mainmodule.ShopInfo;
 
 import java.util.List;
 
 /**
  * 店铺主页，首页adapter
  */
-public class MerchantMainAdapter extends BaseDataBindingAdapter<Base, ItemMerchantMainBinding> {
+public class MerchantMainAdapter extends BaseDataBindingAdapter<Commodity, ItemMerchantMainBinding> {
 
-    public MerchantMainAdapter(@Nullable List<Base> data) {
+    public MerchantMainAdapter(@Nullable List<Commodity> data) {
         super(R.layout.item_merchant_main, data);
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ItemMerchantMainBinding> helper, Base item, int position) {
+    protected void convert2(BaseBindingViewHolder<ItemMerchantMainBinding> helper, Commodity item, int position) {
+        ItemMerchantMainBinding binding = helper.getBinding();
+        binding.setData(item);
         int margin = DensityUtil.dpToPx(mContext, 16);
         int mid = DensityUtil.dpToPx(mContext, 7.5f);
         if (position > 0) {
@@ -31,8 +35,6 @@ public class MerchantMainAdapter extends BaseDataBindingAdapter<Base, ItemMercha
                 helper.getBinding().getRoot().setPadding(mid, 0, margin, 0);
             }
         }
-
     }
-
 
 }

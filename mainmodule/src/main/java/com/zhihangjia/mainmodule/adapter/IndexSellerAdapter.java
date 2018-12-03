@@ -1,10 +1,15 @@
 package com.zhihangjia.mainmodule.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.databinding.ItemSellerMemberBinding;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
@@ -30,6 +35,13 @@ public class IndexSellerAdapter extends BaseDataBindingAdapter<IndexBean.SellerB
         }catch (Exception e) {
 
         }
-
+        helper.getBinding().getRoot().setOnClickListener(v -> {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString(IntentConfig.ID, item.getMember_id());
+            intent.putExtras(bundle);
+            intent.setClass(mContext, MerchantMainActivity.class);
+            mContext.startActivity(intent);
+        });
     }
 }

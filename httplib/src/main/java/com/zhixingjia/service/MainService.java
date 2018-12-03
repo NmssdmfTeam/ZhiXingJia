@@ -22,6 +22,7 @@ import com.zhixingjia.bean.mainmodule.OrderDetail;
 import com.zhixingjia.bean.mainmodule.PayInfo;
 import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
+import com.zhixingjia.bean.mainmodule.ShopInfo;
 import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.bean.mainmodule.YXTelecom;
@@ -343,7 +344,7 @@ public interface MainService {
     /**
      * 宜兴电信广告信息列表
      */
-    @GET("/api/dx/infolists")
+    @GET("/api/dx/infolist")
     Observable<BaseListData<YXTelecom>> getYXInfoList(@Query("page") String page);
 
     /**
@@ -351,4 +352,22 @@ public interface MainService {
      */
     @GET("/api/pay")
     Observable<BaseData<PayInfo>> apiPay(@Query("order_id") String order_id);
+
+    /**
+     * 店铺首页
+     */
+    @GET("/api/shopinfo")
+    Observable<BaseData<ShopInfo>> getShopInfo(@Query("member_id") String member_id);
+
+    /**
+     * 店铺的全部商品
+     */
+    @GET("/api/shopinfo/commodity")
+    Observable<BaseListData<Commodity>> getShopInfoCommodity(@Query("member_id") String member_id, @Query("pages") int pages, @Query("sort") String sort);
+
+    /**
+     * 店铺中的口碑评价
+     */
+    @GET("/api/shopinfo/evaluate")
+    Observable<BaseListData<Comment>> getShopInfoEvaluate(@Query("member_id") String member_id, @Query("pages") String pages);
 }

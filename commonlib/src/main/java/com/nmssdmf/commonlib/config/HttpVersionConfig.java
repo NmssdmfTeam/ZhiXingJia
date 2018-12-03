@@ -220,4 +220,16 @@ public class HttpVersionConfig {
      * 确认支付页面(选择支付方式)
      */
     public static final int API_PAY = 1;
+    /**
+     * 店铺首页
+     */
+    public static final int API_SHOPINFO = 1;
+    /**
+     * 店铺的全部商品
+     */
+    public static final int API_SHOPINFO_COMMODITY = 1;
+    /**
+     * 店铺的全部商品
+     */
+    public static final int API_SHOPINFO_EVALUATE = 1;
 }

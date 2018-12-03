@@ -4,8 +4,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps2d.AMapUtils;
+import com.amap.api.maps2d.model.LatLng;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
+import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.util.CommonUtils;
+import com.nmssdmf.commonlib.util.MapUtils;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.callback.MerchantMainCB;
@@ -16,9 +23,13 @@ import com.zhihangjia.mainmodule.fragment.MerchantEvaluateFragment;
 import com.zhihangjia.mainmodule.fragment.MerchantMainFragment;
 import com.zhihangjia.mainmodule.viewmodel.MerchantMainVM;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 店铺详情
+ */
 public class MerchantMainActivity extends BaseActivity implements MerchantMainCB {
     private final String TAG = MerchantMainActivity.class.getSimpleName();
 
@@ -31,6 +42,7 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
     private FragmentPagerAdapter adapter;
 
     private MerchantMainVM vm;
+
     @Override
     public String getTAG() {
         return TAG;
@@ -54,37 +66,31 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
         initTabLayout();
 
         initView();
+        vm.getShopInfo();
     }
 
 
-    private void initView(){
+    private void initView() {
         IncludeMerchantMainHeaderBinding headerBinding = binding.iHeader;
-        headerBinding.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+        headerBinding.ivBack.setOnClickListener(v -> onBackPressed());
+
+        headerBinding.ivCall.setOnClickListener(v -> {
+
         });
 
-        headerBinding.ivCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        headerBinding.ivAdress.setOnClickListener(v -> {
 
-            }
-        });
-
-        headerBinding.ivAdress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
         });
     }
 
-    private void initTabLayout(){
+    private void initTabLayout() {
         mainFragment = new MerchantMainFragment();
         allFragment = new MerchantAllFragment();
         evaluateFragment = new MerchantEvaluateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.ID, vm.member_id);
+        allFragment.setArguments(bundle);
+        evaluateFragment.setArguments(bundle);
         list.add(mainFragment);
         list.add(allFragment);
         list.add(evaluateFragment);
@@ -96,5 +102,54 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
         binding.tl.getTabAt(0).setText("店铺首页");
         binding.tl.getTabAt(1).setText("全部商品");
         binding.tl.getTabAt(2).setText("口碑评价");
+    }
+
+    @Override
+    public void setHeadData() {
+        binding.iHeader.setData(vm.shopInfo.get().getMember());
+        binding.iHeader.setVm(vm);
+        binding.iHeader.acrbStore.setRating(Float.valueOf(vm.shopInfo.get().getMember().getScore()));
+        //获取距离
+        MapUtils.getInstance().getLocation(this, locationListener);
+        //给店铺首页设置数据
+        if (mainFragment != null && mainFragment.isAdded()) {
+            mainFragment.setData(vm.shopInfo.get().getBanners(), vm.shopInfo.get().getCommodity_info());
+        }
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConfig.BANNERS, (Serializable) vm.shopInfo.get().getBanners());
+        bundle.putSerializable(IntentConfig.COMMODITY_INFO, (Serializable) vm.shopInfo.get().getCommodity_info());
+        mainFragment.setArguments(bundle);
+        if (evaluateFragment != null && evaluateFragment.isAdded()) {
+            evaluateFragment.setMemberData(vm.shopInfo.get().getMember());
+        }
+        bundle = new Bundle();
+        bundle.putString(IntentConfig.ID, vm.member_id);
+        bundle.putSerializable(IntentConfig.MEMBER_INFO, vm.shopInfo.get().getMember());
+        evaluateFragment.setArguments(bundle);
+    }
+
+    @Override
+    public void callPhone() {
+        CommonUtils.callPhone(this, vm.shopInfo.get().getMember().getCo_phone());
+    }
+
+    private AMapLocationListener locationListener = aMapLocation -> {
+        try {
+            //测量距离
+            LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());//当前定位
+            LatLng shopLatLng = new LatLng(Double.valueOf(vm.shopInfo.get().getMember().getLatitude()), Double.valueOf(vm.shopInfo.get().getMember().getLongitude()));
+            float distance = AMapUtils.calculateLineDistance(latLng, shopLatLng);
+            //精确到小数点后两位
+            distance = ((int) ((distance / 100000f) * 100 + 0.005)) / 100;
+            vm.shopInfo.get().getMember().setDistance(distance + "km");
+        } catch (Exception e) {
+
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MapUtils.getInstance().unRegisterListener(locationListener);
     }
 }
