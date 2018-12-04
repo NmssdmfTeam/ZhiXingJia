@@ -1,5 +1,7 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.view.View;
 
 import com.nmssdmf.commonlib.callback.BaseCB;
@@ -11,6 +13,8 @@ import com.zhihangjia.mainmodule.activity.PaySuccessActivity;
  */
 
 public class ConfirmPayVM extends BaseVM {
+    public final ObservableInt payMethod = new ObservableInt();         //0:支付宝支付 1:微信支付 2:翼支付
+
     /**
      * 不需要callback可以传null
      *
