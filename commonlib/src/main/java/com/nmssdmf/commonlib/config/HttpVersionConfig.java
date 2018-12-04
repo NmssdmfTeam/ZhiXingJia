@@ -217,6 +217,10 @@ public class HttpVersionConfig {
      */
     public static final int API_DX_INFOLISTS = 1;
     /**
+     * 确认支付页面(选择支付方式)
+     */
+    public static final int API_PAY = 1;
+    /**
      * 店铺首页
      */
     public static final int API_SHOPINFO = 1;
