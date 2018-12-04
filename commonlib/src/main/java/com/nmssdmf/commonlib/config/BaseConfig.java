@@ -14,4 +14,6 @@ public class BaseConfig {
     public static final String APP_TEMP_PATH = "trading_temp";//缓存文件目录
     public static final String IMAGEUPLOADIP = "http://h6.mobilekoudai.com/";//ip地址
     public static final int MAX_IMG = 10;
+    public static final String WXAPI_APPID = "wx74034cb7f59a0bc1";
+    public static final String WXAPI_APPSECRET = "1e44c8f1e9fe81964ef7144cbdf8b62b";
 }

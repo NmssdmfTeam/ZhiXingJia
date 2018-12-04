@@ -92,6 +92,8 @@ public class RxEvent {
         public static final int ORDER_COMMENT = VALUE + 9;//评价
         public static final int ORDER_CHECK_RECEIVER = VALUE + 10;//确认收货
 
+        public static final int ALIPAY_FINISH = VALUE + 11;       //支付宝支付完成
+        public static final int WECHATPAY_FINISH = VALUE + 12;       //微信支付完成
     }
 
     public int getType() {

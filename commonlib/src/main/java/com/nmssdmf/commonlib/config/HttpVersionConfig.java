@@ -232,4 +232,8 @@ public class HttpVersionConfig {
      * 店铺的全部商品
      */
     public static final int API_SHOPINFO_EVALUATE = 1;
+    /**
+     * 付款操作
+     */
+    public static final int API_PAY_PAYMENT = 1;
 }

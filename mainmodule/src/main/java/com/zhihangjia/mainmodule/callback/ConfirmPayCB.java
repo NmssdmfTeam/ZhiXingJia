@@ -1,6 +1,8 @@
 package com.zhihangjia.mainmodule.callback;
 
+import com.nmssdmf.commonlib.bean.Payment;
 import com.nmssdmf.commonlib.callback.BaseCB;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 
 /**
  * 选择支付callback
@@ -11,4 +13,7 @@ import com.nmssdmf.commonlib.callback.BaseCB;
 public interface ConfirmPayCB extends BaseCB {
 
     void setListener();
+    void showCouponWindow(boolean isRefresh);
+    void aliPay(String payment);
+    void wechatPay(Payment.Weixin weixin);
 }

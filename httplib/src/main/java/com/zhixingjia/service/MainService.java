@@ -20,6 +20,7 @@ import com.zhixingjia.bean.mainmodule.New;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
 import com.zhixingjia.bean.mainmodule.PayInfo;
+import com.nmssdmf.commonlib.bean.Payment;
 import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.ShopInfo;
@@ -370,4 +371,13 @@ public interface MainService {
      */
     @GET("/api/shopinfo/evaluate")
     Observable<BaseListData<Comment>> getShopInfoEvaluate(@Query("member_id") String member_id, @Query("pages") String pages);
+
+    /**
+     * 付款操作
+     * @param map
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/pay/payment")
+    Observable<BaseData<Payment>> payment(@FieldMap Map<String, String> map);
 }
