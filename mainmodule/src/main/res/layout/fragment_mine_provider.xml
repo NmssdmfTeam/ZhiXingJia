@@ -36,7 +36,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="198dp"
-                        android:background="@color/text_gray">
+                        android:background="@drawable/mine_bg">
 
                         <View
                             android:id="@+id/vStatusBar"

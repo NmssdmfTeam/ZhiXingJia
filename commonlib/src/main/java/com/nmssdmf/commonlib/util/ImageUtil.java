@@ -1,5 +1,8 @@
 package com.nmssdmf.commonlib.util;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -229,5 +232,20 @@ public class ImageUtil {
         Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
                 bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         return resizedBitmap;
+    }
+
+    /**
+     * 得到资源文件中图片的Uri
+     * @param context 上下文对象
+     * @param id 资源id
+     * @return Uri
+     */
+    public static String getUriFromDrawableRes(Context context, int id) {
+        Resources resources = context.getResources();
+        String path = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                + resources.getResourcePackageName(id) + "/"
+                + resources.getResourceTypeName(id) + "/"
+                + resources.getResourceEntryName(id);
+        return path;
     }
 }

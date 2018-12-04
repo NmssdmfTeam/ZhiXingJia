@@ -32,18 +32,6 @@ public class WeChatPayUtil {
         req.packageValue = weixin.getPackageX();
         req.sign = weixin.getSign();
 
-
-//        SortedMap<Object, Object> parameters = new TreeMap<Object, Object>();
-//        parameters.put("appid", req.appId);
-//        parameters.put("noncestr", req.nonceStr);
-//        parameters.put("package", req.packageValue);
-//        parameters.put("partnerid", req.partnerId);
-//        parameters.put("prepayid", req.prepayId);
-//        parameters.put("timestamp", req.timeStamp);
-//        String sign = createSign("UTF-8",parameters);
-//        JLog.d(TAG, "sign:"+sign);
-//        req.sign = sign;
-
         api.sendReq(req);
     }
 
