@@ -72,9 +72,10 @@ public class SearchActivity extends BaseTitleActivity implements SearchCB{
 
         binding.tl.getTabAt(0).setText("建材商家");
         binding.tl.getTabAt(1).setText("建材商品");
-        binding.tl.getTabAt(2).setText("信息中心");
+        binding.tl.getTabAt(2).setText("万家灯火");
 
         binding.vp.setOffscreenPageLimit(2);//因为vp预加载只有1个，导致第三个无法加载数据，所以设置预加载2个
+        binding.vp.setCurrentItem(vm.index);
     }
 
 

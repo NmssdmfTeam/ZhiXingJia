@@ -12,7 +12,10 @@ import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
+import com.zhihangjia.mainmodule.activity.SearchResultActivity;
 import com.zhihangjia.mainmodule.databinding.ItemMaterialsCategoryBinding;
+import com.zhihangjia.mainmodule.viewmodel.SearchFragmentVM;
+import com.zhihangjia.mainmodule.viewmodel.SearchResultVM;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 
 import java.util.List;
@@ -43,9 +46,10 @@ public class MaterialsCategoryAdapter extends BaseDataBindingAdapter<HouseBean.C
                 mContext.startActivity(intent);
             } else {
                 Intent intent = new Intent();
-                intent.setClass(mContext, MerchantMerchandiseActivity.class);
+                intent.setClass(mContext, SearchResultActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.ID, item.getCate_id());
+                bundle.putString(IntentConfig.CAT_ID, item.getCate_id());
+                bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }

@@ -1,17 +1,22 @@
 package com.zhihangjia.mainmodule.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.amap.api.maps2d.AMapUtils;
 import com.amap.api.maps2d.model.LatLng;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
+import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendSellerInfoBinding;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 
@@ -61,6 +66,14 @@ public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<HouseBean
             helper.getBinding().llPics.removeAllViews();
             helper.getBinding().llPics.setVisibility(View.GONE);
         }
+        itemRecommendSellerInfoBinding.getRoot().setOnClickListener(v -> {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            intent.setClass(mContext, MerchantMainActivity.class);
+            bundle.putString(IntentConfig.ID, item.getMember_id());
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        });
     }
 
     public LatLng getLocation() {

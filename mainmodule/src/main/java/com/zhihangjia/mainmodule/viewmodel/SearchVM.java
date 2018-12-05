@@ -1,7 +1,10 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.os.Bundle;
+
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
@@ -21,6 +24,8 @@ public class SearchVM extends BaseVM {
     private final String HOT_SEARCH_COMMODITY = "HOT_SEARCH_COMMODITY";//商品的热门搜索关键字
     private final String HOT_SEARCH_BBS = "HOT_SEARCH_BBS";//信息中心的热门搜索关键字
     private SearchCB cb;
+    public int index = 0;
+
     /**
      * 不需要callback可以传null
      *
@@ -29,6 +34,14 @@ public class SearchVM extends BaseVM {
     public SearchVM(SearchCB callBack) {
         super(callBack);
         cb = callBack;
+        initData();
+    }
+
+    private void initData() {
+        Bundle bundle = baseCallBck.getIntentData();
+        if (bundle != null) {
+            index = bundle.getInt(IntentConfig.POSITION);
+        }
     }
 
     public void getHistory() {

@@ -18,7 +18,7 @@ public class IndexBean extends BaseObservable implements Serializable {
     private List<ArticleBean> article;              //宜兴头条
     private List<SellerBean> seller;                //优秀商家
     private List<CommodityBean> commodity;          //商品推荐
-    private List<ForumBean> forum;                  //信息中心
+    private List<ForumBean> forum;                  //万家灯火
 
     public List<ArticleBean> getArticle() {
         return article;

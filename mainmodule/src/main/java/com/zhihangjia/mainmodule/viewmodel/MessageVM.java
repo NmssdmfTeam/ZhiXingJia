@@ -1,17 +1,21 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.os.Bundle;
 import android.preference.Preference;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.callback.IndexMessageCB;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.service.MainService;
@@ -60,5 +64,15 @@ public class MessageVM extends BaseVM {
 
             }
         });
+    }
+
+    /**
+     * 搜索
+     * @param view
+     */
+    public void onSearchClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(IntentConfig.POSITION, 2);
+        callback.doIntent(SearchActivity.class, bundle);
     }
 }

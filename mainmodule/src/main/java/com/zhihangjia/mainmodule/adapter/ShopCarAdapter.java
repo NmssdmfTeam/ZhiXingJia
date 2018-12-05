@@ -1,18 +1,22 @@
 package com.zhihangjia.mainmodule.adapter;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingMultiItemQuickAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
 import com.zhihangjia.mainmodule.databinding.ItemShopCarBinding;
 import com.zhihangjia.mainmodule.databinding.ItemShopCarMerchandiseBinding;
 import com.zhihangjia.mainmodule.databinding.ItemShopCarMerchandiseSpecificationBinding;
@@ -166,6 +170,14 @@ public class ShopCarAdapter extends BaseDataBindingMultiItemQuickAdapter<ShopCar
             } else {
                 binding.tvTitle.setVisibility(View.GONE);
             }
+            binding.getRoot().setOnClickListener(v -> {
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.COMMODITY_ID, item.getCommodity().getCommodity_id());
+                intent.putExtras(bundle);
+                intent.setClass(mContext, MerchandiseDetailActivity.class);
+                mContext.startActivity(intent);
+            });
         }
     }
 

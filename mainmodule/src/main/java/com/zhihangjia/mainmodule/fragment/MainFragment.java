@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
+import com.nmssdmf.commonlib.activity.WebViewActivity;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -169,13 +171,34 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
             for (Banner.CommomBanner bannerFixedBean : bannerFixedBeans) {
                 if ("left".equals(bannerFixedBean.getModel_name())) {
                     GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementFirst,bannerFixedBean.getImg_url());
+                    itemMainCrvheadBinding.ivAdvertisementFirst.setOnClickListener(v -> {
+                        toWebViewAcitivity(bannerFixedBean);
+                    });
                 } else if ("right_up".equals(bannerFixedBean.getModel_name())) {
                     GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementSecond,bannerFixedBean.getImg_url());
+                    itemMainCrvheadBinding.ivAdvertisementSecond.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            toWebViewAcitivity(bannerFixedBean);
+                        }
+                    });
                 } else if ("right_down".equals(bannerFixedBean.getModel_name())) {
                     GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementThird,bannerFixedBean.getImg_url());
+                    itemMainCrvheadBinding.ivAdvertisementThird.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            toWebViewAcitivity(bannerFixedBean);
+                        }
+                    });
                 }
             }
         }
+    }
+
+    private void toWebViewAcitivity(Banner.CommomBanner bannerFixedBean) {
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.LINK, bannerFixedBean.getLink_url());
+        doIntent(WebViewActivity.class, bundle);
     }
 
     @Override

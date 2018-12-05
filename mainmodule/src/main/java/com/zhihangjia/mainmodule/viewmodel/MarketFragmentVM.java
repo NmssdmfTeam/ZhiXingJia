@@ -1,18 +1,22 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.bean.House;
 import com.zhihangjia.mainmodule.callback.MarketFragmentCB;
 import com.zhixingjia.bean.mainmodule.Banner;
@@ -142,6 +146,12 @@ public class MarketFragmentVM extends BaseVM {
             houses.add(seller);
             callBack.setListData(houses);
         }
+    }
+
+    public void onSearchClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(IntentConfig.POSITION, 1);
+        callBack.doIntent(SearchActivity.class, bundle);
     }
 
     private void setBanner(Banner banner) {

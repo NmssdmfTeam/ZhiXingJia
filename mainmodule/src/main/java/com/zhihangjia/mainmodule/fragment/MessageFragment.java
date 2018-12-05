@@ -48,7 +48,7 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
 
     @Override
     public String setTitle() {
-        return "信息中心";
+        return "万家灯火";
     }
 
     @Override
@@ -62,6 +62,7 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
         baseTitleBinding.tTitle.inflateMenu(R.menu.messagecenter);
         hideNavigation();
         fragmentMessageBinding = (FragmentMessageBinding) baseViewBinding;
+        fragmentMessageBinding.setVm(vm);
 
         //初始化首页轮播图
         viewPagerAdapter = new MessageCategoryViewPagerAdapter(new ArrayList<MessageCategory>(), fragmentMessageBinding.rpv);

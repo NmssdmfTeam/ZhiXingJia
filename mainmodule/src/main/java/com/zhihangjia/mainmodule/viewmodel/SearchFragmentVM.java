@@ -24,7 +24,7 @@ import java.util.List;
 public class SearchFragmentVM extends BaseVM {
     public static final String TYPE_MATERIALS_MERCHANT = "TYPE_MATERIALS_MERCHANT";//商家
     public static final String TYPE_MATERIALS_MERCHANDISE = "TYPE_MATERIALS_MERCHANDISE";//商品
-    public static final String TYPE_INFORMATION_CENTER = "TYPE_INFORMATION_CENTER";//信息中心
+    public static final String TYPE_INFORMATION_CENTER = "TYPE_INFORMATION_CENTER";//万家灯火
     private SearchFragmentCB cb;
     private String type = TYPE_MATERIALS_MERCHANT;
 

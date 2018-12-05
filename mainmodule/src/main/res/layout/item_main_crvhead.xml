@@ -48,7 +48,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="信息中心"
+                android:text="生活服务"
+                android:textColor="#FF333333"
+                android:textSize="12dp"
+                android:drawableTop="@drawable/index_life_service"
+                android:drawablePadding="6dp"
+                android:gravity="center_horizontal"
+                android:onClick="@{(v)->vm.onLifeServiceClick(v)}"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="万家灯火"
                 android:textColor="#FF333333"
                 android:textSize="12dp"
                 android:drawableTop="@drawable/index_bbs_center"
@@ -72,24 +84,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="生活服务"
+                android:text="政务公告"
                 android:textColor="#FF333333"
                 android:textSize="12dp"
-                android:drawableTop="@drawable/index_life_service"
+                android:drawableTop="@drawable/index_government_message"
                 android:drawablePadding="6dp"
                 android:gravity="center_horizontal"
-                android:onClick="@{(v)->vm.onLifeServiceClick(v)}"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="装修装饰"
-                android:textColor="#FF333333"
-                android:textSize="12dp"
-                android:drawableTop="@drawable/icon_sofa"
-                android:drawablePadding="6dp"
-                android:gravity="center_horizontal"/>
+                android:onClick="@{(v)->vm.onGovernmentClick(v)}"/>
 
         </LinearLayout>
 

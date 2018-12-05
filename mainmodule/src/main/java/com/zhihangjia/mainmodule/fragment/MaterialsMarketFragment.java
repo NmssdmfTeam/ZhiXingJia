@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
+import com.nmssdmf.commonlib.activity.WebViewActivity;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
@@ -16,6 +18,7 @@ import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.SearchResultActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsCategoryAdapter;
 import com.zhihangjia.mainmodule.adapter.MaterialsMarketAdapter;
@@ -25,6 +28,7 @@ import com.zhihangjia.mainmodule.databinding.FragmentMarketBinding;
 import com.zhihangjia.mainmodule.databinding.ItemHotBrandBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMaterialsCrvheadBinding;
 import com.zhihangjia.mainmodule.viewmodel.MarketFragmentVM;
+import com.zhihangjia.mainmodule.viewmodel.SearchFragmentVM;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 
@@ -88,11 +92,22 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
             imageView.setLayoutParams(layoutParams);
             imageView.setImageResource(R.drawable.pic_kitchen);
             itemMaterialsCrvheadBinding.llHome.addView(imageView);
+            int index = i + 1;
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
+                    bundle.putString(IntentConfig.CATE_PW, String.valueOf(index));
+                    doIntent(SearchResultActivity.class, bundle);
+                }
+            });
         }
         vm.getHouseIndex(true);
         vm.getHouseBanner(true);
         setListener();
         MapUtils.getInstance().getLocation(getActivity(),mLocationListener);
+        binding.setVm(vm);
     }
 
     @Override
@@ -147,6 +162,14 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         if (middleBanner != null) {
             GlideUtil.load(itemMaterialsCrvheadBinding.ivMiddleBanner, middleBanner.getImg_url());
         }
+        itemMaterialsCrvheadBinding.ivMiddleBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.LINK, middleBanner.getLink_url());
+                doIntent(WebViewActivity.class, bundle);
+            }
+        });
     }
 
     @Override
@@ -163,6 +186,15 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
             ItemHotBrandBinding itemHotBrandBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_hot_brand, null, false);
             itemHotBrandBinding.setData(brandsBean);
             itemMaterialsCrvheadBinding.llBrand.addView(itemHotBrandBinding.getRoot());
+            itemHotBrandBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
+                    bundle.putString(IntentConfig.BRAND_ID, brandsBean.getId());
+                    doIntent(SearchResultActivity.class, bundle);
+                }
+            });
         }
     }
 

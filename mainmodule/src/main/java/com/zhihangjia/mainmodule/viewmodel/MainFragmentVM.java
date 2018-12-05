@@ -14,6 +14,7 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.LifeServiceActivity;
+import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
 import com.zhihangjia.mainmodule.activity.XYTelecomActivity;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.callback.MainFragmentCB;
@@ -167,6 +168,14 @@ public class MainFragmentVM extends BaseVM {
 
     public void onXYTelecomClick(View view) {
         cb.doIntent(XYTelecomActivity.class, null);
+    }
+
+    /**
+     * 政务公告
+     * @param view
+     */
+    public void onGovernmentClick(View view) {
+        cb.doIntent(PoliticsNoticeActivity.class, null);
     }
 
     public void onLifeServiceClick(View view) {

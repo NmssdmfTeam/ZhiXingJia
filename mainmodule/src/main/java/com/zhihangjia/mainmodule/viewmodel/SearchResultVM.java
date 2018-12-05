@@ -1,6 +1,7 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
@@ -27,6 +28,9 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
     private SearchResultCB cb;
 
     private String keyword;
+    private String cateId;
+    private String catePw;      //首页品味搜索
+    private String brands;      //品牌ID
 
     private int page = 1;
 
@@ -44,6 +48,10 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
         Bundle bundle = cb.getIntentData();
         type = bundle.getString(IntentConfig.TYPE);
         keyword = bundle.getString(IntentConfig.KEYWORD);
+        cateId = bundle.getString(IntentConfig.CAT_ID);
+        catePw = bundle.getString(IntentConfig.CATE_PW);
+        brands = bundle.getString(IntentConfig.BRAND_ID);
+
         cb.refreshTitle(keyword);
     }
 
@@ -69,9 +77,20 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
 
     public void getMerchanDise(final boolean isRefresh) {
         Map<String, String> map = new HashMap<>();
-        map.put("source", "search");
+        if (!TextUtils.isEmpty(cateId)) {
+            map.put("source", "cate");
+            map.put("cate_id", cateId);
+        } else if (!TextUtils.isEmpty(catePw)){
+            map.put("source", "search");
+            map.put("cate_pw", catePw);
+        } else if (!TextUtils.isEmpty(brands)) {
+            map.put("source", "search");
+            map.put("brands", brands);
+        }else {
+            map.put("source", "search");
+            map.put("keyword", keyword);
+        }
         map.put("pages", String.valueOf(page));
-        map.put("keyword", keyword);
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_HOUSE_COMMODITY).getCommodity(map), new ServiceCallback<BaseListData<Commodity>>() {
             @Override
             public void onError(Throwable error) {
@@ -105,9 +124,9 @@ public class SearchResultVM extends BaseTitleRecyclerViewVM {
             @Override
             public void onSuccess(BaseListData<Seller> data) {
                 if (data.getData() != null && data.getData().size() > 0) {
-                    cb.refreshAdapter(isRefresh, data.getData());
                     page += 1;
                 }
+                cb.refreshAdapter(isRefresh, data.getData());
             }
 
             @Override

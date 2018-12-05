@@ -48,4 +48,6 @@ public class IntentConfig {
     public static final String BANNERS = "banners";                     //广告
     public static final String COMMODITY_INFO = "commodity_info";       //热卖商品
     public static final String MEMBER_INFO = "member_info";       //热卖商品
+    public static final String CATE_PW = "cate_pw";                 //品味
+    public static final String BRAND_ID = "brand_id";                 //品牌ID
 }

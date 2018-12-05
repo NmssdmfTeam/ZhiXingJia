@@ -1,15 +1,19 @@
 package com.zhihangjia.mainmodule.adapter.message;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.MessageDetailActivity;
 import com.zhihangjia.mainmodule.databinding.ItemMessageBinding;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
@@ -55,5 +59,16 @@ public class MessageAdapter extends BaseDataBindingAdapter<IndexBean.ForumBean, 
                 index++;
             }
         }
+        itemMessageBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, MessageDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.ID, item.getBbs_id());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
     }
 }

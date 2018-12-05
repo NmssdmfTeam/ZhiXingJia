@@ -71,9 +71,6 @@
             android:name=".activity.OrderListSupplierActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.zhixingjia.personmodule.activity.AddOrEditAddressActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.OrderDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -103,6 +100,11 @@
         </activity>
         <activity
             android:name=".activity.LifeServiceActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activity.SearchResultActivity"
             android:screenOrientation="portrait">
 
         </activity>

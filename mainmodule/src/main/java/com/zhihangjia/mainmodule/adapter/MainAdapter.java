@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.nmssdmf.commonlib.activity.WebViewActivity;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
@@ -78,8 +79,26 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
             itemRecommendGoodsBinding.setData(item);
             if (item.getBannerMiddle() == null)
                 itemRecommendGoodsBinding.ivBottomAdvertisement.setVisibility(View.GONE);
-            else
+            else {
                 itemRecommendGoodsBinding.ivBottomAdvertisement.setVisibility(View.VISIBLE);
+                itemRecommendGoodsBinding.ivBottomAdvertisement.setOnClickListener(v -> {
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.LINK, item.getBannerMiddle().getLink_url());
+                    intent.putExtras(bundle);
+                    intent.setClass(mContext, WebViewActivity.class);
+                    mContext.startActivity(intent);
+                });
+            }
+            itemRecommendGoodsBinding.tvTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //切换到信息中心页面
+                    EventInfo eventInfo = new EventInfo();
+                    eventInfo.setIndex(1);
+                    RxBus.getInstance().send(RxEvent.BbsEvent.INDEX_SWITCH, eventInfo);
+                }
+            });
         } else if (item.getItemType() == 2) {
             ItemXyLifeServiceBinding itemLifeServiceBinding = (ItemXyLifeServiceBinding) helper.getBinding();
             if (itemLifeServiceBinding.rvService.getLayoutManager() == null)
@@ -138,6 +157,12 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                 adapter = (IndexSellerAdapter) itemExcellentSellerBinding.rvSeller.getAdapter();
                 adapter.setNewData(item.getSellerBeans());
             }
+            itemExcellentSellerBinding.tvTitle.setOnClickListener((View.OnClickListener) v -> {
+                //切换到信息中心页面
+                EventInfo eventInfo = new EventInfo();
+                eventInfo.setIndex(1);
+                RxBus.getInstance().send(RxEvent.BbsEvent.INDEX_SWITCH, eventInfo);
+            });
         }
     }
 }
