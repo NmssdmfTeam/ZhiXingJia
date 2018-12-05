@@ -25,7 +25,8 @@
             android:paddingRight="16dp"
             android:text="关于我们"
             android:textColor="#FF333333"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:onClick="@{(v)->vm.onAboutUsClick(v)}"/>
 
         <include layout="@layout/include_recyclerview_cutoff_line" />
 
@@ -98,7 +99,8 @@
             android:paddingRight="16dp"
             android:text="隐私政策"
             android:textColor="#FF333333"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:onClick="@{(v)->vm.onPrivacyClick(v)}"/>
 
         <include layout="@layout/include_recyclerview_cutoff_line" />
 

@@ -12,6 +12,7 @@ import android.widget.ViewFlipper;
 
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseTitleFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
@@ -81,6 +82,15 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
         DailyHotNewsFragment dailyHotNewsFragment = new DailyHotNewsFragment();
         DailyHotNewsFragment newPublishFragment = new DailyHotNewsFragment();
         DailyHotNewsFragment lastReplyFragment = new DailyHotNewsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(IntentConfig.TYPE, 0);
+        dailyHotNewsFragment.setArguments(bundle);
+        bundle = new Bundle();
+        bundle.putInt(IntentConfig.TYPE, 1);
+        newPublishFragment.setArguments(bundle);
+        bundle = new Bundle();
+        bundle.putInt(IntentConfig.TYPE, 2);
+        lastReplyFragment.setArguments(bundle);
         fragments.add(dailyHotNewsFragment);
         fragments.add(newPublishFragment);
         fragments.add(lastReplyFragment);

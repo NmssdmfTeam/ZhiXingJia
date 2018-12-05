@@ -20,6 +20,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
 import com.zhihangjia.mainmodule.bean.ShopCarIntent;
 import com.zhihangjia.mainmodule.callback.ShopCarFragmentCB;
+import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.service.MainService;
 
@@ -63,6 +64,7 @@ public class ShopCarFragmentVM extends BaseVM {
                 }
                 cb.refreshData(data.getData(), refresh);
                 countTotalPrice();
+                getGuessCommodity();
             }
 
             @Override
@@ -116,6 +118,37 @@ public class ShopCarFragmentVM extends BaseVM {
             price = new BigDecimal(price).add(new BigDecimal(list.get(i).getTotalPrice())).toString();
         }
         totalPrice.set(new BigDecimal(price).setScale(2, BigDecimal.ROUND_DOWN).toString());
+    }
+
+    /**
+     * 购物车中的猜你喜欢
+     */
+    public void getGuessCommodity() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_GUESS_COMMODITY).getGuessCommodity(),
+                new ServiceCallback<BaseListData<Commodity>>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseListData<Commodity> commodityBaseListData) {
+                List<ShopCar> shopCars = new ArrayList<>();
+                for (int i = 0; i < commodityBaseListData.getData().size() - 1; i++) {
+                    ShopCar shopCar = new ShopCar();
+                    shopCar.setType(1);
+                    shopCar.setCommodity(commodityBaseListData.getData().get(i));
+                    shopCars.add(shopCar);
+                }
+                cb.refreshData(shopCars,false);
+            }
+
+            @Override
+            public void onDefeated(BaseListData<Commodity> commodityBaseListData) {
+
+            }
+        });
     }
 
     public void tvSettleAccountsClick(View view) {

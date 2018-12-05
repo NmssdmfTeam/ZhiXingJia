@@ -1,10 +1,12 @@
 package com.zhihangjia.mainmodule.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.nmssdmf.customerviewlib.BaseQuickAdapter;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.ShopCarAdapter;
@@ -44,13 +46,9 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
         binding = (FragmentShopcarBinding) baseBinding;
         binding.setVm(vm);
         vm.getData(false);
-        adapter = new ShopCarAdapter(vm.getList(), new ShopCarAdapter.ShopCarAdapterListener() {
-            @Override
-            public void changePrice() {
-                vm.countTotalPrice();
-                vm.changeSelect();
-            }
-
+        adapter = new ShopCarAdapter(vm.getList(), () -> {
+            vm.countTotalPrice();
+            vm.changeSelect();
         });
         binding.crv.setAdapter(adapter);
         binding.crv.setOnDataChangeListener(new OnDataChangeListener() {

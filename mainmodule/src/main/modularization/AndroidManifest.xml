@@ -98,7 +98,14 @@
         <activity android:name=".activity.MapActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".activity.XYTelecomActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.LifeServiceActivity"
+            android:screenOrientation="portrait">
 
+        </activity>
     </application>
 
 </manifest>

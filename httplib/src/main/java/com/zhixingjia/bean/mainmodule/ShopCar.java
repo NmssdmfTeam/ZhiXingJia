@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.nmssdmf.commonlib.util.StringUtil;
+import com.nmssdmf.customerviewlib.entity.MultiItemEntity;
 import com.zhixingjia.httplib.BR;
 
 import java.util.List;
@@ -12,15 +13,18 @@ import java.util.List;
  * Created by ${nmssdmf} on 2018/11/27 0027.
  */
 
-public class ShopCar extends BaseObservable{
+public class ShopCar extends BaseObservable implements MultiItemEntity{
 
     private String provider_id;//店铺ID
     private String company_name;//店铺名称
     private String cart_sort;//这个字段客户端不需要理会，是用于失效排序之用
     private List<ProductListBean> product_list;//商品数组
     private String totalPrice = "0";//不是接口返回
+    private Commodity commodity;    //推荐商品
 
     private boolean select;//不是接口返回
+
+    private int type = 0;
 
     @Bindable
     public boolean isSelect() {
@@ -75,6 +79,23 @@ public class ShopCar extends BaseObservable{
 
     public void setProduct_list(List<ProductListBean> product_list) {
         this.product_list = product_list;
+    }
+
+    public Commodity getCommodity() {
+        return commodity;
+    }
+
+    public void setCommodity(Commodity commodity) {
+        this.commodity = commodity;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    @Override
+    public int getItemType() {
+        return type;
     }
 
     public static class ProductListBean extends BaseObservable{

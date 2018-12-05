@@ -3,6 +3,7 @@ package com.nmssdmf.commonlib.util;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,9 +12,11 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.widget.LinearLayout;
 
 import com.nmssdmf.commonlib.R;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -84,7 +87,7 @@ public class CommonUtils {
         if (isEmpty(phone)) {
             ToastUtil.getInstance().showToast( "用户尚未填写联系方式");
         } else {
-            new AlertDialog.Builder(activity).setMessage(phone).setPositiveButton("拨打", new DialogInterface.OnClickListener() {
+            Dialog dialog = new AlertDialog.Builder(activity).setMessage(phone).setPositiveButton("拨打", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
@@ -100,6 +103,16 @@ public class CommonUtils {
                     dialog.dismiss();
                 }
             }).show();
+
+            dialog.getWindow().setLayout(DensityUtil.dpToPx(activity, 340), LinearLayout.LayoutParams.WRAP_CONTENT);
         }
+    }
+
+    public static String formatSold(String sold) {
+        BigDecimal soldBigDecimal = new BigDecimal(sold);
+        if (soldBigDecimal.compareTo(new BigDecimal(10000)) == 1 ) {
+            soldBigDecimal = soldBigDecimal.divide(new BigDecimal(10000)).setScale(2);
+        }
+        return soldBigDecimal.toString();
     }
 }

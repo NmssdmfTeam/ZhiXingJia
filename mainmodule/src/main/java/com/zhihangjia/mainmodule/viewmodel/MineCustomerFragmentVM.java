@@ -9,6 +9,7 @@ import android.view.View;
 import com.google.gson.Gson;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
+import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
@@ -125,5 +126,9 @@ public class MineCustomerFragmentVM extends BaseVM {
 
     public void userIconClick(View view) {
         callback.doIntentClassName(ActivityNameConfig.SET_ACTIVITY, null);
+    }
+
+    public void onCustomerServiceCallClick(View view) {
+        callback.phoneCall(BaseConfig.CUSTOMER_SERVICE_CALL);
     }
 }

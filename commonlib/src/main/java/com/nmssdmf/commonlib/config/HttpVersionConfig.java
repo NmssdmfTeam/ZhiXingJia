@@ -236,4 +236,24 @@ public class HttpVersionConfig {
      * 付款操作
      */
     public static final int API_PAY_PAYMENT = 1;
+
+    /**
+     * 关于我们、注册协议、隐私政策
+     */
+    public static final int API_SINGLE = 1;
+
+    /**
+     * 关于我们、注册协议、隐私政策
+     */
+    public static final int API_AUTH_LOGOUT = 1;
+
+    /**
+     * 购物车中的猜你喜欢
+     */
+    public static final int API_GUESS_COMMODITY = 1;
+
+    /**
+     * 首页三大模块（24小时热点、最新发布、最后回复）
+     */
+    public static final int API_BBS_INDEX = 1;
 }

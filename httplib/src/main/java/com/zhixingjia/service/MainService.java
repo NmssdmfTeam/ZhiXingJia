@@ -14,6 +14,7 @@ import com.zhixingjia.bean.mainmodule.CouponSeller;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
+import com.zhixingjia.bean.mainmodule.Link;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
 import com.zhixingjia.bean.mainmodule.New;
@@ -380,4 +381,28 @@ public interface MainService {
     @FormUrlEncoded
     @POST ("/api/pay/payment")
     Observable<BaseData<Payment>> payment(@FieldMap Map<String, String> map);
+
+    /**
+     * 关于我们、注册协议、隐私政策
+     */
+    @GET("/api/single")
+    Observable<BaseData<Link>> getSingle(@Query("types") String types);
+
+    /**
+     * 退出登录
+     */
+    @POST("/api/auth/logout")
+    Observable<Base> logout();
+
+    /**
+     * 购物车中的猜你喜欢
+     */
+    @GET("/api/guess_commodity")
+    Observable<BaseListData<Commodity>> getGuessCommodity();
+
+    /**
+     * 首页三大模块（24小时热点、最新发布、最后回复）
+     */
+    @GET("/api/bbs/index")
+    Observable<BaseListData<IndexBean.ForumBean>> getBbsIndex(@Query("types") int types);
 }

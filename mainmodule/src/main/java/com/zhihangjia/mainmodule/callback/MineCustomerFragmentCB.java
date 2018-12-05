@@ -13,4 +13,6 @@ public interface MineCustomerFragmentCB extends BaseCB {
     void endFresh();
 
     void initView();
+
+    void phoneCall(String phoneNumber);
 }

@@ -15,4 +15,5 @@ public class BaseConfig {
     public static final String IMAGEUPLOADIP = "http://h6.mobilekoudai.com/";//ip地址
     public static final int MAX_IMG = 10;
     public static final String WXAPI_APPID = "wx74034cb7f59a0bc1";
+    public static final String CUSTOMER_SERVICE_CALL = "0510-89519999";
 }

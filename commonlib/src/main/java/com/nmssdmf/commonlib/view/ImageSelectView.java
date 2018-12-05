@@ -214,7 +214,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
             }
         });
         dialog.show();
-        dialog.getWindow().setLayout(DensityUtil.dpToPx(activity, 300), LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(DensityUtil.dpToPx(activity, 340), LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     public static void getImageFromAlbum(Activity activity, int count) {

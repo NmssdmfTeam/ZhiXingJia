@@ -2,12 +2,15 @@ package com.zhihangjia.loginmodule.viewmodel;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.view.View;
 
 import com.google.gson.Gson;
+import com.nmssdmf.commonlib.activity.WebViewActivity;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
@@ -22,6 +25,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.loginmodule.Activity.ForgetPwdActivity;
 import com.zhihangjia.loginmodule.callback.LoginCB;
 import com.zhixingjia.bean.loginmodule.LoginResult;
+import com.zhixingjia.bean.mainmodule.Link;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.service.LoginService;
 import com.zhixingjia.service.MainService;
@@ -132,5 +136,36 @@ public class LoginVM extends BaseVM {
                     public void onDefeated(BaseData<UserInfo> userInfoBaseData) {
                     }
                 });
+    }
+
+    private void getSingle(final String types) {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_SINGLE).getSingle(types),
+                new ServiceCallback<BaseData<Link>>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData<Link> stringBaseData) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(IntentConfig.LINK, stringBaseData.getData().getLink_url());
+                        cb.doIntent(WebViewActivity.class, bundle);
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData<Link> stringBaseData) {
+
+                    }
+                });
+    }
+
+    public void onServiceProtocalClick(View view) {
+        getSingle("1");
+    }
+
+    public void onPrivacyPolicyClick(View view) {
+        getSingle("3");
     }
 }
