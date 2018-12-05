@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
+import com.nmssdmf.commonlib.util.WeChatPayUtil;
 
 /**
  * Created by ${nmssdmf} on 2018/10/15 0015.
@@ -17,5 +18,6 @@ public class BaseApplication extends Application {
         ToastUtil.getInstance().init(this);
         // 初始化PreferenceUtil
         PreferenceUtil.initialize(getApplicationContext());
+        WeChatPayUtil.getInstance().registerApp(this);
     }
 }

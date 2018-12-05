@@ -1,5 +1,9 @@
 package com.zhihangjia.mainmodule.fragment;
 
+import android.os.Bundle;
+import android.view.View;
+
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -30,6 +34,15 @@ public class DailyHotNewsFragment extends BaseRecyclerViewFragment {
     public BaseDataBindingAdapter initAdapter(List list) {
         adapter = new DailyHotNewsAdapter(list);
         return adapter;
+    }
+
+    @Override
+    public void initAll(View view, Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            vm.types = bundle.getInt(IntentConfig.TYPE);
+        }
+        super.initAll(view, savedInstanceState);
     }
 
     @Override

@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.util.ImageUtil;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.AllCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
-import com.zhihangjia.mainmodule.bean.MaterialsCategoryBean;
 import com.zhihangjia.mainmodule.databinding.ItemMaterialsCategoryBinding;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 
@@ -32,22 +31,23 @@ public class MaterialsCategoryAdapter extends BaseDataBindingAdapter<HouseBean.C
     @Override
     protected void convert2(BaseBindingViewHolder<ItemMaterialsCategoryBinding> helper, final HouseBean.CateBean item, int position) {
         ItemMaterialsCategoryBinding binding = helper.getBinding();
+        if ("全部分类".equals(item.getCate_name())) {
+            String allCategoryIcon = ImageUtil.getUriFromDrawableRes(mContext, R.drawable.all_category);
+            item.setCate_img(allCategoryIcon);
+        }
         binding.setData(item);
-        binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(item.getCate_id()) && "全部分类".equals(item.getCate_name())) {
-                    Intent intent = new Intent();
-                    intent.setClass(mContext, AllCategoriesActivity.class);
-                    mContext.startActivity(intent);
-                } else {
-                    Intent intent = new Intent();
-                    intent.setClass(mContext, MerchantMerchandiseActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.ID, item.getCate_id());
-                    intent.putExtras(bundle);
-                    mContext.startActivity(intent);
-                }
+        binding.getRoot().setOnClickListener(v -> {
+            if (TextUtils.isEmpty(item.getCate_id()) && "全部分类".equals(item.getCate_name())) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, AllCategoriesActivity.class);
+                mContext.startActivity(intent);
+            } else {
+                Intent intent = new Intent();
+                intent.setClass(mContext, MerchantMerchandiseActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.ID, item.getCate_id());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
             }
         });
     }

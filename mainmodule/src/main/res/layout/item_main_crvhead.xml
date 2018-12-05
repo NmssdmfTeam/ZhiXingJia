@@ -51,7 +51,7 @@
                 android:text="信息中心"
                 android:textColor="#FF333333"
                 android:textSize="12dp"
-                android:drawableTop="@drawable/icon_sofa"
+                android:drawableTop="@drawable/index_bbs_center"
                 android:drawablePadding="6dp"
                 android:gravity="center_horizontal"
                 android:onClick="@{(v)->vm.onMessageCenterClick(v)}"/>
@@ -63,7 +63,7 @@
                 android:text="宜兴电信"
                 android:textColor="#FF333333"
                 android:textSize="12dp"
-                android:drawableTop="@drawable/icon_sofa"
+                android:drawableTop="@drawable/index_189"
                 android:drawablePadding="6dp"
                 android:gravity="center_horizontal"
                 android:onClick="@{(v)->vm.onXYTelecomClick(v)}"/>
@@ -75,7 +75,7 @@
                 android:text="生活服务"
                 android:textColor="#FF333333"
                 android:textSize="12dp"
-                android:drawableTop="@drawable/icon_sofa"
+                android:drawableTop="@drawable/index_life_service"
                 android:drawablePadding="6dp"
                 android:gravity="center_horizontal"
                 android:onClick="@{(v)->vm.onLifeServiceClick(v)}"/>

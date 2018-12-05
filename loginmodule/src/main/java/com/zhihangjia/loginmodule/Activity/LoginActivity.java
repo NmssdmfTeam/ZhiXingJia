@@ -44,8 +44,6 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB {
         binding = (ActivityLoginBinding) baseViewBinding;
         binding.setVm(vm);
 
-        String str = "登录即代表您已同意我们的 <font color='#FF9A14'>服务协议</font> 和 <font color='#FF9A14'>隐私政策</font>";
-        binding.tvAgreement.setText(Html.fromHtml(str));
 
         initMenu();
     }

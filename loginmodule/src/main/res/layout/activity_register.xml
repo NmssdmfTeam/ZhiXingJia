@@ -162,7 +162,7 @@
                 android:id="@+id/tvAgreement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="已阅读并同意《用户服务协议》"
+                android:text="已阅读并同意"
                 android:textColor="#FF666666"
                 android:textSize="13dp"
                 android:layout_toRightOf="@+id/cbAgree"
@@ -170,6 +170,15 @@
                 android:layout_marginLeft="5dp"
                 android:onClick="@{(v)->vm.tvAgreementClick(v)}"
                 />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="《用户服务协议》"
+                android:layout_toRightOf="@+id/tvAgreement"
+                android:layout_centerVertical="true"
+                android:textColor="@color/text_orange"
+                android:onClick="@{(v)->vm.tvRegisterProtocalClick(v)}"/>
         </RelativeLayout>
 
         <TextView

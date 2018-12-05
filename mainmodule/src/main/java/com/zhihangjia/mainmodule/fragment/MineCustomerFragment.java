@@ -8,6 +8,7 @@ import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
+import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
@@ -88,5 +89,10 @@ public class MineCustomerFragment extends BaseFragment implements MineCustomerFr
     @Override
     public void initView() {
         binding.tvAprovelState.setText(vm.userinfo.get().getVerify_status());
+    }
+
+    @Override
+    public void phoneCall(String phoneNumber) {
+        CommonUtils.callPhone(getActivity(), phoneNumber);
     }
 }

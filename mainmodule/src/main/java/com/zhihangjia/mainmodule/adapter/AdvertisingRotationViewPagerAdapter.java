@@ -1,10 +1,14 @@
 package com.zhihangjia.mainmodule.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.nmssdmf.commonlib.activity.WebViewActivity;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.rollviewpager.RollPagerView;
 import com.nmssdmf.commonlib.rollviewpager.adapter.LoopPagerAdapter;
@@ -48,13 +52,11 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //打点
-
-//                Intent intent = new Intent(container.getContext(), WebViewActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString(Config.URL, advertisingRotations.get(position).getLink());
-//                intent.putExtras(bundle);
-//                container.getContext().startActivity(intent);
+                Intent intent = new Intent(container.getContext(), WebViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.LINK, advertisingRotations.get(position).getLink_url());
+                intent.putExtras(bundle);
+                container.getContext().startActivity(intent);
             }
         });
         relativeLayout.addView(imageView);

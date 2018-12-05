@@ -107,16 +107,45 @@
                 android:onClick="@{(v)->vm.ivWechatClick(v)}"
                 android:src="@drawable/wechat_login" />
 
-            <TextView
-                android:id="@+id/tvAgreement"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="24dp"
-                android:text="登录即代表您已同意我们的 服务协议 和 隐私政策"
-                android:textColor="#FF999999"
-                android:textSize="12dp" />
+                android:layout_marginBottom="24dp">
+                <TextView
+                    android:id="@+id/tvAgreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="登录即代表您已同意我们的"
+                    android:textColor="#FF999999"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 服务协议"
+                    android:textColor="@color/text_orange"
+                    android:textSize="12dp"
+                    android:onClick="@{(v)->vm.onServiceProtocalClick(v)}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 和 "
+                    android:textColor="#FF999999"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="隐私政策"
+                    android:textColor="@color/text_orange"
+                    android:textSize="12dp"
+                    android:onClick="@{(v)->vm.onPrivacyPolicyClick(v)}"/>
+            </LinearLayout>
+
 
         </RelativeLayout>
 
