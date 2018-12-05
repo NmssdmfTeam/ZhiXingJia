@@ -2,9 +2,16 @@ package com.zhihangjia.mainmodule.viewmodel;
 
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.os.Bundle;
 import android.view.View;
 
-import com.nmssdmf.commonlib.callback.BaseCB;
+import com.google.gson.Gson;
+import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.httplib.HttpUtils;
+import com.nmssdmf.commonlib.httplib.RxRequest;
+import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.PaySuccessActivity;
 import com.zhihangjia.mainmodule.callback.ConfirmPayCB;
