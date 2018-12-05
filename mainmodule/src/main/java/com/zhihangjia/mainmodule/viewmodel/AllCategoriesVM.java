@@ -1,11 +1,14 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.view.View;
+
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.callback.AllCategoriesCB;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.service.MainService;
@@ -51,6 +54,10 @@ public class AllCategoriesVM extends BaseVM {
                     }
 
                 });
+    }
+
+    public void onSearchClick(View view) {
+        callback.doIntent(SearchActivity.class, null);
     }
 
 }

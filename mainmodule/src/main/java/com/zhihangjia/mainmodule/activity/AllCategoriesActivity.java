@@ -50,7 +50,7 @@ public class AllCategoriesActivity extends BaseActivity implements AllCategories
         binding.crv.setLayoutManager(new GridLayoutManager(this, 4));
         binding.crv.setLoadMoreEnable(false);
         binding.ivBack.setOnClickListener(v -> onBackPressed());
-        binding.setSearch.setEditable(false);
+        binding.setVm(vm);
 //        binding.setSearch.setOnEditorActionListener((v, actionId, event) -> {
 //            JLog.i(TAG, "setOnEditorActionListener action:" + actionId);
 //            // 如果是search action，或者为指定的action都执行搜索,有些手机actionSearch没有,所以使用ENTER键判断
