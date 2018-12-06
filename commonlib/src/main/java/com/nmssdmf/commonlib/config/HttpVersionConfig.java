@@ -256,4 +256,14 @@ public class HttpVersionConfig {
      * 首页三大模块（24小时热点、最新发布、最后回复）
      */
     public static final int API_BBS_INDEX = 1;
+
+    /**
+     * 微信登录
+     */
+    public static final int API_AUTH_WEIXIN_LOGIN = 1;
+
+    /**
+     * 搜索帖子、精华置顶列表
+     */
+    public static final int API_BBS_SEARCHINFO = 1;
 }

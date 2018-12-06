@@ -24,6 +24,7 @@ public class UserInfo extends BaseObservable {
     private String wallet;              //钱包余额  - 供应商的信息
     private String sales_today;         //今日销售额  - 供应商的信息
     private String sales_month;         //本月销售额  - 供应商的信息
+    private String service_tel;         //客服热线
 
     @Bindable
     public String getMember_id() {
@@ -133,5 +134,13 @@ public class UserInfo extends BaseObservable {
     public void setSales_month(String sales_month) {
         this.sales_month = sales_month;
         notifyPropertyChanged(BR.sales_month);
+    }
+
+    public String getService_tel() {
+        return service_tel;
+    }
+
+    public void setService_tel(String service_tel) {
+        this.service_tel = service_tel;
     }
 }

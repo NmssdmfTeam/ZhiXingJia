@@ -11,17 +11,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.util.DensityUtil;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.view.TagLayout;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.activity.OrderDetailActivity;
 import com.zhihangjia.mainmodule.databinding.ItemOrderMerchandiseBinding;
 import com.zhihangjia.mainmodule.databinding.ItemOrderWaitForPayBinding;
 import com.zhihangjia.mainmodule.view.OrderBtnTextView;
 import com.zhixingjia.bean.mainmodule.Order;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOrderWaitForPayBinding> {
@@ -84,7 +90,17 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
         payView.setText("支付");
         layout.addView(payView);
         payView.setOnClickListener(v -> {
-
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            List<String> ids = new ArrayList<>();
+            ids.add(getData().get(index).getOrder_id());
+            bundle.putSerializable(IntentConfig.PAY_IDS, (Serializable) ids);
+            bundle.putInt(IntentConfig.POSITION, index);
+            String identify = PreferenceUtil.getString(PrefrenceConfig.IDENTIFY, StringConfig.BUYER);
+            bundle.putString(IntentConfig.IDENTITY, identify);
+            intent.putExtras(bundle);
+            intent.setClass(mContext, ConfirmPayActivity.class);
+            mContext.startActivity(intent);
         });
 
         TextView offLinePayView = new OrderBtnTextView(mContext);

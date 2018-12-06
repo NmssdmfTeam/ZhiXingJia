@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.fragment.OrderListWaitForPayFragmentVM"/>
+    </data>
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -28,7 +35,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"
-                />
+                android:onClick="@{(v)->vm.onMergePayClick(v)}"/>
 
         </RelativeLayout>
 

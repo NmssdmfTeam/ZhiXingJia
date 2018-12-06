@@ -21,6 +21,7 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.activity.OrderListPurchaserActivity;
 import com.zhihangjia.mainmodule.callback.MineCustomerFragmentCB;
 import com.zhixingjia.bean.mainmodule.UserInfo;
@@ -37,6 +38,7 @@ public class MineCustomerFragmentVM extends BaseVM {
     public ObservableField<UserInfo> userinfo = new ObservableField<>();
     public ObservableBoolean isProvider = new ObservableBoolean();
     private MineCustomerFragmentCB callback;
+    private String customerServiceCall;
 
     /**
      * 不需要callback可以传null
@@ -87,6 +89,7 @@ public class MineCustomerFragmentVM extends BaseVM {
                     public void onSuccess(BaseData<UserInfo> userInfoBaseData) {
                         callback.endFresh();
                         if (StringConfig.OK.equals(userInfoBaseData.getStatus_code())) {
+                            customerServiceCall = userInfoBaseData.getData().getService_tel();
                             PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfoBaseData.getData()));
                             UserInfo userInfo = userInfoBaseData.getData();
                             setData(userInfo);
@@ -129,6 +132,10 @@ public class MineCustomerFragmentVM extends BaseVM {
     }
 
     public void onCustomerServiceCallClick(View view) {
-        callback.phoneCall(BaseConfig.CUSTOMER_SERVICE_CALL);
+        callback.phoneCall(customerServiceCall);
+    }
+
+    public void onMessageClick(View view) {
+        callback.doIntent(MessageCenterActivity.class, null);
     }
 }

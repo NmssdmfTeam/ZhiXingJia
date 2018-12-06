@@ -15,5 +15,7 @@ public class BaseConfig {
     public static final String IMAGEUPLOADIP = "http://h6.mobilekoudai.com/";//ip地址
     public static final int MAX_IMG = 10;
     public static final String WXAPI_APPID = "wx74034cb7f59a0bc1";
-    public static final String CUSTOMER_SERVICE_CALL = "0510-89519999";
+    public static final String WXAPI_APPSECRET = "1e44c8f1e9fe81964ef7144cbdf8b62b";
+    //微信获取access_token api地址
+    public static final String WXACCESSTOKEN_API_URL = "https://api.weixin.qq.com";
 }

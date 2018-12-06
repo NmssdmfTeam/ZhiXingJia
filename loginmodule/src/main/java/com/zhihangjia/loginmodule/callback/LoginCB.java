@@ -8,4 +8,5 @@ import com.nmssdmf.commonlib.callback.BaseCB;
 
 public interface LoginCB extends BaseCB {
     void setInputType(boolean pwdShow);
+    void wxAuth();
 }

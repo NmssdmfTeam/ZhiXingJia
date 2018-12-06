@@ -218,6 +218,7 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
                 String resultStatus = payResult.getResultStatus();
                 // 判断resultStatus 为9000则代表支付成功
                 if (TextUtils.equals(resultStatus, "9000")) {
+                    RxBus.getInstance().send(RxEvent.OrderEvent.PAY_FINISH, null);
                     baseCallBck.finishActivity();
                     baseCallBck.doIntent(PaySuccessActivity.class, null);
                 } else {
@@ -227,6 +228,7 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
             case RxEvent.OrderEvent.WECHATPAY_FINISH:
                 callback.finishActivity();
                 baseCallBck.doIntent(PaySuccessActivity.class, null);
+                RxBus.getInstance().send(RxEvent.OrderEvent.PAY_FINISH, null);
                 break;
         }
     }

@@ -45,6 +45,8 @@ public class RxEvent {
         public static final int LOGIN_SUCCESS = VALUE + 1;
         public static final int RE_LOGIN = VALUE + 2;
         public static final int LOGOUT = VALUE + 3;
+        public static final int LOGIN_WEXIN = VALUE +4;
+        public static final int BIND_WEXIN = VALUE +5;
 
         public LoginEvent() {
             super(VALUE);
@@ -94,6 +96,8 @@ public class RxEvent {
 
         public static final int ALIPAY_FINISH = VALUE + 11;       //支付宝支付完成
         public static final int WECHATPAY_FINISH = VALUE + 12;       //微信支付完成
+
+        public static final int PAY_FINISH = VALUE + 13;       //支付完成
     }
 
     public int getType() {

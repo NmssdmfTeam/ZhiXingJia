@@ -18,12 +18,15 @@ import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.CommentActivity;
+import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.activity.OrderDetailActivity;
 import com.zhihangjia.mainmodule.databinding.ItemOrderBinding;
 import com.zhihangjia.mainmodule.databinding.ItemOrderMerchandiseBinding;
 import com.zhihangjia.mainmodule.view.OrderBtnTextView;
 import com.zhixingjia.bean.mainmodule.Order;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding> {
@@ -180,7 +183,16 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
             payView.setText("支付");
             layout.addView(payView);
             payView.setOnClickListener(v -> {
-
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                List<String> ids = new ArrayList<>();
+                ids.add(getData().get(index).getOrder_id());
+                bundle.putSerializable(IntentConfig.PAY_IDS, (Serializable) ids);
+                bundle.putInt(IntentConfig.POSITION, index);
+                bundle.putString(IntentConfig.IDENTITY, identity);
+                intent.putExtras(bundle);
+                intent.setClass(mContext, ConfirmPayActivity.class);
+                mContext.startActivity(intent);
             });
 
             TextView offLinePayView = new OrderBtnTextView(mContext);

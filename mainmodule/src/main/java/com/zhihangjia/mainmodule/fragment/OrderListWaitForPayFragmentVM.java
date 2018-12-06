@@ -1,8 +1,12 @@
 package com.zhihangjia.mainmodule.fragment;
 
+import android.os.Bundle;
+import android.view.View;
+
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
@@ -11,11 +15,13 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.adapter.OrderWaitForPayAdapter;
 import com.zhihangjia.mainmodule.callback.OrderListWaitForPayFragmentCB;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.service.MainService;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +49,7 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
         RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CANCEL, this);
         RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_PAY, this);
         RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
+        RxBus.getInstance().register(RxEvent.OrderEvent.PAY_FINISH, this);
     }
 
     @Override
@@ -51,6 +58,7 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
         RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CANCEL, this);
         RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_PAY, this);
         RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
+        RxBus.getInstance().unregister(RxEvent.OrderEvent.PAY_FINISH, this);
     }
 
 
@@ -162,7 +170,25 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
                 cb.nofityItem(info.getIndex());
                 break;
             }
+            case RxEvent.OrderEvent.PAY_FINISH: {
+                getData(true);
+            }
         }
+    }
+
+    /**
+     * 合并支付
+     * @param view
+     */
+    public void onMergePayClick(View view) {
+        //获取支付单Id
+        List<String> ids = cb.getSelectedOrderIds();
+        if (ids == null || ids.size() == 0)
+            return;
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConfig.PAY_IDS, (Serializable) ids);
+        bundle.putString(IntentConfig.POSITION, identity);
+        cb.doIntent(ConfirmPayActivity.class, bundle);
     }
 
     public boolean isCurrent() {

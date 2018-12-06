@@ -11,6 +11,7 @@ import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
@@ -155,6 +156,7 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
             public void onSuccess(BaseListData<String> base) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(IntentConfig.PAY_IDS, (Serializable) base.getData());
+                bundle.putString(IntentConfig.IDENTITY, StringConfig.BUYER);
                 cb.doIntent(ConfirmPayActivity.class, bundle);
                 if (!TextUtils.isEmpty(cart_info)) {
                     RxBus.getInstance().send(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER, null);

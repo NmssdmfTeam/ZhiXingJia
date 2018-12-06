@@ -50,4 +50,7 @@ public class IntentConfig {
     public static final String MEMBER_INFO = "member_info";       //热卖商品
     public static final String CATE_PW = "cate_pw";                 //品味
     public static final String BRAND_ID = "brand_id";                 //品牌ID
+
+    public static final String OPEN_ID = "open_id";                 //微信登录openid
+    public static final String WX_USERINFO = "wx_userinfo";                 //微信信息
 }

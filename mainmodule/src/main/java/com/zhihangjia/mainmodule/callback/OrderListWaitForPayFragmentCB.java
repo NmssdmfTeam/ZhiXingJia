@@ -9,4 +9,5 @@ public interface OrderListWaitForPayFragmentCB extends BaseCB {
     void refreshAdapter(boolean isRefresh, List<Order> list);
     void cancelOrder();
     void nofityItem(int index);
+    List<String> getSelectedOrderIds();
 }

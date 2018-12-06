@@ -10,6 +10,7 @@ import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.BbsStickyPostActivity;
 import com.zhihangjia.mainmodule.activity.SearchResultActivity;
 import com.zhihangjia.mainmodule.callback.SearchFragmentCB;
 import com.zhixingjia.bean.mainmodule.Seller;
@@ -61,10 +62,17 @@ public class SearchFragmentVM extends BaseVM {
         PreferenceUtil.setStringValue(type, new Gson().toJson(historys));//数据刷新
         cb.refreshHistory();
 
-        Bundle bundle = new Bundle();
-        bundle.putString(IntentConfig.TYPE, type);
-        bundle.putString(IntentConfig.KEYWORD, keyword.get());
-        cb.doIntent(SearchResultActivity.class, bundle);
+        if (TYPE_INFORMATION_CENTER.equals(type)) {
+            Bundle bundle = new Bundle();
+            bundle.putString(IntentConfig.TYPE, "1");
+            bundle.putString(IntentConfig.KEYWORD, keyword.get());
+            cb.doIntent(BbsStickyPostActivity.class, bundle);
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putString(IntentConfig.TYPE, type);
+            bundle.putString(IntentConfig.KEYWORD, keyword.get());
+            cb.doIntent(SearchResultActivity.class, bundle);
+        }
     }
 
 

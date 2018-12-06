@@ -405,4 +405,10 @@ public interface MainService {
      */
     @GET("/api/bbs/index")
     Observable<BaseListData<IndexBean.ForumBean>> getBbsIndex(@Query("types") int types);
+
+    /**
+     * 搜索帖子、精华置顶列表
+     */
+    @GET("/api/bbs/searchinfo")
+    Observable<BaseListData<IndexBean.ForumBean>> getBbsSearchInfo(@QueryMap Map<String, String> map);
 }

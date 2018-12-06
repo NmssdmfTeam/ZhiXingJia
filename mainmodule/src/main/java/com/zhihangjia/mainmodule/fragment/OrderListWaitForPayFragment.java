@@ -13,6 +13,7 @@ import com.zhihangjia.mainmodule.callback.OrderListWaitForPayFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentOrderListWaitForPayBinding;
 import com.zhixingjia.bean.mainmodule.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,6 +45,7 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentOrderListWaitForPayBinding) baseBinding;
+        binding.setVm(vm);
         adapter = new OrderWaitForPayAdapter(vm.getList(), vm);
 
         binding.crv.setAdapter(adapter);
@@ -94,6 +96,17 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
     @Override
     public void nofityItem(int index) {
         adapter.notifyItemChanged(index);
+    }
+
+    @Override
+    public List<String> getSelectedOrderIds() {
+        List<String> ids = new ArrayList<>();
+        for (Order order : vm.getList()) {
+            if (order.isIs_selected()) {
+                ids.add(order.getOrder_id());
+            }
+        }
+        return ids;
     }
 
     public OrderListWaitForPayFragmentVM getVm() {

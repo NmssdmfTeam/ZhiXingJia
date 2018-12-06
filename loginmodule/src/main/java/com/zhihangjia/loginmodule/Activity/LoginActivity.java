@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.social.WXLoginApi;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.loginmodule.R;
 import com.zhihangjia.loginmodule.callback.LoginCB;
@@ -22,6 +23,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB {
 
     private LoginVM vm;
     private ActivityLoginBinding binding;
+    private WXLoginApi wxLoginApi;
 
     @Override
     public String getTAG() {
@@ -79,6 +81,14 @@ public class LoginActivity extends BaseTitleActivity implements LoginCB {
             binding.etPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
         binding.etPwd.setSelection(binding.etPwd.getText().length());
+    }
+
+    @Override
+    public void wxAuth() {
+        if (wxLoginApi == null) {
+            wxLoginApi = new WXLoginApi(this);
+        }
+        wxLoginApi.weChatLogin();
     }
 
     @Override

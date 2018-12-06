@@ -21,6 +21,7 @@ public class Order extends BaseObservable{
     private String good_sum;//商品总数量
     private String order_status_name;//状态中文名称
     private List<ItemBean> item;//商品数组
+    private boolean is_selected; //是否选中
 
     public String getId() {
         return id;
@@ -100,6 +101,16 @@ public class Order extends BaseObservable{
 
     public void setItem(List<ItemBean> item) {
         this.item = item;
+    }
+
+    @Bindable
+    public boolean isIs_selected() {
+        return is_selected;
+    }
+
+    public void setIs_selected(boolean is_selected) {
+        this.is_selected = is_selected;
+        notifyPropertyChanged(BR.is_selected);
     }
 
     public static class ItemBean extends BaseObservable{

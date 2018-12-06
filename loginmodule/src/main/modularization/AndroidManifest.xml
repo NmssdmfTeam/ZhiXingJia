@@ -21,6 +21,9 @@
         <activity android:name=".Activity.ForgetPwdActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".Activity.BindRegisterActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
