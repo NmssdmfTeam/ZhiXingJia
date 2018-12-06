@@ -20,6 +20,7 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.activity.OrderListSupplierActivity;
 import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
 import com.zhihangjia.mainmodule.callback.MineProviderFragmentCB;
@@ -115,6 +116,10 @@ public class MineProviderFragmentVM extends BaseVM {
 
     public void onCouponManagementClick(View view) {
         callback.doIntent(ShopCouponListActivity.class, null);
+    }
+
+    public void onMessageClick(View view) {
+        callback.doIntent(MessageCenterActivity.class, null);
     }
 
     @Override

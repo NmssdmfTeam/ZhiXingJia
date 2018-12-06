@@ -57,6 +57,8 @@ public class MyPostActivity extends BaseTitleActivity {
 
         binding.tl.getTabAt(0).setText("发帖");
         binding.tl.getTabAt(1).setText("回帖");
+
+        binding.vp.setCurrentItem(vm.index);
     }
 
     @Override

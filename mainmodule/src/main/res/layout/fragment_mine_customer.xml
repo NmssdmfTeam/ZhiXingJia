@@ -181,7 +181,8 @@
                                 android:gravity="center"
                                 android:text="发帖"
                                 android:textColor="#FF333333"
-                                android:textSize="13dp"/>
+                                android:textSize="13dp"
+                                android:onClick="@{(v)->vm.onBbsPostClick(v)}"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -197,7 +198,8 @@
                                 android:gravity="center"
                                 android:text="回帖"
                                 android:textColor="#FF333333"
-                                android:textSize="13dp"/>
+                                android:textSize="13dp"
+                                android:onClick="@{(v)->vm.onBbsReplyClick(v)}"/>
                         </FrameLayout>
 
                     </LinearLayout>

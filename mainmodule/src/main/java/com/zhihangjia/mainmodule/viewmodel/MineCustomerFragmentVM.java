@@ -22,6 +22,7 @@ import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
+import com.zhihangjia.mainmodule.activity.MyPostActivity;
 import com.zhihangjia.mainmodule.activity.OrderListPurchaserActivity;
 import com.zhihangjia.mainmodule.callback.MineCustomerFragmentCB;
 import com.zhixingjia.bean.mainmodule.UserInfo;
@@ -137,5 +138,21 @@ public class MineCustomerFragmentVM extends BaseVM {
 
     public void onMessageClick(View view) {
         callback.doIntent(MessageCenterActivity.class, null);
+    }
+
+    /**
+     * 我的发帖
+     * @param view
+     */
+    public void onBbsPostClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(IntentConfig.POSITION, 0);
+        callback.doIntent(MyPostActivity.class, bundle);
+    }
+
+    public void onBbsReplyClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(IntentConfig.POSITION, 1);
+        callback.doIntent(MyPostActivity.class, bundle);
     }
 }
