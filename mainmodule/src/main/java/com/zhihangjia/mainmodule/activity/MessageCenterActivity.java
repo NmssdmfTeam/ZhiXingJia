@@ -5,26 +5,33 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.callback.MessageCenterCB;
 import com.zhihangjia.mainmodule.databinding.ActivityMessageCenterBinding;
 import com.zhihangjia.mainmodule.databinding.ViewMessageTabBinding;
 import com.zhihangjia.mainmodule.fragment.message.OrderMessageFragment;
 import com.zhihangjia.mainmodule.fragment.message.SystemMessageFragment;
+import com.zhihangjia.mainmodule.viewmodel.MessageCenterVM;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageCenterActivity extends BaseTitleActivity {
+public class MessageCenterActivity extends BaseTitleActivity implements MessageCenterCB {
     private final String TAG = MessageCenterActivity.class.getSimpleName();
     private ActivityMessageCenterBinding binding;
+    private MessageCenterVM vm;
 
     private List<Fragment> list = new ArrayList<>();
     private FragmentPagerAdapter fragmentPagerAdapter;
+    private ViewMessageTabBinding systemTabBinding;
+    private ViewMessageTabBinding orderTabBinding;
 
     @Override
     public String getTAG() {
@@ -33,7 +40,8 @@ public class MessageCenterActivity extends BaseTitleActivity {
 
     @Override
     public BaseVM initViewModel() {
-        return null;
+        vm = new MessageCenterVM(this);
+        return vm;
     }
 
     @Override
@@ -59,14 +67,14 @@ public class MessageCenterActivity extends BaseTitleActivity {
 
         binding.tl.setupWithViewPager(binding.vp);
 
-        final ViewMessageTabBinding systemTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
+        systemTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
 
         systemTabBinding.tvMessageName.setText("系统消息");
         binding.tl.getTabAt(0).setCustomView(systemTabBinding.getRoot());
         systemTabBinding.tvMessageName.setTextColor(Color.parseColor("#FFFF9A14"));
 
 
-        final ViewMessageTabBinding orderTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
+        orderTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
         orderTabBinding.tvMessageName.setText("订单消息");
         binding.tl.getTabAt(1).setCustomView(orderTabBinding.getRoot());
         orderTabBinding.tvMessageName.setTextColor(Color.parseColor("#666666"));
@@ -98,5 +106,19 @@ public class MessageCenterActivity extends BaseTitleActivity {
     @Override
     public int getContentViewId() {
         return R.layout.activity_message_center;
+    }
+
+    @Override
+    public void showNotice() {
+        if (TextUtils.isEmpty(vm.messageUnread.getSys_message()) || "0".equals(vm.messageUnread.getSys_message())) {
+            systemTabBinding.vRed.setVisibility(View.GONE);
+        } else {
+            systemTabBinding.vRed.setVisibility(View.VISIBLE);
+        }
+        if (TextUtils.isEmpty(vm.messageUnread.getOrder_message()) || "0".equals(vm.messageUnread.getOrder_message())) {
+            orderTabBinding.vRed.setVisibility(View.GONE);
+        } else {
+            orderTabBinding.vRed.setVisibility(View.VISIBLE);
+        }
     }
 }

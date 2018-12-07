@@ -4,6 +4,7 @@ import com.nmssdmf.commonlib.callback.BaseCB;
 import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
+import com.zhixingjia.bean.mainmodule.MessageUnread;
 
 import java.util.List;
 
@@ -59,4 +60,6 @@ public interface MainFragmentCB extends BaseCB {
      * 跳转建材家居
      */
     void toOtherFragment(int index);
+
+    void showNotice(MessageUnread messageUnread);
 }

@@ -1,0 +1,81 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.zhixingjia.personmodule.viewmodule.FeedbackVM"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_color"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/stroke_app_bg">
+
+                    <EditText
+                        android:id="@+id/et_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:background="@color/white"
+                        android:gravity="left"
+                        android:hint="为了更好服务您，欢迎您为我们提供意见建议"
+                        android:minHeight="160dp"
+                        android:text="@={vm.content}"
+                        android:textColor="@color/text_black"
+                        android:textColorHint="@color/text_gray"
+                        android:afterTextChanged="@{(s)->vm.afterTextChanged(s)}"
+                        android:padding="12dp"
+                        android:textSize="@dimen/font_size_big" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/btn_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="8dp"
+                        android:padding="4dp"
+                        android:text="@{vm.count}"
+                        android:textColor="@color/text_orange"
+                        android:textSize="@dimen/font_size_small" />
+                </RelativeLayout>
+
+                <include layout="@layout/include_recyclerview_cutoff_line" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/selector_btn_address_manage"
+                android:enabled="@{vm.isCommitBtnEnable}"
+                android:onClick="@{(v)->vm.onCommitClick(v)}"
+                android:text="提交" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

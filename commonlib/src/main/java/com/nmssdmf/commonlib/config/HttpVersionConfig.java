@@ -266,4 +266,24 @@ public class HttpVersionConfig {
      * 搜索帖子、精华置顶列表
      */
     public static final int API_BBS_SEARCHINFO = 1;
+
+    /**
+     * 搜索帖子、精华置顶列表
+     */
+    public static final int API_MESSAGE = 1;
+
+    /**
+     * 消息未读统计
+     */
+    public static final int API_MESSAGE_UNREAD = 1;
+
+    /**
+     * 意见反馈
+     */
+    public static final int API_MY_FEEDBACK = 1;
+
+    /**
+     * 变更登录账号
+     */
+    public static final int API_MY_CHANGE_ACCOUNT = 1;
 }

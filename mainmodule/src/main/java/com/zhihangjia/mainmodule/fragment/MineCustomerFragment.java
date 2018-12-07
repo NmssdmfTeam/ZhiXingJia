@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.nmssdmf.commonlib.config.IntentConfig;
@@ -16,6 +17,7 @@ import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.callback.MineCustomerFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMineCustomerBinding;
 import com.zhihangjia.mainmodule.viewmodel.MineCustomerFragmentVM;
+import com.zhixingjia.bean.mainmodule.MessageUnread;
 
 /**
 * @description 我的买家版
@@ -51,6 +53,7 @@ public class MineCustomerFragment extends BaseFragment implements MineCustomerFr
     public void onResume() {
         super.onResume();
         vm.setData(null);
+        vm.getMessageUnread();
     }
 
     private void setListener() {
@@ -94,5 +97,14 @@ public class MineCustomerFragment extends BaseFragment implements MineCustomerFr
     @Override
     public void phoneCall(String phoneNumber) {
         CommonUtils.callPhone(getActivity(), phoneNumber);
+    }
+
+    @Override
+    public void showNotice(MessageUnread messageUnread) {
+        if (TextUtils.isEmpty(messageUnread.getAll_message()) || "0".equals(messageUnread.getAll_message())) {
+            binding.ivMessageNotice.setVisibility(View.GONE);
+        } else {
+            binding.ivMessageNotice.setVisibility(View.VISIBLE);
+        }
     }
 }

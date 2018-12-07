@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.loginmodule.viewmodel.ChangeAccountVM"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:text="修改帐号"
+            android:textColor="#FF333333"
+            android:gravity="center"
+            android:textSize="25dp"
+            />
+
+        <TextView
+            android:layout_width="343dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="45dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入手机号码"
+            android:textColorHint="#FFCCCCCC"
+            android:textSize="15dp"
+            android:text="@={vm.phoneNumber}"
+            android:inputType="phone" />
+
+        <RelativeLayout
+            android:layout_width="343dp"
+            android:layout_height="55dp"
+            android:background="#FFFFFFFF"
+            >
+
+            <TextView
+                android:id="@+id/tvSendCode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:gravity="center_vertical"
+                android:text="发送验证码"
+                android:textColor="#FFFF9A14"
+                android:textSize="14dp"
+                android:onClick="@{(v)->vm.sendVerificationCode(v)}"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="12dp"
+                android:layout_toLeftOf="@+id/tvSendCode"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入验证码"
+                android:textColorHint="#FFCCCCCC"
+                android:textSize="15dp"
+                android:text="@={vm.verificationCode}"
+                android:inputType="number"
+                />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_login_cut_off_line"/>
+
+        <EditText
+            android:layout_width="343dp"
+            android:layout_height="55dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入手机号码"
+            android:textColorHint="#FFCCCCCC"
+            android:textSize="15dp"
+            android:text="@={vm.newPhoneNumber}"
+            android:inputType="phone" />
+
+        <include
+            layout="@layout/include_login_cut_off_line"/>
+
+        <RelativeLayout
+            android:layout_width="343dp"
+            android:layout_height="55dp"
+            android:background="#FFFFFFFF">
+
+            <TextView
+                android:id="@+id/tvSendNewCode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:gravity="center_vertical"
+                android:text="发送验证码"
+                android:textColor="#FFFF9A14"
+                android:textSize="14dp"
+                android:onClick="@{(v)->vm.sendNewAccountVerificationCode(v)}"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="12dp"
+                android:layout_toLeftOf="@+id/tvSendNewCode"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入验证码"
+                android:textColorHint="#FFCCCCCC"
+                android:textSize="15dp"
+                android:text="@={vm.newAccountVerificationCode}"
+                android:inputType="number"
+                />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_login_cut_off_line"/>
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="343dp"
+            android:layout_height="43dp"
+            android:background="@drawable/shape_page_main_btn"
+            android:text="确定"
+            android:textColor="#FFFFFFFF"
+            android:textSize="17dp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:onClick="@{(v)->vm.tvChangeAccountClick(v)}"
+            />
+    </LinearLayout>
+</layout>

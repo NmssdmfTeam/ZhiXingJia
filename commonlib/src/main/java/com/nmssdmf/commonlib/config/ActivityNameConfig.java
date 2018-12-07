@@ -28,5 +28,6 @@ public class ActivityNameConfig {
 
     public static final String LOGIN_ACTIVITY = LOGIN_PACKAGE + ".Activity.LoginActivity";
     public static final String SELECTCATEGORY_ACTIVITY = MAINMODULE_PACKAGE + ".activity.SelectCategoriesActivity";
+    public static final String CHANGEACCOUNT_ACTIVITY = LOGIN_PACKAGE + ".Activity.ChangeAccountActivity";
 
 }

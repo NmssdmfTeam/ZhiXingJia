@@ -15,8 +15,10 @@ import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.Link;
+import com.zhixingjia.bean.mainmodule.Message;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
+import com.zhixingjia.bean.mainmodule.MessageUnread;
 import com.zhixingjia.bean.mainmodule.New;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
@@ -411,4 +413,16 @@ public interface MainService {
      */
     @GET("/api/bbs/searchinfo")
     Observable<BaseListData<IndexBean.ForumBean>> getBbsSearchInfo(@QueryMap Map<String, String> map);
+
+    /**
+     * 消息列表
+     */
+    @GET("/api/message")
+    Observable<BaseListData<Message>> getMessage(@QueryMap Map<String, String> map);
+
+    /**
+     * 消息未读统计
+     */
+    @GET("/api/message/unread")
+    Observable<BaseData<MessageUnread>> getMessageUnread();
 }

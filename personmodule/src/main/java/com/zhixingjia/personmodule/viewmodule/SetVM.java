@@ -1,6 +1,10 @@
 package com.zhixingjia.personmodule.viewmodule;
 
+import android.app.Activity;
+import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 
 import com.nmssdmf.commonlib.activity.WebViewActivity;
@@ -16,11 +20,24 @@ import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.DataCleanManager;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.mainmodule.Link;
+import com.zhixingjia.personmodule.activity.FeedbackActivity;
 import com.zhixingjia.personmodule.callback.SetCB;
 import com.zhixingjia.service.MainService;
+
+import org.reactivestreams.Subscriber;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author chenbin
@@ -30,6 +47,7 @@ import com.zhixingjia.service.MainService;
  */
 public class SetVM extends BaseVM {
     private SetCB callback;
+    public final ObservableField<String> cacheSize = new ObservableField<>();
 
     /**
      * 不需要callback可以传null
@@ -95,24 +113,127 @@ public class SetVM extends BaseVM {
         HttpUtils.doHttp(subscription,
                 RxRequest.create(MainService.class, HttpVersionConfig.API_AUTH_LOGOUT).logout(),
                 new ServiceCallback<Base>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Base base) {
+                        RxBus.getInstance().send(RxEvent.LoginEvent.LOGOUT, null);
+                        // 跳转到登录页面
+                        baseCallBck.doIntentClassName(ActivityNameConfig.LOGIN_ACTIVITY, null);
+                        clearUserInfo();
+                    }
+
+                    @Override
+                    public void onDefeated(Base base) {
+
+                    }
+                });
+    }
+
+    public void getCacheSize(final Activity activity) {
+        Observable observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void onError(Throwable error) {
-
-            }
-
-            @Override
-            public void onSuccess(Base base) {
-                RxBus.getInstance().send(RxEvent.LoginEvent.LOGOUT, null);
-                // 跳转到登录页面
-                baseCallBck.doIntentClassName(ActivityNameConfig.LOGIN_ACTIVITY, null);
-                clearUserInfo();
-            }
-
-            @Override
-            public void onDefeated(Base base) {
-
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                try {
+                    String data = DataCleanManager.getTotalCacheSize(activity);
+                    e.onNext(data);
+                } catch (Exception error) {
+                    e.onError(error);
+                    return;
+                }
+                e.onComplete();
             }
         });
+        Observer<String> observer = new Observer<String>() {
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                subscription.add(d);
+            }
+
+            @Override
+            public void onNext(String s) {
+                cacheSize.set(s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+    }
+
+    public void onCleanCacheClick(View view) {
+        callback.confirmCleanCache();
+    }
+
+    public void cleanCache(final Activity activity) {
+        Observable observable = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                try {
+                    DataCleanManager.clearAllCache(activity);
+                } catch (Exception error) {
+                    e.onError(error);
+                    return;
+                }
+                e.onComplete();
+            }
+        });
+        Observer<String> observer = new Observer<String>() {
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                callback.showLoaddingDialog();
+                subscription.add(d);
+            }
+
+            @Override
+            public void onNext(String s) {
+                cacheSize.set(s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                callback.dismissLoaddingDialog();
+                cacheSize.set("0K");
+            }
+        };
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+    }
+
+    /**
+     * 意见反馈
+     *
+     * @param view
+     */
+    public void onFeedBackClick(View view) {
+        callback.doIntent(FeedbackActivity.class, null);
+    }
+
+    /**
+     * 修改帐号
+     *
+     * @param view
+     */
+    public void onChangeAccountClick(View view) {
+        callback.doIntentClassName(ActivityNameConfig.CHANGEACCOUNT_ACTIVITY, null);
     }
 
     private void clearUserInfo() {

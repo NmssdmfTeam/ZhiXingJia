@@ -40,6 +40,9 @@
         <activity
             android:name=".Activity.BindRegisterActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".Activity.ChangeAccountActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

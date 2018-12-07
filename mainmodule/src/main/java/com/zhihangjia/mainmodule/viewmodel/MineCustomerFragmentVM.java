@@ -25,6 +25,7 @@ import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.activity.MyPostActivity;
 import com.zhihangjia.mainmodule.activity.OrderListPurchaserActivity;
 import com.zhihangjia.mainmodule.callback.MineCustomerFragmentCB;
+import com.zhixingjia.bean.mainmodule.MessageUnread;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.service.MainService;
 
@@ -49,6 +50,7 @@ public class MineCustomerFragmentVM extends BaseVM {
     public MineCustomerFragmentVM(MineCustomerFragmentCB callBack) {
         super(callBack);
         this.callback = callBack;
+        getMessageUnread();
     }
 
     public void applySupplierActivity(View view) {
@@ -104,6 +106,8 @@ public class MineCustomerFragmentVM extends BaseVM {
                 });
     }
 
+
+
     public void setData(UserInfo userInfo) {
         if (userInfo == null) {
             String userinfoPrefrence = PreferenceUtil.getString(PrefrenceConfig.USER_INFO, null);
@@ -138,6 +142,28 @@ public class MineCustomerFragmentVM extends BaseVM {
 
     public void onMessageClick(View view) {
         callback.doIntent(MessageCenterActivity.class, null);
+    }
+
+    public void getMessageUnread() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_MESSAGE_UNREAD).getMessageUnread(),
+                new ServiceCallback<BaseData<MessageUnread>>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData<MessageUnread> messageUnreadBaseData) {
+                        //设置是否显示小红点
+                        callback.showNotice(messageUnreadBaseData.getData());
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData<MessageUnread> messageUnreadBaseData) {
+
+                    }
+                });
     }
 
     /**

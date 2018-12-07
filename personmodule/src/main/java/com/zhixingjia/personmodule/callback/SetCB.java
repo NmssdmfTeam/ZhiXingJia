@@ -10,4 +10,5 @@ import com.nmssdmf.commonlib.callback.BaseCB;
 */
 public interface SetCB extends BaseCB {
     void confirmLogout();
+    void confirmCleanCache();
 }

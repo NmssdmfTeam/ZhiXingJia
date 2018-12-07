@@ -24,6 +24,7 @@ import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.activity.OrderListSupplierActivity;
 import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
 import com.zhihangjia.mainmodule.callback.MineProviderFragmentCB;
+import com.zhixingjia.bean.mainmodule.MessageUnread;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.service.MainService;
 
@@ -126,6 +127,28 @@ public class MineProviderFragmentVM extends BaseVM {
     public void registerRxBus() {
         super.registerRxBus();
         RxBus.getInstance().register(RxEvent.PersonInfoEvent.IDENTIFY_CHANGE, this);
+    }
+
+    public void getMessageUnread() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_MESSAGE_UNREAD).getMessageUnread(),
+                new ServiceCallback<BaseData<MessageUnread>>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData<MessageUnread> messageUnreadBaseData) {
+                        //设置是否显示小红点
+                        callback.showNotice(messageUnreadBaseData.getData());
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData<MessageUnread> messageUnreadBaseData) {
+
+                    }
+                });
     }
 
     @Override

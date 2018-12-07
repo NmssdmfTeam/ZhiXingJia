@@ -1,5 +1,6 @@
 package com.zhixingjia.service;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.zhixingjia.bean.personmodule.Address;
@@ -9,6 +10,7 @@ import com.zhixingjia.bean.personmodule.Coupon;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -68,4 +70,20 @@ public interface PersonService {
      */
     @GET ("/api/coupon/info")
     Observable<BaseListData<Coupon>> getMyCoupon(@QueryMap Map<String, String> map);
+
+    /**
+     * 意见反馈
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/my/feedback")
+    Observable<Base> feedBack(@Field("note") String note);
+
+    /**
+     * 变更登录账号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/my/change_account")
+    Observable<Base> changeAccount(@FieldMap Map<String, String> map);
 }

@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.nmssdmf.commonlib.config.StringConfig;
@@ -12,6 +13,7 @@ import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.callback.MineProviderFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMineProviderBinding;
 import com.zhihangjia.mainmodule.viewmodel.MineProviderFragmentVM;
+import com.zhixingjia.bean.mainmodule.MessageUnread;
 
 /**
 * @description 知行家首页-- 建材家居fragment
@@ -47,6 +49,7 @@ public class MineProviderFragment extends BaseFragment implements MineProviderFr
     public void onResume() {
         super.onResume();
         vm.setData(null);
+        vm.getMessageUnread();
     }
 
     private void setListener() {
@@ -85,5 +88,14 @@ public class MineProviderFragment extends BaseFragment implements MineProviderFr
     @Override
     public void initView() {
 
+    }
+
+    @Override
+    public void showNotice(MessageUnread messageUnread) {
+        if (TextUtils.isEmpty(messageUnread.getAll_message()) || "0".equals(messageUnread.getAll_message())) {
+            binding.ivMessageNotice.setVisibility(View.GONE);
+        } else {
+            binding.ivMessageNotice.setVisibility(View.VISIBLE);
+        }
     }
 }

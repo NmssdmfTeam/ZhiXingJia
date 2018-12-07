@@ -40,6 +40,9 @@
         <activity
             android:name=".activity.AddOrEditAddressActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activity.FeedbackActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

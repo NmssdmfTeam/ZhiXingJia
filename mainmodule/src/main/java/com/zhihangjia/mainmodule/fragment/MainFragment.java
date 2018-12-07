@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,6 +29,7 @@ import com.zhihangjia.mainmodule.databinding.ItemViewflipperBinding;
 import com.zhihangjia.mainmodule.viewmodel.MainFragmentVM;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
+import com.zhixingjia.bean.mainmodule.MessageUnread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +81,12 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         vm.getIndex(true);
         vm.getIndexBanner(true);
         setListener();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        vm.getMessageUnread();
     }
 
     public void setHeadlineView(List<IndexBean.ArticleBean> headlines) {
@@ -247,6 +255,15 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
     public void toOtherFragment(int index) {
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).setCurrentTabsIndex(index);
+        }
+    }
+
+    @Override
+    public void showNotice(MessageUnread messageUnread) {
+        if (TextUtils.isEmpty(messageUnread.getAll_message()) || "0".equals(messageUnread.getAll_message())) {
+            binding.iIndexTitle.ivNotice.setVisibility(View.GONE);
+        } else {
+            binding.iIndexTitle.ivNotice.setVisibility(View.VISIBLE);
         }
     }
 }

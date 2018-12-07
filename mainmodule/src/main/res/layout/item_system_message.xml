@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.Message"/>
+    </data>
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -7,7 +14,6 @@
             android:id="@+id/tvContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="你的订单1823414324324已支付成功，请尽快发货请快发布哦"
             android:textColor="#FF333333"
             android:textSize="16dp"
             android:layout_marginTop="12dp"
@@ -19,7 +25,7 @@
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2017-03-04 13:12:54"
+            android:text="@{data.createtime}"
             android:textColor="#FFCCCCCC"
             android:textSize="12dp"
             android:layout_below="@+id/tvContent"

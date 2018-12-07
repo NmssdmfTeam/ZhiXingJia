@@ -28,9 +28,6 @@ public class OrderMessageFragment extends BaseRecyclerViewFragment {
 
     @Override
     public BaseDataBindingAdapter initAdapter(List list) {
-        list.add(new Base());
-        list.add(new Base());
-        list.add(new Base());
         adapter = new SystemMessageAdapter(list);
         return adapter;
     }

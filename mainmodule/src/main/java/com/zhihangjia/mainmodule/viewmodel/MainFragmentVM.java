@@ -20,6 +20,7 @@ import com.zhihangjia.mainmodule.bean.MainBean;
 import com.zhihangjia.mainmodule.callback.MainFragmentCB;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
+import com.zhixingjia.bean.mainmodule.MessageUnread;
 import com.zhixingjia.service.MainService;
 
 import java.util.List;
@@ -146,6 +147,28 @@ public class MainFragmentVM extends BaseVM {
             cb.setBannerMiddle(banner_middle);
         }
         cb.setBannerFixed(banner.getBanner_fixed());                //设置左上下广告
+    }
+
+    public void getMessageUnread() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_MESSAGE_UNREAD).getMessageUnread(),
+                new ServiceCallback<BaseData<MessageUnread>>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData<MessageUnread> messageUnreadBaseData) {
+                        //设置是否显示小红点
+                        cb.showNotice(messageUnreadBaseData.getData());
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData<MessageUnread> messageUnreadBaseData) {
+
+                    }
+                });
     }
 
     /**

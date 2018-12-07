@@ -48,7 +48,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#FFFFFFFF">
+            android:background="#FFFFFFFF"
+            android:onClick="@{(v)->vm.onChangeAccountClick(v)}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,6 +61,7 @@
                 android:textSize="16dp" />
 
             <TextView
+                android:id="@+id/tvAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -67,7 +69,7 @@
                 android:drawableRight="@drawable/icon_arrow_item_title_right"
                 android:gravity="center_vertical"
                 android:paddingRight="16dp"
-                android:text="134****2342"
+                android:text=""
                 android:textColor="#FFCCCCCC"
                 android:textSize="15dp" />
         </RelativeLayout>
@@ -85,7 +87,8 @@
             android:paddingRight="16dp"
             android:text="意见反馈"
             android:textColor="#FF333333"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:onClick="@{(v)->vm.onFeedBackClick(v)}"/>
 
         <include layout="@layout/include_recyclerview_cutoff_line" />
 
@@ -107,7 +110,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#FFFFFFFF">
+            android:background="#FFFFFFFF"
+            android:onClick="@{(v)->vm.onCleanCacheClick(v)}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,7 +130,7 @@
                 android:drawableRight="@drawable/icon_arrow_item_title_right"
                 android:gravity="center_vertical"
                 android:paddingRight="16dp"
-                android:text="32M"
+                android:text="@{vm.cacheSize}"
                 android:textColor="#FFCCCCCC"
                 android:textSize="15dp" />
         </RelativeLayout>
