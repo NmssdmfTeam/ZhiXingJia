@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--项目兼容N-->
+    <files-path path="images/" name="zhihangjiaimages/"/>
+    <root-path
+        name="root_path"
+        path="." />
+    <external-path name="external_storage_root" path="."/>
+    <!--原融云的配置-->
+    <external-path name="rc_external_path" path="."/>
+    <external-path name="download" path="/Download"/>
+</paths>

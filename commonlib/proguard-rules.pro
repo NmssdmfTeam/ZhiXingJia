@@ -19,3 +19,63 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.nmssdmf.*.net.** { *; }
+# bean 类不要混淆
+-keep class com.nmssdmf.*.bean.** { *; }
+
+# 因为layout使用调用所以CommonUtils不能混淆
+-keep class com.nmssdmf.*.util*.** { *; }
+
+# 自定义view 类不要混淆
+-keep class com.nmssdmf.*.view.** {*;}
+
+#star greendao----------------------------------
+-keep class de.greenrobot.dao.** {*;}
+-keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
+    public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+#end greendao------------------------------------
+
+# star rxbus
+-keep public class *  {
+    public void onRxEvent(...);
+}
+# end rxbus
+
+# start alipay
+-dontwarn com.alipay.**
+-keep class com.alipay.** { *; }
+-dontwarn com.taobao.**
+# end alipay
+
+# start glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+-keep class com.bumptech.glide.integration.okhttp.OkHttpGlideModule
+# end glide
+
+#微信
+-keep class com.tencent.mm.opensdk.** {
+*;
+}
+-keep class com.tencent.wxop.** {
+*;
+}
+-keep class com.tencent.mm.sdk.** {
+*;
+}
+
+#定位
+-keep class com.amap.api.location.**{*;}
+-keep class com.amap.api.fence.**{*;}
+-keep class com.autonavi.aps.amapapi.model.**{*;}
+
+#2D地图
+-keep class com.amap.api.maps2d.**{*;}
+-keep class com.amap.api.mapcore2d.**{*;}
+

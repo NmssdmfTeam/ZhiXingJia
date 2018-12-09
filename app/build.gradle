@@ -12,7 +12,10 @@ android {
     }
     buildTypes {
         release {
+            //压缩资源
+            shrinkResources false
             minifyEnabled false
+            zipAlignEnabled true  //压缩优化
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

@@ -29,6 +29,9 @@ android {
                 consumerProguardFiles 'proguard-rules.pro'
             }
         }
+        debug {
+            consumerProguardFiles 'proguard-rules.pro'
+        }
     }
 
     sourceSets {

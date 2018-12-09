@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        tools:context="com.zhixingjia.personmodule.MainActivity">
+        tools:context="com.zhixingjia.personmodule.LunchMainActivity">
 
         <Button
             android:id="@+id/btnPersonInfo"

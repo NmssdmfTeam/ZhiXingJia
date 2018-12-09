@@ -11,19 +11,19 @@ import com.zhixingjia.goodsmanagemodule.activity.GoodManageActivity;
 import com.zhixingjia.goodsmanagemodule.activity.LadderPriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.PriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.SelectStandardActivity;
-import com.zhixingjia.goodsmanagemodule.databinding.ActivityMainBinding;
+import com.zhixingjia.goodsmanagemodule.databinding.ActivityLunchMainBinding;
 
-public class MainActivity extends BaseActivity {
-    private ActivityMainBinding binding;
+public class LunchMainActivity extends BaseActivity {
+    private ActivityLunchMainBinding binding;
 
     @Override
     public String getTAG() {
-        return MainActivity.class.getSimpleName();
+        return LunchMainActivity.class.getSimpleName();
     }
 
     @Override
     public int setLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_lunch_main;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initAll(Bundle savedInstanceState) {
-        binding = (ActivityMainBinding) baseBinding;
+        binding = (ActivityLunchMainBinding) baseBinding;
         binding.btnPublishProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

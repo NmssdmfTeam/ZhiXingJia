@@ -21,7 +21,7 @@
             android:layout_height="70dp"
             android:background="#FFFFFFFF"
             android:layout_marginTop="12dp"
-            >
+            android:onClick="@{(v)->vm.onModifyAvatarClick(v)}">
 
             <TextView
                 android:layout_width="32dp"
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFFFF"
-            >
+            android:onClick="@{(v)->vm.tvNickNameClick(v, 1)}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,7 +85,6 @@
                 android:textColor="#FFCCCCCC"
                 android:textSize="15dp"
                 android:layout_alignParentRight="true"
-                android:onClick="@{(v)->vm.tvNickNameClick(v, 1)}"
                 />
 
         </RelativeLayout>
@@ -97,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFFFF"
-            >
+            android:onClick="@{(v)->vm.tvNickNameClick(v,2)}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +119,6 @@
                 android:textColor="#FFCCCCCC"
                 android:textSize="15dp"
                 android:layout_alignParentRight="true"
-                android:onClick="@{(v)->vm.tvNickNameClick(v, 2)}"
                 />
 
         </RelativeLayout>

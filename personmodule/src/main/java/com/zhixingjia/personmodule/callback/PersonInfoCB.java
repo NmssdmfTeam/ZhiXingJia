@@ -7,4 +7,6 @@ import com.nmssdmf.commonlib.callback.BaseCB;
  */
 
 public interface PersonInfoCB extends BaseCB {
+    void showModifyAvatarWindow();
+    void dismissModifyAvatarWindow();
 }

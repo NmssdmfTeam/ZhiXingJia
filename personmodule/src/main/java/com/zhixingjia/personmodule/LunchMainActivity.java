@@ -10,12 +10,12 @@ import com.zhixingjia.personmodule.activity.ManageAddressListActivity;
 import com.zhixingjia.personmodule.activity.MyCouponsActivity;
 import com.zhixingjia.personmodule.activity.PersonInfoActivity;
 import com.zhixingjia.personmodule.activity.SetActivity;
-import com.zhixingjia.personmodule.databinding.ActivityMainBinding;
+import com.zhixingjia.personmodule.databinding.ActivityPersonLunchMainBinding;
 import com.zhixingjia.personmodule.viewmodule.MainVM;
 
-public class MainActivity extends BaseTitleActivity {
-    private final String TAG = MainActivity.class.getSimpleName();
-    private ActivityMainBinding binding;
+public class LunchMainActivity extends BaseTitleActivity {
+    private final String TAG = LunchMainActivity.class.getSimpleName();
+    private ActivityPersonLunchMainBinding binding;
     private MainVM vm;
 
     @Override
@@ -37,7 +37,7 @@ public class MainActivity extends BaseTitleActivity {
     @Override
     public void initContent(Bundle savedInstanceState) {
         vm.doLogin();
-        binding = (ActivityMainBinding) baseViewBinding;
+        binding = (ActivityPersonLunchMainBinding) baseViewBinding;
 
         binding.btnPersonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +75,6 @@ public class MainActivity extends BaseTitleActivity {
 
     @Override
     public int getContentViewId() {
-        return R.layout.activity_main;
+        return R.layout.activity_person_lunch_main;
     }
 }
