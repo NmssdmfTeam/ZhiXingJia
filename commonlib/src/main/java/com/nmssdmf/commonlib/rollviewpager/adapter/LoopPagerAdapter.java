@@ -113,7 +113,7 @@ public abstract class LoopPagerAdapter extends PagerAdapter {
     @Deprecated
     @Override
     public final int getCount() {
-        return getRealCount()<=0?getRealCount(): Integer.MAX_VALUE;
+        return getRealCount()<=1?getRealCount(): Integer.MAX_VALUE;
     }
 
     public abstract int getRealCount();
