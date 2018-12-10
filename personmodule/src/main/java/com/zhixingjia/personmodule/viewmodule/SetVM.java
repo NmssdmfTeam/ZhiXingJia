@@ -24,6 +24,7 @@ import com.nmssdmf.commonlib.util.DataCleanManager;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.mainmodule.Link;
+import com.zhixingjia.personmodule.activity.ChangePwdActivity;
 import com.zhixingjia.personmodule.activity.FeedbackActivity;
 import com.zhixingjia.personmodule.callback.SetCB;
 import com.zhixingjia.service.MainService;
@@ -48,6 +49,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SetVM extends BaseVM {
     private SetCB callback;
     public final ObservableField<String> cacheSize = new ObservableField<>();
+    public String phoneNumber;
 
     /**
      * 不需要callback可以传null
@@ -234,6 +236,16 @@ public class SetVM extends BaseVM {
      */
     public void onChangeAccountClick(View view) {
         callback.doIntentClassName(ActivityNameConfig.CHANGEACCOUNT_ACTIVITY, null);
+    }
+
+    /**
+     * 修改密码
+     * @param view
+     */
+    public void onChangePswClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.PHONE_NUM, phoneNumber);
+        callback.doIntent(ChangePwdActivity.class, bundle);
     }
 
     private void clearUserInfo() {

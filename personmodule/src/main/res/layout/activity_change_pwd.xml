@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+      >
+    <data>
+
+        <variable
+            name="vm"
+            type="com.zhixingjia.personmodule.viewmodule.ChangePwdVM"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="45dp"
+            android:text="修改密码"
+            android:textColor="#FF333333"
+            android:textSize="25dp"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="45dp"
+            android:background="@null"
+            android:hint="请输入手机号码"
+            android:textColorHint="#FFCCCCCC"
+            android:gravity="left|center_vertical"
+            android:textSize="15dp"
+            android:text="@{vm.phoneNumber}" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            >
+
+            <TextView
+                android:id="@+id/tvSendCode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="6dp"
+                android:gravity="center"
+                android:text="发送验证码"
+                android:textColor="#FFFF9A14"
+                android:textSize="14dp"
+                android:onClick="@{(v)->vm.tvSendCodeClick(v)}"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/tvSendCode"
+                android:background="@null"
+                android:hint="请输入验证码"
+                android:textColorHint="#FFCCCCCC"
+                android:textSize="15dp"
+                android:text="@={vm.verificationCode}"
+                android:inputType="number"
+                />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:id="@+id/ivPwdShow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="6dp"
+                android:paddingLeft="10dp"
+                android:src="@{vm.pwdShow ? @drawable/change_pwd_show_pwd : @drawable/change_pwd_hide_pwd}"
+                android:onClick="@{(v)->vm.ivPwdShowClick(v)}"
+                />
+
+            <EditText
+                android:id="@+id/etPwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/ivPwdShow"
+                android:background="@null"
+                android:hint="请输入6-14位数字或字母密码"
+                android:textColorHint="#FFCCCCCC"
+                android:textSize="15dp"
+                android:text="@={vm.pwd}"
+                android:inputType="textPassword" />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_recyclerview_cutoff_line"/>
+
+        <TextView
+            android:id="@+id/tvSure"
+            android:layout_width="343dp"
+            android:layout_height="43dp"
+            android:background="@drawable/shape_change_password_btn"
+            android:text="确定"
+            android:textColor="#FFFFFFFF"
+            android:textSize="17dp"
+            android:gravity="center"
+            android:layout_marginTop="36dp"
+            android:onClick="@{(v)->vm.tvSureClick(v)}" />
+
+    </LinearLayout>
+</layout>
+

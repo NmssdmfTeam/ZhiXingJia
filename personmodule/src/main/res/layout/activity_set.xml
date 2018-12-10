@@ -40,7 +40,8 @@
             android:paddingRight="16dp"
             android:text="登录密码修改"
             android:textColor="#FF333333"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:onClick="@{(v)->vm.onChangePswClick(v)}"/>
 
         <include layout="@layout/include_recyclerview_cutoff_line" />
 

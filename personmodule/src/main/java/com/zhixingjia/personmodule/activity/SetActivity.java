@@ -42,6 +42,7 @@ public class SetActivity extends BaseTitleActivity implements SetCB {
         String userinfo = PreferenceUtil.getString(PrefrenceConfig.USER_INFO,"");
         if (!TextUtils.isEmpty(userinfo)) {
             UserInfo userInfoBean = new Gson().fromJson(userinfo, UserInfo.class);
+            vm.phoneNumber = userInfoBean.getMobile();
             if (userInfoBean.getMobile().length() >= 11)
                 binding.tvAccount.setText(userInfoBean.getMobile().substring(0,3) + "****"+ userInfoBean.getMobile().substring(7,11));
         }
