@@ -46,10 +46,9 @@ public class MaterialsCategoryAdapter extends BaseDataBindingAdapter<HouseBean.C
                 mContext.startActivity(intent);
             } else {
                 Intent intent = new Intent();
-                intent.setClass(mContext, SearchResultActivity.class);
+                intent.setClass(mContext, MerchantMerchandiseActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.CAT_ID, item.getCate_id());
-                bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
+                bundle.putString(IntentConfig.ID, item.getCate_id());
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }

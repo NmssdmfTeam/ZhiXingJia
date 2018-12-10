@@ -5,6 +5,7 @@ import android.support.annotation.CallSuper;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.net.retrofit.BaseRxRequest;
+import com.nmssdmf.commonlib.view.LoadingDialog.LoadingDialog;
 
 import java.util.List;
 
@@ -50,6 +51,7 @@ public abstract class BaseVM {
      */
     @CallSuper
     public void unregisterRx() {
+        LoadingDialog.dismiss();
         BaseRxRequest.unsubscribeIfNotNull(subscription);
     }
 }

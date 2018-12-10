@@ -17,7 +17,7 @@ import java.util.List;
 
 public class TradeAreaAdapter extends BaseDataBindingAdapter<TradeArea, ItemTradeAreaBinding> {
 
-    private int currentItem = 1;
+    private int currentItem = 0;//默认全部
     private TradeAreaAdapterListener listener;
 
     public TradeAreaAdapter(@Nullable List<TradeArea> data, TradeAreaAdapterListener listener) {

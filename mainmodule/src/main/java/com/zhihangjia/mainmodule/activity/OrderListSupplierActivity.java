@@ -69,6 +69,7 @@ public class OrderListSupplierActivity extends BaseActivity implements OrderList
         fragments.add(waitCommentFragment);
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), this, fragments);
         binding.vp.setAdapter(adapter);
+        binding.vp.setOffscreenPageLimit(4);
 
         binding.tl.setupWithViewPager(binding.vp);
 

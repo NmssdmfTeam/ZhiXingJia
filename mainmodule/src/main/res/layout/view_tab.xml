@@ -16,17 +16,26 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:scaleType="fitCenter"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:src="@drawable/icon_home_selected" />
 
         <!-- 首页底部消息图标 -->
         <TextView
             android:id="@+id/tv_red_point"
-            android:layout_width="@dimen/msg_width_small"
-            android:layout_height="@dimen/msg_width_small"
-            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/iv"
+            android:layout_marginRight="-7dp"
             android:background="@drawable/circle_notice"
-            android:visibility="gone" />
+            android:gravity="center"
+            android:textSize="9dp"
+            android:textColor="@color/white"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:text="99"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

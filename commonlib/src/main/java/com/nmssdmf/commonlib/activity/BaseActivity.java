@@ -20,6 +20,7 @@ import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.KeyBoardUtil;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
+import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.view.LoadingDialog.LoadingDialog;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 
@@ -48,10 +49,18 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCB {
         }
         JLog.d(getTAG(), getTAG()+":onCreate");
         baseBinding = DataBindingUtil.setContentView(this, setLayout());
-
+        try {
+            WindowUtil.setStatusbarColor(BaseActivity.this, getStatusBarColor());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         vm = initViewModel();
 
         initAll(savedInstanceState);
+    }
+
+    public int getStatusBarColor(){
+        return R.color.white;
     }
 
     @Override

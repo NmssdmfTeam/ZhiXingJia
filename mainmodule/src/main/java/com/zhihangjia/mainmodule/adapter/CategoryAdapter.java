@@ -3,6 +3,7 @@ package com.zhihangjia.mainmodule.adapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
@@ -33,10 +34,9 @@ public class CategoryAdapter extends BaseDataBindingAdapter<HouseBean.CateBean, 
         binding.setData(item);
         binding.getRoot().setOnClickListener(v -> {
             Intent intent = new Intent();
-            intent.setClass(mContext, SearchResultActivity.class);
+            intent.setClass(mContext, MerchantMerchandiseActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(IntentConfig.CAT_ID, item.getCate_id());
-            bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
+            bundle.putString(IntentConfig.ID, item.getCate_id());
             intent.putExtras(bundle);
             mContext.startActivity(intent);
         });

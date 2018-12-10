@@ -173,7 +173,7 @@ public class BaseRxRequest {
 
     public static void unsubscribeIfNotNull(CompositeDisposable subscription) {
         if (subscription != null) {
-            subscription.dispose();
+            subscription.clear();
         }
     }
 

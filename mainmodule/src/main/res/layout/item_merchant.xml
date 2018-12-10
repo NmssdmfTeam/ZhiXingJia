@@ -107,9 +107,11 @@
             android:layout_above="@+id/iCutOffLine"
             android:layout_below="@+id/givIcon"
             android:layout_marginTop="8dp"
+            android:paddingLeft="16dp"
             android:visibility="@{data.goods_info == null || data.goods_info.size() == 0 ? View.GONE : View.VISIBLE}">
 
             <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/ivGoodFirst"
                 src="@{data.goods_info[0].imgs}"
                 android:layout_width="110dp"
                 android:layout_height="82.5dp"
@@ -117,6 +119,7 @@
                 />
 
             <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/ivGoodSecond"
                 src="@{data.goods_info[1].imgs}"
                 android:layout_width="110dp"
                 android:layout_height="82.5dp"
@@ -126,6 +129,7 @@
                 />
 
             <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/ivGoodThird"
                 src="@{data.goods_info[2].imgs}"
                 android:layout_width="110dp"
                 android:layout_height="82.5dp"

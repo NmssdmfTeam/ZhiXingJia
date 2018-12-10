@@ -13,11 +13,14 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.callback.MerchantMerchandiseCB;
+import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.service.MainService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MerchantMerchandiseVM extends BaseVM {
     public static final int TYPE_MERCHANT = 0;//商家
@@ -60,6 +63,11 @@ public class MerchantMerchandiseVM extends BaseVM {
             @Override
             public void onSuccess(BaseListData<TradeArea> data) {
                 if (data.getData() != null && data.getData().size() >0) {
+                    areaList.clear();
+                    TradeArea tradeArea = new TradeArea();
+                    tradeArea.setTrade_id("0");
+                    tradeArea.setTrade_name("全部");
+                    areaList.add(tradeArea);
                     areaList.addAll(data.getData());
                     cb.refreshAreaAdapter();
                 }

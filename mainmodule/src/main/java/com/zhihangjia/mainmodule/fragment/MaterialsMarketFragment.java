@@ -51,6 +51,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
     private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
     private MaterialsCategoryAdapter materialsCategoryAdapter;
     private ItemMaterialsCrvheadBinding itemMaterialsCrvheadBinding;
+    private int[] pinDrawable = new int[]{R.drawable.living_room, R.drawable.bed_room, R.drawable.pic_kitchen, R.drawable.toilet};
 
     @Override
     public BaseVM initViewModel() {
@@ -90,17 +91,14 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
             layoutParams.leftMargin = DensityUtil.dpToPx(getContext(), 4);
             layoutParams.rightMargin = DensityUtil.dpToPx(getContext(), 4);
             imageView.setLayoutParams(layoutParams);
-            imageView.setImageResource(R.drawable.pic_kitchen);
+            imageView.setImageResource(pinDrawable[i]);
             itemMaterialsCrvheadBinding.llHome.addView(imageView);
             int index = i + 1;
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
-                    bundle.putString(IntentConfig.CATE_PW, String.valueOf(index));
-                    doIntent(SearchResultActivity.class, bundle);
-                }
+            imageView.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
+                bundle.putString(IntentConfig.CATE_PW, String.valueOf(index));
+                doIntent(SearchResultActivity.class, bundle);
             });
         }
         vm.getHouseIndex(true);

@@ -80,7 +80,8 @@
                     android:clickable="false"
                     android:paddingBottom="14dp"
                     android:paddingLeft="14dp"
-                    android:src="@drawable/circle_notice" />
+                    android:src="@drawable/circle_notice"
+                    android:visibility="gone"/>
             </RelativeLayout>
         </RelativeLayout>
 
