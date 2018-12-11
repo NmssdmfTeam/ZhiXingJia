@@ -231,4 +231,10 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     public void setShopCarNumber(String num) {
         points.get(3).setText(num);
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        moveTaskToBack(false);
+    }
 }

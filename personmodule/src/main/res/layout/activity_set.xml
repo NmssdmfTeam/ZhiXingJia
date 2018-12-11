@@ -57,7 +57,7 @@
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:text="变更登录账号"
+                android:text="更换绑定手机"
                 android:textColor="#FF333333"
                 android:textSize="16dp" />
 

@@ -12,6 +12,8 @@ import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.rollviewpager.RollPagerView;
 import com.nmssdmf.commonlib.rollviewpager.adapter.LoopPagerAdapter;
+import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
+import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
@@ -52,11 +54,23 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(container.getContext(), WebViewActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.LINK, advertisingRotations.get(position).getLink_url());
-                intent.putExtras(bundle);
-                container.getContext().startActivity(intent);
+                if ("1".equals(advertisingRotations.get(position).getJumps())) {
+                    Intent intent = new Intent(container.getContext(), WebViewActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.LINK, advertisingRotations.get(position).getLink_url());
+                    intent.putExtras(bundle);
+                    container.getContext().startActivity(intent);
+                } else if ("2".equals(advertisingRotations.get(position).getJumps())) {
+                    Intent intent = new Intent(container.getContext(), MerchantMainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.ID, advertisingRotations.get(position).getLink_url());
+                    intent.putExtras(bundle);
+                } else if ("3".equals(advertisingRotations.get(position).getJumps())) {
+                    Intent intent = new Intent(container.getContext(), MerchandiseDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.COMMODITY_ID, advertisingRotations.get(position).getLink_url());
+                    intent.putExtras(bundle);
+                }
             }
         });
         relativeLayout.addView(imageView);

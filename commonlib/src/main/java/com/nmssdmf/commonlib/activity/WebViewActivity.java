@@ -1,6 +1,9 @@
 package com.nmssdmf.commonlib.activity;
 
 import android.os.Bundle;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.nmssdmf.commonlib.R;
 import com.nmssdmf.commonlib.callback.WebViewCB;
@@ -35,7 +38,19 @@ public class WebViewActivity extends BaseTitleActivity implements WebViewCB{
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityWebViewBinding) baseViewBinding;
         vm.getIntentData();
+        binding.wv.getSettings().setJavaScriptEnabled(true);
         binding.wv.loadUrl(vm.getLink());
+        // 覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
+        binding.wv.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                //设置加载进度条
+                view.setWebChromeClient(new WebChromeClient());
+                return true;
+            }
+
+        });
     }
 
     @Override

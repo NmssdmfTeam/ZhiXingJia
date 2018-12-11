@@ -24,6 +24,7 @@ import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.loginmodule.callback.ChangeAccountCB;
 import com.zhixingjia.bean.loginmodule.LoginResult;
 import com.zhixingjia.bean.loginmodule.WXUserInfo;
 import com.zhixingjia.bean.mainmodule.Link;
@@ -46,14 +47,18 @@ public class ChangeAccountVM extends BaseVM {
     public final ObservableField<String> verificationCode = new ObservableField<>();
     public final ObservableField<String> newPhoneNumber = new ObservableField<>();
     public final ObservableField<String> newAccountVerificationCode = new ObservableField<>();
+    public final ObservableField<String> pwd = new ObservableField<>();
+    public final ObservableBoolean pwdShow = new ObservableBoolean();
+    private ChangeAccountCB callback;
 
     /**
      * 不需要callback可以传null
      *
      * @param callBack
      */
-    public ChangeAccountVM(BaseCB callBack) {
+    public ChangeAccountVM(ChangeAccountCB callBack) {
         super(callBack);
+        this.callback = callBack;
         initData();
     }
 
@@ -86,11 +91,16 @@ public class ChangeAccountVM extends BaseVM {
             ToastUtil.showMsg("请输入新手机号的密码");
             return;
         }
+        if (StringUtil.isEmpty(pwd.get())) {
+            ToastUtil.showMsg("请输入新密码");
+            return;
+        }
         baseCallBck.showLoaddingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("old_verif_code", verificationCode.get());
         map.put("mobile", newPhoneNumber.get());
         map.put("verif_code", newAccountVerificationCode.get());
+        map.put("password_one", pwd.get());
         HttpUtils.doHttp(subscription,
                 RxRequest.create(PersonService.class, HttpVersionConfig.API_MY_CHANGE_ACCOUNT).changeAccount(map),
                 new ServiceCallback<Base>() {
@@ -102,10 +112,13 @@ public class ChangeAccountVM extends BaseVM {
             @Override
             public void onSuccess(Base base) {
                 baseCallBck.showToast(base.getMessage());
-                UserInfo userInfo = PreferenceUtil.getSerializables(PrefrenceConfig.USER_INFO);
-                userInfo.setMobile(newPhoneNumber.get());
-                PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfo));
-                baseCallBck.finishActivity();
+                String userGson = PreferenceUtil.getString(PrefrenceConfig.USER_INFO,"");
+                if (!TextUtils.isEmpty(userGson)) {
+                    UserInfo userInfo = new Gson().fromJson(userGson, UserInfo.class);
+                    userInfo.setMobile(newPhoneNumber.get());
+                    PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfo));
+                    baseCallBck.finishActivity();
+                }
             }
 
             @Override
@@ -147,6 +160,11 @@ public class ChangeAccountVM extends BaseVM {
 
                     }
                 });
+    }
+
+    public void ivPwdShowClick(View view){
+        pwdShow.set(!pwdShow.get());
+        callback.setInputType(pwdShow.get());
     }
 
 }

@@ -1,8 +1,14 @@
 package com.zhixingjia.bean.mainmodule;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
 
+import com.nmssdmf.commonlib.activity.WebViewActivity;
+import com.nmssdmf.commonlib.config.ActivityNameConfig;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.zhixingjia.httplib.BR;
 
 import java.io.Serializable;
@@ -47,6 +53,7 @@ public class Banner extends BaseObservable{
         private String model_name;
         private String img_url;     //图片
         private String link_url;    //链接地址，如空就不需要点击跳转
+        private String jumps;       //跳转类型    1=H5页面  2=商家店铺首页   3=商品详情
 
         @Bindable
         public String getImg_url() {
@@ -76,6 +83,36 @@ public class Banner extends BaseObservable{
         public void setModel_name(String model_name) {
             this.model_name = model_name;
             notifyPropertyChanged(BR.model_name);
+        }
+
+        public String getJumps() {
+            return jumps;
+        }
+
+        public void setJumps(String jumps) {
+            this.jumps = jumps;
+        }
+
+        public static void bannerClick(CommomBanner commomBanner, Context context) {
+            if ("1".equals(commomBanner.getJumps())) {
+                Intent intent = new Intent(context, WebViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.LINK, commomBanner.getLink_url());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            } else if ("2".equals(commomBanner.getJumps())) {
+                Intent intent = new Intent();
+                intent.setClassName(context, ActivityNameConfig.MERCHANTMAIN_ACTIVITY);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.ID, commomBanner.getLink_url());
+                intent.putExtras(bundle);
+            } else if ("3".equals(commomBanner.getJumps())) {
+                Intent intent = new Intent();
+                intent.setClassName(context, ActivityNameConfig.MERCHANDISEDETAIL_ACTIVITY);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.COMMODITY_ID, commomBanner.getLink_url());
+                intent.putExtras(bundle);
+            }
         }
     }
 }

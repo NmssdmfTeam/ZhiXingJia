@@ -29,5 +29,6 @@ public class ActivityNameConfig {
     public static final String LOGIN_ACTIVITY = LOGIN_PACKAGE + ".Activity.LoginActivity";
     public static final String SELECTCATEGORY_ACTIVITY = MAINMODULE_PACKAGE + ".activity.SelectCategoriesActivity";
     public static final String CHANGEACCOUNT_ACTIVITY = LOGIN_PACKAGE + ".Activity.ChangeAccountActivity";
-
+    public static final String MERCHANTMAIN_ACTIVITY = MAINMODULE_PACKAGE + ".activity.MerchantMainActivity";
+    public static final String MERCHANDISEDETAIL_ACTIVITY = MAINMODULE_PACKAGE + ".activity.MerchandiseDetailActivity";
 }
