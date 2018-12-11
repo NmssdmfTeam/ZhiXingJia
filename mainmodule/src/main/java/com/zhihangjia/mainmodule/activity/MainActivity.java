@@ -60,8 +60,8 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     private Class[] mine_class = new Class[]{MineCustomerFragment.class, MineProviderFragment.class};
     private Class[] fragment_clazz = new Class[]{MainFragment.class, MaterialsMarketFragment.class, MessageFragment.class, ShopCarFragment.class, MineProviderFragment.class};
     private Integer[] titles_texts = {R.string.main, R.string.marketBuilding, R.string.message, R.string.shopCar, R.string.mine};
-    private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_materials_selected, R.drawable.message_center_selected, R.drawable.icon_home_selected, R.drawable.icon_mine_selected};
-    private int[] icon_offs = {R.drawable.icon_home_unselected, R.drawable.index_market_unselected, R.drawable.message_center_unselected, R.drawable.index_shopcar, R.drawable.icon_home_unselected};
+    private int[] icon_ons = {R.drawable.icon_home_selected, R.drawable.icon_materials_selected, R.drawable.message_center_selected, R.drawable.icon_shopcar_selected, R.drawable.icon_mine_selected};
+    private int[] icon_offs = {R.drawable.icon_home_unselected, R.drawable.index_market_unselected, R.drawable.message_center_unselected, R.drawable.index_shopcar, R.drawable.icon_my_unselected};
 
 
     private List<ImageView> ivs = new ArrayList<>();
@@ -93,6 +93,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         initTabsView();
         bottomBehavior = BottomBehavior.from(binding.llBottomNavigation);
         PermissionCompat.getInstance().checkLocationPermission(this);
+        vm.getShopCarAllNum();
     }
 
     @Override
@@ -224,5 +225,10 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     @Override
     public void initTab() {
         changeIdentify(StringConfig.BUYER);
+    }
+
+    @Override
+    public void setShopCarNumber(String num) {
+        points.get(3).setText(num);
     }
 }

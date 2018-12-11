@@ -114,8 +114,10 @@ public class ShopCarFragmentVM extends BaseVM {
     public void countTotalPrice() {
         String price = "0";
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setTotalPrice(getTotalPrice(list.get(i)));
-            price = new BigDecimal(price).add(new BigDecimal(list.get(i).getTotalPrice())).toString();
+            if (list.get(i).getItemType() == 0) {
+                list.get(i).setTotalPrice(getTotalPrice(list.get(i)));
+                price = new BigDecimal(price).add(new BigDecimal(list.get(i).getTotalPrice())).toString();
+            }
         }
         totalPrice.set(new BigDecimal(price).setScale(2, BigDecimal.ROUND_DOWN).toString());
     }
@@ -169,6 +171,8 @@ public class ShopCarFragmentVM extends BaseVM {
     private String getCrdIntents(){
         List<ShopCarIntent> carIntents = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getItemType() == 1)
+                continue;
             for (int j = 0; j < list.get(i).getProduct_list().size(); j++) {
                 List<ShopCar.ProductListBean.SkuListBean> skuListBeans = list.get(i).getProduct_list().get(j).getSku_list();
                 if (skuListBeans != null && skuListBeans.size() > 0) {
@@ -190,9 +194,11 @@ public class ShopCarFragmentVM extends BaseVM {
     }
 
     private void delete(){
-        String ids = getDeleteIds();
+        List<String> ids = getDeleteIds();
         cb.showLoaddingDialog();
-        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_CART_DEL).shopCarDelete(ids), new ServiceCallback<BaseData>() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_CART_DEL).shopCarDelete(new Gson().toJson(ids)),
+                new ServiceCallback<BaseData>() {
             @Override
             public void onError(Throwable error) {
 
@@ -201,6 +207,9 @@ public class ShopCarFragmentVM extends BaseVM {
             @Override
             public void onSuccess(BaseData data) {
                 getData(true);
+                EventInfo eventInfo = new EventInfo();
+                eventInfo.setIndex(ids.size());
+                RxBus.getInstance().send(RxEvent.OrderEvent.SHOPCAR_DELETE, eventInfo);
             }
 
             @Override
@@ -210,9 +219,11 @@ public class ShopCarFragmentVM extends BaseVM {
         });
     }
 
-    private String getDeleteIds(){
+    private List<String> getDeleteIds(){
         List<String> ids = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getItemType() == 1)
+                continue;
             for (int j = 0; j < list.get(i).getProduct_list().size(); j++) {
                 List<ShopCar.ProductListBean.SkuListBean> skuListBeans = list.get(i).getProduct_list().get(j).getSku_list();
                 if (skuListBeans != null && skuListBeans.size() > 0) {
@@ -224,7 +235,7 @@ public class ShopCarFragmentVM extends BaseVM {
                 }
             }
         }
-        return new Gson().toJson(ids.toArray());
+        return ids;
     }
 
     public void selectAll(View view) {
@@ -248,16 +259,19 @@ public class ShopCarFragmentVM extends BaseVM {
     public void registerRxBus() {
         super.registerRxBus();
         RxBus.getInstance().register(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER,this);
+        RxBus.getInstance().register(RxEvent.OrderEvent.SHOPCAR_ADD,this);
     }
 
     @Override
     public void unRegisterRxBus() {
         super.unRegisterRxBus();
         RxBus.getInstance().unregister(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER,this);
+        RxBus.getInstance().unregister(RxEvent.OrderEvent.SHOPCAR_ADD,this);
     }
 
     public void onRxEvent(RxEvent event, EventInfo info) {
         switch (event.getType()) {
+            case RxEvent.OrderEvent.SHOPCAR_ADD:
             case RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER:
                 getData(true);
                 break;

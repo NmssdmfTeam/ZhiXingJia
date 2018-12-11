@@ -12,4 +12,5 @@ public interface MainCB extends BaseCB {
 
     void switchFragment(int index);
     void initTab();
+    void setShopCarNumber(String num);
 }

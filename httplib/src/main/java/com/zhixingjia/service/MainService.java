@@ -3,6 +3,7 @@ package com.zhixingjia.service;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
+import com.zhixingjia.bean.mainmodule.AllSum;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
@@ -425,4 +426,10 @@ public interface MainService {
      */
     @GET("/api/message/unread")
     Observable<BaseData<MessageUnread>> getMessageUnread();
+
+    /**
+     * 消息未读统计
+     */
+    @GET("/api/cart/allsum")
+    Observable<BaseData<AllSum>> getAllSum();
 }

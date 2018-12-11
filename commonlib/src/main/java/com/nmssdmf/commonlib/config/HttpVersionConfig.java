@@ -286,4 +286,9 @@ public class HttpVersionConfig {
      * 变更登录账号
      */
     public static final int API_MY_CHANGE_ACCOUNT = 1;
+
+    /**
+     * 购物车数量统计
+     */
+    public static final int API_CART_ALLSUM = 1;
 }

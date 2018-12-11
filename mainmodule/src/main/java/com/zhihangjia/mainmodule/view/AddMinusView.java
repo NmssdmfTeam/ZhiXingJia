@@ -151,6 +151,11 @@ public class AddMinusView extends LinearLayout {
 
     public void setCurrentNum(String currentNum) {
         this.currentNum = currentNum;
+        if (Integer.valueOf(currentNum) > 0) {
+            binding.ivMinus.setImageResource(minusImageOn);
+        } else {
+            binding.ivMinus.setImageResource(minusImageOff);
+        }
         binding.tvNum.setText(currentNum);
     }
 
@@ -161,7 +166,7 @@ public class AddMinusView extends LinearLayout {
     @BindingAdapter(value = {"maxNum", "currentNum"}, requireAll = false)
     public static void setMaxNum(final AddMinusView view, int maxNum, String currentNum){
         view.maxNum = maxNum;
-        view.currentNum = currentNum;
+        view.setCurrentNum(currentNum);
         view.getBinding().tvNum.setText(currentNum);
     }
 

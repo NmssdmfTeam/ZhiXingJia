@@ -12,6 +12,8 @@ import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
@@ -123,6 +125,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDe
             @Override
             public void onSuccess(Base base) {
                 cb.showToast("添加购物车成功");
+                RxBus.getInstance().send(RxEvent.OrderEvent.SHOPCAR_ADD, null);
             }
 
             @Override

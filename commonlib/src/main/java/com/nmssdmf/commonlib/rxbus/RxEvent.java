@@ -98,6 +98,9 @@ public class RxEvent {
         public static final int WECHATPAY_FINISH = VALUE + 12;       //微信支付完成
 
         public static final int PAY_FINISH = VALUE + 13;       //支付完成
+
+        public static final int SHOPCAR_DELETE = VALUE + 14;       //购物车删除
+        public static final int SHOPCAR_ADD = VALUE + 15;       //购物车添加
     }
 
     public int getType() {
