@@ -191,4 +191,8 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     public String getPhoneNum() {
         return vm.commodityDetail.get().getProvider_info().getCo_phone();
     }
+
+    public void toMerchants() {
+        vm.onMerchantsClick(null);
+    }
 }

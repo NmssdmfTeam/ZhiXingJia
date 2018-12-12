@@ -71,7 +71,9 @@ public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDe
     }
 
     public void onMerchantsClick(View view) {
-        cb.doIntent(MerchantMainActivity.class, null);
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.ID, commodityDetail.get().getProvider_id());
+        cb.doIntent(MerchantMainActivity.class, bundle);
     }
 
     /**
@@ -93,6 +95,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDe
                         cb.setCommodityImgs(commodityDetailBaseData.getData().getImgs());
                         cb.initView();
                         cb.setCommodityComment(commodityDetailBaseData.getData().getOrder_comment());
+
                     }
 
                     @Override

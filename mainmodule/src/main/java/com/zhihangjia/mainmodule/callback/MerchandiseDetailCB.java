@@ -8,4 +8,6 @@ public interface MerchandiseDetailCB extends BaseCB {
     void callPhone();
 
     void buyNow();
+
+    void toMerchants();
 }

@@ -14,21 +14,15 @@ android {
         //方法数大于65536解决
         multiDexEnabled true
     }
-    buildTypes {
-        release {
-            //压缩资源
-            shrinkResources false
-            minifyEnabled false
-            zipAlignEnabled true  //压缩优化
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-//        debug {
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//        }
-    }
+
     //签名配置
     signingConfigs {
+        release {
+            storeFile file("../zhixingjia.jks") //签名证书文件
+            storePassword "zxj123456" //签名证书密码
+            keyAlias 'zhixingjia' //别名
+            keyPassword "zxj123456" //别名密码
+        }
         debug {
             storeFile file("../zhixingjia.jks") //签名证书文件
             storePassword "zxj123456" //签名证书密码
@@ -36,6 +30,23 @@ android {
             keyPassword "zxj123456" //别名密码
         }
     }
+
+    buildTypes {
+        release {
+            //压缩资源
+            shrinkResources false
+            minifyEnabled true
+            zipAlignEnabled true  //压缩优化
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
     dataBinding {
         enabled = true
     }

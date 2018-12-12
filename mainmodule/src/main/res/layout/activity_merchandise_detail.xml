@@ -33,7 +33,7 @@
                 android:drawableTop="@drawable/icon_shop"
                 android:drawablePadding="2dp"
                 android:layout_marginLeft="20dp"
-                />
+                android:onClick="@{(v)->vm.onShopClick(v)}"/>
 
             <TextView
                 android:layout_width="wrap_content"

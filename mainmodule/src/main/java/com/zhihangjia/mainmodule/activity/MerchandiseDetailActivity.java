@@ -84,4 +84,10 @@ public class MerchandiseDetailActivity extends BaseActivity implements Merchandi
     public void buyNow() {
         merchandiseDetailFragment.onBuyClick();
     }
+
+    @Override
+    public void toMerchants() {
+        if (merchandiseDetailFragment != null)
+            merchandiseDetailFragment.toMerchants();
+    }
 }

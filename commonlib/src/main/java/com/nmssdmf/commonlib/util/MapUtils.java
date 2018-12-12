@@ -67,6 +67,7 @@ public class MapUtils {
     }
 
     public void unRegisterListener(AMapLocationListener listener) {
-        mLocationClient.unRegisterLocationListener(listener);
+        if (mLocationClient != null && listener != null)
+            mLocationClient.unRegisterLocationListener(listener);
     }
 }
