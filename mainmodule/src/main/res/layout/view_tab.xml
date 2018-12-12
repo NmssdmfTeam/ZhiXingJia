@@ -25,6 +25,7 @@
             android:id="@+id/tv_red_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="11dp"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/iv"
             android:layout_marginRight="-7dp"
@@ -34,8 +35,7 @@
             android:textColor="@color/white"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
-            android:text="99"
-            android:visibility="gone"/>
+            android:text="9"/>
 
     </RelativeLayout>
 

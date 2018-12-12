@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.bugtags.library.Bugtags;
 import com.nmssdmf.commonlib.R;
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.util.JLog;
@@ -72,12 +73,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCB {
     @Override
     protected void onResume() {
         super.onResume();
+        //注：回调 1
+        Bugtags.onResume(this);
         JLog.d(getTAG(), getTAG()+":onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        //注：回调 2
+        Bugtags.onPause(this);
         closeKeyBoard();
         JLog.d(getTAG(), getTAG() + ":onPause");
     }
@@ -99,6 +104,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCB {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+        //注：回调 3
+        Bugtags.onDispatchTouchEvent(this, event);
         // 点击空白处，隐藏软键盘
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View view = getCurrentFocus();

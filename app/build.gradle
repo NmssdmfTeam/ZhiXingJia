@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion compile_sdk_version.toInteger()
     defaultConfig {
         applicationId "com.zhihangjia.project"
@@ -9,6 +10,9 @@ android {
         versionCode version_code.toInteger()
         versionName version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //方法数大于65536解决
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -45,6 +49,16 @@ android {
     }
 }
 
+apply plugin: 'com.bugtags.library.plugin'
+
+//Bugtags 插件配置
+bugtags {
+    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
+    appKey "63088815c190983c7bbc615fe4f914ff"  //这里是你的 appKey
+    appSecret "c4f3a7e7f733d5193baa3dc2d8661a18"    //这里是你的 appSecret，管理员在设置页可以查看
+    mappingUploadEnabled true
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$suppert_verison"
@@ -53,6 +67,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':commonlib')
+    implementation 'com.android.support:multidex:1.0.3'
 
     if (modularization.toBoolean()) {
         implementation project(':loginmodule')
