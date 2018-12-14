@@ -1,5 +1,9 @@
 package com.zhixingjia.goodsmanagemodule.fragment;
 
+import android.os.Bundle;
+import android.view.View;
+
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -15,10 +19,21 @@ public class GoodManageFragment extends BaseRecyclerViewFragment implements Good
 
     private GoodManageAdapter adapter;
     private GoodManageFragmentVM vm;
+    private String keyword;
     @Override
     public BaseRecyclerViewFragmentVM initRecyclerViewFragmentVM() {
         vm = new GoodManageFragmentVM(this);
         return vm;
+    }
+
+    @Override
+    public void initAll(View view, Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            vm.type = bundle.getInt(IntentConfig.TYPE);
+        }
+        vm.keyword = keyword;
+        super.initAll(view, savedInstanceState);
     }
 
     @Override
@@ -30,5 +45,15 @@ public class GoodManageFragment extends BaseRecyclerViewFragment implements Good
     @Override
     public String getTAG() {
         return TAG;
+    }
+
+    public void setKeyword(String keyword) {
+        if (vm != null) {
+            vm.keyword = keyword;
+            binding.crv.setRefreshing(true);
+            vm.initData(true);
+        } else {
+            this.keyword = keyword;
+        }
     }
 }

@@ -103,6 +103,12 @@ public class RxEvent {
         public static final int SHOPCAR_ADD = VALUE + 15;       //购物车添加
     }
 
+    public static class GoodsManageEvent extends RxEvent {
+        public static final int VALUE = 500;
+
+        public static final int REFRESH_GOODSMANAGE_NUMBER = VALUE + 1;
+    }
+
     public int getType() {
         return type;
     }

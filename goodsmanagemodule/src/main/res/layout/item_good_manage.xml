@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
-
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.bean.mainmodule.Commodity"/>
+        <import type="android.view.View"/>
+    </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -18,7 +23,8 @@
                 android:id="@+id/givIcon"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                app:src="@{data.imgs}"/>
 
             <TextView
                 android:id="@+id/tvName"
@@ -28,7 +34,10 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_toRightOf="@+id/givIcon"
-                android:text="程辉世纪装饰工装家装设计施工工装家装设计施工"
+                android:text="@{data.commodity_name}"
+                android:minLines="2"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textColor="#FF333333"
                 android:textSize="14dp"
                 />
@@ -61,7 +70,7 @@
                 android:layout_height="16.5dp"
                 android:layout_alignBaseline="@+id/tvPriceUnit"
                 android:layout_toRightOf="@+id/tvPriceUnit"
-                android:text="44.7"
+                android:text="@{data.price}"
                 android:textColor="#FF999999"
                 android:textSize="12dp"
                 />
@@ -74,7 +83,7 @@
                 android:layout_below="@+id/tvPriceDes"
                 android:layout_marginRight="16dp"
                 android:singleLine="true"
-                android:text="规格：红色+90cm"
+                android:text="@{@string/spec_info + data.sku_spec_info}"
                 android:textColor="#FF999999"
                 android:textSize="12dp"
                 />
@@ -82,9 +91,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="16.5dp"
-                android:layout_alignLeft="@id/tvName"
+                android:layout_alignLeft="@+id/tvName"
                 android:layout_below="@+id/tvSpecification"
-                android:text="销量：123"
+                android:text="@{@string/sold_colon + data.sold}"
                 android:textColor="#FF999999"
                 android:textSize="12dp"
                 />
@@ -104,7 +113,7 @@
             android:layout_height="60dp"
             android:background="#FFF6F6F6"
             android:orientation="horizontal"
-            android:visibility="gone"
+            android:visibility="@{data.is_opened?View.VISIBLE:View.GONE}"
             >
 
             <TextView
@@ -137,7 +146,7 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/icon_delete"
+                android:drawableTop="@drawable/icon_goodmanage_delete"
                 android:gravity="center"
                 android:paddingBottom="7.5dp"
                 android:paddingTop="10dp"

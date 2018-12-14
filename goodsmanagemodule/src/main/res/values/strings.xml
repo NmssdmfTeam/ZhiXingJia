@@ -2,4 +2,6 @@
     <string name="app_name">goodsmanagemodule</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="spec_info">规格:&#160;</string>
+    <string name="sold_colon">销量:&#160;</string>
 </resources>

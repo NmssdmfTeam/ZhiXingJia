@@ -291,4 +291,14 @@ public class HttpVersionConfig {
      * 购物车数量统计
      */
     public static final int API_CART_ALLSUM = 1;
+
+    /**
+     * 商家商品列表
+     */
+    public static final int API_COMMODITY_INDEX = 1;
+
+    /**
+     * 商品数量统计
+     */
+    public static final int API_COMMODITY_NUMBER = 1;
 }

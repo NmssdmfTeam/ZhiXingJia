@@ -19,6 +19,9 @@ public class Commodity extends BaseObservable implements Serializable{
     private String price;//单价
     private String unit;//单位
     private String sold;//销量
+    private String sku_spec_info;//规格数据
+
+    private boolean is_opened;//是否展开
 
     public String getCommodity_id() {
         return commodity_id;
@@ -84,5 +87,25 @@ public class Commodity extends BaseObservable implements Serializable{
     public void setSold(String sold) {
         this.sold = sold;
         notifyPropertyChanged(BR.sold);
+    }
+
+    @Bindable
+    public String getSku_spec_info() {
+        return sku_spec_info;
+    }
+
+    public void setSku_spec_info(String sku_spec_info) {
+        this.sku_spec_info = sku_spec_info;
+        notifyPropertyChanged(BR.sku_spec_info);
+    }
+
+    @Bindable
+    public boolean isIs_opened() {
+        return is_opened;
+    }
+
+    public void setIs_opened(boolean is_opened) {
+        this.is_opened = is_opened;
+        notifyPropertyChanged(BR.is_opened);
     }
 }

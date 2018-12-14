@@ -12,6 +12,7 @@ import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.bean.mainmodule.CouponSeller;
+import com.zhixingjia.bean.mainmodule.GoodManageNumber;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
@@ -432,4 +433,16 @@ public interface MainService {
      */
     @GET("/api/cart/allsum")
     Observable<BaseData<AllSum>> getAllSum();
+
+    /**
+     * 商家商品列表
+     */
+    @GET("/api/commodity/index")
+    Observable<BaseListData<Commodity>> getCommodityIndex(@QueryMap Map<String, String> map);
+
+    /**
+     * 商品数量统计
+     */
+    @GET("/api/commodity/number")
+    Observable<BaseData<GoodManageNumber>> getCommodityNumber();
 }
