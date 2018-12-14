@@ -126,6 +126,7 @@ public class SetVM extends BaseVM {
                         // 跳转到登录页面
                         baseCallBck.doIntentClassName(ActivityNameConfig.LOGIN_ACTIVITY, null);
                         clearUserInfo();
+                        baseCallBck.finishActivity();
                     }
 
                     @Override

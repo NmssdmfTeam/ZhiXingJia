@@ -2,9 +2,14 @@ package com.zhihangjia.mainmodule.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.BaseQuickAdapter;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
@@ -42,6 +47,16 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        //是否登录
+        String token = PreferenceUtil.getString(PrefrenceConfig.TOKEN, "");
+        if (TextUtils.isEmpty(token)) {//未登录
+            RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, null);
+        }
+    }
+
+    @Override
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentShopcarBinding) baseBinding;
         binding.setVm(vm);
@@ -63,12 +78,7 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
             }
         });
 
-        binding.rbSelectAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.select.set(!vm.select.get());
-            }
-        });
+        binding.rbSelectAll.setOnClickListener(v -> vm.select.set(!vm.select.get()));
     }
 
     @Override

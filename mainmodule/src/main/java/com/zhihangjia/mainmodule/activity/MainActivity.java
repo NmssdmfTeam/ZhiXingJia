@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -93,7 +94,11 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         initTabsView();
         bottomBehavior = BottomBehavior.from(binding.llBottomNavigation);
         PermissionCompat.getInstance().checkLocationPermission(this);
-        vm.getShopCarAllNum();
+        //是否登录
+        String token = PreferenceUtil.getString(PrefrenceConfig.TOKEN, "");
+        if (!TextUtils.isEmpty(token)) {
+            vm.getShopCarAllNum();
+        }
     }
 
     @Override

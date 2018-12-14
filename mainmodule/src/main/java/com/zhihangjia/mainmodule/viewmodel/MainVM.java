@@ -108,6 +108,7 @@ public class MainVM extends BaseVM {
                 break;
             case RxEvent.LoginEvent.LOGIN_SUCCESS:
                 callback.initTab();
+                getShopCarAllNum();
                 break;
             case RxEvent.OrderEvent.SHOPCAR_DELETE:
             case RxEvent.OrderEvent.SHOPCAR_ADD:

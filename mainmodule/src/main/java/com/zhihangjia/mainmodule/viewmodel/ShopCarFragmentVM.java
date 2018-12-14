@@ -241,6 +241,8 @@ public class ShopCarFragmentVM extends BaseVM {
     public void selectAll(View view) {
         select.set(!select.get());
         for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getItemType() == 1)
+                continue;
             list.get(i).setSelect(select.get());
             for (int j = 0; j < list.get(i).getProduct_list().size(); j++) {
                 list.get(i).getProduct_list().get(j).setSelect(select.get());
@@ -260,6 +262,7 @@ public class ShopCarFragmentVM extends BaseVM {
         super.registerRxBus();
         RxBus.getInstance().register(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER,this);
         RxBus.getInstance().register(RxEvent.OrderEvent.SHOPCAR_ADD,this);
+        RxBus.getInstance().register(RxEvent.LoginEvent.LOGIN_SUCCESS,this);
     }
 
     @Override
@@ -267,12 +270,14 @@ public class ShopCarFragmentVM extends BaseVM {
         super.unRegisterRxBus();
         RxBus.getInstance().unregister(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER,this);
         RxBus.getInstance().unregister(RxEvent.OrderEvent.SHOPCAR_ADD,this);
+        RxBus.getInstance().unregister(RxEvent.LoginEvent.LOGIN_SUCCESS,this);
     }
 
     public void onRxEvent(RxEvent event, EventInfo info) {
         switch (event.getType()) {
             case RxEvent.OrderEvent.SHOPCAR_ADD:
             case RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER:
+            case RxEvent.LoginEvent.LOGIN_SUCCESS:
                 getData(true);
                 break;
         }
