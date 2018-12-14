@@ -311,4 +311,9 @@ public class HttpVersionConfig {
      * 商品删除
      */
     public static final int API_COMMODITY_DEL = 1;
+
+    /**
+     * 获取商品的分类、规格、单位、品牌数据(添加与编辑的时候都需要请求)
+     */
+    public static final int API_COMMODITY_INITIALIZE = 1;
 }

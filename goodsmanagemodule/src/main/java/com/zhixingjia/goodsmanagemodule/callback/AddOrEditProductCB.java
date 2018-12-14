@@ -13,4 +13,6 @@ public interface AddOrEditProductCB extends BaseCB {
     void showBrandWindow();
 
     void showCategoryWindow();
+
+    void initData();
 }

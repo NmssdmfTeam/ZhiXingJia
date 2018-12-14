@@ -12,11 +12,10 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.commonlib.window.WheelPickerWindow;
 import com.zhixingjia.goodsmanagemodule.R;
 import com.zhixingjia.goodsmanagemodule.callback.AddOrEditProductCB;
-import com.zhixingjia.goodsmanagemodule.viewmodel.AddOrEditProductVM;
 import com.zhixingjia.goodsmanagemodule.databinding.ActivityAddOrEditProductBinding;
+import com.zhixingjia.goodsmanagemodule.viewmodel.AddOrEditProductVM;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
 * @description 发布商品activity
@@ -40,12 +39,8 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityAddOrEditProductBinding) baseViewBinding;
         binding.isv.setImage_max_size(4);
-        List<String> list = new ArrayList<>();
-        list.add("索尼");
-        list.add("方太");
-        list.add("方太");
-        brandwheelPickerWindow = new WheelPickerWindow(this,list,this);
-        categorywheelPickerWindow = new WheelPickerWindow(this,list,this);
+        brandwheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),this);
+        categorywheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),this);
         binding.setVm(vm);
     }
 
@@ -91,11 +86,18 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
 
     @Override
     public void showCategoryWindow() {
+        categorywheelPickerWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM,0,0);
+    }
 
+    @Override
+    public void initData() {
+        categorywheelPickerWindow.changeDataList(vm.categoryNames);
+        brandwheelPickerWindow.changeDataList(vm.brandNames);
     }
 
     @Override
     public void tvSureClick(String item, int position) {
-        categorywheelPickerWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM,0,0);
+        vm.categoryId = vm.commodityInitialize.getCateinfo().get(position).getCate_id();
+        vm.categoryName.set(item);
     }
 }

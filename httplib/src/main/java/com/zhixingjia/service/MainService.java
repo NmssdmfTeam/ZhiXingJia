@@ -3,6 +3,7 @@ package com.zhixingjia.service;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
+import com.nmssdmf.commonlib.bean.Payment;
 import com.zhixingjia.bean.mainmodule.AllSum;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
@@ -11,6 +12,7 @@ import com.zhixingjia.bean.mainmodule.Comment;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
+import com.zhixingjia.bean.mainmodule.CommodityInitialize;
 import com.zhixingjia.bean.mainmodule.CouponSeller;
 import com.zhixingjia.bean.mainmodule.GoodManageNumber;
 import com.zhixingjia.bean.mainmodule.HotHistory;
@@ -25,7 +27,6 @@ import com.zhixingjia.bean.mainmodule.New;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
 import com.zhixingjia.bean.mainmodule.PayInfo;
-import com.nmssdmf.commonlib.bean.Payment;
 import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.ShopInfo;
@@ -459,4 +460,10 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/commodity/del")
     Observable<Base> commodityDelete(@Field("commodity_id") String commodity_id);
+
+    /**
+     * 获取商品的分类、规格、单位、品牌数据(添加与编辑的时候都需要请求)
+     */
+    @GET("/api/commodity/initialize")
+    Observable<BaseData<CommodityInitialize>> commodityInitialize();
 }
