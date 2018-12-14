@@ -301,4 +301,14 @@ public class HttpVersionConfig {
      * 商品数量统计
      */
     public static final int API_COMMODITY_NUMBER = 1;
+
+    /**
+     * 商品上下架操作
+     */
+    public static final int API_COMMODITY_UPPER_LOWER = 1;
+
+    /**
+     * 商品删除
+     */
+    public static final int API_COMMODITY_DEL = 1;
 }

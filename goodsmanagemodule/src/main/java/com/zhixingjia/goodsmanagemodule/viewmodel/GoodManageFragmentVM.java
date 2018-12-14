@@ -2,6 +2,7 @@ package com.zhixingjia.goodsmanagemodule.viewmodel;
 
 import android.text.TextUtils;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
@@ -35,15 +36,22 @@ public class GoodManageFragmentVM extends BaseRecyclerViewFragmentVM {
      *
      * @param callBack
      */
-    public GoodManageFragmentVM(GoodManageFragmentCB callBack) {
+    public GoodManageFragmentVM(GoodManageFragmentCB callBack, int type) {
         super(callBack);
-        cb = callBack;
+        this.cb = callBack;
+        this.type = type;
+        if (type == 1)
+            RxBus.getInstance().register(RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_AVAILABLE, this);
+        else
+            RxBus.getInstance().register(RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_UNAVAILABLE, this);
     }
 
     @Override
     public void initData(final boolean isRefresh) {
         if (isRefresh)
             page = "0";
+        else
+            page = cb.getLastPageId();
         final Map<String, String> params = new HashMap<>();
         params.put("status", String.valueOf(type));
         params.put("page", page);
@@ -62,9 +70,6 @@ public class GoodManageFragmentVM extends BaseRecyclerViewFragmentVM {
                 if (isRefresh)
                     RxBus.getInstance().send(RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_NUMBER, null);
                 baseCB.refreshAdapter(isRefresh, commodityBaseListData.getData());
-                if (commodityBaseListData.getData() != null && commodityBaseListData.getData().size() > 0) {
-                    page = commodityBaseListData.getData().get(commodityBaseListData.getData().size() - 1).getCommodity_id();
-                }
             }
 
             @Override
@@ -72,5 +77,85 @@ public class GoodManageFragmentVM extends BaseRecyclerViewFragmentVM {
 
             }
         });
+    }
+
+    /**
+     * 商品下架
+     */
+    public void pullOffGood(Commodity commodity, final int position) {
+        baseCallBck.showLoaddingDialog();
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_COMMODITY_UPPER_LOWER).commodityUpperLower(commodity.getCommodity_id(), String.valueOf(type==0?1:0)),
+                new ServiceCallback<Base>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(Base base) {
+                if (type == 1) {//有商品下架，仓库中商品刷新
+                    RxBus.getInstance().send(RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_UNAVAILABLE, null);
+                } else {
+                    RxBus.getInstance().send(RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_AVAILABLE, null);
+                }
+                //移除商品
+                cb.removeItem(position);
+            }
+
+            @Override
+            public void onDefeated(Base base) {
+
+            }
+        });
+    }
+
+    /**
+     * 商品删除
+     */
+    public void deleteGood(Commodity commodity, final int position) {
+        baseCallBck.showLoaddingDialog();
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_COMMODITY_DEL).commodityDelete(commodity.getCommodity_id()),
+                new ServiceCallback<Base>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Base base) {
+                        //移除商品
+                        cb.removeItem(position);
+                    }
+
+                    @Override
+                    public void onDefeated(Base base) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        if (type == 1)
+            RxBus.getInstance().unregister(RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_AVAILABLE, this);
+        else
+            RxBus.getInstance().unregister(RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_UNAVAILABLE, this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_AVAILABLE:
+            case RxEvent.GoodsManageEvent.REFRESH_GOODSMANAGE_UNAVAILABLE:
+                initData(true);
+            break;
+        }
     }
 }

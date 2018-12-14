@@ -107,6 +107,8 @@ public class RxEvent {
         public static final int VALUE = 500;
 
         public static final int REFRESH_GOODSMANAGE_NUMBER = VALUE + 1;
+        public static final int REFRESH_GOODSMANAGE_AVAILABLE = VALUE + 2;
+        public static final int REFRESH_GOODSMANAGE_UNAVAILABLE = VALUE + 3;
     }
 
     public int getType() {

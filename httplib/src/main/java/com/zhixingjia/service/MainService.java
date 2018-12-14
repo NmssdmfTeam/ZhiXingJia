@@ -445,4 +445,18 @@ public interface MainService {
      */
     @GET("/api/commodity/number")
     Observable<BaseData<GoodManageNumber>> getCommodityNumber();
+
+    /**
+     * 商品上下架操作
+     */
+    @FormUrlEncoded
+    @POST("/api/commodity/upper_lower")
+    Observable<Base> commodityUpperLower(@Field("commodity_id") String commodity_id, @Field("status") String status);
+
+    /**
+     * 商品删除
+     */
+    @FormUrlEncoded
+    @POST("/api/commodity/del")
+    Observable<Base> commodityDelete(@Field("commodity_id") String commodity_id);
 }

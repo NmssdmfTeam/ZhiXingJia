@@ -7,4 +7,6 @@ import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
  */
 
 public interface GoodManageFragmentCB extends BaseRecyclerViewFragmentCB {
+    String getLastPageId();
+    void removeItem(int position);
 }

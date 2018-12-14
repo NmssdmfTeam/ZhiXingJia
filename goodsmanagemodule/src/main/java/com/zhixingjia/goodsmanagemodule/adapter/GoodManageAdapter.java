@@ -17,18 +17,47 @@ import java.util.List;
  */
 
 public class GoodManageAdapter extends BaseDataBindingAdapter<Commodity, ItemGoodManageBinding> {
-    public GoodManageAdapter(@Nullable List<Commodity> data) {
+    private GoodsManageOption goodsManageOption;
+    private int state;      //上下架状态
+
+    public interface GoodsManageOption {
+        void onTvPullOffClick(View view, Commodity commodity, int position);
+        void onTvDeleteClick(View view, Commodity commodity, int position);
+    }
+
+    public GoodManageAdapter(@Nullable List<Commodity> data, GoodsManageOption goodsManageOption, int state) {
         super(R.layout.item_good_manage, data);
+        this.goodsManageOption = goodsManageOption;
+        this.state = state;
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ItemGoodManageBinding> helper, final Commodity item, int position) {
-        ItemGoodManageBinding binding = helper.getBinding();
+    protected void convert2(BaseBindingViewHolder<ItemGoodManageBinding> helper, final Commodity item, final int position) {
+        final ItemGoodManageBinding binding = helper.getBinding();
         binding.setData(item);
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 item.setIs_opened(!item.isIs_opened());
+            }
+        });
+        if (state == 1) {
+            binding.tvPullOff.setText("下架");
+        } else {
+            binding.tvPullOff.setText("上架");
+        }
+        binding.tvPullOff.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                goodsManageOption.onTvPullOffClick(binding.getRoot(), item, position);
+            }
+        });
+        binding.tvDelete.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                goodsManageOption.onTvDeleteClick(binding.getRoot(), item, position);
             }
         });
     }
