@@ -3,6 +3,7 @@ package com.zhixingjia.goodsmanagemodule.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 * @date 2018/11/21 11:22
 * @version v3.2.0
 */
-public class AddOrEditProductActivity extends BaseTitleActivity implements AddOrEditProductCB,WheelPickerWindowCB {
+public class AddOrEditProductActivity extends BaseTitleActivity implements AddOrEditProductCB {
     private final String TAG = AddOrEditProductActivity.class.getSimpleName();
     private AddOrEditProductVM vm;
     private ActivityAddOrEditProductBinding binding;
@@ -39,8 +40,8 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityAddOrEditProductBinding) baseViewBinding;
         binding.isv.setImage_max_size(4);
-        brandwheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),this);
-        categorywheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),this);
+        brandwheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),brandWheelPickerWindowCB);
+        categorywheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),categoryWheelPickerWindowCB);
         binding.setVm(vm);
     }
 
@@ -75,6 +76,7 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
                 }
                 break;
             default:
+                vm.onActivityResult(requestCode, resultCode, data);
                 break;
         }
     }
@@ -95,9 +97,30 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
         brandwheelPickerWindow.changeDataList(vm.brandNames);
     }
 
-    @Override
-    public void tvSureClick(String item, int position) {
-        vm.categoryId = vm.commodityInitialize.getCateinfo().get(position).getCate_id();
-        vm.categoryName.set(item);
-    }
+    private WheelPickerWindowCB categoryWheelPickerWindowCB = new WheelPickerWindowCB() {
+        @Override
+        public void tvSureClick(String item, int position) {
+            vm.categoryId = vm.commodityInitialize.getCateinfo().get(position).getCate_id();
+            if (vm.commodityInitialize.getCateinfo().get(position).getSepc_info() == null
+                    || vm.commodityInitialize.getCateinfo().get(position).getSepc_info().size() == 0) {
+                binding.rlSepc.setVisibility(View.GONE);
+                binding.includeRlSepc.setVisibility(View.GONE);
+            } else {
+                binding.rlSepc.setVisibility(View.VISIBLE);
+                binding.includeRlSepc.setVisibility(View.VISIBLE);
+                vm.sepcName.set(null);
+                vm.skuName.set(null);
+            }
+            vm.selectedSepc.clear();
+            vm.categoryIndex = position;
+            vm.categoryName.set(item);
+        }
+    };
+
+    private WheelPickerWindowCB brandWheelPickerWindowCB = new WheelPickerWindowCB() {
+        @Override
+        public void tvSureClick(String item, int position) {
+            vm.brandName.set(item);
+        }
+    };
 }

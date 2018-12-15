@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 
 import com.zhixingjia.httplib.BR;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -83,7 +84,7 @@ public class CommodityInitialize extends BaseObservable {
             notifyPropertyChanged(BR.sepc_info);
         }
 
-        public static class SepcInfo extends BaseObservable {
+        public static class SepcInfo extends BaseObservable implements Serializable {
             private String norms_id;        //规格类别ID
             private String type_name;       //规格类别名称
             private List<String> type_val;  //类别值数组

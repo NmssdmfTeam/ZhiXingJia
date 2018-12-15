@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.zhixingjia.goodsmanagemodule.viewmodel.PriceSettingVM"/>
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,6 +46,8 @@
                 android:background="@null"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
+                android:text="@={vm.priceSet.price}"
+                android:gravity="center_vertical|right"
                 android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
@@ -77,8 +85,10 @@
                 android:textSize="15dp"
                 android:layout_marginRight="14dp"
                 android:background="@null"
-                android:inputType="numberDecimal"
+                android:inputType="number"
+                android:text="@={vm.priceSet.stock}"
                 android:singleLine="true"
+                android:gravity="center_vertical|right"
                 android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
@@ -89,7 +99,8 @@
             android:orientation="horizontal"
             android:background="@color/white"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingRight="16dp"
+            android:onClick="@{(v)->vm.onSelectUnitClick(v)}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -111,7 +122,9 @@
                 android:textColorHint="#FFCCCCCC"
                 android:textColor="@color/text_black"
                 android:textSize="15dp"
-                android:layout_gravity="center_vertical"/>
+                android:gravity="center_vertical|right"
+                android:layout_gravity="center_vertical"
+                android:text="@{vm.priceSet.unit}"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -132,6 +145,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="确定"
-            android:background="@drawable/selector_btn_add_describe"/>
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:background="@drawable/selector_btn_add_describe"
+            android:onClick="@{(v)->vm.onConfirmClick(v)}"/>
     </LinearLayout>
 </layout>

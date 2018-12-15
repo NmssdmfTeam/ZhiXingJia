@@ -53,4 +53,10 @@ public class IntentConfig {
 
     public static final String OPEN_ID = "open_id";                 //微信登录openid
     public static final String WX_USERINFO = "wx_userinfo";                 //微信信息
+
+    public static final String SEPC_INFO = "sepc_info";                 //规格数据
+    public static final String SEPC_INFO_SELECTED = "sepc_info_selected";//已选择的规格
+
+    public static final String STOCK_PRICE = "stock_price";//价格库存
+    public static final String UNIT = "unit";//单位
 }

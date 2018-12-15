@@ -8,7 +8,7 @@ import com.zhixingjia.goodsmanagemodule.R;
 import com.zhixingjia.goodsmanagemodule.viewmodel.LadderPriceSettingVM;
 
 /**
-* @description 设置阶梯价价格库存
+* @description 有规格价格库存
 * @author chenbin
 * @date 2018/11/21 14:50
 * @version v3.2.0
