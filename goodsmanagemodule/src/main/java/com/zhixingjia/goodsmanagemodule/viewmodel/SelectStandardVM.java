@@ -11,7 +11,7 @@ import com.zhixingjia.goodsmanagemodule.callback.SelectStandardCB;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +23,7 @@ import java.util.Map;
 */
 public class SelectStandardVM extends BaseVM {
     public List<CommodityInitialize.CateInfo.SepcInfo> sepcInfos = new ArrayList<>();
-    public Map<String,List<String>> selectedSpecInfos = new HashMap<>();
+    public Map<String,List<String>> selectedSpecInfos = new LinkedHashMap<>();
     private SelectStandardCB callback;
 
     /**

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="data"
+            type="com.zhixingjia.goodsmanagemodule.bean.SepcStockPrice"/>
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="3mm+白色"
+                android:text="@{data.name}"
                 android:textColor="#FF333333"
                 android:textSize="16dp" />
 
@@ -35,6 +40,7 @@
                 android:inputType="numberDecimal"
                 android:minWidth="60dp"
                 android:singleLine="true"
+                android:text="@={data.value}"
                 android:textColor="@color/text_black"
                 android:textColorHint="#FFCCCCCC"
                 android:textSize="15dp" />

@@ -41,12 +41,6 @@ public class SelectStandardActivity extends BaseTitleActivity implements SelectS
         binding = (ActivitySelectStandardBinding) baseViewBinding;
         binding.setVm(vm);
         addViews();
-//        for (int i=0; i < 4; i++) {
-//            ItemStandardTagBinding itemPostTagBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_standard_tag,null,false);
-//            itemPostTagBinding.tvTag.setText("原木色"+i);
-//            standardItemPostTagBindings.add(itemPostTagBinding);
-//            binding.tlStandard.addView(itemPostTagBinding.getRoot());
-//        }
     }
 
     @Override

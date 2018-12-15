@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -18,6 +19,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.mainmodule.CommodityInitialize;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.goodsmanagemodule.activity.AddProductDescribeActivity;
+import com.zhixingjia.goodsmanagemodule.activity.LadderPriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.PriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.SelectStandardActivity;
 import com.zhixingjia.goodsmanagemodule.bean.PriceSet;
@@ -26,7 +28,7 @@ import com.zhixingjia.service.MainService;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +43,7 @@ public class AddOrEditProductVM extends BaseVM {
     public CommodityInitialize commodityInitialize;
     public String categoryId;                                               //选择的类目id
     public int categoryIndex;                                               //选择的类目位置
-    public Map<String,List<String>> selectedSepc = new HashMap<>();        //已选择的规格
+    public Map<String,List<String>> selectedSepc = new LinkedHashMap<>();        //已选择的规格
     public PriceSet priceSet;                                               //价格库存
 
     public List<String> categoryNames = new ArrayList<>();
@@ -51,9 +53,12 @@ public class AddOrEditProductVM extends BaseVM {
     public ObservableField<String> brandName = new ObservableField<>();     //品牌名称
     public ObservableField<String> sepcName = new ObservableField<>();      //选择的规格
     public ObservableField<String> skuName = new ObservableField<>();       //设置价格库存
+    public ObservableField<String> title = new ObservableField<>();       //标题
+    public ObservableField<String> count = new ObservableField<>("0/50");       //标题
 
     public static final int SELECT_SEPC = 10355;
     public static final int SELECT_STOCK = 10356;
+    public static final int SELECT_STOCK_SEPC = 10357;                      //有规格的价格库存
 
     /**
      * 不需要callback可以传null
@@ -106,8 +111,12 @@ public class AddOrEditProductVM extends BaseVM {
         if (commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info() != null
                 && commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info().size() > 0) {
             bundle.putSerializable(IntentConfig.SEPC_INFO_SELECTED, (Serializable) selectedSepc);
+            bundle.putSerializable(IntentConfig.SEPC_INFO, (Serializable) commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info());
+            cb.doIntentForResult(LadderPriceSettingActivity.class, bundle, SELECT_STOCK);
+        } else {
+            cb.doIntentForResult(PriceSettingActivity.class, bundle, SELECT_STOCK);
         }
-        cb.doIntentForResult(PriceSettingActivity.class, bundle, SELECT_STOCK);
+
     }
 
     /**
@@ -163,5 +172,15 @@ public class AddOrEditProductVM extends BaseVM {
                 skuName.set("已设置");
             }
         }
+    }
+
+    public void afterTextChanged(Editable s) {
+        String str = s + "";
+        if (str.length() > 50) {
+            str = str.substring(0, 50);
+            title.set(str);
+            cb.showToast("输入的文字超过上限");
+        }
+        count.set(str.length() + "/50");
     }
 }
