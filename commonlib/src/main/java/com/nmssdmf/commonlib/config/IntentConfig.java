@@ -58,5 +58,6 @@ public class IntentConfig {
     public static final String SEPC_INFO_SELECTED = "sepc_info_selected";//已选择的规格
 
     public static final String STOCK_PRICE = "stock_price";//价格库存
+    public static final String STOCK_PRICE_SPEC = "stock_price_spec";//有规格价格库存
     public static final String UNIT = "unit";//单位
 }

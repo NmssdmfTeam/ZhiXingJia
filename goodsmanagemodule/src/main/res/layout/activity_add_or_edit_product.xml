@@ -6,6 +6,7 @@
         <variable
             name="vm"
             type="com.zhixingjia.goodsmanagemodule.viewmodel.AddOrEditProductVM"/>
+        <import type="android.view.View"></import>
     </data>
 
     <LinearLayout
@@ -36,7 +37,8 @@
                     android:background="@drawable/selector_light_orange"
                     android:gravity="center"
                     android:text="放入仓库"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:onClick="@{(v)->vm.addToStockClick(v)}"/>
 
 
                 <Button
@@ -47,7 +49,8 @@
                     android:background="@drawable/selector_dark_orange"
                     android:gravity="center"
                     android:text="立即上架"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:onClick="@{(v)->vm.pullOnSaleClick(v)}"/>
             </LinearLayout>
 
             <ScrollView
@@ -279,7 +282,8 @@
                         android:layout_height="50dp"
                         android:background="@color/white"
                         android:paddingLeft="16dp"
-                        android:paddingRight="16dp">
+                        android:paddingRight="16dp"
+                        android:visibility="@{vm.isSpec?View.VISIBLE:View.GONE}">
 
                         <TextView
                             android:id="@+id/tv_product_standard"
@@ -306,9 +310,11 @@
 
                     </RelativeLayout>
 
-                    <include
-                        android:id="@+id/includeRlSepc"
-                        layout="@layout/include_recyclerview_cutoff_line" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#FFCCCCCC"
+                        android:visibility="@{vm.isSpec?View.VISIBLE:View.GONE}"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -380,7 +386,8 @@
                         android:layout_height="50dp"
                         android:background="@color/white"
                         android:paddingLeft="16dp"
-                        android:paddingRight="16dp">
+                        android:paddingRight="16dp"
+                        android:onClick="@{(v)->vm.productDescriptionClick(v)}">
 
                         <TextView
                             android:id="@+id/tv_product_detail"
@@ -402,7 +409,7 @@
                             android:background="@null"
                             android:drawableRight="@drawable/icon_next"
                             android:layout_alignParentRight="true"
-                            android:onClick="@{(v)->vm.productDescriptionClick(v)}"/>
+                            android:text="@{vm.picContent}" />
 
 
                     </RelativeLayout>

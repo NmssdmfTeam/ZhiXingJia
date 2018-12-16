@@ -2,6 +2,7 @@ package com.zhixingjia.goodsmanagemodule.viewmodel;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.zhixingjia.goodsmanagemodule.activity.LadderPriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.PriceSettingActivity;
 import com.zhixingjia.goodsmanagemodule.activity.SelectStandardActivity;
 import com.zhixingjia.goodsmanagemodule.bean.PriceSet;
+import com.zhixingjia.goodsmanagemodule.bean.SepcPriceStockUnit;
 import com.zhixingjia.goodsmanagemodule.callback.AddOrEditProductCB;
 import com.zhixingjia.service.MainService;
 
@@ -45,6 +47,7 @@ public class AddOrEditProductVM extends BaseVM {
     public int categoryIndex;                                               //选择的类目位置
     public Map<String,List<String>> selectedSepc = new LinkedHashMap<>();        //已选择的规格
     public PriceSet priceSet;                                               //价格库存
+    public SepcPriceStockUnit sepcPriceStockUnit;                      //已选规格的价格库存
 
     public List<String> categoryNames = new ArrayList<>();
     public List<String> brandNames = new ArrayList<>();
@@ -53,12 +56,16 @@ public class AddOrEditProductVM extends BaseVM {
     public ObservableField<String> brandName = new ObservableField<>();     //品牌名称
     public ObservableField<String> sepcName = new ObservableField<>();      //选择的规格
     public ObservableField<String> skuName = new ObservableField<>();       //设置价格库存
+    public ObservableField<String> picContent = new ObservableField<>();       //设置图文详情
     public ObservableField<String> title = new ObservableField<>();       //标题
     public ObservableField<String> count = new ObservableField<>("0/50");       //标题
+    public ObservableField<String> code = new ObservableField<>();          //商品货号
+    public ObservableBoolean isSpec = new ObservableBoolean();          //是否有规格
 
     public static final int SELECT_SEPC = 10355;
     public static final int SELECT_STOCK = 10356;
     public static final int SELECT_STOCK_SEPC = 10357;                      //有规格的价格库存
+    public static final int PIC_CONTENT_DETAIL = 10358;                      //图文详情
 
     /**
      * 不需要callback可以传null
@@ -92,7 +99,7 @@ public class AddOrEditProductVM extends BaseVM {
     }
 
     public void productDescriptionClick(View view) {
-        cb.doIntent(AddProductDescribeActivity.class, null);
+        cb.doIntentForResult(AddProductDescribeActivity.class, null, PIC_CONTENT_DETAIL);
     }
 
     /**
@@ -169,6 +176,14 @@ public class AddOrEditProductVM extends BaseVM {
             Bundle bundle = data.getExtras();
             if (bundle != null) {
                 priceSet = (PriceSet) bundle.getSerializable(IntentConfig.STOCK_PRICE);
+                sepcPriceStockUnit = null;
+                skuName.set("已设置");
+            }
+        } else if (requestCode == SELECT_STOCK_SEPC) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                sepcPriceStockUnit = (SepcPriceStockUnit) bundle.getSerializable(IntentConfig.SEPC_INFO_SELECTED);
+                priceSet = null;
                 skuName.set("已设置");
             }
         }
@@ -182,5 +197,51 @@ public class AddOrEditProductVM extends BaseVM {
             cb.showToast("输入的文字超过上限");
         }
         count.set(str.length() + "/50");
+    }
+
+    /**
+     * 数据是否有效
+     */
+    private void isDataValidate() {
+        if (TextUtils.isEmpty(categoryName.get())) {
+            baseCallBck.showToast("请选择商品类目");
+            return;
+        }
+        if (TextUtils.isEmpty(title.get())) {
+            baseCallBck.showToast("请填写商品标题");
+            return;
+        }
+        if (TextUtils.isEmpty(title.get())) {
+            baseCallBck.showToast("请填写商品标题");
+            return;
+        }
+        int imgsize = cb.getImgSize();
+        if (imgsize == 0) {
+            baseCallBck.showToast("请上传商品图片");
+            return;
+        }
+        if (TextUtils.isEmpty(code.get())) {
+            baseCallBck.showToast("请填写货号");
+            return;
+        }
+        if (isSpec.get()) {
+            if (TextUtils.isEmpty(sepcName.get())) {
+                baseCallBck.showToast("请填写商品规格");
+                return;
+            }
+        }
+        if (TextUtils.isEmpty(skuName.get())) {
+            baseCallBck.showToast("请填写价格库存");
+            return;
+        }
+
+    }
+
+    public void addToStockClick(View view) {
+
+    }
+
+    public void pullOnSaleClick(View view) {
+
     }
 }

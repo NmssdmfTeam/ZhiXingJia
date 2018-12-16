@@ -5,6 +5,9 @@ import android.databinding.Bindable;
 
 import com.zhixingjia.goodsmanagemodule.BR;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * Create by chenbin on 2018/12/15
@@ -12,6 +15,7 @@ import com.zhixingjia.goodsmanagemodule.BR;
  * <p>
  */
 public class SepcStockPrice extends BaseObservable {
+    private List<SepcPriceStockSet.SpecInfo> normsIds = new ArrayList<>();      //key值对应的ID
     private String name;
     private String value;
 
@@ -33,5 +37,15 @@ public class SepcStockPrice extends BaseObservable {
     public void setValue(String value) {
         this.value = value;
         notifyPropertyChanged(BR.value);
+    }
+
+    @Bindable
+    public List<SepcPriceStockSet.SpecInfo> getNormsIds() {
+        return normsIds;
+    }
+
+    public void setNormsIds(List<SepcPriceStockSet.SpecInfo> normsIds) {
+        this.normsIds = normsIds;
+        notifyPropertyChanged(BR.normsIds);
     }
 }

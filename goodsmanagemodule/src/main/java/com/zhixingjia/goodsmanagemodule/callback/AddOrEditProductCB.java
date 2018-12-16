@@ -15,4 +15,6 @@ public interface AddOrEditProductCB extends BaseCB {
     void showCategoryWindow();
 
     void initData();
+
+    int getImgSize();
 }

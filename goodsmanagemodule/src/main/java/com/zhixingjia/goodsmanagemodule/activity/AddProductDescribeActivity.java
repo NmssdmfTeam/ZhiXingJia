@@ -3,6 +3,8 @@ package com.zhixingjia.goodsmanagemodule.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.jushi.gallery.activity.ImageGalleryActivity;
@@ -36,8 +38,22 @@ public class AddProductDescribeActivity extends BaseTitleActivity implements Add
     @Override
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityProductDescribeBinding) baseViewBinding;
+        baseTitleBinding.tTitle.inflateMenu(R.menu.sure);
         binding.setVm(vm);
         addContent();
+        setListener();
+    }
+
+    private void setListener() {
+        baseTitleBinding.tTitle.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.sure) {
+
+                }
+                return false;
+            }
+        });
     }
 
     @Override

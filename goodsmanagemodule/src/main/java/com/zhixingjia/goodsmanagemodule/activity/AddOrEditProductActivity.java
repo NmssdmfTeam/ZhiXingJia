@@ -3,7 +3,6 @@ package com.zhixingjia.goodsmanagemodule.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
@@ -97,17 +96,20 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
         brandwheelPickerWindow.changeDataList(vm.brandNames);
     }
 
+    @Override
+    public int getImgSize() {
+        return binding.isv.getImgSize();
+    }
+
     private WheelPickerWindowCB categoryWheelPickerWindowCB = new WheelPickerWindowCB() {
         @Override
         public void tvSureClick(String item, int position) {
             vm.categoryId = vm.commodityInitialize.getCateinfo().get(position).getCate_id();
             if (vm.commodityInitialize.getCateinfo().get(position).getSepc_info() == null
                     || vm.commodityInitialize.getCateinfo().get(position).getSepc_info().size() == 0) {
-                binding.rlSepc.setVisibility(View.GONE);
-                binding.includeRlSepc.setVisibility(View.GONE);
+                vm.isSpec.set(false);
             } else {
-                binding.rlSepc.setVisibility(View.VISIBLE);
-                binding.includeRlSepc.setVisibility(View.VISIBLE);
+                vm.isSpec.set(true);
                 vm.sepcName.set(null);
                 vm.skuName.set(null);
             }

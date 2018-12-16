@@ -9,15 +9,13 @@ import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.commonlib.window.WheelPickerWindow;
 import com.zhixingjia.goodsmanagemodule.R;
+import com.zhixingjia.goodsmanagemodule.bean.SepcPriceStockSet;
 import com.zhixingjia.goodsmanagemodule.bean.SepcStockPrice;
 import com.zhixingjia.goodsmanagemodule.callback.LadderPriceSettingCB;
 import com.zhixingjia.goodsmanagemodule.databinding.ActivityLadderPriceSettingBinding;
 import com.zhixingjia.goodsmanagemodule.databinding.ItemLadderPriceSettingBinding;
 import com.zhixingjia.goodsmanagemodule.databinding.ItemLadderStockSettingBinding;
 import com.zhixingjia.goodsmanagemodule.viewmodel.LadderPriceSettingVM;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
 * @description 有规格价格库存
@@ -29,8 +27,6 @@ public class LadderPriceSettingActivity extends BaseTitleActivity implements Whe
     private final String TAG = LadderPriceSettingActivity.class.getSimpleName();
     private LadderPriceSettingVM vm;
     private ActivityLadderPriceSettingBinding binding;
-    private List<SepcStockPrice> priceSet = new ArrayList<>();
-    private List<SepcStockPrice> stockSet = new ArrayList<>();
     private WheelPickerWindow unitWheelPickerWindow;
 
     @Override
@@ -51,16 +47,26 @@ public class LadderPriceSettingActivity extends BaseTitleActivity implements Whe
         for (String key : vm.stock.keySet()) {
             ItemLadderPriceSettingBinding priceSettingBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_ladder_price_setting, null,false);
             ItemLadderStockSettingBinding stockSettingBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_ladder_stock_setting,null, false);
-            String name = vm.stockName.get(i);
+            StringBuffer name = new StringBuffer("");
+            int j = 0;
+            for (SepcPriceStockSet.SpecInfo specInfo : vm.specInfos.get(i)) {
+                if (j > 0) {
+                    name.append("+");
+                    name.append(specInfo.getValue());
+                } else {
+                    name.append(specInfo.getValue());
+                }
+                j++;
+            }
             SepcStockPrice price = new SepcStockPrice();
             SepcStockPrice stock = new SepcStockPrice();
-            price.setName(name);
-            stock.setName(name);
+            price.setName(name.toString());
+            stock.setName(name.toString());
 
             priceSettingBinding.setData(price);
             stockSettingBinding.setData(stock);
-            priceSet.add(price);
-            stockSet.add(stock);
+            vm.priceSet.add(price);
+            vm.stockSet.add(stock);
             binding.llPrice.addView(priceSettingBinding.getRoot());
             binding.llStock.addView(stockSettingBinding.getRoot());
             i++;
