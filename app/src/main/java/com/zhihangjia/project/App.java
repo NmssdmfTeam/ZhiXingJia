@@ -1,5 +1,6 @@
 package com.zhihangjia.project;
 
+import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
 import com.nmssdmf.commonlib.application.BaseApplication;
 

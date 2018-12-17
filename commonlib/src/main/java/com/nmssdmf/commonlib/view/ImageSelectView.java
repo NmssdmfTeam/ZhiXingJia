@@ -326,10 +326,15 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
      */
     public void addImage(String path, String id) {
         if (uploadImages != null && path != null) {
-            if (adapter.getImageSize() < image_max_size) {
-                UploadImage uploadImage = new UploadImage();
-                uploadImage.setUrl(path);
-                uploadImage.setImage_id(id);
+            UploadImage uploadImage = new UploadImage();
+            uploadImage.setUrl(path);
+            uploadImage.setImage_id(id);
+            if (adapter.getData().size() == 0)
+                adapter.getData().add(uploadImage);
+            else
+                adapter.getData().add(adapter.getData().size() - 1, uploadImage);
+            if (adapter.getImageSize() == image_max_size) {
+                removeAddImageView();
             }
         }
         adapter.notifyDataSetChanged();
@@ -371,6 +376,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
                 return;
             }
         }
+        boolean isFull = true;
         for (int i = 0; i < imageSize; i++) {
             if (adapter.getData().get(i).getImage_id().equals("")) {
                 final String file_path = adapter.getData().get(i).getUrl();
@@ -381,9 +387,23 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
                     ToastUtil.getInstance().showToast("上传图片失败");
                     return;
                 }
+                isFull = false;
                 doUploadImage(file, i);
             }
         }
+        if (isFull) {
+            //无需上传
+            upload_listener.onUpLoadComplete(toStringArray(getImgIds()));
+        }
+    }
+
+    public List<UploadImage> getFilePathList() {
+        int imageSize = adapter.getImageSize();
+        List<UploadImage> uploadImages = new ArrayList<>();
+        for (int i = 0; i < imageSize; i++) {
+            uploadImages.add(adapter.getData().get(i));
+        }
+        return  uploadImages;
     }
 
 

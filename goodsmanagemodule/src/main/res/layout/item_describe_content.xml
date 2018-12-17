@@ -11,13 +11,15 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/etContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="请输入内容"
                 android:paddingBottom="19dp"
                 android:paddingTop="16dp"
-                android:textColor="#FFCCCCCC"
+                android:textColorHint="#FFCCCCCC"
+                android:textColor="@color/text_black"
                 android:textSize="15dp" />
 
             <ImageButton

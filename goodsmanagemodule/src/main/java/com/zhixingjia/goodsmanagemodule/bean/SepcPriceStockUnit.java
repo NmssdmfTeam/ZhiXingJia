@@ -2,6 +2,8 @@ package com.zhixingjia.goodsmanagemodule.bean;
 
 import android.databinding.BaseObservable;
 
+import com.zhixingjia.bean.goodsmanagemodel.SepcPriceStockSet;
+
 import java.io.Serializable;
 import java.util.List;
 

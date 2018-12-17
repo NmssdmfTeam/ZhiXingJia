@@ -9,7 +9,7 @@ import android.view.View;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.mainmodule.CommodityInitialize;
-import com.zhixingjia.goodsmanagemodule.bean.SepcPriceStockSet;
+import com.zhixingjia.bean.goodsmanagemodel.SepcPriceStockSet;
 import com.zhixingjia.goodsmanagemodule.bean.SepcPriceStockUnit;
 import com.zhixingjia.goodsmanagemodule.bean.SepcStockPrice;
 import com.zhixingjia.goodsmanagemodule.callback.LadderPriceSettingCB;
@@ -32,6 +32,7 @@ public class LadderPriceSettingVM extends BaseVM {
     public List<String> units = new ArrayList<>();
     public List<SepcStockPrice> priceSet = new ArrayList<>();
     public List<SepcStockPrice> stockSet = new ArrayList<>();
+    public SepcPriceStockUnit sepcPriceStockUnit;
 
     public final ObservableField<String> unit = new ObservableField<>();
 
@@ -54,6 +55,9 @@ public class LadderPriceSettingVM extends BaseVM {
             stock = (Map<String, List<String>>) bundle.getSerializable(IntentConfig.SEPC_INFO_SELECTED);
             sepcInfos = (List<CommodityInitialize.CateInfo.SepcInfo>) bundle.getSerializable(IntentConfig.SEPC_INFO);
             units = (List<String>) bundle.getSerializable(IntentConfig.UNIT);
+            sepcPriceStockUnit = (SepcPriceStockUnit) bundle.getSerializable(IntentConfig.STOCK_PRICE_SPEC);
+            if (sepcPriceStockUnit != null)
+                unit.set(sepcPriceStockUnit.getUnit());
         }
         //将数据组合成便于提交的数据
         /** 'spec_info': [{//规格数据
@@ -66,39 +70,47 @@ public class LadderPriceSettingVM extends BaseVM {
          *    'value': '小'
          * }]
          **/
-        List<List<SepcPriceStockSet.SpecInfo>> selectedStandardValues = new ArrayList<>();
-        for (CommodityInitialize.CateInfo.SepcInfo sepcInfo : sepcInfos) {
-            String norms_id = sepcInfo.getNorms_id();
-            String key = sepcInfo.getType_name();
-            if (selectedStandardValues.size() != 0) {
-                List<String> selectedValues = stock.get(sepcInfo.getNorms_id());
-                List<List<SepcPriceStockSet.SpecInfo>> result = new ArrayList();
-                for (List<SepcPriceStockSet.SpecInfo> value : selectedStandardValues) {
-                    for (String selectedValue : selectedValues) {
-                        List<SepcPriceStockSet.SpecInfo> temp = new ArrayList<>();
-                        temp.addAll(value);
+        if (sepcPriceStockUnit == null) {
+            List<List<SepcPriceStockSet.SpecInfo>> selectedStandardValues = new ArrayList<>();
+            for (CommodityInitialize.CateInfo.SepcInfo sepcInfo : sepcInfos) {
+                String norms_id = sepcInfo.getNorms_id();
+                String key = sepcInfo.getType_name();
+                if (selectedStandardValues.size() != 0) {
+                    List<String> selectedValues = stock.get(sepcInfo.getNorms_id());
+                    List<List<SepcPriceStockSet.SpecInfo>> result = new ArrayList();
+                    for (List<SepcPriceStockSet.SpecInfo> value : selectedStandardValues) {
+                        for (String selectedValue : selectedValues) {
+                            List<SepcPriceStockSet.SpecInfo> temp = new ArrayList<>();
+                            temp.addAll(value);
+                            SepcPriceStockSet.SpecInfo specInfoAdded = new SepcPriceStockSet.SpecInfo();
+                            specInfoAdded.setKey(key);
+                            specInfoAdded.setNorms_id(norms_id);
+                            specInfoAdded.setValue(selectedValue);
+                            temp.add(specInfoAdded);
+                            result.add(temp);
+                        }
+                    }
+                    selectedStandardValues = result;
+                } else {
+                    for (String value : stock.get(sepcInfo.getNorms_id())) {
+                        List<SepcPriceStockSet.SpecInfo> specInfos = new ArrayList<>();
                         SepcPriceStockSet.SpecInfo specInfoAdded = new SepcPriceStockSet.SpecInfo();
                         specInfoAdded.setKey(key);
                         specInfoAdded.setNorms_id(norms_id);
-                        specInfoAdded.setValue(selectedValue);
-                        temp.add(specInfoAdded);
-                        result.add(temp);
+                        specInfoAdded.setValue(value);
+                        specInfos.add(specInfoAdded);
+                        selectedStandardValues.add(specInfos);
                     }
                 }
-                selectedStandardValues = result;
-            } else {
-                for (String value : stock.get(sepcInfo.getNorms_id())) {
-                    List<SepcPriceStockSet.SpecInfo> specInfos = new ArrayList<>();
-                    SepcPriceStockSet.SpecInfo specInfoAdded = new SepcPriceStockSet.SpecInfo();
-                    specInfoAdded.setKey(key);
-                    specInfoAdded.setNorms_id(norms_id);
-                    specInfoAdded.setValue(value);
-                    specInfos.add(specInfoAdded);
-                    selectedStandardValues.add(specInfos);
-                }
+            }
+            specInfos = selectedStandardValues;
+        } else {
+            for (SepcPriceStockSet sepcPriceStockSet : sepcPriceStockUnit.getSepcPriceStockSets()) {
+                List<SepcPriceStockSet.SpecInfo> spec = new ArrayList<>();
+                spec.addAll(sepcPriceStockSet.getSpec_info());
+                specInfos.add(spec);
             }
         }
-        specInfos = selectedStandardValues;
     }
 
     public void onSelectUnitClick(View view) {
@@ -119,6 +131,8 @@ public class LadderPriceSettingVM extends BaseVM {
                 callback.showToast("请输入"+stockSet.get(i).getName()+"的库存");
                 return;
             }
+            if (this.sepcPriceStockUnit != null)
+                sepcPriceStockSet.setSku_product_id(this.sepcPriceStockUnit.getSepcPriceStockSets().get(i).getSku_product_id());
             sepcPriceStockSet.setPrice(priceSet.get(i).getValue());
             sepcPriceStockSet.setStock(stockSet.get(i).getValue());
             sepcPriceStockSet.setSpec_info(specInfos.get(i));

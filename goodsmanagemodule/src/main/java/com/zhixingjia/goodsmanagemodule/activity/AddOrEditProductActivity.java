@@ -8,14 +8,17 @@ import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
 import com.nmssdmf.commonlib.config.IntegerConfig;
+import com.nmssdmf.commonlib.view.ImageSelectView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.commonlib.window.WheelPickerWindow;
+import com.zhixingjia.bean.goodsmanagemodel.CommodityShow;
 import com.zhixingjia.goodsmanagemodule.R;
 import com.zhixingjia.goodsmanagemodule.callback.AddOrEditProductCB;
 import com.zhixingjia.goodsmanagemodule.databinding.ActivityAddOrEditProductBinding;
 import com.zhixingjia.goodsmanagemodule.viewmodel.AddOrEditProductVM;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 * @description 发布商品activity
@@ -42,6 +45,27 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
         brandwheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),brandWheelPickerWindowCB);
         categorywheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),categoryWheelPickerWindowCB);
         binding.setVm(vm);
+        setListener();
+    }
+
+    private void setListener() {
+        binding.isv.setOnUploadlistener(new ImageSelectView.OnImageUpLoadCompleteListener() {
+            @Override
+            public void onUpLoadComplete(String[] ids) {
+                vm.imageIds = ids;
+                vm.upLoadProductImg();
+            }
+
+            @Override
+            public void onUpLoadFailed(Throwable e) {
+                dismissLoaddingDialog();
+            }
+
+            @Override
+            public void onAddImageClick(ImageSelectView imageSelectView) {
+
+            }
+        });
     }
 
     @Override
@@ -101,6 +125,19 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
         return binding.isv.getImgSize();
     }
 
+    @Override
+    public void upLoadProductImg() {
+        showLoaddingDialog();
+        binding.isv.uploadImage();
+    }
+
+    @Override
+    public void initImageSelectView(List<CommodityShow.ImageBean> imageBeans) {
+        for (CommodityShow.ImageBean imageBean : imageBeans) {
+            binding.isv.addImage(imageBean.getImgs_url(), imageBean.getImage_id());
+        }
+    }
+
     private WheelPickerWindowCB categoryWheelPickerWindowCB = new WheelPickerWindowCB() {
         @Override
         public void tvSureClick(String item, int position) {
@@ -123,6 +160,7 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
         @Override
         public void tvSureClick(String item, int position) {
             vm.brandName.set(item);
+            vm.brandId = vm.commodityInitialize.getBrand_info().get(position).getId();
         }
     };
 }

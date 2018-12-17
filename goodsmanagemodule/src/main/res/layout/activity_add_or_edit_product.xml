@@ -226,6 +226,7 @@
                             android:textSize="15dp"
                             android:layout_alignParentRight="true"
                             android:background="@null"
+                            android:text="@={vm.code}"
                             android:layout_marginRight="10.85dp"/>
 
                     </RelativeLayout>
@@ -249,10 +250,10 @@
                             android:textColor="@color/text_black"
                             android:textSize="16dp" />
 
-                        <EditText
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:hint="请输入商品品牌"
+                            android:hint="请选择商品品牌"
                             android:textColorHint="#FFCCCCCC"
                             android:textColor="@color/text_black"
                             android:textSize="15dp"
@@ -376,6 +377,8 @@
                             android:gravity="center_vertical|right"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="10.85dp"
+                            android:inputType="numberDecimal"
+                            android:text="@={vm.cost_freight}"
                             android:background="@null"/>
                     </RelativeLayout>
 
@@ -410,7 +413,6 @@
                             android:drawableRight="@drawable/icon_next"
                             android:layout_alignParentRight="true"
                             android:text="@{vm.picContent}" />
-
 
                     </RelativeLayout>
                 </LinearLayout>

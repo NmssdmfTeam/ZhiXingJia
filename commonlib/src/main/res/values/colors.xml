@@ -19,4 +19,5 @@
     <color name="black_statusbar">#33000000</color>
     <color name="text_gray">#FFCCCCCC</color>
     <color name="btn_yellow">#FFFF9A14</color>
+    <color name="transparent">#00000000</color>
 </resources>

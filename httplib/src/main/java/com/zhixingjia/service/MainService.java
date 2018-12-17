@@ -434,36 +434,4 @@ public interface MainService {
      */
     @GET("/api/cart/allsum")
     Observable<BaseData<AllSum>> getAllSum();
-
-    /**
-     * 商家商品列表
-     */
-    @GET("/api/commodity/index")
-    Observable<BaseListData<Commodity>> getCommodityIndex(@QueryMap Map<String, String> map);
-
-    /**
-     * 商品数量统计
-     */
-    @GET("/api/commodity/number")
-    Observable<BaseData<GoodManageNumber>> getCommodityNumber();
-
-    /**
-     * 商品上下架操作
-     */
-    @FormUrlEncoded
-    @POST("/api/commodity/upper_lower")
-    Observable<Base> commodityUpperLower(@Field("commodity_id") String commodity_id, @Field("status") String status);
-
-    /**
-     * 商品删除
-     */
-    @FormUrlEncoded
-    @POST("/api/commodity/del")
-    Observable<Base> commodityDelete(@Field("commodity_id") String commodity_id);
-
-    /**
-     * 获取商品的分类、规格、单位、品牌数据(添加与编辑的时候都需要请求)
-     */
-    @GET("/api/commodity/initialize")
-    Observable<BaseData<CommodityInitialize>> commodityInitialize();
 }

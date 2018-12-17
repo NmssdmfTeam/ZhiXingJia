@@ -1,9 +1,9 @@
-package com.zhixingjia.goodsmanagemodule.bean;
+package com.zhixingjia.bean.goodsmanagemodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.zhixingjia.goodsmanagemodule.BR;
+import com.zhixingjia.httplib.BR;
 
 import java.io.Serializable;
 import java.util.List;

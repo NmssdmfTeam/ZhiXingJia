@@ -1,13 +1,17 @@
 package com.zhixingjia.goodsmanagemodule.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.Base;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.goodsmanagemodule.R;
+import com.zhixingjia.goodsmanagemodule.activity.AddOrEditProductActivity;
 import com.zhixingjia.goodsmanagemodule.databinding.ItemGoodManageBinding;
 
 import java.util.List;
@@ -58,6 +62,17 @@ public class GoodManageAdapter extends BaseDataBindingAdapter<Commodity, ItemGoo
             @Override
             public void onClick(View v) {
                 goodsManageOption.onTvDeleteClick(binding.getRoot(), item, position);
+            }
+        });
+        binding.tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.COMMODITY_ID, item.getCommodity_id());
+                intent.putExtras(bundle);
+                intent.setClass(mContext,AddOrEditProductActivity.class);
+                mContext.startActivity(intent);
             }
         });
     }

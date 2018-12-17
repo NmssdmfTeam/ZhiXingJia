@@ -60,4 +60,6 @@ public class IntentConfig {
     public static final String STOCK_PRICE = "stock_price";//价格库存
     public static final String STOCK_PRICE_SPEC = "stock_price_spec";//有规格价格库存
     public static final String UNIT = "unit";//单位
+
+    public static final String PRODUCT_DESCRIBES = "product_describes";//商品描述
 }

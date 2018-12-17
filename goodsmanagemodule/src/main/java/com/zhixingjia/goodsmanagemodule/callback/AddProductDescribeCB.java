@@ -5,4 +5,5 @@ import com.nmssdmf.commonlib.callback.BaseCB;
 
 public interface AddProductDescribeCB extends BaseCB {
     void addContent();
+    void setDiscribeContent();
 }

@@ -14,6 +14,7 @@ import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.goodsmanagemodule.callback.GoodManageFragmentCB;
+import com.zhixingjia.service.GoodsManageService;
 import com.zhixingjia.service.MainService;
 
 import java.util.HashMap;
@@ -58,7 +59,7 @@ public class GoodManageFragmentVM extends BaseRecyclerViewFragmentVM {
         if (!TextUtils.isEmpty(keyword))
             params.put("keyword", keyword);
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_COMMODITY_INDEX).getCommodityIndex(params),
+                RxRequest.create(GoodsManageService.class, HttpVersionConfig.API_COMMODITY_INDEX).getCommodityIndex(params),
                 new ServiceCallback<BaseListData<Commodity>>() {
             @Override
             public void onError(Throwable error) {
@@ -85,7 +86,7 @@ public class GoodManageFragmentVM extends BaseRecyclerViewFragmentVM {
     public void pullOffGood(Commodity commodity, final int position) {
         baseCallBck.showLoaddingDialog();
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_COMMODITY_UPPER_LOWER).commodityUpperLower(commodity.getCommodity_id(), String.valueOf(type==0?1:0)),
+                RxRequest.create(GoodsManageService.class, HttpVersionConfig.API_COMMODITY_UPPER_LOWER).commodityUpperLower(commodity.getCommodity_id(), String.valueOf(type==0?1:0)),
                 new ServiceCallback<Base>() {
             @Override
             public void onError(Throwable error) {
@@ -116,7 +117,7 @@ public class GoodManageFragmentVM extends BaseRecyclerViewFragmentVM {
     public void deleteGood(Commodity commodity, final int position) {
         baseCallBck.showLoaddingDialog();
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_COMMODITY_DEL).commodityDelete(commodity.getCommodity_id()),
+                RxRequest.create(GoodsManageService.class, HttpVersionConfig.API_COMMODITY_DEL).commodityDelete(commodity.getCommodity_id()),
                 new ServiceCallback<Base>() {
                     @Override
                     public void onError(Throwable error) {

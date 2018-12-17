@@ -316,4 +316,14 @@ public class HttpVersionConfig {
      * 获取商品的分类、规格、单位、品牌数据(添加与编辑的时候都需要请求)
      */
     public static final int API_COMMODITY_INITIALIZE = 1;
+
+    /**
+     * 商品添加、编辑保存
+     */
+    public static final int API_COMMODITY_OPERATION = 1;
+
+    /**
+     * 商品编辑详情
+     */
+    public static final int API_COMMODITY_SHOW = 1;
 }

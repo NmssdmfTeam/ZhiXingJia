@@ -8,14 +8,17 @@ import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.commonlib.window.WheelPickerWindow;
+import com.zhixingjia.bean.mainmodule.CommodityInitialize;
 import com.zhixingjia.goodsmanagemodule.R;
-import com.zhixingjia.goodsmanagemodule.bean.SepcPriceStockSet;
+import com.zhixingjia.bean.goodsmanagemodel.SepcPriceStockSet;
 import com.zhixingjia.goodsmanagemodule.bean.SepcStockPrice;
 import com.zhixingjia.goodsmanagemodule.callback.LadderPriceSettingCB;
 import com.zhixingjia.goodsmanagemodule.databinding.ActivityLadderPriceSettingBinding;
 import com.zhixingjia.goodsmanagemodule.databinding.ItemLadderPriceSettingBinding;
 import com.zhixingjia.goodsmanagemodule.databinding.ItemLadderStockSettingBinding;
 import com.zhixingjia.goodsmanagemodule.viewmodel.LadderPriceSettingVM;
+
+import java.util.List;
 
 /**
 * @description 有规格价格库存
@@ -44,7 +47,7 @@ public class LadderPriceSettingActivity extends BaseTitleActivity implements Whe
 
     private void initView() {
         int i = 0;
-        for (String key : vm.stock.keySet()) {
+        for (List<SepcPriceStockSet.SpecInfo> sepcInfo : vm.specInfos) {
             ItemLadderPriceSettingBinding priceSettingBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_ladder_price_setting, null,false);
             ItemLadderStockSettingBinding stockSettingBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_ladder_stock_setting,null, false);
             StringBuffer name = new StringBuffer("");
@@ -60,6 +63,10 @@ public class LadderPriceSettingActivity extends BaseTitleActivity implements Whe
             }
             SepcStockPrice price = new SepcStockPrice();
             SepcStockPrice stock = new SepcStockPrice();
+            if (vm.sepcPriceStockUnit != null) {
+                price.setValue(vm.sepcPriceStockUnit.getSepcPriceStockSets().get(i).getPrice());
+                stock.setValue(vm.sepcPriceStockUnit.getSepcPriceStockSets().get(i).getStock());
+            }
             price.setName(name.toString());
             stock.setName(name.toString());
 

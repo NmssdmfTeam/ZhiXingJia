@@ -14,6 +14,7 @@ import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.mainmodule.GoodManageNumber;
 import com.zhixingjia.goodsmanagemodule.callback.GoodManageCB;
+import com.zhixingjia.service.GoodsManageService;
 import com.zhixingjia.service.MainService;
 
 /**
@@ -43,7 +44,7 @@ public class GoodManageVM extends BaseVM {
      */
     public void getCommodityNumber() {
         HttpUtils.doHttp(subscription,
-                RxRequest.create(MainService.class, HttpVersionConfig.API_COMMODITY_NUMBER).getCommodityNumber(),
+                RxRequest.create(GoodsManageService.class, HttpVersionConfig.API_COMMODITY_NUMBER).getCommodityNumber(),
                 new ServiceCallback<BaseData<GoodManageNumber>>() {
             @Override
             public void onError(Throwable error) {
