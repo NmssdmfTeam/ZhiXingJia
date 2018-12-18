@@ -28,10 +28,7 @@ import java.util.Map;
 public class LadderPriceSettingVM extends BaseVM {
     public Map<String, List<String>> stock = new LinkedHashMap<>();
     public List<CommodityInitialize.CateInfo.SepcInfo> sepcInfos = new ArrayList<>();
-    public List<List<SepcPriceStockSet.SpecInfo>> specInfos = new ArrayList<>();
     public List<String> units = new ArrayList<>();
-    public List<SepcStockPrice> priceSet = new ArrayList<>();
-    public List<SepcStockPrice> stockSet = new ArrayList<>();
     public SepcPriceStockUnit sepcPriceStockUnit;
 
     public final ObservableField<String> unit = new ObservableField<>();
@@ -70,47 +67,82 @@ public class LadderPriceSettingVM extends BaseVM {
          *    'value': '小'
          * }]
          **/
-        if (sepcPriceStockUnit == null) {
-            List<List<SepcPriceStockSet.SpecInfo>> selectedStandardValues = new ArrayList<>();
-            for (CommodityInitialize.CateInfo.SepcInfo sepcInfo : sepcInfos) {
-                String norms_id = sepcInfo.getNorms_id();
-                String key = sepcInfo.getType_name();
-                if (selectedStandardValues.size() != 0) {
-                    List<String> selectedValues = stock.get(sepcInfo.getNorms_id());
-                    List<List<SepcPriceStockSet.SpecInfo>> result = new ArrayList();
-                    for (List<SepcPriceStockSet.SpecInfo> value : selectedStandardValues) {
-                        for (String selectedValue : selectedValues) {
-                            List<SepcPriceStockSet.SpecInfo> temp = new ArrayList<>();
-                            temp.addAll(value);
-                            SepcPriceStockSet.SpecInfo specInfoAdded = new SepcPriceStockSet.SpecInfo();
-                            specInfoAdded.setKey(key);
-                            specInfoAdded.setNorms_id(norms_id);
-                            specInfoAdded.setValue(selectedValue);
-                            temp.add(specInfoAdded);
-                            result.add(temp);
-                        }
-                    }
-                    selectedStandardValues = result;
-                } else {
-                    for (String value : stock.get(sepcInfo.getNorms_id())) {
-                        List<SepcPriceStockSet.SpecInfo> specInfos = new ArrayList<>();
+        List<List<SepcPriceStockSet.SpecInfo>> selectedStandardValues = new ArrayList<>();
+        for (CommodityInitialize.CateInfo.SepcInfo sepcInfo : sepcInfos) {
+            String norms_id = sepcInfo.getNorms_id();
+            String key = sepcInfo.getType_name();
+            if (selectedStandardValues.size() != 0) {
+                List<String> selectedValues = stock.get(sepcInfo.getNorms_id());
+                List<List<SepcPriceStockSet.SpecInfo>> result = new ArrayList();
+                for (List<SepcPriceStockSet.SpecInfo> value : selectedStandardValues) {
+                    for (String selectedValue : selectedValues) {
+                        List<SepcPriceStockSet.SpecInfo> temp = new ArrayList<>();
+                        temp.addAll(value);
                         SepcPriceStockSet.SpecInfo specInfoAdded = new SepcPriceStockSet.SpecInfo();
                         specInfoAdded.setKey(key);
                         specInfoAdded.setNorms_id(norms_id);
-                        specInfoAdded.setValue(value);
-                        specInfos.add(specInfoAdded);
-                        selectedStandardValues.add(specInfos);
+                        specInfoAdded.setValue(selectedValue);
+                        temp.add(specInfoAdded);
+                        result.add(temp);
                     }
                 }
-            }
-            specInfos = selectedStandardValues;
-        } else {
-            for (SepcPriceStockSet sepcPriceStockSet : sepcPriceStockUnit.getSepcPriceStockSets()) {
-                List<SepcPriceStockSet.SpecInfo> spec = new ArrayList<>();
-                spec.addAll(sepcPriceStockSet.getSpec_info());
-                specInfos.add(spec);
+                selectedStandardValues = result;
+            } else {
+                for (String value : stock.get(sepcInfo.getNorms_id())) {
+                    List<SepcPriceStockSet.SpecInfo> specInfos = new ArrayList<>();
+                    SepcPriceStockSet.SpecInfo specInfoAdded = new SepcPriceStockSet.SpecInfo();
+                    specInfoAdded.setKey(key);
+                    specInfoAdded.setNorms_id(norms_id);
+                    specInfoAdded.setValue(value);
+                    specInfos.add(specInfoAdded);
+                    selectedStandardValues.add(specInfos);
+                }
             }
         }
+        //比对sepcPriceStockUnit已选择的，若规格一致，比对是否存在sku_product_id
+        if (sepcPriceStockUnit != null) {
+            for (List<SepcPriceStockSet.SpecInfo> specInfoList : selectedStandardValues) {
+                boolean isExist = false;
+                for (SepcPriceStockSet sepcPriceStockSet : sepcPriceStockUnit.getSepcPriceStockSets()) {
+                    List<SepcPriceStockSet.SpecInfo> selectedSpecInfos = sepcPriceStockSet.getSpec_info();
+                    if (isSpecListEqual(selectedSpecInfos, specInfoList)) {//若是不存在的规格，则添加
+                        isExist = true;
+                    }
+                }
+                if (!isExist) {
+                    SepcPriceStockSet sepcPriceStockSet = new SepcPriceStockSet();
+                    sepcPriceStockSet.setSku_product_id("0");
+                    sepcPriceStockSet.setSpec_info(specInfoList);
+                    sepcPriceStockUnit.getSepcPriceStockSets().add(sepcPriceStockSet);
+                }
+            }
+        } else {
+            sepcPriceStockUnit = new SepcPriceStockUnit();
+            sepcPriceStockUnit.setSepcPriceStockSets(new ArrayList<SepcPriceStockSet>());
+            for (List<SepcPriceStockSet.SpecInfo> specInfoList : selectedStandardValues) {
+                SepcPriceStockSet sepcPriceStockSet = new SepcPriceStockSet();
+                sepcPriceStockSet.setSku_product_id("0");
+                sepcPriceStockSet.setSpec_info(specInfoList);
+                sepcPriceStockUnit.getSepcPriceStockSets().add(sepcPriceStockSet);
+            }
+        }
+    }
+
+    private boolean isSpecListEqual(List<SepcPriceStockSet.SpecInfo> specInfosPrev, List<SepcPriceStockSet.SpecInfo> specInfosAfter) {
+        if (specInfosPrev.size() != specInfosAfter.size())
+            return false;
+        for (SepcPriceStockSet.SpecInfo prevSpecInfo : specInfosPrev) {
+            boolean isInclude = false;
+            for (SepcPriceStockSet.SpecInfo afterSpecInfo : specInfosAfter) {
+                if (prevSpecInfo.getNorms_id().equals(afterSpecInfo.getNorms_id()) && prevSpecInfo.getValue().equals(afterSpecInfo.getValue())) { //规格相同
+                    isInclude = true;
+                }
+            }
+            if (!isInclude) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void onSelectUnitClick(View view) {
@@ -118,27 +150,6 @@ public class LadderPriceSettingVM extends BaseVM {
     }
 
     public void onConfirmClick(View view) {
-        SepcPriceStockUnit sepcPriceStockUnit = new SepcPriceStockUnit();
-        List<SepcPriceStockSet> result = new ArrayList<>();
-        for (int i = 0; i < priceSet.size(); i++) {
-            SepcPriceStockSet sepcPriceStockSet = new SepcPriceStockSet();
-            sepcPriceStockSet.setSku_product_id("0");
-            if (TextUtils.isEmpty(priceSet.get(i).getValue())) {
-                callback.showToast("请输入"+priceSet.get(i).getName()+"的价格");
-                return;
-            }
-            if (TextUtils.isEmpty(stockSet.get(i).getValue())) {
-                callback.showToast("请输入"+stockSet.get(i).getName()+"的库存");
-                return;
-            }
-            if (this.sepcPriceStockUnit != null)
-                sepcPriceStockSet.setSku_product_id(this.sepcPriceStockUnit.getSepcPriceStockSets().get(i).getSku_product_id());
-            sepcPriceStockSet.setPrice(priceSet.get(i).getValue());
-            sepcPriceStockSet.setStock(stockSet.get(i).getValue());
-            sepcPriceStockSet.setSpec_info(specInfos.get(i));
-            result.add(sepcPriceStockSet);
-        }
-        sepcPriceStockUnit.setSepcPriceStockSets(result);
         if (TextUtils.isEmpty(unit.get())) {
             callback.showToast("请输入单位");
             return;

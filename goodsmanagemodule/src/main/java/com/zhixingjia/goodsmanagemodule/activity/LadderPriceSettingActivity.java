@@ -47,12 +47,12 @@ public class LadderPriceSettingActivity extends BaseTitleActivity implements Whe
 
     private void initView() {
         int i = 0;
-        for (List<SepcPriceStockSet.SpecInfo> sepcInfo : vm.specInfos) {
+        for (SepcPriceStockSet sepcPriceStockSet : vm.sepcPriceStockUnit.getSepcPriceStockSets()) {
             ItemLadderPriceSettingBinding priceSettingBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_ladder_price_setting, null,false);
             ItemLadderStockSettingBinding stockSettingBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_ladder_stock_setting,null, false);
             StringBuffer name = new StringBuffer("");
             int j = 0;
-            for (SepcPriceStockSet.SpecInfo specInfo : vm.specInfos.get(i)) {
+            for (SepcPriceStockSet.SpecInfo specInfo : sepcPriceStockSet.getSpec_info()) {
                 if (j > 0) {
                     name.append("+");
                     name.append(specInfo.getValue());
@@ -61,19 +61,10 @@ public class LadderPriceSettingActivity extends BaseTitleActivity implements Whe
                 }
                 j++;
             }
-            SepcStockPrice price = new SepcStockPrice();
-            SepcStockPrice stock = new SepcStockPrice();
-            if (vm.sepcPriceStockUnit != null) {
-                price.setValue(vm.sepcPriceStockUnit.getSepcPriceStockSets().get(i).getPrice());
-                stock.setValue(vm.sepcPriceStockUnit.getSepcPriceStockSets().get(i).getStock());
-            }
-            price.setName(name.toString());
-            stock.setName(name.toString());
-
-            priceSettingBinding.setData(price);
-            stockSettingBinding.setData(stock);
-            vm.priceSet.add(price);
-            vm.stockSet.add(stock);
+            priceSettingBinding.tvName.setText(name);
+            stockSettingBinding.tvName.setText(name);
+            priceSettingBinding.setData(sepcPriceStockSet);
+            stockSettingBinding.setData(sepcPriceStockSet);
             binding.llPrice.addView(priceSettingBinding.getRoot());
             binding.llStock.addView(stockSettingBinding.getRoot());
             i++;

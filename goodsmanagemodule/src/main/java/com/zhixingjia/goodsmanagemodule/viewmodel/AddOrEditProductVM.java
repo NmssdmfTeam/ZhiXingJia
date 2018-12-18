@@ -162,7 +162,7 @@ public class AddOrEditProductVM extends BaseVM {
                 && commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info().size() > 0) {
             bundle.putSerializable(IntentConfig.SEPC_INFO_SELECTED, (Serializable) selectedSepc);
             bundle.putSerializable(IntentConfig.SEPC_INFO, (Serializable) commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info());
-            if (!TextUtils.isEmpty(skuName.get())) {
+            if (!TextUtils.isEmpty(categoryId)) {
                 bundle.putSerializable(IntentConfig.STOCK_PRICE_SPEC, sepcPriceStockUnit);
             }
             cb.doIntentForResult(LadderPriceSettingActivity.class, bundle, SELECT_STOCK_SEPC);
