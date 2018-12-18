@@ -3,7 +3,6 @@ package com.zhixingjia.bean.mainmodule;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.nmssdmf.commonlib.bean.Base;
 import com.zhixingjia.httplib.BR;
 
 import java.io.Serializable;
@@ -19,6 +18,7 @@ public class IndexBean extends BaseObservable implements Serializable {
     private List<SellerBean> seller;                //优秀商家
     private List<CommodityBean> commodity;          //商品推荐
     private List<ForumBean> forum;                  //万家灯火
+    private List<LifeCate> life_cate;               //生活服务模块，数据调出9个分类，另外一个cate_id为0写着全部分类，点这个全部跳到分部分类的页面上，就跟家居那个全部分类一样的页面
 
     public List<ArticleBean> getArticle() {
         return article;
@@ -50,6 +50,14 @@ public class IndexBean extends BaseObservable implements Serializable {
 
     public void setForum(List<ForumBean> forum) {
         this.forum = forum;
+    }
+
+    public List<LifeCate> getLife_cate() {
+        return life_cate;
+    }
+
+    public void setLife_cate(List<LifeCate> life_cate) {
+        this.life_cate = life_cate;
     }
 
     public static class ArticleBean {
@@ -296,6 +304,42 @@ public class IndexBean extends BaseObservable implements Serializable {
         public void setImgs(List<String> imgs) {
             this.imgs = imgs;
             notifyPropertyChanged(BR.imgs);
+        }
+    }
+
+    public static class LifeCate extends BaseObservable {
+        private String cate_id;             //分类ID
+        private String cate_name;           //分类名称
+        private String cate_img;            //分类图片
+
+        @Bindable
+        public String getCate_id() {
+            return cate_id;
+        }
+
+        public void setCate_id(String cate_id) {
+            this.cate_id = cate_id;
+            notifyPropertyChanged(BR.cate_id);
+        }
+
+        @Bindable
+        public String getCate_name() {
+            return cate_name;
+        }
+
+        public void setCate_name(String cate_name) {
+            this.cate_name = cate_name;
+            notifyPropertyChanged(BR.cate_name);
+        }
+
+        @Bindable
+        public String getCate_img() {
+            return cate_img;
+        }
+
+        public void setCate_img(String cate_img) {
+            this.cate_img = cate_img;
+            notifyPropertyChanged(BR.cate_img);
         }
     }
 }

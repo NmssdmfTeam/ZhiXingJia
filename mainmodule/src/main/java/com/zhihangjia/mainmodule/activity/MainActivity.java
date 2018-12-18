@@ -99,6 +99,8 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         if (!TextUtils.isEmpty(token)) {
             vm.getShopCarAllNum();
         }
+        //不要下滑隐藏导航栏效果啦
+        bottomBehavior.isEnableScroll(false);
     }
 
     @Override
