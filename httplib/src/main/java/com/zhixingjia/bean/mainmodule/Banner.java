@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.nmssdmf.commonlib.activity.WebViewActivity;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
@@ -94,6 +95,9 @@ public class Banner extends BaseObservable{
         }
 
         public static void bannerClick(CommomBanner commomBanner, Context context) {
+            if (TextUtils.isEmpty(commomBanner.getLink_url())) {
+                return;
+            }
             if ("1".equals(commomBanner.getJumps())) {
                 Intent intent = new Intent(context, WebViewActivity.class);
                 Bundle bundle = new Bundle();

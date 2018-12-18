@@ -3,6 +3,7 @@ package com.zhihangjia.mainmodule.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -163,6 +164,8 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         itemMaterialsCrvheadBinding.ivMiddleBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(middleBanner.getLink_url()))
+                    return;
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.LINK, middleBanner.getLink_url());
                 doIntent(WebViewActivity.class, bundle);

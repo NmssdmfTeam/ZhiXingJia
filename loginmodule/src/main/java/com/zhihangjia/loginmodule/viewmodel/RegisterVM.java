@@ -34,7 +34,7 @@ public class RegisterVM extends BaseVM {
     public final ObservableField<String> verificationCode = new ObservableField<>();
     public final ObservableField<String> pwd = new ObservableField<>();
     public final ObservableField<String> checkPwd = new ObservableField<>();
-    public final ObservableBoolean agree = new ObservableBoolean(false);
+    public final ObservableBoolean agree = new ObservableBoolean(true);
     public final ObservableBoolean pwdShow = new ObservableBoolean(false);
     public final ObservableBoolean checkPwdShow = new ObservableBoolean(false);
 

@@ -3,6 +3,7 @@ package com.zhihangjia.mainmodule.adapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.nmssdmf.commonlib.activity.WebViewActivity;
@@ -33,6 +34,8 @@ public class YXHeadLineAdapter extends BaseDataBindingAdapter<New,ItemHeadlineBi
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(item.getLink_url()))
+                    return;
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.LINK, item.getLink_url());

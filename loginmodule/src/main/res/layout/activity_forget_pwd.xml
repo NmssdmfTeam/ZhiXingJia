@@ -16,10 +16,10 @@
         android:background="@color/white">
 
         <TextView
-            android:layout_width="175dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
-            android:text="知行家找回密码"
+            android:text="找回密码"
             android:textColor="#FF333333"
             android:textSize="25dp"
             />

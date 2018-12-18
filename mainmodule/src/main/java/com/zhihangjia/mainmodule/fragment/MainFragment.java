@@ -204,6 +204,8 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
     }
 
     private void toWebViewAcitivity(Banner.CommomBanner bannerFixedBean) {
+        if (TextUtils.isEmpty(bannerFixedBean.getLink_url()))
+            return;
         Bundle bundle = new Bundle();
         bundle.putString(IntentConfig.LINK, bannerFixedBean.getLink_url());
         doIntent(WebViewActivity.class, bundle);

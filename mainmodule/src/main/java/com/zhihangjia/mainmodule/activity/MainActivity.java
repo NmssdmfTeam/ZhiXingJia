@@ -142,11 +142,8 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
                     setSelectedTab(current_index, false);
                     setSelectedTab(i, true);
                     current_index = i;
-                    if (i == 3) {
-                        bottomBehavior.isEnableScroll(false);
-                    } else {
-                        bottomBehavior.isEnableScroll(true);
-                    }
+                    //不要下滑隐藏导航栏效果啦
+                    bottomBehavior.isEnableScroll(false);
                 }
                 break;
             }

@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.adapter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -54,6 +55,8 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(advertisingRotations.get(position).getLink_url()))
+                    return;
                 if ("1".equals(advertisingRotations.get(position).getJumps())) {
                     Intent intent = new Intent(container.getContext(), WebViewActivity.class);
                     Bundle bundle = new Bundle();

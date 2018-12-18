@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -91,6 +92,8 @@ public class SetVM extends BaseVM {
 
                     @Override
                     public void onSuccess(BaseData<Link> stringBaseData) {
+                        if (TextUtils.isEmpty(stringBaseData.getData().getLink_url()))
+                            return;
                         Bundle bundle = new Bundle();
                         bundle.putString(IntentConfig.LINK, stringBaseData.getData().getLink_url());
                         callback.doIntent(WebViewActivity.class, bundle);

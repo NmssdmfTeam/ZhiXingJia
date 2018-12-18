@@ -2,7 +2,7 @@
 <View
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="343dp"
-    android:layout_height="1dp"
+    android:layout_height="0.5dp"
     android:background="#FFCCCCCC">
 
 </View>

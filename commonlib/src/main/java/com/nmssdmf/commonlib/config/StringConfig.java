@@ -10,4 +10,6 @@ public class StringConfig {
     public static final String BUYER = "buyer";
 
     public static final String PROVIDER = "provider";
+
+    public static final String WEB_JS = "WebViewJSBridge";//h5加载
 }
