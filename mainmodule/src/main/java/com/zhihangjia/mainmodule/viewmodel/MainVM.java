@@ -105,6 +105,7 @@ public class MainVM extends BaseVM {
                 break;
             case RxEvent.LoginEvent.LOGOUT:
                 callback.switchFragment(0);
+                callback.setShopCarNumber("0");
                 break;
             case RxEvent.LoginEvent.LOGIN_SUCCESS:
                 callback.initTab();

@@ -187,9 +187,6 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         ivs.add(iv);
         tvs.add(tv);
         points.add(point);
-        if (position == 3) {
-            point.setVisibility(View.VISIBLE);
-        }
 
         /**
          * 因为view被设置为tab widget 点击事件被拦截，所以需要设置onTouch事件
@@ -210,6 +207,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         binding.mfth.clearAllTabs();
         ivs.clear();
         tvs.clear();
+        points.clear();
         binding.mfth.setOnTabChangedListener(null);
         //初始化fragment及底部导航栏
         initTabsView();
@@ -234,6 +232,11 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
 
     @Override
     public void setShopCarNumber(String num) {
+        if ("0".equals(num)) {
+            points.get(3).setVisibility(View.INVISIBLE);
+        } else {
+            points.get(3).setVisibility(View.VISIBLE);
+        }
         points.get(3).setText(num);
     }
 
