@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.nmssdmf.commonlib.activity.WebViewActivity;
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
@@ -29,7 +28,6 @@ import com.zhihangjia.mainmodule.databinding.ItemRecommendGoodsInfoBinding;
 import com.zhihangjia.mainmodule.databinding.ItemXyLifeServiceBinding;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +37,7 @@ import java.util.List;
  * <p>
  */
 public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> {
-    public String[] serviceNames = new String[]{"宜兴紫砂","政务信息","特色美食","医疗养老","教育培训","汽车","百货","房产","旅游","找工作"};
+//    public String[] serviceNames = new String[]{"宜兴紫砂","政务信息","特色美食","医疗养老","教育培训","汽车","百货","房产","旅游","找工作"};
 
     public MainAdapter(@Nullable List data) {
         super(data);
@@ -103,20 +101,14 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
             ItemXyLifeServiceBinding itemLifeServiceBinding = (ItemXyLifeServiceBinding) helper.getBinding();
             if (itemLifeServiceBinding.rvService.getLayoutManager() == null)
                 itemLifeServiceBinding.rvService.setLayoutManager(new GridLayoutManager(mContext, 5));
-            List<Base> bases = new ArrayList<>();
-            for (String name : serviceNames) {
-                Base base = new Base();
-                base.setMessage(name);
-                bases.add(base);
-            }
             ServiceAdapter adapter;
             if (itemLifeServiceBinding.rvService.getAdapter() == null) {
-                adapter = new ServiceAdapter(bases);
+                adapter = new ServiceAdapter(item.getLifeCates());
                 itemLifeServiceBinding.rvService.setAdapter(adapter);
                 adapter.loadMoreEnd(false);
             } else {
                 adapter = (ServiceAdapter) itemLifeServiceBinding.rvService.getAdapter();
-                adapter.setNewData(bases);
+                adapter.setNewData(item.getLifeCates());
             }
             adapter.notifyDataSetChanged();
         } else if (item.getItemType() == 3) {

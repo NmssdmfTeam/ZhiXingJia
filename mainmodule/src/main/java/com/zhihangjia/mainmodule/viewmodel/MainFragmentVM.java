@@ -129,10 +129,16 @@ public class MainFragmentVM extends BaseVM {
         commodityBean.setCommodityBeans(indexBeanBaseData.getData().getCommodity());
         cb.setCommodity(commodityBean);
 
+        MainBean lifeCate = new MainBean();
+        lifeCate.setItemType(2);
+        lifeCate.setLifeCates(indexBeanBaseData.getData().getLife_cate());
+        cb.setLifeCate(lifeCate);
+
         MainBean forumBean = new MainBean();
         forumBean.setItemType(3);
         forumBean.setForumBeans(indexBeanBaseData.getData().getForum());
         cb.setForum(forumBean);
+
     }
 
     /**

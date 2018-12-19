@@ -21,6 +21,7 @@ public class MainBean extends BaseObservable implements MultiItemEntity {
     private List<IndexBean.CommodityBean> commodityBeans;
     private Banner.CommomBanner bannerMiddle;
     private List<IndexBean.ForumBean> forumBeans;
+    private List<IndexBean.LifeCate> lifeCates;
 
 
     private int itemType;
@@ -72,5 +73,15 @@ public class MainBean extends BaseObservable implements MultiItemEntity {
     public void setForumBeans(List<IndexBean.ForumBean> forumBeans) {
         this.forumBeans = forumBeans;
         notifyPropertyChanged(BR.forumBeans);
+    }
+
+    @Bindable
+    public List<IndexBean.LifeCate> getLifeCates() {
+        return lifeCates;
+    }
+
+    public void setLifeCates(List<IndexBean.LifeCate> lifeCates) {
+        this.lifeCates = lifeCates;
+        notifyPropertyChanged(BR.lifeCates);
     }
 }

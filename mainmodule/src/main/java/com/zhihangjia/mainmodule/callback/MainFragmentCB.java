@@ -52,6 +52,12 @@ public interface MainFragmentCB extends BaseCB {
     void setForum(MainBean forum);
 
     /**
+     * 生活服务模块
+     * @param lifeCates
+     */
+    void setLifeCate(MainBean lifeCates);
+
+    /**
      * 结束刷新
      */
     void setRefreshend();

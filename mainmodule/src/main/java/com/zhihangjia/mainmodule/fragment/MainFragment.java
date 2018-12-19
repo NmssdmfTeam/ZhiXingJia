@@ -235,16 +235,19 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         if (commodity != null) {
             adapter.addData(commodity);
         }
-        //宜兴生活服务模拟数据
-        MainBean mainBean = new MainBean();
-        mainBean.setItemType(2);
-        adapter.addData(mainBean);
     }
 
     @Override
     public void setForum(MainBean forum) {
         if (forum != null) {
             adapter.addData(forum);
+        }
+    }
+
+    @Override
+    public void setLifeCate(MainBean lifeCates) {
+        if (lifeCates != null) {
+            adapter.addData(lifeCates);
         }
     }
 
