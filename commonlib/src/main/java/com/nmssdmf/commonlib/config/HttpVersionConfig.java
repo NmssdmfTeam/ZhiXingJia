@@ -326,4 +326,9 @@ public class HttpVersionConfig {
      * 商品编辑详情
      */
     public static final int API_COMMODITY_SHOW = 1;
+
+    /**
+     * 生活服务全部分类列表
+     */
+    public static final int API_LIFE_CATE = 1;
 }

@@ -343,7 +343,7 @@ public interface MainService {
     Observable<Base> becomeSeller(@FieldMap Map<String,String> map);
 
     /**
-     * 成为卖家
+     * 建材家具分类
      */
     @GET("/api/house/cate")
     Observable<BaseListData<HouseBean.CateBean>> getHouseCate();
@@ -434,4 +434,10 @@ public interface MainService {
      */
     @GET("/api/cart/allsum")
     Observable<BaseData<AllSum>> getAllSum();
+
+    /**
+     * 全部分类列表
+     */
+    @GET("/api/life/cate")
+    Observable<BaseListData<HouseBean.CateBean>> getLifeCate();
 }
