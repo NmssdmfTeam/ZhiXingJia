@@ -18,6 +18,8 @@ import com.zhixingjia.bean.mainmodule.GoodManageNumber;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
+import com.zhixingjia.bean.mainmodule.LifeService;
+import com.zhixingjia.bean.mainmodule.LifeServiceDetail;
 import com.zhixingjia.bean.mainmodule.Link;
 import com.zhixingjia.bean.mainmodule.Message;
 import com.zhixingjia.bean.mainmodule.MessageComment;
@@ -440,4 +442,18 @@ public interface MainService {
      */
     @GET("/api/life/cate")
     Observable<BaseListData<HouseBean.CateBean>> getLifeCate();
+
+    /**
+     * 信息列表
+     * @return
+     */
+    @GET("/api/life/index")
+    Observable<BaseListData<LifeService>> getLifeService(@Query("page") String page, @Query("cate_id") String cate_id);
+
+    /**
+     * 信息详情
+     * @return
+     */
+    @GET("/api/life/show")
+    Observable<BaseData<LifeServiceDetail>> getLifeServiceDetail(@Query("info_id") String info_id);
 }

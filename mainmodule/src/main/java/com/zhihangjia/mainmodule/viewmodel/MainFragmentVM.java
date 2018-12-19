@@ -105,7 +105,7 @@ public class MainFragmentVM extends BaseVM {
                     @Override
                     public void onSuccess(BaseData<Banner> indexBeanBaseData) {
                         setBanner(indexBeanBaseData.getData());
-                        PreferenceUtil.setStringValue(PrefrenceConfig.INDEX_INFO, new Gson().toJson(indexBeanBaseData));
+                        PreferenceUtil.setStringValue(PrefrenceConfig.INDEX_BANNER, new Gson().toJson(indexBeanBaseData));
                     }
 
                     @Override
