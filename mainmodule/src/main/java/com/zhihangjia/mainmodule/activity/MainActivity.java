@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     private String TAG = MainActivity.class.getSimpleName();
     private MainVM vm;
     private ActivityMainBinding binding;
-    private CommonBehavior bottomBehavior;
+//    private CommonBehavior bottomBehavior;
 
     private int current_index = 0;
 
@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         binding.mfth.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         binding.mfth.getTabWidget().setDividerDrawable(null); // 去掉分割线
         initTabsView();
-        bottomBehavior = BottomBehavior.from(binding.llBottomNavigation);
+//        bottomBehavior = BottomBehavior.from(binding.llBottomNavigation);
         PermissionCompat.getInstance().checkLocationPermission(this);
         //是否登录
         String token = PreferenceUtil.getString(PrefrenceConfig.TOKEN, "");
@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
             vm.getShopCarAllNum();
         }
         //不要下滑隐藏导航栏效果啦
-        bottomBehavior.isEnableScroll(false);
+//        bottomBehavior.isEnableScroll(false);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
                     setSelectedTab(i, true);
                     current_index = i;
                     //不要下滑隐藏导航栏效果啦
-                    bottomBehavior.isEnableScroll(false);
+//                    bottomBehavior.isEnableScroll(false);
                 }
                 break;
             }
@@ -220,7 +220,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
 
     @Override
     public void switchFragment(int index) {
-        bottomBehavior.show();
+//        bottomBehavior.show();
         setCurrentTabsIndex(index);
     }
 

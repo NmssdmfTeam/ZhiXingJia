@@ -6,7 +6,7 @@ import android.databinding.Bindable;
 import com.zhixingjia.httplib.BR;
 
 /**
- * 宜兴电信
+ * 中国电信
  * Create by chenbin on 2018/12/2
  * <p>
  * <p>

@@ -79,11 +79,6 @@ public class MerchantMainVM extends BaseVM {
      * @param view
      */
     public void onAddressClick(View view) {
-        Bundle bundle = new Bundle();
-        bundle.putDouble(IntentConfig.LAT, Double.valueOf(shopInfo.get().getMember().getLatitude()));
-        bundle.putDouble(IntentConfig.LONG, Double.valueOf(shopInfo.get().getMember().getLongitude()));
-        bundle.putString(IntentConfig.COMPANY_NAME, shopInfo.get().getMember().getCompany_name());
-        bundle.putString(IntentConfig.LOCATION, shopInfo.get().getMember().getCo_addr());
-        callback.doIntent(MapActivity.class, bundle);
+        callback.showChooseMapWindow();
     }
 }

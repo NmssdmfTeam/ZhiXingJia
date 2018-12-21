@@ -55,25 +55,7 @@ public class AdvertisingRotationViewPagerAdapter extends LoopPagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(advertisingRotations.get(position).getLink_url()))
-                    return;
-                if ("1".equals(advertisingRotations.get(position).getJumps())) {
-                    Intent intent = new Intent(container.getContext(), WebViewActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.LINK, advertisingRotations.get(position).getLink_url());
-                    intent.putExtras(bundle);
-                    container.getContext().startActivity(intent);
-                } else if ("2".equals(advertisingRotations.get(position).getJumps())) {
-                    Intent intent = new Intent(container.getContext(), MerchantMainActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.ID, advertisingRotations.get(position).getLink_url());
-                    intent.putExtras(bundle);
-                } else if ("3".equals(advertisingRotations.get(position).getJumps())) {
-                    Intent intent = new Intent(container.getContext(), MerchandiseDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.COMMODITY_ID, advertisingRotations.get(position).getLink_url());
-                    intent.putExtras(bundle);
-                }
+                Banner.CommomBanner.bannerClick(advertisingRotations.get(position), container.getContext());
             }
         });
         relativeLayout.addView(imageView);

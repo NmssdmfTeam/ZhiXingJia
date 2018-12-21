@@ -25,8 +25,9 @@
             android:layout_toRightOf="@+id/ivGoodsImg"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:singleLine="true"
+            android:textColor="#FF333333"
             android:ellipsize="end"
+            android:maxLines="2"
             android:text="@{data.commodity_name}"/>
 
         <TextView
@@ -42,6 +43,7 @@
             android:layout_marginBottom="5dp"/>
 
         <TextView
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{data.price}"
@@ -53,6 +55,27 @@
             android:layout_marginLeft="2dp"
             android:singleLine="true"
             android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tvUnitCutOffLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:layout_toRightOf="@+id/tvPrice"
+            android:layout_alignBottom="@+id/ivGoodsImg"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFF5C4A"
+            android:textSize="11dp"/>
+        <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.unit}"
+            android:layout_toRightOf="@+id/tvUnitCutOffLine"
+            android:layout_alignBottom="@+id/ivGoodsImg"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFF5C4A"
+            android:textSize="11dp"/>
 
         <TextView
             android:id="@+id/tv_shop_name"

@@ -331,4 +331,29 @@ public class HttpVersionConfig {
      * 商家信息
      */
     public static final int API_MY_COMPANY = 1;
+
+    /**
+     * 生活服务全部分类列表
+     */
+    public static final int API_LIFE_CATE = 1;
+
+    /**
+     * 信息列表
+     */
+    public static final int API_LIFE_INDEX = 1;
+
+    /**
+     * 广告汇总
+     */
+    public static final int API_BANNERS = 1;
+
+    /**
+     * 信息详情
+     */
+    public static final int API_LIFE_SHOW = 1;
+
+    /**
+     * 首页精华置顶
+     */
+    public static final int API_BBS_STICKS = 1;
 }

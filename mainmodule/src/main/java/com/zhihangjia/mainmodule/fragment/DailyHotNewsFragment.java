@@ -43,6 +43,11 @@ public class DailyHotNewsFragment extends BaseRecyclerViewFragment {
             vm.types = bundle.getInt(IntentConfig.TYPE);
         }
         super.initAll(view, savedInstanceState);
+        binding.crv.onRefreshEnable(false);
+    }
+
+    public void freshData() {
+        vm.initData(true);
     }
 
     @Override

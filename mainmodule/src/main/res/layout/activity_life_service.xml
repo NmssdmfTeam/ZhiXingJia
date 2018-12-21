@@ -20,11 +20,12 @@
                     android:id="@+id/rpv"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="8dp"
-                    app:layout_scrollFlags="scroll|enterAlways">
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:rollviewpager_play_delay="3000">
 
                 </com.nmssdmf.commonlib.rollviewpager.RollPagerView>
 
@@ -48,43 +49,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/search_black_trans"
-            android:clickable="true"
+            android:focusable="true"
             android:visibility="gone" />
 
-        <ScrollView
+        <!--<ScrollView-->
+        <!--android:id="@+id/svTag"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:focusable="true"-->
+        <!--android:focusableInTouchMode="true">-->
+
+        <LinearLayout
             android:id="@+id/svTag"
             android:layout_width="match_parent"
-            android:layout_height="124.5dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
+            android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:scrollbars="none"
+            android:focusable="true"
             android:visibility="gone">
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="板块信息"
+                android:textColor="#FF999999"
+                android:textSize="12dp" />
+
+
+            <com.nmssdmf.commonlib.view.TagLayout
+                android:id="@+id/tagLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="板块信息"
-                    android:textColor="#FF999999"
-                    android:textSize="12dp" />
-
-                <com.nmssdmf.commonlib.view.TagLayout
-                    android:id="@+id/tagLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="8dp"
-                    app:horizontal_space="12dp"
-                    app:vertical_space="12dp" />
-            </LinearLayout>
-        </ScrollView>
-
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                app:horizontal_space="12dp"
+                app:vertical_space="12dp" />
+        </LinearLayout>
+        <!--</ScrollView>-->
 
     </RelativeLayout>
 </layout>

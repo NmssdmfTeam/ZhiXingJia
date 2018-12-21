@@ -20,7 +20,7 @@ import com.zhixingjia.bean.mainmodule.IndexBean;
 import java.util.List;
 
 /**
-* @description 消息中心adapter
+* @description 百姓信息adapter
 * @author chenbin
 * @date 2018/11/14 15:14
 * @version v3.2.0
@@ -58,6 +58,12 @@ public class MessageAdapter extends BaseDataBindingAdapter<IndexBean.ForumBean, 
                 itemMessageBinding.llImgs.addView(imageView);
                 index++;
             }
+        }
+
+        if (position == getData().size() - 1) {
+            itemMessageBinding.vCutOffLine.setVisibility(View.GONE);
+        } else {
+            itemMessageBinding.vCutOffLine.setVisibility(View.VISIBLE);
         }
         itemMessageBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override

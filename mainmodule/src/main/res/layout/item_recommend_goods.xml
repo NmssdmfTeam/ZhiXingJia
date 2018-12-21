@@ -20,7 +20,6 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:drawableRight="@drawable/icon_next"
             android:text="推荐商品"
             android:textColor="#FF333333"
             android:textSize="17dp"

@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.View;
 
 import com.amap.api.location.AMapLocation;
@@ -22,6 +23,7 @@ import com.zhihangjia.mainmodule.fragment.MerchantAllFragment;
 import com.zhihangjia.mainmodule.fragment.MerchantEvaluateFragment;
 import com.zhihangjia.mainmodule.fragment.MerchantMainFragment;
 import com.zhihangjia.mainmodule.viewmodel.MerchantMainVM;
+import com.zhihangjia.mainmodule.window.ChooseMapWindow;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
     private FragmentPagerAdapter adapter;
 
     private MerchantMainVM vm;
+    private ChooseMapWindow chooseMapWindow;
 
     @Override
     public String getTAG() {
@@ -62,7 +65,7 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
     @Override
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityMerchantMainBinding) baseBinding;
-
+        chooseMapWindow = new ChooseMapWindow(this);
         initTabLayout();
 
         initView();
@@ -131,6 +134,16 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
     @Override
     public void callPhone() {
         CommonUtils.callPhone(this, vm.shopInfo.get().getMember().getCo_phone());
+    }
+
+    @Override
+    public void showChooseMapWindow() {
+        ChooseMapWindow.MapInfo mapInfo = new ChooseMapWindow.MapInfo();
+        mapInfo.setLongitude(vm.shopInfo.get().getMember().getLongitude());
+        mapInfo.setLatitude(vm.shopInfo.get().getMember().getLatitude());
+        mapInfo.setName(vm.shopInfo.get().getMember().getCo_addr());
+        chooseMapWindow.setMapInfo(mapInfo);
+        chooseMapWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 
     private AMapLocationListener locationListener = aMapLocation -> {

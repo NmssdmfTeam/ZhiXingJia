@@ -33,7 +33,7 @@ public class BbsStickyPostActivity extends BaseTitleRecyclerViewActivity {
 
     @Override
     public String setTitle() {
-        return "万家灯火";
+        return "百姓信息";
     }
 
     @Override

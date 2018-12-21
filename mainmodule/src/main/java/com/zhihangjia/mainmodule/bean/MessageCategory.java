@@ -5,7 +5,7 @@ import com.zhixingjia.bean.mainmodule.BbsCategory;
 import java.util.List;
 
 /**
-* @description 消息中心类型组合类
+* @description 百姓信息类型组合类
 * @author chenbin
 * @date 2018/11/22 13:56
 * @version v3.2.0

@@ -2,8 +2,10 @@ package com.zhihangjia.mainmodule.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseTitleFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.BbsTopCommentActivity;
 import com.zhihangjia.mainmodule.activity.PostActivity;
 import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
@@ -26,6 +29,7 @@ import com.zhihangjia.mainmodule.databinding.FragmentMessageBinding;
 import com.zhihangjia.mainmodule.databinding.ItemViewflipperBinding;
 import com.zhihangjia.mainmodule.viewmodel.MessageVM;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
+import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.ArrayList;
@@ -48,7 +52,7 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
 
     @Override
     public String setTitle() {
-        return "万家灯火";
+        return "百姓信息";
     }
 
     @Override
@@ -63,22 +67,12 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
         hideNavigation();
         fragmentMessageBinding = (FragmentMessageBinding) baseViewBinding;
         fragmentMessageBinding.setVm(vm);
-
         //初始化首页轮播图
         viewPagerAdapter = new MessageCategoryViewPagerAdapter(new ArrayList<MessageCategory>(), fragmentMessageBinding.rpv);
         fragmentMessageBinding.rpv.setAdapter(viewPagerAdapter);
         fragmentMessageBinding.rpv.pause();
 
-        //初始化首页头条
         viewFlipper = fragmentMessageBinding.headlineViewflipper;
-        List<IndexBean.ArticleBean> articleBeans = new ArrayList<>();
-        for (int i=0; i < 4; i++) {
-            IndexBean.ArticleBean articleBean = new IndexBean.ArticleBean();
-            articleBean.setTitle("测试");
-            articleBeans.add(articleBean);
-        }
-        setHeadlineView(articleBeans);
-
         //初始化热点新闻
         DailyHotNewsFragment dailyHotNewsFragment = new DailyHotNewsFragment();
         DailyHotNewsFragment newPublishFragment = new DailyHotNewsFragment();
@@ -105,6 +99,7 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
         fragmentMessageBinding.tl.getTabAt(1).setText("最新发布");
         fragmentMessageBinding.tl.getTabAt(2).setText("最后回复");
         vm.getMessageCat();
+        vm.getBbsSticks();
         setListener();
     }
 
@@ -133,6 +128,25 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
                 }
                 return false;
             }
+        });
+
+        fragmentMessageBinding.appbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+                if (verticalOffset >= 0) {
+                    fragmentMessageBinding.swrl.setEnabled(true);
+                } else {
+                    fragmentMessageBinding.swrl.setEnabled(false);
+                }
+            }
+        });
+        fragmentMessageBinding.swrl.setOnRefreshListener(() -> {
+            vm.getMessageCat();
+            vm.getBbsSticks();
+            int postion = fragmentMessageBinding.tl.getSelectedTabPosition();
+            DailyHotNewsFragment dailyHotNewsFragment = (DailyHotNewsFragment) fragments.get(postion);
+            dailyHotNewsFragment.freshData();
         });
     }
 
@@ -174,7 +188,7 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
         viewFlipper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doIntent(YXHeadLineActivity.class,null);
+                doIntent(BbsTopCommentActivity.class,null);
             }
         });
     }
@@ -186,11 +200,13 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
 
     @Override
     public void setMessageCategory(List<BbsCategory> bbsCategories) {
+        fragmentMessageBinding.swrl.setRefreshing(false);
         List<MessageCategory> messageCategories = new ArrayList<>();
-        if (bbsCategories.size() < 8) {
+        if (bbsCategories.size() <= 8) {
             MessageCategory messageCategory = new MessageCategory();
             messageCategory.setCategories(bbsCategories);
             messageCategories.add(messageCategory);
+            fragmentMessageBinding.rpv.setHintViewVisiblity(View.INVISIBLE);
         } else {
             for (int i=0; i < bbsCategories.size(); i+=8) {
                 MessageCategory messageCategory = new MessageCategory();
@@ -201,9 +217,23 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
                 }
                 messageCategories.add(messageCategory);
             }
+            fragmentMessageBinding.rpv.setHintViewVisiblity(View.VISIBLE);
         }
         viewPagerAdapter.setMessageCategory(messageCategories);
         viewPagerAdapter.notifyDataSetChanged();
         fragmentMessageBinding.rpv.pause();
+    }
+
+    @Override
+    public void setCommentPost(List<BbsInfoList> bbsCategories) {
+        fragmentMessageBinding.swrl.setRefreshing(false);
+        //初始化首页头条
+        List<IndexBean.ArticleBean> articleBeans = new ArrayList<>();
+        for (int i=0; i < bbsCategories.size(); i++) {
+            IndexBean.ArticleBean articleBean = new IndexBean.ArticleBean();
+            articleBean.setTitle(bbsCategories.get(i).getTitle());
+            articleBeans.add(articleBean);
+        }
+        setHeadlineView(articleBeans);
     }
 }

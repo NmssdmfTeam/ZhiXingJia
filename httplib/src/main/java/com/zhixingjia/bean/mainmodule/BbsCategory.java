@@ -7,7 +7,7 @@ import com.zhixingjia.httplib.BR;
 import java.io.Serializable;
 
 /**
-* @description 消息中心类型
+* @description 百姓信息类型
 * @author chenbin
 * @date 2018/11/22 13:26
 * @version v3.2.0

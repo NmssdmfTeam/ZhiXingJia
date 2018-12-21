@@ -18,6 +18,8 @@ import com.zhixingjia.bean.mainmodule.GoodManageNumber;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
+import com.zhixingjia.bean.mainmodule.LifeService;
+import com.zhixingjia.bean.mainmodule.LifeServiceDetail;
 import com.zhixingjia.bean.mainmodule.Link;
 import com.zhixingjia.bean.mainmodule.Message;
 import com.zhixingjia.bean.mainmodule.MessageComment;
@@ -343,7 +345,7 @@ public interface MainService {
     Observable<Base> becomeSeller(@FieldMap Map<String,String> map);
 
     /**
-     * 成为卖家
+     * 建材家具分类
      */
     @GET("/api/house/cate")
     Observable<BaseListData<HouseBean.CateBean>> getHouseCate();
@@ -434,4 +436,31 @@ public interface MainService {
      */
     @GET("/api/cart/allsum")
     Observable<BaseData<AllSum>> getAllSum();
+
+    /**
+     * 全部分类列表
+     */
+    @GET("/api/life/cate")
+    Observable<BaseListData<HouseBean.CateBean>> getLifeCate();
+
+    /**
+     * 信息列表
+     * @return
+     */
+    @GET("/api/life/index")
+    Observable<BaseListData<LifeService>> getLifeService(@Query("page") String page, @Query("cate_id") String cate_id);
+
+    /**
+     * 信息详情
+     * @return
+     */
+    @GET("/api/life/show")
+    Observable<BaseData<LifeServiceDetail>> getLifeServiceDetail(@Query("info_id") String info_id);
+
+    /**
+     * 首页精华置顶
+     * @return
+     */
+    @GET("/api/bbs/sticks")
+    Observable<BaseListData<BbsInfoList>> getBbsSticks();
 }

@@ -110,12 +110,14 @@ public class Banner extends BaseObservable{
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.ID, commomBanner.getLink_url());
                 intent.putExtras(bundle);
+                context.startActivity(intent);
             } else if ("3".equals(commomBanner.getJumps())) {
                 Intent intent = new Intent();
                 intent.setClassName(context, ActivityNameConfig.MERCHANDISEDETAIL_ACTIVITY);
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.COMMODITY_ID, commomBanner.getLink_url());
                 intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         }
     }
