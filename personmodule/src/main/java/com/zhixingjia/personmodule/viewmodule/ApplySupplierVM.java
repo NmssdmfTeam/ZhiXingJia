@@ -2,6 +2,7 @@ package com.zhixingjia.personmodule.viewmodule;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,7 +36,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.bean.mainmodule.UserInfo;
-import com.zhixingjia.personmodule.bean.ApplySupplierBean;
+import com.zhixingjia.bean.personmodule.Company;
 import com.zhixingjia.personmodule.callback.ApplySupplierCB;
 import com.zhixingjia.service.MainService;
 
@@ -64,7 +65,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApplySupplierVM extends BaseVM {
     private ApplySupplierCB callback;
     public List<TradeArea> businessCircleList = new ArrayList<>();
-    public final ObservableField<ApplySupplierBean> applySupplier = new ObservableField<>();
+    public final ObservableField<Company> applySupplier = new ObservableField<>();
     private List<HouseBean.CateBean> cateBeans = new ArrayList<>();
     public final static int SELECTCATEGORY_RESULT = 13543;
     public String frontIDCardPathTemp = FileUtil.getBaseImageDir() + System.currentTimeMillis() + "FrontIDCard.jpg";
@@ -75,6 +76,7 @@ public class ApplySupplierVM extends BaseVM {
     public UploadImage businessLicenseCardPathUploadBean;
     private int imageIndex = -1;     //表示点击那个证件操作
     private int uploadImageCount = 0;     //上传图片数量
+    public final ObservableBoolean isFromSupplier = new ObservableBoolean(false);//是否来自卖家
 
 
     /**
@@ -90,7 +92,29 @@ public class ApplySupplierVM extends BaseVM {
     }
 
     private void initData() {
-        applySupplier.set(new ApplySupplierBean());
+        applySupplier.set(new Company());
+        Bundle bundle = new Bundle();
+        if (bundle != null) {
+            Company company = (Company) bundle.getSerializable(IntentConfig.COMPANY);
+            if (company != null) {
+                frontIDCardPathUploadBean = new UploadImage();
+                backIDCardPathUploadBean = new UploadImage();
+                businessLicenseCardPathUploadBean = new UploadImage();
+                frontIDCardPathUploadBean.setImage_id(company.getCard_front().getImage_id());
+                frontIDCardPathUploadBean.setL_url(company.getCard_front().getL_url());
+                frontIDCardPathUploadBean.setM_url(company.getCard_front().getM_url());
+                frontIDCardPathUploadBean.setUrl(company.getCard_front().getM_url());
+                backIDCardPathUploadBean.setImage_id(company.getCard_back().getImage_id());
+                backIDCardPathUploadBean.setL_url(company.getCard_back().getL_url());
+                backIDCardPathUploadBean.setM_url(company.getCard_back().getM_url());
+                backIDCardPathUploadBean.setUrl(company.getCard_back().getM_url());
+                businessLicenseCardPathUploadBean.setImage_id(company.getLicense_img().getImage_id());
+                businessLicenseCardPathUploadBean.setL_url(company.getLicense_img().getL_url());
+                businessLicenseCardPathUploadBean.setM_url(company.getLicense_img().getM_url());
+                businessLicenseCardPathUploadBean.setUrl(company.getLicense_img().getM_url());
+                isFromSupplier.set(true);
+            }
+        }
 //        businessCircleList.add("")
     }
 

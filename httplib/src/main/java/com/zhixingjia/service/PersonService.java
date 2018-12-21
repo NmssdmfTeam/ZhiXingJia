@@ -5,6 +5,7 @@ import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.zhixingjia.bean.personmodule.Address;
 import com.zhixingjia.bean.personmodule.AddressInsertResult;
+import com.zhixingjia.bean.personmodule.Company;
 import com.zhixingjia.bean.personmodule.Coupon;
 
 import java.util.Map;
@@ -86,4 +87,11 @@ public interface PersonService {
     @FormUrlEncoded
     @POST ("/api/my/change_account")
     Observable<Base> changeAccount(@FieldMap Map<String, String> map);
+
+    /**
+     * 商家信息
+     * @return
+     */
+    @GET ("/api/my/company")
+    Observable<BaseData<Company>> getMyCompany();
 }

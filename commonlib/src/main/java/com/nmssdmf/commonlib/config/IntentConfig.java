@@ -62,4 +62,5 @@ public class IntentConfig {
     public static final String UNIT = "unit";//单位
 
     public static final String PRODUCT_DESCRIBES = "product_describes";//商品描述
+    public static final String COMPANY = "company";//商品描述
 }

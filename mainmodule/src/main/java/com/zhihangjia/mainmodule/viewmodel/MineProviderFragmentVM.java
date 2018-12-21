@@ -26,7 +26,9 @@ import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
 import com.zhihangjia.mainmodule.callback.MineProviderFragmentCB;
 import com.zhixingjia.bean.mainmodule.MessageUnread;
 import com.zhixingjia.bean.mainmodule.UserInfo;
+import com.zhixingjia.bean.personmodule.Company;
 import com.zhixingjia.service.MainService;
+import com.zhixingjia.service.PersonService;
 
 /**
 * @description 我的--卖家
@@ -61,6 +63,10 @@ public class MineProviderFragmentVM extends BaseVM {
 
     public void goodsManageClick(View view) {
         baseCallBck.doIntentClassName(ActivityNameConfig.GOOD_MANAGE_ACTIVITY, null);
+    }
+
+    public void onCompanyClick(View view) {
+        getMyCompany();
     }
 
     /**
@@ -149,6 +155,30 @@ public class MineProviderFragmentVM extends BaseVM {
 
                     }
                 });
+    }
+
+    public void getMyCompany() {
+        callback.showLoaddingDialog();
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(PersonService.class, HttpVersionConfig.API_MY_COMPANY).getMyCompany(),
+                new ServiceCallback<BaseData<Company>>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData<Company> companyBaseData) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(IntentConfig.COMPANY, companyBaseData.getData());
+                callback.doIntentClassName(ActivityNameConfig.APPLYSUPPLIER_ACIVITY, bundle);
+            }
+
+            @Override
+            public void onDefeated(BaseData<Company> companyBaseData) {
+
+            }
+        });
     }
 
     @Override

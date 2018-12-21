@@ -21,6 +21,7 @@ public class ActivityNameConfig {
     public static final String SET_ACTIVITY = PERSONMODULE_PACKAGE + ".activity.SetActivity";
     public static final String MANAGEADDRESSLIST_ACTIVITY = PERSONMODULE_PACKAGE + ".activity.ManageAddressListActivity";
     public static final String ADDOREDITADDRESS_ACIVITY = PERSONMODULE_PACKAGE + ".activity.AddOrEditAddressActivity";
+    public static final String APPLYSUPPLIER_ACIVITY = PERSONMODULE_PACKAGE + ".activity.ApplySupplierActivity";
 
     public static final String ADD_OR_EDIT_PRODUCT_ACTIVITY = GOODSMANAGE_MODULE_PACKAGE + ".activity.AddOrEditProductActivity";
     public static final String GOOD_MANAGE_ACTIVITY = GOODSMANAGE_MODULE_PACKAGE + ".activity.GoodManageActivity";

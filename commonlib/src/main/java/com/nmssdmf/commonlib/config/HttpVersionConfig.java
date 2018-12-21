@@ -326,4 +326,9 @@ public class HttpVersionConfig {
      * 商品编辑详情
      */
     public static final int API_COMMODITY_SHOW = 1;
+
+    /**
+     * 商家信息
+     */
+    public static final int API_MY_COMPANY = 1;
 }
