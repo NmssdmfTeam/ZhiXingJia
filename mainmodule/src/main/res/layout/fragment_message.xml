@@ -3,102 +3,115 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
-            type="com.zhihangjia.mainmodule.viewmodel.MessageVM"/>
+            type="com.zhihangjia.mainmodule.viewmodel.MessageVM" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swrl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:addStatesFromChildren="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="285.5dp"
-                android:orientation="vertical"
-                app:layout_scrollFlags="scroll|snap">
-
-                <TextView
-                    android:id="@+id/vSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_toLeftOf="@id/rlMessage"
-                    android:layout_toRightOf="@id/ivReturn"
-                    android:background="@drawable/shape_search_gray_trans"
-                    android:drawableLeft="@drawable/search_black_inner"
-                    android:drawablePadding="3dp"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="14dp"
-                    android:text="搜索帖子"
-                    android:textColor="#FF999999"
-                    android:textSize="14dp"
-                    android:onClick="@{(v)->vm.onSearchClick(v)}"/>
-
-                <com.nmssdmf.commonlib.rollviewpager.RollPagerView
-                    android:id="@+id/rpv"
-                    android:layout_width="match_parent"
-                    android:layout_height="203dp"
-                    android:background="@color/white"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    app:rollviewpager_hint_paddingBottom="19dp"
-                    app:rollviewpager_hint_view_focuse="@drawable/viewpager_hinticon_focus_2"
-                    app:rollviewpager_hint_view_normal="@drawable/viewpager_hinticon_2"
-                    app:rollviewpager_play_delay="3000" />
-
-
-                <LinearLayout
-                    android:id="@+id/topNews"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
-
-                    <com.nmssdmf.commonlib.view.GlideImageView
-                        android:layout_width="39.5dp"
-                        android:layout_height="33.5dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/icon_top_news"
-                        android:scaleType="fitCenter" />
-
-                    <ViewFlipper
-                        android:id="@+id/headlineViewflipper"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tl"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                app:tabIndicatorColor="#FF9A14"
-                app:tabIndicatorHeight="2dp"
-                app:tabSelectedTextColor="#FF9A14"
-                app:tabTextColor="#666666">
-
-            </android.support.design.widget.TabLayout>
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp"
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/cdl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:background="@color/white">
 
-    </android.support.design.widget.CoordinatorLayout>
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="285.5dp"
+                    android:orientation="vertical"
+                    app:layout_scrollFlags="scroll|snap">
+
+                    <TextView
+                        android:id="@+id/vSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_toLeftOf="@id/rlMessage"
+                        android:layout_toRightOf="@id/ivReturn"
+                        android:background="@drawable/shape_search_gray_trans"
+                        android:drawableLeft="@drawable/search_black_inner"
+                        android:drawablePadding="3dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{(v)->vm.onSearchClick(v)}"
+                        android:paddingLeft="14dp"
+                        android:text="搜索帖子"
+                        android:textColor="#FF999999"
+                        android:textSize="14dp" />
+
+
+                    <com.nmssdmf.commonlib.rollviewpager.RollPagerView
+                        android:id="@+id/rpv"
+                        android:layout_width="match_parent"
+                        android:layout_height="203dp"
+                        android:background="@color/white"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        app:rollviewpager_hint_paddingBottom="19dp"
+                        app:rollviewpager_hint_view_focuse="@drawable/viewpager_hinticon_focus_2"
+                        app:rollviewpager_hint_view_normal="@drawable/viewpager_hinticon_2"
+                        app:rollviewpager_play_delay="3000" />
+
+
+                    <LinearLayout
+                        android:id="@+id/topNews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+
+                        <com.nmssdmf.commonlib.view.GlideImageView
+                            android:layout_width="39.5dp"
+                            android:layout_height="33.5dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/top_comment"
+                            android:scaleType="fitCenter" />
+
+                        <ViewFlipper
+                            android:id="@+id/headlineViewflipper"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tl"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    app:tabIndicatorColor="#FF9A14"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="#FF9A14"
+                    app:tabTextColor="#666666">
+
+                </android.support.design.widget.TabLayout>
+                <include layout="@layout/include_recyclerview_cutoff_line"/>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.design.widget.CoordinatorLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

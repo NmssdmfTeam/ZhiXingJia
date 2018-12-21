@@ -240,6 +240,10 @@ public class RollPagerView extends RelativeLayout implements OnPageChangeListene
         loadHintView();
     }
 
+    public void setHintViewVisiblity(int visiblity) {
+        mHintView.setVisibility(visiblity);
+    }
+
     /**
      * 加载hintview的容器
      */

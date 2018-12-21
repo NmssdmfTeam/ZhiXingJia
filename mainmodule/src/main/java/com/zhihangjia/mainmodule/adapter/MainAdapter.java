@@ -26,6 +26,7 @@ import com.zhihangjia.mainmodule.databinding.ItemMessageCenterBinding;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendGoodsBinding;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendGoodsInfoBinding;
 import com.zhihangjia.mainmodule.databinding.ItemXyLifeServiceBinding;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
@@ -80,23 +81,9 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
             else {
                 itemRecommendGoodsBinding.ivBottomAdvertisement.setVisibility(View.VISIBLE);
                 itemRecommendGoodsBinding.ivBottomAdvertisement.setOnClickListener(v -> {
-                    Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.LINK, item.getBannerMiddle().getLink_url());
-                    intent.putExtras(bundle);
-                    intent.setClass(mContext, WebViewActivity.class);
-                    mContext.startActivity(intent);
+                    Banner.CommomBanner.bannerClick(item.getBannerMiddle(), mContext);
                 });
             }
-            itemRecommendGoodsBinding.tvTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //切换到信息中心页面
-                    EventInfo eventInfo = new EventInfo();
-                    eventInfo.setIndex(1);
-                    RxBus.getInstance().send(RxEvent.BbsEvent.INDEX_SWITCH, eventInfo);
-                }
-            });
         } else if (item.getItemType() == 2) {
             ItemXyLifeServiceBinding itemLifeServiceBinding = (ItemXyLifeServiceBinding) helper.getBinding();
             if (itemLifeServiceBinding.rvService.getLayoutManager() == null)
@@ -126,15 +113,6 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                 adapter = (MessageAdapter) binding.rvMessage.getAdapter();
                 adapter.setNewData(item.getForumBeans());
             }
-            binding.tvMessageCenter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //切换到信息中心页面
-                    EventInfo eventInfo = new EventInfo();
-                    eventInfo.setIndex(2);
-                    RxBus.getInstance().send(RxEvent.BbsEvent.INDEX_SWITCH, eventInfo);
-                }
-            });
             adapter.notifyDataSetChanged();
         } else if (item.getItemType() == 0) {
             ItemExcellentSellerBinding itemExcellentSellerBinding = (ItemExcellentSellerBinding) helper.getBinding();

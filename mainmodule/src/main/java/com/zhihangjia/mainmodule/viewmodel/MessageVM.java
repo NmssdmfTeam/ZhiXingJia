@@ -18,6 +18,7 @@ import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.callback.IndexMessageCB;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
+import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.service.MainService;
 
 /**
@@ -61,6 +62,27 @@ public class MessageVM extends BaseVM {
 
             @Override
             public void onDefeated(BaseListData<BbsCategory> bbsCategoryBaseListData) {
+
+            }
+        });
+    }
+
+    public void getBbsSticks() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_STICKS).getBbsSticks(),
+                new ServiceCallback<BaseListData<BbsInfoList>>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseListData<BbsInfoList> bbsInfoListBaseListData) {
+                callback.setCommentPost(bbsInfoListBaseListData.getData());
+            }
+
+            @Override
+            public void onDefeated(BaseListData<BbsInfoList> bbsInfoListBaseListData) {
 
             }
         });

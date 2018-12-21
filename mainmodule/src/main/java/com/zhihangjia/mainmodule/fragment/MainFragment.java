@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
 import com.nmssdmf.commonlib.activity.WebViewActivity;
+import com.nmssdmf.commonlib.binding.ImageViewBinding;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
@@ -178,37 +179,29 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
         if (bannerFixedBeans != null) {
             for (Banner.CommomBanner bannerFixedBean : bannerFixedBeans) {
                 if ("left".equals(bannerFixedBean.getModel_name())) {
-                    GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementFirst,bannerFixedBean.getImg_url());
+                    GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementFirst,bannerFixedBean.getImg_url(), GlideUtil.fitCenter);
                     itemMainCrvheadBinding.ivAdvertisementFirst.setOnClickListener(v -> {
-                        toWebViewAcitivity(bannerFixedBean);
+                        Banner.CommomBanner.bannerClick(bannerFixedBean, getActivity());
                     });
                 } else if ("right_up".equals(bannerFixedBean.getModel_name())) {
-                    GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementSecond,bannerFixedBean.getImg_url());
+                    GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementSecond,bannerFixedBean.getImg_url(), GlideUtil.fitCenter);
                     itemMainCrvheadBinding.ivAdvertisementSecond.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            toWebViewAcitivity(bannerFixedBean);
+                            Banner.CommomBanner.bannerClick(bannerFixedBean, getActivity());
                         }
                     });
                 } else if ("right_down".equals(bannerFixedBean.getModel_name())) {
-                    GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementThird,bannerFixedBean.getImg_url());
+                    GlideUtil.load(itemMainCrvheadBinding.ivAdvertisementThird,bannerFixedBean.getImg_url(), GlideUtil.fitCenter);
                     itemMainCrvheadBinding.ivAdvertisementThird.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            toWebViewAcitivity(bannerFixedBean);
+                            Banner.CommomBanner.bannerClick(bannerFixedBean, getActivity());
                         }
                     });
                 }
             }
         }
-    }
-
-    private void toWebViewAcitivity(Banner.CommomBanner bannerFixedBean) {
-        if (TextUtils.isEmpty(bannerFixedBean.getLink_url()))
-            return;
-        Bundle bundle = new Bundle();
-        bundle.putString(IntentConfig.LINK, bannerFixedBean.getLink_url());
-        doIntent(WebViewActivity.class, bundle);
     }
 
     @Override

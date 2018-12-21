@@ -456,4 +456,11 @@ public interface MainService {
      */
     @GET("/api/life/show")
     Observable<BaseData<LifeServiceDetail>> getLifeServiceDetail(@Query("info_id") String info_id);
+
+    /**
+     * 首页精华置顶
+     * @return
+     */
+    @GET("/api/bbs/sticks")
+    Observable<BaseListData<BbsInfoList>> getBbsSticks();
 }

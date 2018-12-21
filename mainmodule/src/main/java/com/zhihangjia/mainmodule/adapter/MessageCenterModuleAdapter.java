@@ -20,7 +20,7 @@ import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import java.util.List;
 
 /**
-* @description 消息中心分类模块adapter
+* @description 百姓信息分类模块adapter
 * @author chenbin
 * @date 2018/11/14 15:14
 * @version v3.2.0

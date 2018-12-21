@@ -17,7 +17,7 @@ public class IndexBean extends BaseObservable implements Serializable {
     private List<ArticleBean> article;              //宜兴头条
     private List<SellerBean> seller;                //优秀商家
     private List<CommodityBean> commodity;          //商品推荐
-    private List<ForumBean> forum;                  //万家灯火
+    private List<ForumBean> forum;                  //百姓信息
     private List<LifeCate> life_cate;               //生活服务模块，数据调出9个分类，另外一个cate_id为0写着全部分类，点这个全部跳到分部分类的页面上，就跟家居那个全部分类一样的页面
 
     public List<ArticleBean> getArticle() {
@@ -97,7 +97,7 @@ public class IndexBean extends BaseObservable implements Serializable {
         private String member_id;
         private String company_name;
         private String score;
-        private String imgs;
+        private String avatar;
 
         @Bindable
         public String getMember_id() {
@@ -130,13 +130,13 @@ public class IndexBean extends BaseObservable implements Serializable {
         }
 
         @Bindable
-        public String getImgs() {
-            return imgs;
+        public String getAvatar() {
+            return avatar;
         }
 
-        public void setImgs(String imgs) {
-            this.imgs = imgs;
-            notifyPropertyChanged(BR.imgs);
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+            notifyPropertyChanged(BR.avatar);
         }
     }
 

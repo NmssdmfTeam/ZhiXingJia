@@ -164,11 +164,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
         itemMaterialsCrvheadBinding.ivMiddleBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(middleBanner.getLink_url()))
-                    return;
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.LINK, middleBanner.getLink_url());
-                doIntent(WebViewActivity.class, bundle);
+                Banner.CommomBanner.bannerClick(middleBanner, getActivity());
             }
         });
     }

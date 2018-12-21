@@ -346,4 +346,9 @@ public class HttpVersionConfig {
      * 信息详情
      */
     public static final int API_LIFE_SHOW = 1;
+
+    /**
+     * 首页精华置顶
+     */
+    public static final int API_BBS_STICKS = 1;
 }

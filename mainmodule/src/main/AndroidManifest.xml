@@ -126,6 +126,8 @@
         <activity
             android:name=".activity.LifeServiceDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BbsTopCommentActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

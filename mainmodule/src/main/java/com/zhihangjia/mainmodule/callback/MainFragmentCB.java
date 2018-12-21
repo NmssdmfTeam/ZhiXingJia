@@ -46,7 +46,7 @@ public interface MainFragmentCB extends BaseCB {
     void setCommodity(MainBean commodity);
 
     /**
-     * 万家灯火
+     * 百姓信息
      * @param forum
      */
     void setForum(MainBean forum);

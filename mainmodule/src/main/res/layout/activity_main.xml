@@ -7,22 +7,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rlMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.design.widget.CoordinatorLayout
-                android:id="@+id/main_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <!--<android.support.design.widget.CoordinatorLayout-->
+                <!--android:id="@+id/main_content"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
 
                 <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
                 <LinearLayout
                     android:id="@+id/llBottomNavigation"
@@ -30,8 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="bottom"
-                    android:orientation="vertical"
-                    app:layout_behavior="com.zhihangjia.mainmodule.behavior.BottomBehavior">
+                    android:orientation="vertical">
 
                     <View
                         android:id="@+id/line"
@@ -46,10 +46,10 @@
                         android:background="@color/white" />
                 </LinearLayout>
 
-            </android.support.design.widget.CoordinatorLayout>
+            <!--</android.support.design.widget.CoordinatorLayout>-->
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </com.nmssdmf.commonlib.view.MyFragmentTabHost>
 </layout>

@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.callback;
 
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
+import com.zhixingjia.bean.mainmodule.BbsInfoList;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ import java.util.List;
 public interface IndexMessageCB extends BaseCB {
 
     void setMessageCategory(List<BbsCategory> bbsCategories);
+    void setCommentPost(List<BbsInfoList> bbsCategories);
 }
