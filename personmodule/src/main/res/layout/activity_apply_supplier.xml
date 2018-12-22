@@ -167,7 +167,8 @@
                         android:text="@={vm.applySupplier.deputy}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        android:enabled="@{!vm.isFromSupplier}"/>
 
                 </RelativeLayout>
 
@@ -226,13 +227,14 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="16dp"
                         android:drawablePadding="3.5dp"
-                        android:drawableRight="@drawable/icon_arrow_item_right"
+                        android:drawableRight="@{vm.isFromSupplier?@drawable/point_transparent:@drawable/icon_arrow_item_right}"
                         android:gravity="right"
                         android:hint="请选择店铺主营产品"
                         android:text="@{vm.applySupplier.main_camp_name}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        android:enabled="@{!vm.isFromSupplier}"/>
 
                 </RelativeLayout>
 
@@ -267,7 +269,8 @@
                             android:onClick="@{(v)->vm.onFrontIDCardClick(v)}"
                             android:text="法人身份证正面"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp" />
+                            android:textSize="15dp"
+                            android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -293,7 +296,8 @@
                             android:onClick="@{(v)->vm.onBackIDCardClick(v)}"
                             android:text="法人身份证反面"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp" />
+                            android:textSize="15dp"
+                            android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -317,7 +321,8 @@
                             android:background="@drawable/upload_papers"
                             android:onClick="@{(v)->vm.onBackBusinessLicenceClick(v)}"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp" />
+                            android:textSize="15dp"
+                            android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
                             android:layout_width="wrap_content"

@@ -356,4 +356,9 @@ public class HttpVersionConfig {
      * 首页精华置顶
      */
     public static final int API_BBS_STICKS = 1;
+
+    /**
+     * 公司资料修改保存
+     */
+    public static final int API_MY_COMPANY_SAVE = 1;
 }

@@ -94,4 +94,12 @@ public interface PersonService {
      */
     @GET ("/api/my/company")
     Observable<BaseData<Company>> getMyCompany();
+
+    /**
+     * 公司资料修改保存
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/my/company_save")
+    Observable<Base> companySave(@FieldMap Map<String, String> map);
 }

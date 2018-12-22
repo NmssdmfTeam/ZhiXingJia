@@ -39,6 +39,7 @@ import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.bean.personmodule.Company;
 import com.zhixingjia.personmodule.callback.ApplySupplierCB;
 import com.zhixingjia.service.MainService;
+import com.zhixingjia.service.PersonService;
 
 import java.io.File;
 import java.io.Serializable;
@@ -93,7 +94,7 @@ public class ApplySupplierVM extends BaseVM {
 
     private void initData() {
         applySupplier.set(new Company());
-        Bundle bundle = new Bundle();
+        Bundle bundle = callback.getIntentData();
         if (bundle != null) {
             Company company = (Company) bundle.getSerializable(IntentConfig.COMPANY);
             if (company != null) {
@@ -112,6 +113,7 @@ public class ApplySupplierVM extends BaseVM {
                 businessLicenseCardPathUploadBean.setL_url(company.getLicense_img().getL_url());
                 businessLicenseCardPathUploadBean.setM_url(company.getLicense_img().getM_url());
                 businessLicenseCardPathUploadBean.setUrl(company.getLicense_img().getM_url());
+                applySupplier.set(company);
                 isFromSupplier.set(true);
             }
         }
@@ -123,6 +125,8 @@ public class ApplySupplierVM extends BaseVM {
     }
 
     public void onCategotyViewClick(View view) {
+        if (isFromSupplier.get())
+            return;
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConfig.MERCHANT_CATEGORY, (Serializable) cateBeans);
         callback.doInentClassNameForResult(ActivityNameConfig.SELECTCATEGORY_ACTIVITY, bundle, SELECTCATEGORY_RESULT);
@@ -233,6 +237,8 @@ public class ApplySupplierVM extends BaseVM {
      * @param view
      */
     public void onFrontIDCardClick(View view) {
+        if (isFromSupplier.get())
+            return;
         imageIndex = 1;
         callback.showSelectImageDialog(frontIDCardPathTemp);
     }
@@ -243,6 +249,8 @@ public class ApplySupplierVM extends BaseVM {
      * @param view
      */
     public void onBackIDCardClick(View view) {
+        if (isFromSupplier.get())
+            return;
         imageIndex = 2;
         callback.showSelectImageDialog(backIDCardPathTemp);
     }
@@ -253,6 +261,8 @@ public class ApplySupplierVM extends BaseVM {
      * @param view
      */
     public void onBackBusinessLicenceClick(View view) {
+        if (isFromSupplier.get())
+            return;
         imageIndex = 3;
         callback.showSelectImageDialog(businessLicenseCardPathTemp);
     }
@@ -262,6 +272,10 @@ public class ApplySupplierVM extends BaseVM {
      * @param view
      */
     public void onCommitClick(View view) {
+        if (isFromSupplier.get()) {
+            saveCompany();
+            return;
+        }
         if (!isDataValidate()) {
             return;
         }
@@ -324,6 +338,49 @@ public class ApplySupplierVM extends BaseVM {
 
             }
         });
+    }
+
+    public void saveCompany() {
+        callback.showLoaddingDialog();
+        Map<String,String> params = new HashMap<>();
+        if (TextUtils.isEmpty(applySupplier.get().getCompany_name())) {
+            ToastUtil.showMsg("请填写公司名称");
+            return;
+        }
+        if (TextUtils.isEmpty(applySupplier.get().getTrade_area_name())) {
+            ToastUtil.showMsg("请填写所在商圈");
+            return;
+        }
+        if (TextUtils.isEmpty(applySupplier.get().getCo_addr())) {
+            ToastUtil.showMsg("请填写详细地址");
+            return;
+        }
+        if (TextUtils.isEmpty(applySupplier.get().getCo_phone())) {
+            ToastUtil.showMsg("请填写联系电话");
+            return;
+        }
+        params.put("company_name", applySupplier.get().getCompany_name());
+        params.put("trade_area", applySupplier.get().getTrade_area());
+        params.put("co_addr", applySupplier.get().getCo_addr());
+        params.put("co_phone", applySupplier.get().getCo_phone());
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(PersonService.class, HttpVersionConfig.API_MY_COMPANY_SAVE).companySave(params),
+                new ServiceCallback<Base>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Base base) {
+                        callback.finishActivity();
+                    }
+
+                    @Override
+                    public void onDefeated(Base base) {
+
+                    }
+                });
     }
 
     private void uploadImg(String filepath, final int index) {
