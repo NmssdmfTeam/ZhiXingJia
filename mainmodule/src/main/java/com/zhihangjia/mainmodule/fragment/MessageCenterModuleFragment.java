@@ -7,10 +7,9 @@ import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.adapter.MessageCenterModuleAdapter;
-import com.zhihangjia.mainmodule.adapter.message.MessageAdapter;
 import com.zhihangjia.mainmodule.callback.MessageCenterModuleCB;
 import com.zhihangjia.mainmodule.viewmodel.MessageCenterModuleFragmentVM;
-import com.zhixingjia.bean.mainmodule.BbsInfoList;
+import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class MessageCenterModuleFragment extends BaseRecyclerViewFragment implem
     }
 
     @Override
-    public void setData(List<BbsInfoList> data, boolean isRefresh) {
+    public void setData(List<IndexBean.ForumBean> data, boolean isRefresh) {
         if (isRefresh) {
             binding.crv.setRefreshing(false);
         }

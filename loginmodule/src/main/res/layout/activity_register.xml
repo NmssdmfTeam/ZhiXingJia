@@ -80,6 +80,20 @@
         <include
             layout="@layout/include_login_cut_off_line"/>
 
+        <EditText
+            android:layout_width="343dp"
+            android:layout_height="55dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入昵称"
+            android:textColorHint="#FFCCCCCC"
+            android:textSize="15dp"
+            android:text="@={vm.nickName}"
+            />
+
+        <include
+            layout="@layout/include_login_cut_off_line"/>
+
         <RelativeLayout
             android:layout_width="343dp"
             android:layout_height="55dp"

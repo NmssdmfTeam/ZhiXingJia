@@ -35,6 +35,7 @@ public class AllLifeCategoryAdapter extends BaseDataBindingAdapter<HouseBean.Cat
             intent.setClass(mContext, LifeServiceActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(IntentConfig.ID, item.getCate_id());
+            bundle.putString(IntentConfig.NAME, item.getCate_name());
             bundle.putSerializable(IntentConfig.LIFE_CATE, (Serializable) getData());
             intent.putExtras(bundle);
             mContext.startActivity(intent);

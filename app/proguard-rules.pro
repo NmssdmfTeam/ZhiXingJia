@@ -103,12 +103,15 @@
 
 # bean 类不要混淆
 -keep class com.zhixingjia.*.bean.** { *; }
+-keep class com.zhihangjia.*.bean.** { *; }
 
 # viewmodel 类不要混淆
 -keep class com.zhixingjia.*.viewmodel.** { *; }
+-keep class com.zhihangjia.*.viewmodel.** { *; }
 
 # 自定义view 类不要混淆
 -keep class com.zhixingjia.*.view.** {*;}
+-keep class com.zhihangjia.*.view.** { *; }
 
 # 四大组件不混淆
 -keep public class * extends android.app.**

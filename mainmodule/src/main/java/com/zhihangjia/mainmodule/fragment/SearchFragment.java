@@ -68,10 +68,16 @@ public class SearchFragment extends BaseFragment implements SearchFragmentCB {
                 return true;
             }
         });
+        binding.etSearch.setEdit();
     }
 
     private void initSearchHistory() {
         binding.tlSearchHistory.removeAllViews();
+        if (vm.getHistorys().size() > 0) {
+            binding.rlHistory.setVisibility(View.VISIBLE);
+        } else {
+            binding.rlHistory.setVisibility(View.GONE);
+        }
         int size = vm.getHistorys().size() - 1;
         for (int i = size; i >= 0; i--) {
             final TextView textView = new TextView(getActivity());
@@ -98,6 +104,11 @@ public class SearchFragment extends BaseFragment implements SearchFragmentCB {
     }
 
     public void initHotSearchHistory(List<String> list) {
+        if (list.size() > 0) {
+            binding.rlHotSearch.setVisibility(View.VISIBLE);
+        } else {
+            binding.rlHotSearch.setVisibility(View.GONE);
+        }
         for (int i = 0; i < list.size(); i++) {
             final TextView textView = new TextView(getActivity());
             textView.setGravity(Gravity.CENTER);

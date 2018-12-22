@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 public class MessageDetail extends BaseObservable{
-
+    private String cate_id; //帖子分类ID
     private String title;//标题
     private String read_sum;//阅读数量
     private String comment_sum;//评论数量
@@ -117,6 +117,14 @@ public class MessageDetail extends BaseObservable{
     public void setGive_info(String give_info) {
         this.give_info = give_info;
         notifyPropertyChanged(BR.give_info);
+    }
+
+    public String getCate_id() {
+        return cate_id;
+    }
+
+    public void setCate_id(String cate_id) {
+        this.cate_id = cate_id;
     }
 
     public String getGive_state() {

@@ -234,6 +234,8 @@ public class IndexBean extends BaseObservable implements Serializable {
         private String createtime;
         private String nickname;
         private String types;
+        private String comment_sum;
+        private String pages;
         private List<String> imgs;
 
         @Bindable
@@ -304,6 +306,26 @@ public class IndexBean extends BaseObservable implements Serializable {
         public void setImgs(List<String> imgs) {
             this.imgs = imgs;
             notifyPropertyChanged(BR.imgs);
+        }
+
+        @Bindable
+        public String getComment_sum() {
+            return comment_sum;
+        }
+
+        public void setComment_sum(String comment_sum) {
+            this.comment_sum = comment_sum;
+            notifyPropertyChanged(BR.comment_sum);
+        }
+
+        @Bindable
+        public String getPages() {
+            return pages;
+        }
+
+        public void setPages(String pages) {
+            this.pages = pages;
+            notifyPropertyChanged(BR.pages);
         }
     }
 

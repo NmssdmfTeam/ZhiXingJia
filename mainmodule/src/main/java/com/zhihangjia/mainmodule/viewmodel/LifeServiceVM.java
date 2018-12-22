@@ -1,20 +1,17 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
-import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
-import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhihangjia.mainmodule.bean.House;
 import com.zhihangjia.mainmodule.callback.LifeServiceCB;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.HouseBean;
@@ -31,6 +28,7 @@ import java.util.List;
 public class LifeServiceVM extends BaseVM {
     private LifeServiceCB cb;
     private String cateId;
+    public String cateName;
     public List<HouseBean.CateBean> cateBeans;
     private String page = "0";
 
@@ -51,6 +49,7 @@ public class LifeServiceVM extends BaseVM {
         Bundle bundle = cb.getIntentData();
         if (bundle != null) {
             cateId = bundle.getString(IntentConfig.ID);
+            cateName = bundle.getString(IntentConfig.NAME);
             cateBeans = (List<HouseBean.CateBean>) bundle.getSerializable(IntentConfig.LIFE_CATE);
         }
     }
@@ -121,6 +120,13 @@ public class LifeServiceVM extends BaseVM {
                         @Override
                         public void onSuccess(BaseListData<HouseBean.CateBean> cateBeanBaseListData) {
                             cateBeans = cateBeanBaseListData.getData();
+                            if (TextUtils.isEmpty(cateId)) {
+                                if (cateBeanBaseListData.getData().size() > 0) {
+                                    cateId = cateBeanBaseListData.getData().get(0).getCate_id();
+                                    cb.setLifeServiceTitile(cateBeanBaseListData.getData().get(0).getCate_name());
+                                    getData(true);
+                                }
+                            }
                             cb.setCategoryData(cateBeans);
                         }
 

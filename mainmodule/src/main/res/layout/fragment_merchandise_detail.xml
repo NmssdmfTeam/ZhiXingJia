@@ -62,7 +62,7 @@
                         android:layout_toRightOf="@+id/tvPrice"
                         android:text="@{@string/separator+vm.commodityDetail.unit}"
                         android:textColor="@color/text_gray"
-                        android:textSize="18dp" />
+                        android:textSize="12dp" />
 
                 </RelativeLayout>
 

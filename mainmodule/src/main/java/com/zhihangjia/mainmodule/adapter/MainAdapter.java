@@ -10,11 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.nmssdmf.commonlib.activity.WebViewActivity;
 import com.nmssdmf.commonlib.config.IntentConfig;
-import com.nmssdmf.commonlib.rxbus.EventInfo;
-import com.nmssdmf.commonlib.rxbus.RxBus;
-import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingMultiItemQuickAdapter;
 import com.zhihangjia.mainmodule.R;
@@ -57,6 +53,7 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                 itemRecommendGoodsBinding.llContent.removeViewAt(1);
             }
             if (item.getCommodityBeans() != null) {
+                int i = 1;
                 for (final IndexBean.CommodityBean commodityBean : item.getCommodityBeans()) {
                     ItemRecommendGoodsInfoBinding itemRecommendGoodsInfoBinding = DataBindingUtil
                             .inflate(LayoutInflater.from(mContext), R.layout.item_recommend_goods_info, null, false);
@@ -72,7 +69,8 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                             mContext.startActivity(intent);
                         }
                     });
-                    itemRecommendGoodsBinding.llContent.addView(itemRecommendGoodsInfoBinding.getRoot(), 1);
+                    itemRecommendGoodsBinding.llContent.addView(itemRecommendGoodsInfoBinding.getRoot(), i);
+                    i++;
                 }
             }
             itemRecommendGoodsBinding.setData(item);
@@ -127,12 +125,6 @@ public class MainAdapter extends BaseDataBindingMultiItemQuickAdapter<MainBean> 
                 adapter = (IndexSellerAdapter) itemExcellentSellerBinding.rvSeller.getAdapter();
                 adapter.setNewData(item.getSellerBeans());
             }
-            itemExcellentSellerBinding.tvTitle.setOnClickListener((View.OnClickListener) v -> {
-                //切换到信息中心页面
-                EventInfo eventInfo = new EventInfo();
-                eventInfo.setIndex(1);
-                RxBus.getInstance().send(RxEvent.BbsEvent.INDEX_SWITCH, eventInfo);
-            });
         }
     }
 }

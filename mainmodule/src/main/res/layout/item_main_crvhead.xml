@@ -123,7 +123,7 @@
             android:id="@+id/llAdvertisement"
             android:layout_width="343dp"
             android:layout_height="199dp"
-            android:layout_marginTop="39.5dp"
+            android:layout_marginTop="20.5dp"
             android:orientation="horizontal">
 
             <com.nmssdmf.commonlib.view.GlideImageView

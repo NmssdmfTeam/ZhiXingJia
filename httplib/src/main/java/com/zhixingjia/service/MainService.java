@@ -8,13 +8,12 @@ import com.zhixingjia.bean.mainmodule.AllSum;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
+import com.zhixingjia.bean.mainmodule.BbsInsertResult;
 import com.zhixingjia.bean.mainmodule.Comment;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
-import com.zhixingjia.bean.mainmodule.CommodityInitialize;
 import com.zhixingjia.bean.mainmodule.CouponSeller;
-import com.zhixingjia.bean.mainmodule.GoodManageNumber;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
@@ -68,7 +67,7 @@ public interface MainService {
      * @return
      */
     @GET("/api/bbs/info_list")
-    Observable<BaseListData<BbsInfoList>> getBbsInfoList(@Query("types") String types, @Query("cate_id")String cate_id, @Query("pages") String pages);
+    Observable<BaseListData<IndexBean.ForumBean>> getBbsInfoList(@Query("types") String types, @Query("cate_id")String cate_id, @Query("pages") String pages);
     /**
      * 热门搜索
      * @return
@@ -102,7 +101,7 @@ public interface MainService {
      */
     @FormUrlEncoded
     @POST("/api/bbs/insert")
-    Observable<Base> postBbs(@FieldMap Map<String,Object> params);
+    Observable<BaseData<BbsInsertResult>> postBbs(@FieldMap Map<String,Object> params);
 
     /**
      * 帖子评论保存
@@ -411,7 +410,7 @@ public interface MainService {
      * 首页三大模块（24小时热点、最新发布、最后回复）
      */
     @GET("/api/bbs/index")
-    Observable<BaseListData<IndexBean.ForumBean>> getBbsIndex(@Query("types") int types);
+    Observable<BaseListData<IndexBean.ForumBean>> getBbsIndex(@QueryMap() Map<String,String> map);
 
     /**
      * 搜索帖子、精华置顶列表

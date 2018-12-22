@@ -14,8 +14,8 @@ import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MessageDetailActivity;
-import com.zhihangjia.mainmodule.databinding.ItemMessageModuleBinding;
-import com.zhixingjia.bean.mainmodule.BbsInfoList;
+import com.zhihangjia.mainmodule.databinding.ItemDailyHotNewsBinding;
+import com.zhixingjia.bean.mainmodule.IndexBean;
 
 import java.util.List;
 
@@ -25,24 +25,24 @@ import java.util.List;
 * @date 2018/11/14 15:14
 * @version v3.2.0
 */
-public class MessageCenterModuleAdapter extends BaseDataBindingAdapter<BbsInfoList, ItemMessageModuleBinding> {
-    public MessageCenterModuleAdapter(@Nullable List<BbsInfoList> data) {
-        super(R.layout.item_message_module, data);
+public class MessageCenterModuleAdapter extends BaseDataBindingAdapter<IndexBean.ForumBean, ItemDailyHotNewsBinding> {
+    public MessageCenterModuleAdapter(@Nullable List<IndexBean.ForumBean> data) {
+        super(R.layout.item_daily_hot_news, data);
     }
 
     @Override
-    protected void convert2(BaseBindingViewHolder<ItemMessageModuleBinding> helper, final BbsInfoList item, int position) {
-        ItemMessageModuleBinding itemMessageModuleBinding = helper.getBinding();
+    protected void convert2(BaseBindingViewHolder<ItemDailyHotNewsBinding> helper, final IndexBean.ForumBean item, int position) {
+        ItemDailyHotNewsBinding itemMessageModuleBinding = helper.getBinding();
         itemMessageModuleBinding.setData(item);
         if (item.getImgs()== null || item.getImgs().size() == 0) {
             itemMessageModuleBinding.llImgs.setVisibility(View.GONE);
-            itemMessageModuleBinding.ivImg.setVisibility(View.GONE);
+            itemMessageModuleBinding.ivPic.setVisibility(View.GONE);
         } else if (item.getImgs().size() == 1) {
             itemMessageModuleBinding.llImgs.setVisibility(View.GONE);
-            itemMessageModuleBinding.ivImg.setVisibility(View.VISIBLE);
-            GlideUtil.load(itemMessageModuleBinding.ivImg,item.getImgs().get(0));
+            itemMessageModuleBinding.ivPic.setVisibility(View.VISIBLE);
+            GlideUtil.load(itemMessageModuleBinding.ivPic,item.getImgs().get(0));
         } else {
-            itemMessageModuleBinding.ivImg.setVisibility(View.GONE);
+            itemMessageModuleBinding.ivPic.setVisibility(View.GONE);
             itemMessageModuleBinding.llImgs.setVisibility(View.VISIBLE);
             itemMessageModuleBinding.llImgs.removeAllViews();
             int index = 0;

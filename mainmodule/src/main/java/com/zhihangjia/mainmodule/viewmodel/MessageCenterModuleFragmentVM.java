@@ -1,9 +1,7 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import com.nmssdmf.commonlib.bean.BaseListData;
-import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
-import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
@@ -12,12 +10,8 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.zhihangjia.mainmodule.callback.MessageCenterModuleCB;
-import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.service.MainService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Create by chenbin on 2018/11/19
@@ -51,14 +45,14 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
             pages = "0";
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_INFO_LIST)
                         .getBbsInfoList(types, cate_id, pages),
-                new ServiceCallback<BaseListData<BbsInfoList>>() {
+                new ServiceCallback<BaseListData<IndexBean.ForumBean>>() {
                     @Override
                     public void onError(Throwable error) {
                         callback.stopFreshAction();
                     }
 
                     @Override
-                    public void onSuccess(BaseListData<BbsInfoList> bbsInfoListBaseListData) {
+                    public void onSuccess(BaseListData<IndexBean.ForumBean> bbsInfoListBaseListData) {
                         if (bbsInfoListBaseListData.getData() != null) {
                             callback.setData(bbsInfoListBaseListData.getData(), isRefresh);
                             if (bbsInfoListBaseListData.getData().size() > 0)
@@ -67,7 +61,7 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
                     }
 
                     @Override
-                    public void onDefeated(BaseListData<BbsInfoList> bbsInfoListBaseListData) {
+                    public void onDefeated(BaseListData<IndexBean.ForumBean> bbsInfoListBaseListData) {
                         callback.stopFreshAction();
                     }
                 });

@@ -49,7 +49,7 @@ public abstract class BaseRecyclerViewFragment extends BaseFragment implements B
             }
         });
 
-        baseRecyclerViewFragmentVM.initData(false);
+        baseRecyclerViewFragmentVM.initData(true);
     }
 
     public abstract BaseRecyclerViewFragmentVM initRecyclerViewFragmentVM();

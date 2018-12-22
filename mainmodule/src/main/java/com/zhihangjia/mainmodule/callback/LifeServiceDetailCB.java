@@ -13,4 +13,5 @@ public interface LifeServiceDetailCB extends BaseCB {
     void setContent();
     void phoneCall(String phoneNumber);
     void showChooseMapsWindows();
+    void setLifeServiceTitle(String cate);
 }

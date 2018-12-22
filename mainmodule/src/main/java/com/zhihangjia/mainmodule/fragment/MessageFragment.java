@@ -5,23 +5,24 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.fragment.BaseTitleFragment;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.BbsTopCommentActivity;
 import com.zhihangjia.mainmodule.activity.PostActivity;
-import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
-import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MessageCategoryViewPagerAdapter;
 import com.zhihangjia.mainmodule.bean.MessageCategory;
 import com.zhihangjia.mainmodule.callback.IndexMessageCB;
@@ -124,6 +125,10 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.publishMessage) {
+                    if (TextUtils.isEmpty(PreferenceUtil.getString(PrefrenceConfig.TOKEN,""))) {
+                        RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, null);
+                        return false;
+                    }
                     doIntent(PostActivity.class,null);
                 }
                 return false;

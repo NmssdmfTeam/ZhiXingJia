@@ -14,7 +14,6 @@ import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.callback.LifeServiceCB;
 import com.zhihangjia.mainmodule.callback.LifeServiceDetailCB;
 import com.zhihangjia.mainmodule.databinding.ActivityLifeServiceDetailBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMessageDetailBinding;
@@ -98,5 +97,10 @@ public class LifeServiceDetailActivity extends BaseTitleActivity implements Life
         mapInfo.setName(vm.lifeServiceDetail.get().getInfo_addr());
         chooseMapWindow.setMapInfo(mapInfo);
         chooseMapWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0,0);
+    }
+
+    @Override
+    public void setLifeServiceTitle(String cate) {
+        setTitle(cate);
     }
 }

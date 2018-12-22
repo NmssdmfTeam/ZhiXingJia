@@ -8,7 +8,7 @@ import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.adapter.DailyHotNewsAdapter;
-import com.zhihangjia.mainmodule.adapter.FocusNewsAdapter;
+import com.zhihangjia.mainmodule.callback.DailyHotNewsCB;
 import com.zhihangjia.mainmodule.viewmodel.DailyHotNewsVM;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  * <p>
  * <p>
  */
-public class DailyHotNewsFragment extends BaseRecyclerViewFragment {
+public class DailyHotNewsFragment extends BaseRecyclerViewFragment implements DailyHotNewsCB {
     private DailyHotNewsVM vm;
     private DailyHotNewsAdapter adapter;
     private String TAG = DailyHotNewsFragment.class.getSimpleName();
@@ -43,7 +43,10 @@ public class DailyHotNewsFragment extends BaseRecyclerViewFragment {
             vm.types = bundle.getInt(IntentConfig.TYPE);
         }
         super.initAll(view, savedInstanceState);
-        binding.crv.onRefreshEnable(false);
+        if (vm.types == 0 || vm.types == 2) {
+            binding.crv.setLoadMoreEnable(false);
+            adapter.setEnableLoadMore(false);
+        }
     }
 
     public void freshData() {
@@ -53,5 +56,10 @@ public class DailyHotNewsFragment extends BaseRecyclerViewFragment {
     @Override
     public String getTAG() {
         return TAG;
+    }
+
+    @Override
+    public String pages() {
+        return adapter.getData().get(adapter.getData().size() - 1).getBbs_id();
     }
 }

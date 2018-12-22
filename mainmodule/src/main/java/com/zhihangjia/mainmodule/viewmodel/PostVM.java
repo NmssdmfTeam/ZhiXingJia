@@ -6,10 +6,8 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
-import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
@@ -22,10 +20,11 @@ import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.MessageDetailActivity;
 import com.zhihangjia.mainmodule.bean.PostContent;
 import com.zhihangjia.mainmodule.callback.PostCB;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
-import com.zhixingjia.bean.mainmodule.IndexBean;
+import com.zhixingjia.bean.mainmodule.BbsInsertResult;
 import com.zhixingjia.service.MainService;
 
 import java.util.HashMap;
@@ -136,16 +135,19 @@ public class PostVM extends BaseVM {
         params.put("contents", new Gson().toJson(postContents));
         //先上传图片
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_INSERT).postBbs(params),
-                new ServiceCallback<Base>() {
+                new ServiceCallback<BaseData<BbsInsertResult>>() {
             @Override
             public void onError(Throwable error) {
                 callBack.dismissLoaddingDialog();
             }
 
             @Override
-            public void onSuccess(Base base) {
+            public void onSuccess(BaseData<BbsInsertResult> base) {
                 if (StringConfig.OK.equals(base.getStatus_code())) {
                     callBack.dismissLoaddingDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(IntentConfig.ID, base.getData().getBbs_id());
+                    callBack.doIntent(MessageDetailActivity.class, bundle);
                     callBack.finishActivity();
                     //刷新消息
                     RxBus.getInstance().send(RxEvent.BbsEvent.BBS_INSERT, null);
@@ -153,7 +155,7 @@ public class PostVM extends BaseVM {
             }
 
             @Override
-            public void onDefeated(Base base) {
+            public void onDefeated(BaseData<BbsInsertResult> base) {
                 callBack.dismissLoaddingDialog();
             }
         });

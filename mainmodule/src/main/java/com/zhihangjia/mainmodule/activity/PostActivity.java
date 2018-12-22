@@ -5,14 +5,12 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.config.IntegerConfig;
-import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.view.ImageSelectView;
 import com.nmssdmf.commonlib.view.TagView;
@@ -21,9 +19,9 @@ import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.bean.PostContent;
 import com.zhihangjia.mainmodule.callback.PostCB;
 import com.zhihangjia.mainmodule.databinding.ActivityPostBinding;
+import com.zhihangjia.mainmodule.databinding.ItemPostContentBinding;
 import com.zhihangjia.mainmodule.databinding.ItemPostTagBinding;
 import com.zhihangjia.mainmodule.viewmodel.PostVM;
-import com.zhihangjia.mainmodule.databinding.ItemPostContentBinding;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 
 import java.util.ArrayList;
@@ -73,6 +71,10 @@ public class PostActivity extends BaseActivity implements PostCB{
             binding.tvTitle.setVisibility(View.VISIBLE);
             vm.getBbsCat();
         }
+        //默认添加一个，且不能删除
+        addContent();
+        ItemPostContentBinding itemPostContentBinding = DataBindingUtil.findBinding(binding.llContent.getChildAt(0));
+        itemPostContentBinding.btnRemove.setVisibility(View.INVISIBLE);
     }
 
     private void setListener() {

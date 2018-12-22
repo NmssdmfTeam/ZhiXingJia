@@ -23,6 +23,7 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.MessageCenterModuleActivity;
 import com.zhihangjia.mainmodule.activity.ReplyActivity;
 import com.zhihangjia.mainmodule.callback.MessageDetailCB;
 import com.zhixingjia.bean.mainmodule.MessageComment;
@@ -269,6 +270,13 @@ public class MessageDetailVM extends BaseVM {
 
     public void onZanClick(View view) {
         onZan("0",messageId,0);
+    }
+
+    public void onCategoryClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.CAT_ID, detail.get().getCate_id());
+        bundle.putString(IntentConfig.NAME, detail.get().getCate_name());
+        baseCallBck.doIntent(MessageCenterModuleActivity.class, bundle);
     }
 
     private void setZanNum() {

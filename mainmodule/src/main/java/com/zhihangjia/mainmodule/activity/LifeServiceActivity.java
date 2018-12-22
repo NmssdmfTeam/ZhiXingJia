@@ -3,9 +3,11 @@ package com.zhihangjia.mainmodule.activity;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.TagView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
@@ -18,7 +20,6 @@ import com.zhihangjia.mainmodule.databinding.ItemPostTagBinding;
 import com.zhihangjia.mainmodule.viewmodel.LifeServiceVM;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.HouseBean;
-import com.zhixingjia.bean.mainmodule.IndexBean;
 import com.zhixingjia.bean.mainmodule.LifeService;
 
 import java.util.ArrayList;
@@ -55,7 +56,9 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
     @Override
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityLifeServiceBinding) baseViewBinding;
-        vm.getData(true);
+        if (!TextUtils.isEmpty(vm.getCateId()))
+            vm.getData(true);
+        setTitle(vm.cateName);
         adapter = new LifeServiceAdapter(new ArrayList<>());
         binding.crv.setAdapter(adapter);
         //模拟广告数据
@@ -65,6 +68,7 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
         binding.rpv.setAdapter(viewPagerAdapter);
         Drawable iconPanelOpen = getResources().getDrawable(R.drawable.icon_panel_open);
         iconPanelOpen.setBounds(0, 0, iconPanelOpen.getMinimumWidth(), iconPanelOpen.getMinimumHeight());
+        baseTitleBinding.tvTitle.setCompoundDrawablePadding(DensityUtil.dpToPx(this, 4));
         baseTitleBinding.tvTitle.setCompoundDrawables(null,null,iconPanelOpen, null);
         setListener();
         vm.getLifeCate();
@@ -89,8 +93,9 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
                     closePanel();
                     baseTitleBinding.tvTitle.setText(itemPostTagBinding.tvTag.getText());
                     vm.getData(true);
+                    adapter.setCateName(itemPostTagBinding.tvTag.getText().toString());
                 });
-                if (vm.getCateId().equals(cateBean.getCate_id()))
+                if (cateBean.getCate_id().equals(vm.getCateId()))
                     itemPostTagBinding.tvTag.setSelected(true);
                 itemPostTagBindings.add(itemPostTagBinding);
                 binding.tagLayout.addView(itemPostTagBinding.getRoot());
@@ -104,9 +109,15 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
             if (binding.svTag.getVisibility() == View.GONE) {
                 binding.svTag.setVisibility(View.VISIBLE);
                 binding.vBlackBackgroud.setVisibility(View.VISIBLE);
+                Drawable iconPanelOpen = getResources().getDrawable(R.drawable.icon_panel_close);
+                iconPanelOpen.setBounds(0, 0, iconPanelOpen.getMinimumWidth(), iconPanelOpen.getMinimumHeight());
+                baseTitleBinding.tvTitle.setCompoundDrawables(null,null,iconPanelOpen, null);
             } else {
                 binding.svTag.setVisibility(View.GONE);
                 binding.vBlackBackgroud.setVisibility(View.GONE);
+                Drawable iconPanelOpen = getResources().getDrawable(R.drawable.icon_panel_open);
+                iconPanelOpen.setBounds(0, 0, iconPanelOpen.getMinimumWidth(), iconPanelOpen.getMinimumHeight());
+                baseTitleBinding.tvTitle.setCompoundDrawables(null,null,iconPanelOpen, null);
             }
         });
         binding.vBlackBackgroud.setOnClickListener(v -> closePanel());
@@ -126,6 +137,9 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
     private void closePanel() {
         binding.svTag.setVisibility(View.GONE);
         binding.vBlackBackgroud.setVisibility(View.GONE);
+        Drawable iconPanelOpen = getResources().getDrawable(R.drawable.icon_panel_open);
+        iconPanelOpen.setBounds(0, 0, iconPanelOpen.getMinimumWidth(), iconPanelOpen.getMinimumHeight());
+        baseTitleBinding.tvTitle.setCompoundDrawables(null,null,iconPanelOpen, null);
     }
 
     @Override
@@ -157,5 +171,10 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
     @Override
     public void setCategoryData(List<HouseBean.CateBean> categoryData) {
         setCateView(categoryData);
+    }
+
+    @Override
+    public void setLifeServiceTitile(String title) {
+        setTitle(title);
     }
 }

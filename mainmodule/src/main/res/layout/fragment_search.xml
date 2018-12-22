@@ -62,6 +62,7 @@
             layout="@layout/include_recyclerview_cutoff_line"/>
 
         <RelativeLayout
+            android:id="@+id/rlHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -100,6 +101,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlHotSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

@@ -16,4 +16,5 @@ public interface LifeServiceCB extends BaseCB {
     void setData(List<LifeService> lifeServices,boolean isRefresh);
     void setBanner(Banner banner);
     void setCategoryData(List<HouseBean.CateBean> cateBeans);
+    void setLifeServiceTitile(String title);
 }

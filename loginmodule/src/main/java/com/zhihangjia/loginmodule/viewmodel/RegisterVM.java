@@ -3,6 +3,7 @@ package com.zhihangjia.loginmodule.viewmodel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.nmssdmf.commonlib.activity.WebViewActivity;
@@ -31,6 +32,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class RegisterVM extends BaseVM {
     public final ObservableField<String> phoneNumber = new ObservableField<>();
+    public final ObservableField<String> nickName = new ObservableField<>();
     public final ObservableField<String> verificationCode = new ObservableField<>();
     public final ObservableField<String> pwd = new ObservableField<>();
     public final ObservableField<String> checkPwd = new ObservableField<>();
@@ -137,6 +139,8 @@ public class RegisterVM extends BaseVM {
         map.put("verif_code", verificationCode.get());
         map.put("password_one", pwd.get());
         map.put("password_two", checkPwd.get());
+        if (!TextUtils.isEmpty(nickName.get()))
+            map.put("nickname", nickName.get());
         cb.showLoaddingDialog();
         HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_REGISTER).register(map), new ServiceCallback<BaseData>() {
             @Override

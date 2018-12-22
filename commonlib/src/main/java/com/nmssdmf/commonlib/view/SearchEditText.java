@@ -124,14 +124,11 @@ public class SearchEditText extends AppCompatEditText {
                     hint_width = getPaint().measureText(getHint() + "");
                     drawable_width = drawable_left == null ? 0 : drawable_left.getIntrinsicWidth();
                     padding_move = (int) (getWidth() - hint_width - drawable_width - padding_old) / 2;
-                    if (centerStatus && TextUtils.isEmpty(getText())) {
-                        reset();
-                    } else {
-                        if (!editable || centerStatus) {
-                            // 如果不可编辑或则被设置了centerStatus=true，提示剧中
-                        } else { // 处于编辑状态
-                            setEdit();
-                        }
+
+                    if (!editable || centerStatus) {
+                        // 如果不可编辑或则被设置了centerStatus=true，提示剧中
+                    } else { // 处于编辑状态
+                        setEdit();
                     }
                 }
             }
