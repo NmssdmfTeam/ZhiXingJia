@@ -361,4 +361,9 @@ public class HttpVersionConfig {
      * 公司资料修改保存
      */
     public static final int API_MY_COMPANY_SAVE = 1;
+
+    /**
+     * 获取APP版本更新信息
+     */
+    public static final int API_APP_UPDATE_INFO = 1;
 }

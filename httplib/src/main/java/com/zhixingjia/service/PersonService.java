@@ -7,6 +7,7 @@ import com.zhixingjia.bean.personmodule.Address;
 import com.zhixingjia.bean.personmodule.AddressInsertResult;
 import com.zhixingjia.bean.personmodule.Company;
 import com.zhixingjia.bean.personmodule.Coupon;
+import com.nmssdmf.commonlib.bean.UpdateInfo;
 
 import java.util.Map;
 
@@ -102,4 +103,11 @@ public interface PersonService {
     @FormUrlEncoded
     @POST ("/api/my/company_save")
     Observable<Base> companySave(@FieldMap Map<String, String> map);
+
+    /**
+     * 获取APP版本更新信息
+     * @return
+     */
+    @GET ("/api/app/update_info")
+    Observable<BaseData<UpdateInfo>> getUpdateInfo(@Query("system") String system);
 }

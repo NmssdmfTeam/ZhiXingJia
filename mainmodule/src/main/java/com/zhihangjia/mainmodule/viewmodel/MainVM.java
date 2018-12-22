@@ -1,6 +1,7 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.bean.UpdateInfo;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
@@ -10,11 +11,13 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.MainCB;
 import com.zhixingjia.bean.mainmodule.AllSum;
 import com.zhixingjia.service.MainService;
+import com.zhixingjia.service.PersonService;
 
 /**
 * @description 首页viewmodel
@@ -27,6 +30,9 @@ public class MainVM extends BaseVM {
 
     public String identify;
     private String ShopCarNum;
+    public boolean is_first;
+    private final String TAG = MainVM.class.getSimpleName();
+
     /**
      * 不需要callback可以传null
      *
@@ -89,6 +95,36 @@ public class MainVM extends BaseVM {
 
             @Override
             public void onDefeated(BaseData<AllSum> allSumBaseData) {
+
+            }
+        });
+    }
+
+    /**
+     * 获取APP版本更新信息
+     *
+     */
+    public void getAppUpdate() {
+        is_first = PreferenceUtil.getBoolean("is_first", true);// //是不是第一次打开
+        JLog.d(TAG, "Main checkUpdate" + is_first);
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(PersonService.class, HttpVersionConfig.API_APP_UPDATE_INFO).getUpdateInfo("android"),
+                new ServiceCallback<BaseData<UpdateInfo>>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData<UpdateInfo> updateInfoBaseData) {
+                if ("1".equals(updateInfoBaseData.getData().getIs_mandatory())) {
+                    PreferenceUtil.setStringValue(PrefrenceConfig.IS_VERSION_UPDATE, "1");
+                }
+                callback.checkUpdate();
+            }
+
+            @Override
+            public void onDefeated(BaseData<UpdateInfo> updateInfoBaseData) {
 
             }
         });

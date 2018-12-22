@@ -7,14 +7,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.widget.LinearLayout;
-
-import com.nmssdmf.commonlib.R;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -114,5 +112,21 @@ public class CommonUtils {
             soldBigDecimal = soldBigDecimal.divide(new BigDecimal(10000)).setScale(2);
         }
         return soldBigDecimal.toString();
+    }
+
+    /**
+     * 获取app版本信息
+     *
+     * @return
+     */
+    public static String getAppVersion(Context context) {
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            return info.versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }

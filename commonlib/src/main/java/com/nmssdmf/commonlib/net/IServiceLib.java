@@ -1,13 +1,16 @@
 package com.nmssdmf.commonlib.net;
 
+import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.bean.UpdateInfo;
 import com.nmssdmf.commonlib.bean.Upload;
-import com.nmssdmf.commonlib.bean.UploadImage;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 /**
  * @author huscarter@163.com
@@ -26,4 +29,11 @@ public interface IServiceLib {
     @Multipart
     @POST("/image/upload")
     Observable<Upload> uploadImage(@Part MultipartBody.Part body);
+
+    /**
+     * 获取APP版本更新信息
+     * @return
+     */
+    @GET("/api/app/update_info")
+    Observable<BaseData<UpdateInfo>> getUpdateInfo(@Query("system") String system);
 }

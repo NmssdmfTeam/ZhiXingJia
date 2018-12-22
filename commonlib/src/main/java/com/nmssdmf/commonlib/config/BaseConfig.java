@@ -18,4 +18,10 @@ public class BaseConfig {
     public static final String WXAPI_APPSECRET = "1e44c8f1e9fe81964ef7144cbdf8b62b";
     //微信获取access_token api地址
     public static final String WXACCESSTOKEN_API_URL = "https://api.weixin.qq.com";
+
+    /**
+     * 自动更新服务器地址
+     * http://jushiyun-line.oss-cn-hangzhou.aliyuncs.com/jushiTrading.apk
+     */
+    public static final String XML_URL = "http://jushiyun-line.oss-cn-hangzhou.aliyuncs.com";
 }

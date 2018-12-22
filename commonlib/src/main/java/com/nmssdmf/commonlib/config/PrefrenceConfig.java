@@ -16,4 +16,7 @@ public class PrefrenceConfig {
     public static final String INDEX_BANNER = "index_banner";//首页广告
     public static final String HOUSE_INDEX = "house_index";//首页--建材家具
     public static final String HOUSE_BANNER = "house_banner";//首页广告
+
+    public static final String IS_VERSION_UPDATE = "is_version_update";//是否要进行版本更新
+    public static final String NOT_UPDATE_TIME = "not_update_time";
 }

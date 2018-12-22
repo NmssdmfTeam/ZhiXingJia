@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,11 +20,10 @@ import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PermissionCompat;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
+import com.nmssdmf.commonlib.util.UpdateManager;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
-import com.zhihangjia.mainmodule.behavior.BottomBehavior;
-import com.zhihangjia.mainmodule.behavior.CommonBehavior;
 import com.zhihangjia.mainmodule.callback.MainCB;
 import com.zhihangjia.mainmodule.databinding.ActivityMainBinding;
 import com.zhihangjia.mainmodule.fragment.MainFragment;
@@ -101,6 +101,13 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         }
         //不要下滑隐藏导航栏效果啦
 //        bottomBehavior.isEnableScroll(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //检查更新
+        vm.getAppUpdate();
     }
 
     @Override
@@ -243,5 +250,36 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     public void onBackPressed() {
 //        super.onBackPressed();
         moveTaskToBack(false);
+    }
+
+    /**
+     * 版本更新检查
+     * 1、查询preference如果之前没有检查则需要检查，0:不需要，1:需要，如果服务器设置的是强制更新，值都是1.
+     * 2、如果之前已经检查，则再判断是否离上次检查超过1礼拜，如果超过则再次进行检查，每次检查都会更新检查的时间。
+     */
+    @Override
+    public void checkUpdate() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String should_check = PreferenceUtil.getString(PrefrenceConfig.IS_VERSION_UPDATE, "1");
+                JLog.d(TAG, "Main should_check" + should_check);
+                if (should_check.equals("0")) {
+                    long old_check_time = PreferenceUtil.getLong(PrefrenceConfig.NOT_UPDATE_TIME, System.currentTimeMillis());
+                    if (vm.is_first){
+                        PreferenceUtil.setBooleanValue("is_first", false);
+                        UpdateManager.getInstance().checkVersion(MainActivity.this, false, UpdateManager.DOWNLOAD_TYPE_APP);
+                    }else {
+                        if ((System.currentTimeMillis() - old_check_time) > 604800000) { // need > one week
+                            UpdateManager.getInstance().checkVersion(MainActivity.this, false, UpdateManager.DOWNLOAD_TYPE_APP);
+                        }
+                    }
+
+                } else {
+                    UpdateManager.getInstance().checkVersion(MainActivity.this, false, UpdateManager.DOWNLOAD_TYPE_APP);
+                }
+            }
+        }, 200);
+
     }
 }
