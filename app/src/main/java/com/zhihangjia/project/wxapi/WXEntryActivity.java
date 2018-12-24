@@ -24,9 +24,10 @@ import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
 import com.zhihangjia.project.R;
 
-public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHandler {
 	private final String TAG = WXEntryActivity.class.getSimpleName();
 	private static final int TIMELINE_SUPPORTED_VERSION = 0x21020001;
 

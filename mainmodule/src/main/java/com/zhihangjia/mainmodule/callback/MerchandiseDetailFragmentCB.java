@@ -18,4 +18,6 @@ public interface MerchandiseDetailFragmentCB extends BaseCB {
 
     String getProductSkuId();
     String getGoodsSum();
+
+    void toShare(CommodityDetail commodityDetail);
 }

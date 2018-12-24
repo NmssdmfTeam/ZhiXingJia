@@ -40,13 +40,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    api 'com.amap.api:map2d:latest.integration'             //2D地图
-    api 'com.amap.api:location:latest.integration'          //定位
-    api 'com.wdullaer:materialdatetimepicker:1.5.1'         //日期选择器
+    api 'com.amap.api:map2d:latest.integration'
+    //2D地图
+    api 'com.amap.api:location:latest.integration'
+    //定位
+    api 'com.wdullaer:materialdatetimepicker:1.5.1'
+    //日期选择器
     // 支付宝 SDK AAR 包所需的配置
-    api (name: 'alipaySdk-15.5.7-20181023110917', ext: 'aar')
+    api(name: 'alipaySdk-15.5.7-20181023110917', ext: 'aar')
     api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-
     /**
      * OkHttp-3.2.0 contains library:okhttp-3.2.0,okio-1.6.0
      */
@@ -69,4 +71,11 @@ dependencies {
     api 'com.bugtags.library:bugtags-lib:latest.integration'
     //线上使用，如果不需要使用手动提交 issue，可以选择 metrics 包
     //compile 'com.bugtags.metrics:bugtags-lib:latest.integration'
+    api files('libs/SecurityEnvSDK-release-1.1.0.jar')
+    api files('libs/umeng-common-1.5.4.jar')
+    api files('libs/umeng-share-core-6.9.4.jar')
+    api files('libs/umeng-share-wechat-simplify-6.9.4.jar')
+    api files('libs/umeng-shareboard-widget-6.9.4.jar')
+    api files('libs/umeng-sharetool-6.9.4.jar')
+    api 'com.getui:sdk:2.13.0.0'
 }

@@ -25,6 +25,9 @@ allprojects {
         flatDir {
             dirs '../commonlib/libs'
         }
+        maven {
+            url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/"
+        }
     }
 }
 

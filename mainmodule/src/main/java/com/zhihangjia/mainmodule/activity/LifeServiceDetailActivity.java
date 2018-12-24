@@ -1,12 +1,14 @@
 package com.zhihangjia.mainmodule.activity;
 
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.jushi.gallery.activity.BeautyImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.CommonUtils;
@@ -20,6 +22,8 @@ import com.zhihangjia.mainmodule.databinding.ItemMessageDetailBinding;
 import com.zhihangjia.mainmodule.viewmodel.LifeServiceDetailVM;
 import com.zhihangjia.mainmodule.window.ChooseMapWindow;
 import com.zhixingjia.bean.mainmodule.ContentsBean;
+
+import java.io.Serializable;
 
 /**
 * @description 生活服务详情
@@ -66,6 +70,7 @@ public class LifeServiceDetailActivity extends BaseTitleActivity implements Life
         binding.setVm(vm);
         if (vm.lifeServiceDetail.get() == null || vm.lifeServiceDetail.get().getContent() == null)
             return;
+        vm.imageUrls.clear();
         for (ContentsBean contentsBean : vm.lifeServiceDetail.get().getContent()) {
             ItemMessageDetailBinding itemMessageDetailBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.item_message_detail, null, false);
             itemMessageDetailBinding.content.setText(contentsBean.getNote());
@@ -78,6 +83,14 @@ public class LifeServiceDetailActivity extends BaseTitleActivity implements Life
                     imageView.setLayoutParams(layoutParams);
                     GlideUtil.load(imageView, img);
                     itemMessageDetailBinding.llContent.addView(imageView);
+                    vm.imageUrls.add(Uri.parse(img));
+                    int index = vm.imageUrls.size() - 1;
+                    imageView.setOnClickListener(v -> {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(BeautyImageGalleryActivity.PAGE_INDEX, index);
+                        bundle.putSerializable(BeautyImageGalleryActivity.LIST_PATH_KEY, (Serializable) vm.imageUrls);
+                        doIntent(BeautyImageGalleryActivity.class, bundle);
+                    });
                 }
             }
             binding.llContent.addView(itemMessageDetailBinding.getRoot());

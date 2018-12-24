@@ -5,6 +5,7 @@ import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -50,6 +51,8 @@ public class MessageDetailVM extends BaseVM {
 
     private List<MessageComment> list = new ArrayList<>();
     private List<String> flipList = new ArrayList<>();
+    public List<Uri> imageUrls = new ArrayList<>();
+    public String firstContent;                         //用于分享的描述
 
     public final ObservableBoolean onlyLookBuilder = new ObservableBoolean(false);//是否只看楼主，默认是0，0=否 1=是
     public final ObservableBoolean isHot = new ObservableBoolean(false);//最赞

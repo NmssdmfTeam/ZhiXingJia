@@ -45,7 +45,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDe
     }
 
     public void ivShareClick(View view){
-
+        cb.toShare(commodityDetail.get());
     }
 
     public void ivAddShoppingCarClick(View view){

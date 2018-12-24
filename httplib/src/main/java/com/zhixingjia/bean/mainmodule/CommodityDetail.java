@@ -35,6 +35,7 @@ public class CommodityDetail extends BaseObservable {
     private List<SkuBean> sku;                      //规格数据，用于比例，也供展示库存与价格，购买时需要传规格ID，无规格为空
     private List<SepcValBean> sepc_val;             //规格信息，这个是展示作用，供用户选择购买
     private List<OrderComment> order_comment;       //评价列表，最多5条
+    private String share_url;                       //用于分享的地址
 
     @Bindable
     public String getCoupon_tab() {
@@ -222,6 +223,14 @@ public class CommodityDetail extends BaseObservable {
     public void setOrder_comment(List<OrderComment> order_comment) {
         this.order_comment = order_comment;
         notifyPropertyChanged(BR.order_comment);
+    }
+
+    public String getShare_url() {
+        return share_url;
+    }
+
+    public void setShare_url(String share_url) {
+        this.share_url = share_url;
     }
 
     public static class ProviderInfoBean extends BaseObservable {

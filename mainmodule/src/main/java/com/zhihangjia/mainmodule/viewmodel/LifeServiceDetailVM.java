@@ -1,6 +1,7 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import android.databinding.ObservableField;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,9 @@ import com.zhihangjia.mainmodule.callback.LifeServiceDetailCB;
 import com.zhixingjia.bean.mainmodule.LifeServiceDetail;
 import com.zhixingjia.service.MainService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
 * @description 生活服务详情
 * @author chenbin
@@ -27,6 +31,7 @@ public class LifeServiceDetailVM extends BaseVM {
     private String info_id;
     public String title;
     public final ObservableField<LifeServiceDetail> lifeServiceDetail = new ObservableField<>();
+    public List<Uri> imageUrls = new ArrayList<>();
 
     /**
      * 不需要callback可以传null

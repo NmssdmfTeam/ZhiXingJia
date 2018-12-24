@@ -91,6 +91,11 @@ public class PermissionCompat {
      */
     private static String[] PERMISSION_LOCATION = {Manifest.permission.ACCESS_COARSE_LOCATION};
 
+    /**
+     * 分享相关权限
+     */
+    String[] ABOUT_SHARE = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE};
+
     private PermissionCompat() {
         //
     }
@@ -167,6 +172,20 @@ public class PermissionCompat {
      * 定位权限
      */
     public final static int REQUEST_LOCATION = 10097;
+
+    /**
+     * 定位权限
+     */
+    public final static int REQUEST_SOCIAL_SHARE = 10097;
+
+    /**
+     * 分享相关权限
+     * @param activity
+     * @return
+     */
+    public boolean checkAboutSharePermission(Activity activity) {
+        return checkPermission(activity, ABOUT_SHARE, REQUEST_SOCIAL_SHARE);
+    }
 
     /**
      * 最底层的全新检测方法

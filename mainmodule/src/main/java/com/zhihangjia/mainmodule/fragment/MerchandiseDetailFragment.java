@@ -17,8 +17,14 @@ import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
+import com.zhihangjia.mainmodule.activity.MessageDetailActivity;
 import com.zhihangjia.mainmodule.adapter.MerchandiseDetailViewPagerAdapter;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;
@@ -37,7 +43,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MerchandiseDetailFragment extends BaseFragment implements MerchandiseDetailFragmentCB, ChooseSpecificationWindow.ViewClickListener {
+public class MerchandiseDetailFragment extends BaseFragment implements MerchandiseDetailFragmentCB, ChooseSpecificationWindow.ViewClickListener,UMShareListener {
 
     private final String TAG = MerchandiseDetailFragment.class.getSimpleName();
     private MerchandiseDetailFragmentVM vm;
@@ -179,6 +185,19 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     }
 
     @Override
+    public void toShare(CommodityDetail commodityDetail) {
+        UMWeb web = new UMWeb(commodityDetail.getShare_url());
+        web.setTitle(commodityDetail.getCommodity_name());//标题
+        if (commodityDetail.getImgs().size() > 0) {
+            UMImage image = new UMImage(getActivity(), commodityDetail.getImgs().get(0));
+            web.setThumb(image);  //缩略图
+        }
+        new ShareAction(getActivity()).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .withMedia(web).setCallback(this)
+                .open();
+    }
+
+    @Override
     public void onAddCartClick() {
         vm.addCartStore();
     }
@@ -194,5 +213,25 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
 
     public void toMerchants() {
         vm.onMerchantsClick(null);
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+
     }
 }

@@ -27,6 +27,7 @@ public class MessageDetail extends BaseObservable{
     private String give_state;//判断当前用户是否点过该帖子，0=否  1=是
     private String comment_pages;//评论的总页数，需要弄到顶部，格式为1/5，前面是当页的页数，后面5是总页面
     private List<ContentsBean> contents;//内容数组
+    private String share_url;           //分享url
 
 
     @Bindable
@@ -149,6 +150,14 @@ public class MessageDetail extends BaseObservable{
 
     public void setContents(List<ContentsBean> contents) {
         this.contents = contents;
+    }
+
+    public String getShare_url() {
+        return share_url;
+    }
+
+    public void setShare_url(String share_url) {
+        this.share_url = share_url;
     }
 
     public static class ContentsBean extends BaseObservable{
