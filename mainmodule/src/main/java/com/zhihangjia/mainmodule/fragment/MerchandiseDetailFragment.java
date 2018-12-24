@@ -131,12 +131,13 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
         for (ContentsBean contentsBean : vm.commodityDetail.get().getContent()) {
             ItemMessageDetailBinding itemMessageDetailBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.item_message_detail, null, false);
             itemMessageDetailBinding.content.setText(contentsBean.getNote());
+            itemMessageDetailBinding.content.setVisibility(TextUtils.isEmpty(contentsBean.getNote())?View.GONE:View.VISIBLE);
             if (contentsBean.getImgs() != null && contentsBean.getImgs().size() > 0) {
                 for (String img : contentsBean.getImgs()) {
                     GlideImageView imageView = new GlideImageView(getContext());
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    layoutParams.topMargin = DensityUtil.dpToPx(getContext(), 12);
-                    layoutParams.bottomMargin = DensityUtil.dpToPx(getContext(), 12);
+//                    layoutParams.topMargin = DensityUtil.dpToPx(getContext(), 12);
+//                    layoutParams.bottomMargin = DensityUtil.dpToPx(getContext(), 12);
                     imageView.setLayoutParams(layoutParams);
                     GlideUtil.load(imageView, img);
                     itemMessageDetailBinding.llContent.addView(imageView);
@@ -159,8 +160,9 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     @Override
     public void setCommodityComment(List<CommodityDetail.OrderComment> orderComments) {
         binding.llCommentContent.removeAllViews();
-        if (orderComments != null) {
+        if (orderComments != null && orderComments.size() > 0) {
             binding.llComment.setVisibility(View.VISIBLE);
+            binding.vblank.setVisibility(View.VISIBLE);
             for (CommodityDetail.OrderComment orderComment : orderComments) {
                 ItemCommodityDetailCommentBinding itemCommodityDetailCommentBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_commodity_detail_comment, null, false);
                 itemCommodityDetailCommentBinding.setData(orderComment);
@@ -168,6 +170,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
             }
         } else {
             binding.llComment.setVisibility(View.GONE);
+            binding.vblank.setVisibility(View.GONE);
         }
     }
 

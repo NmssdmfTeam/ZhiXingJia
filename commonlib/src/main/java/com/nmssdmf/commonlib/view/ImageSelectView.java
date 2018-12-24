@@ -34,6 +34,7 @@ import com.nmssdmf.commonlib.net.IServiceLib;
 import com.nmssdmf.commonlib.net.http.OkHttpClientProvider;
 import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
 import com.nmssdmf.commonlib.util.CommonUtils;
+import com.nmssdmf.commonlib.util.DataCleanManager;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.FileUtil;
 import com.nmssdmf.commonlib.util.ImageUtil;
@@ -48,6 +49,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -352,7 +356,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 
     private List<String> getImgIds() {
         List<String> imgIds = new ArrayList<>();
-        for (int i=0; i < adapter.getImageSize(); i++) {
+        for (int i = 0; i < adapter.getImageSize(); i++) {
             imgIds.add(adapter.getData().get(i).getImage_id());
         }
         return imgIds;
@@ -362,7 +366,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
      * 上传图片到服务端
      */
     public void uploadImage() {
-        int imageSize = adapter.getImageSize();
+        final int imageSize = adapter.getImageSize();
         if (imageSize == 0 && !isNeed) {
             ToastUtil.getInstance().showToast("请至少添加一张图片");
             upload_listener.onUpLoadFailed(new Exception("There is no file need to upload"));
@@ -376,26 +380,73 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
                 return;
             }
         }
-        boolean isFull = true;
-        for (int i = 0; i < imageSize; i++) {
-            if (adapter.getData().get(i).getImage_id().equals("")) {
-                final String file_path = adapter.getData().get(i).getUrl();
-                File file = ImageUtil.getCompressFile(file_path);
-                // create your getFile object here
-                if (file == null) {
-                    upload_listener.onUpLoadFailed(new Exception("New file failed with the file path:" + file_path));
-                    ToastUtil.getInstance().showToast("上传图片失败");
+        final List<File> fileList = new ArrayList<>();
+        //先进行压缩
+        Observable observable = Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
+                try {
+                    boolean isFull = true;
+                    for (int i = 0; i < imageSize; i++) {
+                        if (adapter.getData().get(i).getImage_id().equals("")) {
+                            final String file_path = adapter.getData().get(i).getUrl();
+                            File file = ImageUtil.getCompressFile(file_path);
+                            if (file == null) {
+                                upload_listener.onUpLoadFailed(new Exception("New file failed with the file path:" + file_path));
+                                fileList.clear();
+                                return;
+                            }
+                            fileList.add(file);
+                            isFull = false;
+                        }
+                    }
+                    e.onNext(isFull);
+                } catch (Exception error) {
+                    e.onError(error);
                     return;
                 }
-                isFull = false;
-                doUploadImage(file, i);
+                e.onComplete();
             }
-        }
-        if (isFull) {
-            //无需上传
-            upload_listener.onUpLoadComplete(toStringArray(getImgIds()));
-        }
+        });
+        Observer<Boolean> observer = new Observer<Boolean>() {
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                new CompositeDisposable().add(d);
+            }
+
+            @Override
+            public void onNext(Boolean isFull) {
+                if (isFull) {
+                    //无需上传
+                    upload_listener.onUpLoadComplete(toStringArray(getImgIds()));
+                    return;
+                }
+                for (int i = 0; i < fileList.size(); i++) {
+                    File file = fileList.get(i);
+                    // create your getFile object here
+                    if (file == null) {
+                        ToastUtil.getInstance().showToast("上传图片失败");
+                        return;
+                    }
+                    doUploadImage(file, i);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
     }
+
 
     public List<UploadImage> getFilePathList() {
         int imageSize = adapter.getImageSize();
@@ -403,7 +454,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         for (int i = 0; i < imageSize; i++) {
             uploadImages.add(adapter.getData().get(i));
         }
-        return  uploadImages;
+        return uploadImages;
     }
 
 

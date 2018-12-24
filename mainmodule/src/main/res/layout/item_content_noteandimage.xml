@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.zhihangjia.mainmodule.bean.ContentBean"/>
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/llContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#FF666666"
+            android:textSize="15dp"
+            android:text="@{data.note}"
+            android:visibility="@{TextUtils.isEmpty(data.note)?View.GONE:View.VISIBLE}"/>
+
+        <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:src="@{data.img}"
+            android:visibility="@{TextUtils.isEmpty(data.img)?View.GONE:View.VISIBLE}"/>
+
+    </LinearLayout>
+</layout>

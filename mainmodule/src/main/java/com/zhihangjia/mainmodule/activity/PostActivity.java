@@ -147,7 +147,7 @@ public class PostActivity extends BaseActivity implements PostCB{
 
             @Override
             public void onUpLoadFailed(Throwable e) {
-
+                dismissLoaddingDialog();
             }
 
             @Override
@@ -168,6 +168,7 @@ public class PostActivity extends BaseActivity implements PostCB{
      * 图片上传
      */
     public void uploadImg() {
+        showLoaddingDialog();
         int childCount = binding.llContent.getChildCount();
         imageSectionCount = 0;
         for (int i = 0; i < childCount; i++) {

@@ -13,7 +13,9 @@ import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.bean.ContentBean;
 import com.zhihangjia.mainmodule.callback.LifeServiceDetailCB;
+import com.zhixingjia.bean.mainmodule.ContentsBean;
 import com.zhixingjia.bean.mainmodule.LifeServiceDetail;
 import com.zhixingjia.service.MainService;
 
@@ -31,6 +33,7 @@ public class LifeServiceDetailVM extends BaseVM {
     private String info_id;
     public String title;
     public final ObservableField<LifeServiceDetail> lifeServiceDetail = new ObservableField<>();
+    public List<ContentBean> contentBeans = new ArrayList<>();
     public List<Uri> imageUrls = new ArrayList<>();
 
     /**
@@ -69,6 +72,22 @@ public class LifeServiceDetailVM extends BaseVM {
 
             @Override
             public void onSuccess(BaseData<LifeServiceDetail> lifeServiceDetailBaseData) {
+                contentBeans.clear();
+                imageUrls.clear();
+                //初始化数据
+                for (ContentsBean contentsBean : lifeServiceDetailBaseData.getData().getContent()) {
+                    if (!TextUtils.isEmpty(contentsBean.getNote())) {
+                        ContentBean contentNote = new ContentBean();
+                        contentNote.setNote(contentsBean.getNote());
+                        contentBeans.add(contentNote);
+                    }
+                    for (String imageUrl : contentsBean.getImgs()) {
+                        ContentBean contentImage = new ContentBean();
+                        contentImage.setImg(imageUrl);
+                        contentBeans.add(contentImage);
+                        imageUrls.add(Uri.parse(imageUrl));
+                    }
+                }
                 lifeServiceDetail.set(lifeServiceDetailBaseData.getData());
                 callback.setContent();
             }

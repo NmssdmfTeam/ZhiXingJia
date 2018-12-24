@@ -24,4 +24,9 @@ public class BaseConfig {
      * http://jushiyun-line.oss-cn-hangzhou.aliyuncs.com/jushiTrading.apk
      */
     public static final String XML_URL = "http://jushiyun-line.oss-cn-hangzhou.aliyuncs.com";
+
+    public static final String PUBLIC_KEY = "MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHz9uY5sFdnBV2lxlAk9G4H6YV5u\r" +
+            "zGf/osJS7Av/VgOWrOLhCCyGbBJylAozdcWTl/sK03EY8IxLEYxNQnvWzWoThIsF\r" +
+            "HdlCZHbqLJKbXIm6KCvMCWUTiAQiMPBsWCCsHKwOb8vlD3eUsHk09it862jN9Zkw\r" +
+            "eoXROaIugWINGcH1AgMBAAE=";
 }
