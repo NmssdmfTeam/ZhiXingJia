@@ -43,7 +43,11 @@ public class HttpUtils {
                         if (isReturnOk(t.getStatus_code())) {
                             callback.onSuccess(t);
                         } else {
-                            ToastUtil.showMsg(t.getMessage());
+                            if ("401".equals(t.getStatus_code())) {
+
+                            } else {
+                                ToastUtil.showMsg(t.getMessage());
+                            }
                             callback.onDefeated(t);
                         }
                     }
