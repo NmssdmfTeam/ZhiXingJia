@@ -189,7 +189,7 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
     }
 
     @Override
-    public void useCoupon() {
+    public void useCoupon(Coupon item) {
 
     }
 

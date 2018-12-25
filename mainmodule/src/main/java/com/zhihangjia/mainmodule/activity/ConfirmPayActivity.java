@@ -9,7 +9,6 @@ import com.nmssdmf.commonlib.bean.Payment;
 import com.nmssdmf.commonlib.util.AlipayUtil;
 import com.nmssdmf.commonlib.util.WeChatPayUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.callback.ConfirmPayCB;
 import com.zhihangjia.mainmodule.databinding.ActivityConfirmPayBinding;
@@ -48,7 +47,7 @@ public class ConfirmPayActivity extends BaseTitleActivity implements ConfirmPayC
     @Override
     public void showCouponWindow(boolean refresh) {
         if (chooseCouponWindow == null) {
-            chooseCouponWindow = new ChooseCouponWindow(this, ChooseCouponWindow.TYPE_MERCHANT, vm.coupons, vm);
+            chooseCouponWindow = new ChooseCouponWindow(this, ChooseCouponWindow.TYPE_MERCHANT,  vm);
         }
         chooseCouponWindow.refreshAdapter(refresh, vm.coupons);
         chooseCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);

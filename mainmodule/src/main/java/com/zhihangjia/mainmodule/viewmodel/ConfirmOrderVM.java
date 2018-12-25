@@ -18,6 +18,7 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.adapter.ChooseCouponAdater;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseCouponAdaterListener{
+    private final String TAG = ConfirmOrderVM.class.getSimpleName();
     private ConfirmOrderCB cb;
 
     Map<Integer, List<Coupon>> couponMap = new HashMap<>();
@@ -50,6 +52,9 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
     public ObservableField<String> totalAmount = new ObservableField<>();
     private CommodityComfirm.AddressInfoBean addressInfoBean;
     public int position;
+
+    private List<CommodityComfirm.InfoListBean> listBeans = new ArrayList<>();
+    private String orderAmount = "0";
 
     /**
      * 不需要callback可以传null
@@ -102,6 +107,7 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
                 cb.setAddressData(data.getData().getAddress_info());
                 addressInfoBean = data.getData().getAddress_info();
                 totalAmount.set(data.getData().getOrder_pay_amount());
+                orderAmount = data.getData().getOrder_pay_amount();
             }
 
             @Override
@@ -130,6 +136,7 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
                 goodsInfo.setProduct_sku_id(listInfoBean.getProduct_sku_id());
                 goodsInfos.add(goodsInfo);
             }
+            productBean.setCoupon_code(infoListBean.getCoupon_code());
             productBean.setGoods_info(goodsInfos);
             productBeans.add(productBean);
         }
@@ -208,6 +215,7 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
             cb.showCouponWindow(true);
             return;
         }
+        cb.showLoaddingDialog();
         String page = "0";
         if (couponMap.get(position) != null && couponMap.get(position).size() > 0) {
             page = couponMap.get(position).get(couponMap.get(position).size() -1).getCode_id();
@@ -225,9 +233,12 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
 
             @Override
             public void onSuccess(BaseListData<Coupon> data) {
+                cb.dismissLoaddingDialog();
                 if (data.getData() != null && data.getData().size() > 0) {
+                    couponMap.put(position, data.getData());
                     cb.refreshCouponList(isRefresh, data.getData());
                 }
+                JLog.d(TAG, "couponMap = " + new Gson().toJson(couponMap));
                 cb.showCouponWindow(isRefresh);
             }
 
@@ -282,7 +293,24 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
     }
 
     @Override
-    public void useCoupon() {
+    public void useCoupon(Coupon item) {
+        listBeans.get(position).setCoupon_code(item.getCode_id());
+        listBeans.get(position).setCoupon_price(item.getDecrease());
+        cb.closeChooseCouponWindow();
 
+        float totalCouponPrice = 0;
+        for (CommodityComfirm.InfoListBean bean : listBeans) {
+            totalCouponPrice += Float.valueOf(bean.getCoupon_price());
+        }
+
+        totalAmount.set(String.valueOf(Float.valueOf(orderAmount) - totalCouponPrice));
+    }
+
+    public List<CommodityComfirm.InfoListBean> getListBeans() {
+        return listBeans;
+    }
+
+    public void setListBeans(List<CommodityComfirm.InfoListBean> listBeans) {
+        this.listBeans = listBeans;
     }
 }

@@ -6,8 +6,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.commonlib.window.WheelPickerWindow;
 import com.zhihangjia.mainmodule.R;
@@ -22,7 +24,6 @@ import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.personmodule.Coupon;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,7 +62,7 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
         binding.setVm(vm);
 
         vm.getIntentData();
-        adapter = new ConfirmOrderAdapter(new ArrayList<>(), this);
+        adapter = new ConfirmOrderAdapter(vm.getListBeans(), this);
         headerBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.header_confirm_order, null, false);
         headerBinding.setData(new CommodityComfirm.AddressInfoBean());
         headerBinding.setVm(vm);
@@ -80,23 +81,32 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
         if (deliveryMethodWindow == null) {
             deliveryMethodWindow = new WheelPickerWindow(this, vm.getDeliveryMethodList(), this);
         }
-        vm.position = position;
+        vm.position = position - 1;
         deliveryMethodWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 
     @Override
     public void chooseCoupon(int position, String id, String money) {
-        vm.position = position;
+        vm.position = position - 1;
         vm.getCoupons(true, id, money);
     }
 
     @Override
     public void showCouponWindow(boolean refresh) {
         if (chooseCouponWindow == null) {
-            chooseCouponWindow = new ChooseCouponWindow(this, ChooseCouponWindow.TYPE_MERCHANT, vm.getCouponMap().get(vm.position), vm);
+            chooseCouponWindow = new ChooseCouponWindow(this, ChooseCouponWindow.TYPE_MERCHANT,  vm);
         }
+        JLog.d(TAG, "couponMap = " + new Gson().toJson(vm.getCouponMap()));
+        JLog.d(TAG, "vm.position = " + vm.position);
         chooseCouponWindow.refreshAdapter(refresh, vm.getCouponMap().get(vm.position));
         chooseCouponWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
+    }
+
+    @Override
+    public void closeChooseCouponWindow() {
+        if (chooseCouponWindow != null) {
+            chooseCouponWindow.dismiss();
+        }
     }
 
     @Override
@@ -129,8 +139,8 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
 
     @Override
     public void tvSureClick(String item, int FreightTypePosition) {
-        CommodityComfirm.InfoListBean infoListBean = adapter.getData().get(vm.position - 1);
-        adapter.getData().get(vm.position - 1).setFreight_type(FreightTypePosition);
+        CommodityComfirm.InfoListBean infoListBean = adapter.getData().get(vm.position);
+        adapter.getData().get(vm.position).setFreight_type(FreightTypePosition);
         //重新计算金额
         BigDecimal amount;
         BigDecimal total;
@@ -141,7 +151,7 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
             amount = new BigDecimal(infoListBean.getProduct_amount()).subtract(new BigDecimal(infoListBean.getCost_freight()));
             total = new BigDecimal(vm.totalAmount.get()).subtract(new BigDecimal(infoListBean.getCost_freight()));
         }
-        adapter.getData().get(vm.position - 1).setProduct_amount(amount.toString());
+        adapter.getData().get(vm.position).setProduct_amount(amount.toString());
         vm.totalAmount.set(total.toString());
         adapter.notifyItemChanged(vm.position);
     }

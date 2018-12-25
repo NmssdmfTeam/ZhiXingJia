@@ -108,6 +108,27 @@ public class CommodityComfirm extends BaseObservable {
         private List<ListInfoBean> list_info;           //商品数组
         private String memo;                            //买家留言
         private int freight_type;                       //配送方式：0 商家配送，1 上门自提
+        private String coupon_code;                     //优惠券id(不是后台返回)
+        private String coupon_price;                    //优惠券金额(不是后台返回）
+
+        @Bindable
+        public String getCoupon_price() {
+            return coupon_price;
+        }
+
+        public void setCoupon_price(String coupon_price) {
+            this.coupon_price = coupon_price;
+            notifyPropertyChanged(BR.coupon_price);
+        }
+        @Bindable
+        public String getCoupon_code() {
+            return coupon_code;
+        }
+
+        public void setCoupon_code(String coupon_code) {
+            this.coupon_code = coupon_code;
+            notifyPropertyChanged(BR.coupon_code);
+        }
 
         @Bindable
         public String getProvider_id() {
