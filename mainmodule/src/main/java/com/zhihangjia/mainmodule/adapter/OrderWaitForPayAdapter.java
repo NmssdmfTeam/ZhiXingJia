@@ -86,6 +86,18 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
     }
 
     public void initWaitPay(TagLayout layout, int index){
+
+
+        TextView cancelView = new OrderBtnTextView(mContext);
+        cancelView.setText("取消订单");
+        layout.addView(cancelView);
+        cancelView.setOnClickListener(v -> showDialog(index, 2, "确认取消订单么"));
+
+        TextView offLinePayView = new OrderBtnTextView(mContext);
+        offLinePayView.setText("到店付");
+        layout.addView(offLinePayView);
+        offLinePayView.setOnClickListener(v -> showDialog(index, 1, "确认到店付么"));
+
         TextView payView = new OrderBtnTextView(mContext);
         payView.setText("支付");
         layout.addView(payView);
@@ -102,16 +114,6 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
             intent.setClass(mContext, ConfirmPayActivity.class);
             mContext.startActivity(intent);
         });
-
-        TextView offLinePayView = new OrderBtnTextView(mContext);
-        offLinePayView.setText("到店付");
-        layout.addView(offLinePayView);
-        offLinePayView.setOnClickListener(v -> showDialog(index, 1, "确认到店付么"));
-
-        TextView cancelView = new OrderBtnTextView(mContext);
-        cancelView.setText("取消订单");
-        layout.addView(cancelView);
-        cancelView.setOnClickListener(v -> showDialog(index, 2, "确认取消订单么"));
     }
 
     public void showDialog(int index, int i, String message) {

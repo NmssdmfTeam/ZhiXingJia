@@ -49,7 +49,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:text="@{@string/goods_title + data.commodity_name}"
+            android:text="@{ data.commodity_name}"
             android:textColor="#FF999999"
             android:textSize="12dp"
             />
@@ -57,7 +57,7 @@
         <TextView
             android:id="@+id/tvContent"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tvNameAndSpec"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"

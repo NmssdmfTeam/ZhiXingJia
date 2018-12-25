@@ -2,7 +2,8 @@
 <layout>
 
     <data>
-
+        <import type="com.nmssdmf.commonlib.util.StringUtil"/>
+        <import type="android.view.View"/>
         <variable
             name="data"
             type="com.zhixingjia.bean.mainmodule.CommodityComfirm.InfoListBean" />
@@ -79,13 +80,15 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp" />
+            android:layout_marginRight="16dp"
+            android:visibility="@{StringUtil.isEmpty(data.shop_coupon) || Integer.valueOf(data.shop_coupon) == 0 ? View.GONE : View.VISIBLE}"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingRight="16dp"
+            android:visibility="@{StringUtil.isEmpty(data.shop_coupon) || Integer.valueOf(data.shop_coupon) == 0 ? View.GONE : View.VISIBLE}">
 
             <TextView
                 android:layout_width="67.5dp"
@@ -113,10 +116,11 @@
                 android:background="@drawable/shape_shop_discount_coupon"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="@{data.shop_coupon+@string/enable_coupon_num}"
+                android:text="@{StringUtil.isEmpty(data.coupon_code) ? data.shop_coupon+@string/enable_coupon_num : `-￥`+data.coupon_price}"
                 android:textColor="#FFFF9A14"
                 android:textSize="13dp"
                 />
+            <!--data.shop_coupon+@string/enable_coupon_num-->
         </RelativeLayout>
 
         <include
@@ -173,7 +177,7 @@
                 android:layout_height="21dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="12dp"
-                android:text="@{data.product_amount}"
+                android:text="@{StringUtil.isEmpty(data.coupon_code) ? data.product_amount : String.valueOf(Float.valueOf(data.product_amount) - Float.valueOf(data.coupon_price))}"
                 android:textColor="#FFFF5C4A"
                 android:textSize="15dp" />
 
@@ -193,7 +197,7 @@
                 android:layout_marginRight="24.5dp"
                 android:layout_marginTop="13.5dp"
                 android:layout_toLeftOf="@+id/tvPrice"
-                android:text="共23件"
+                android:text="@{`共`+data.sum_total+`件`}"
                 android:textColor="#FF333333"
                 android:textSize="13dp" />
         </RelativeLayout>

@@ -9,9 +9,9 @@
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
 
         <TextView
             android:id="@+id/tvSubmitApplications"
@@ -20,10 +20,10 @@
             android:layout_alignParentBottom="true"
             android:background="#FFFF9A14"
             android:gravity="center"
-            android:text="@{vm.isEdit?@string/save:@string/to_apply}"
+            android:onClick="@{(v)->vm.onCommitClick(v)}"
+            android:text="@{vm.isEdit?@string/to_apply:@string/save}"
             android:textColor="#FFFFFFFF"
-            android:textSize="16dp"
-            android:onClick="@{(v)->vm.onCommitClick(v)}"/>
+            android:textSize="16dp"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -70,9 +70,11 @@
                         android:text="@={vm.applySupplier.company_name}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"/>
 
                 </RelativeLayout>
+
+                <include layout="@layout/include_recyclerview_cutoff_line"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -87,7 +89,7 @@
                         android:gravity="center_vertical"
                         android:text="所在商圈"
                         android:textColor="#FF333333"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -105,11 +107,11 @@
                         android:text="@{vm.applySupplier.trade_area_name}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"/>
 
                 </RelativeLayout>
 
-                <include layout="@layout/include_recyclerview_cutoff_line" />
+                <include layout="@layout/include_recyclerview_cutoff_line"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -122,7 +124,7 @@
                         android:gravity="center_vertical"
                         android:text="详细地址"
                         android:textColor="#FF333333"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"/>
 
                     <EditText
                         android:layout_width="wrap_content"

@@ -111,7 +111,7 @@ public class PersonInfoVM extends BaseVM implements WheelPickerWindowCB {
     public void modifyAvatar() {
         Map<String, String> map = new HashMap<>();
         map.put("avatar", imageId);
-        cb.showLoaddingDialog();
+//        cb.showLoaddingDialog();
         infoSave(map,2);
     }
 
@@ -147,6 +147,7 @@ public class PersonInfoVM extends BaseVM implements WheelPickerWindowCB {
      * @param file
      */
     public void doUploadImage(final File file) {
+        cb.showLoaddingDialog();
         RequestBody request_body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), request_body);
         IServiceLib iService = new Retrofit.Builder()
@@ -161,6 +162,7 @@ public class PersonInfoVM extends BaseVM implements WheelPickerWindowCB {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        cb.dismissLoaddingDialog();
                         ToastUtil.getInstance().showToast("上传图片失败");
                     }
 
@@ -170,6 +172,7 @@ public class PersonInfoVM extends BaseVM implements WheelPickerWindowCB {
                             imageId = uploadImage.getData().getImage_id();
                             modifyAvatar();
                         } else {
+                            cb.dismissLoaddingDialog();
                             ToastUtil.getInstance().showToast("上传图片失败");
                         }
                     }

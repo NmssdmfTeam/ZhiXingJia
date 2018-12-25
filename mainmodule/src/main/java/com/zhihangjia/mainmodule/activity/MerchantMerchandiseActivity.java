@@ -124,11 +124,11 @@ public class MerchantMerchandiseActivity extends BaseActivity implements Merchan
     }
 
     @Override
-    public void changeSelectType(boolean select) {
+    public void changeSelectType(int selectType) {
         if (binding.vp.getCurrentItem() == 0) {
-            ((MerchantFragment)list.get(binding.vp.getCurrentItem())).getVm().setType(select ? 1 : 2);
+            ((MerchantFragment)list.get(binding.vp.getCurrentItem())).getVm().setType(selectType);
         } else {
-            ((MerchandiseFragment)list.get(binding.vp.getCurrentItem())).getVm().setType(select ? 1 : 2);
+            ((MerchandiseFragment)list.get(binding.vp.getCurrentItem())).getVm().setType(selectType);
         }
     }
 }

@@ -8,6 +8,9 @@
         <variable
             name="vm"
             type="com.zhihangjia.mainmodule.viewmodel.MerchandiseDetailFragmentVM" />
+
+        <import type="android.view.View"/>
+        <import type="com.nmssdmf.commonlib.util.StringUtil"/>
     </data>
 
     <FrameLayout
@@ -180,14 +183,16 @@
 
                 <include
                     android:id="@+id/brandIncludeCutoffLine"
-                    layout="@layout/include_recyclerview_cutoff_line" />
+                    layout="@layout/include_recyclerview_cutoff_line"
+                    android:visibility="@{StringUtil.isEmpty(vm.commodityDetail.coupon_tab) ? View.GONE : View.VISIBLE}"/>
 
                 <RelativeLayout
                     android:id="@+id/rlCoupon"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
+                    android:paddingRight="16dp"
+                    android:visibility="@{StringUtil.isEmpty(vm.commodityDetail.coupon_tab) ? View.GONE : View.VISIBLE}">
 
                     <TextView
                         android:id="@+id/tvDiscounts"

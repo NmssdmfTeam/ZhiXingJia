@@ -30,9 +30,8 @@ public class ChooseCouponWindow extends PopupWindow{
      *
      * @param context
      * @param type 区分商家优惠券还是平台优惠券
-     * @param list 优惠券数据
      */
-    public ChooseCouponWindow (final Context context, String type, List<Coupon> list, ChooseCouponAdater.ChooseCouponAdaterListener listener){
+    public ChooseCouponWindow (final Context context, String type,  ChooseCouponAdater.ChooseCouponAdaterListener listener){
          binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_choose_coupon, null, false);
         setContentView(binding.getRoot());
         setHeight(DensityUtil.dpToPx(context, 371.5f));
@@ -50,10 +49,10 @@ public class ChooseCouponWindow extends PopupWindow{
             }
         }
 
-        if (list != null && list.size() > 0) {
-            ChooseCouponAdater adater = new ChooseCouponAdater(list, listener);
+//        if (list != null && list.size() > 0) {
+            ChooseCouponAdater adater = new ChooseCouponAdater( listener);
             binding.crv.setAdapter(adater);
-        }
+//        }
 
         setOnDismissListener(() -> WindowUtil.setBackgroundAlpha((Activity) context, 1f));
 

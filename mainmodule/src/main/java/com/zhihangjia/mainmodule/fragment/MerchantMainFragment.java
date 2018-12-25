@@ -8,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
@@ -21,7 +20,6 @@ import com.zhihangjia.mainmodule.databinding.HeaderMerchantMainBinding;
 import com.zhihangjia.mainmodule.viewmodel.MerchantMainFragmentVM;
 import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.Commodity;
-import com.zhixingjia.bean.mainmodule.ShopInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +60,7 @@ public class MerchantMainFragment extends BaseRecyclerViewFragment implements Me
     public void initAll(View view, Bundle savedInstanceState) {
         super.initAll(view, savedInstanceState);
         binding.crv.getSrl().setEnabled(false);
+        binding.crv.setLoadMoreEnable(false);
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         binding.crv.setLayoutManager(layoutManager);
         //初始化首页轮播图

@@ -5,6 +5,7 @@ import android.databinding.ObservableInt;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+
 import com.google.gson.Gson;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
@@ -28,6 +29,8 @@ import com.nmssdmf.commonlib.bean.Payment;
 import com.zhixingjia.bean.personmodule.Coupon;
 import com.zhixingjia.service.MainService;
 import com.zhixingjia.service.PersonService;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +45,12 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
 
     private List<String> payIds = new ArrayList<>();
     public final ObservableField<PayInfo> payInfo = new ObservableField<>();
+    public final ObservableField<String> payPrice = new ObservableField<>();
+    public final ObservableField<String> couponString = new ObservableField<>();
     private ConfirmPayCB callback;
     public List<Coupon> coupons = new ArrayList<>();
     private String pages = "0";
-    private Coupon coupon;
+    private Coupon coupon = new Coupon();
 
     /**
      * 不需要callback可以传null
@@ -81,6 +86,8 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
                     @Override
                     public void onSuccess(BaseData<PayInfo> payInfoBaseData) {
                         payInfo.set(payInfoBaseData.getData());
+                        payPrice.set(payInfo.get().getOrder_amount());
+                        couponString.set(payInfo.get().getCoupon_sum() + baseCallBck.getStringFromId(R.string.enable_coupon_num));
                         callback.setListener();
                     }
 
@@ -94,7 +101,7 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
     /**
      * 获取平台优惠券
      */
-    public void getCoupons(boolean isRefresh, String money){
+    public void getCoupons(boolean isRefresh, String money) {
         if (TextUtils.isEmpty(payInfo.get().getCoupon_sum()) || "0".equals(payInfo.get().getCoupon_sum())) {
             callback.showToast("没有优惠券可以选择");
             return;
@@ -104,31 +111,31 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
             pages = "0";
         }
         Map<String, String> map = new HashMap<>();
-        map.put("type", "3");
+        map.put("type", "2");
         map.put("amount", money);
-        map.put("page",  pages);
+        map.put("page", pages);
         HttpUtils.doHttp(subscription,
                 RxRequest.create(PersonService.class, HttpVersionConfig.API_COUPON_INFO).getMyCoupon(map),
                 new ServiceCallback<BaseListData<Coupon>>() {
-            @Override
-            public void onError(Throwable error) {
+                    @Override
+                    public void onError(Throwable error) {
 
-            }
+                    }
 
-            @Override
-            public void onSuccess(BaseListData<Coupon> data) {
-                if (data.getData() != null && data.getData().size() > 0) {
-                    coupons.addAll(data.getData());
-                    pages = data.getData().get(data.getData().size() - 1).getCode_id();
-                }
-                callback.showCouponWindow(isRefresh);
-            }
+                    @Override
+                    public void onSuccess(BaseListData<Coupon> data) {
+                        if (data.getData() != null && data.getData().size() > 0) {
+                            coupons.addAll(data.getData());
+                            pages = data.getData().get(data.getData().size() - 1).getCode_id();
+                        }
+                        callback.showCouponWindow(isRefresh);
+                    }
 
-            @Override
-            public void onDefeated(BaseListData<Coupon> data) {
+                    @Override
+                    public void onDefeated(BaseListData<Coupon> data) {
 
-            }
-        });
+                    }
+                });
     }
 
     public void payment() {
@@ -143,35 +150,34 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
             pay_method = "yipay";
         }
         map.put("pay_method", pay_method);
-        if (coupon != null)
-            map.put("coupon_code",  coupon.getCode_id());
+        if (!StringUtil.isEmpty(coupon.getCode_id()))
+            map.put("coupon_code", coupon.getCode_id());
         HttpUtils.doHttp(subscription,
                 RxRequest.create(MainService.class, HttpVersionConfig.API_PAY_PAYMENT).payment(map),
                 new ServiceCallback<BaseData<Payment>>() {
-            @Override
-            public void onError(Throwable error) {
+                    @Override
+                    public void onError(Throwable error) {
 
-            }
+                    }
 
-            @Override
-            public void onSuccess(BaseData<Payment> baseData) {
-                if (payMethod.get() == 0) {
-                    //调用alipay SDK
-                    if (!StringUtil.isEmpty(baseData.getData().getAlipay().getPayment()))
-                        callback.aliPay(baseData.getData().getAlipay().getPayment());
-                } else if (payMethod.get() == 1) {
-                    if (baseData.getData().getWeixin() != null)
-                        callback.wechatPay(baseData.getData().getWeixin());
-                }
-            }
+                    @Override
+                    public void onSuccess(BaseData<Payment> baseData) {
+                        if (payMethod.get() == 0) {
+                            //调用alipay SDK
+                            if (!StringUtil.isEmpty(baseData.getData().getAlipay().getPayment()))
+                                callback.aliPay(baseData.getData().getAlipay().getPayment());
+                        } else if (payMethod.get() == 1) {
+                            if (baseData.getData().getWeixin() != null)
+                                callback.wechatPay(baseData.getData().getWeixin());
+                        }
+                    }
 
-            @Override
-            public void onDefeated(BaseData<Payment> baseData) {
+                    @Override
+                    public void onDefeated(BaseData<Payment> baseData) {
 
-            }
-        });
+                    }
+                });
     }
-
 
 
     public void onPlatformCouponClick(View view) {
@@ -189,8 +195,11 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
     }
 
     @Override
-    public void useCoupon() {
-
+    public void useCoupon(Coupon item) {
+        coupon.setCode_id(item.getCode_id());
+        payPrice.set(new BigDecimal(payInfo.get().getOrder_amount()).subtract(new BigDecimal(item.getDecrease())).toString());
+        couponString.set("-￥" + item.getDecrease());
+        callback.closeCouponWindow();
     }
 
     @Override

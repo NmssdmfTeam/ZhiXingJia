@@ -18,6 +18,8 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.JLog;
+import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.ConfirmPayActivity;
 import com.zhihangjia.mainmodule.adapter.ChooseCouponAdater;
@@ -36,7 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseCouponAdaterListener{
+public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseCouponAdaterListener {
+    private final String TAG = ConfirmOrderVM.class.getSimpleName();
     private ConfirmOrderCB cb;
 
     Map<Integer, List<Coupon>> couponMap = new HashMap<>();
@@ -50,6 +53,9 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
     public ObservableField<String> totalAmount = new ObservableField<>();
     private CommodityComfirm.AddressInfoBean addressInfoBean;
     public int position;
+
+    private List<CommodityComfirm.InfoListBean> listBeans = new ArrayList<>();
+    private String orderAmount = "0";
 
     /**
      * 不需要callback可以传null
@@ -102,6 +108,7 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
                 cb.setAddressData(data.getData().getAddress_info());
                 addressInfoBean = data.getData().getAddress_info();
                 totalAmount.set(data.getData().getOrder_pay_amount());
+                orderAmount = data.getData().getOrder_pay_amount();
             }
 
             @Override
@@ -115,14 +122,14 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
         List<CommodityComfirm.InfoListBean> infoListBeans = cb.getPayData();
         ProductParams productParams = new ProductParams();
         List<ProductBean> productBeans = new ArrayList<>();
-        for (CommodityComfirm.InfoListBean infoListBean: infoListBeans) {
+        for (CommodityComfirm.InfoListBean infoListBean : infoListBeans) {
             ProductBean productBean = new ProductBean();
             productBean.setCoupon_code(null);
             productBean.setDispatching_type(String.valueOf(infoListBean.getFreight_type()));
-            productBean.setNote(infoListBean.getMemo()==null?"":infoListBean.getMemo());
+            productBean.setNote(infoListBean.getMemo() == null ? "" : infoListBean.getMemo());
             productBean.setProvider_id(infoListBean.getProvider_id());
             List<ProductBean.GoodsInfo> goodsInfos = new ArrayList<>();
-            for (CommodityComfirm.InfoListBean.ListInfoBean listInfoBean: infoListBean.getList_info()) {
+            for (CommodityComfirm.InfoListBean.ListInfoBean listInfoBean : infoListBean.getList_info()) {
                 ProductBean.GoodsInfo goodsInfo = new ProductBean.GoodsInfo();
                 goodsInfo.setCart_id(listInfoBean.getCart_id());
                 goodsInfo.setCommodity_id(listInfoBean.getCommodity_id());
@@ -130,6 +137,7 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
                 goodsInfo.setProduct_sku_id(listInfoBean.getProduct_sku_id());
                 goodsInfos.add(goodsInfo);
             }
+            productBean.setCoupon_code(infoListBean.getCoupon_code());
             productBean.setGoods_info(goodsInfos);
             productBeans.add(productBean);
         }
@@ -147,29 +155,29 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
         HttpUtils.doHttp(subscription,
                 RxRequest.create(MainService.class, HttpVersionConfig.API_CART_SUBMITORDER).submitOrder(addrId, orders),
                 new ServiceCallback<BaseListData<String>>() {
-            @Override
-            public void onError(Throwable error) {
+                    @Override
+                    public void onError(Throwable error) {
 
-            }
+                    }
 
-            @Override
-            public void onSuccess(BaseListData<String> base) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(IntentConfig.PAY_IDS, (Serializable) base.getData());
-                bundle.putString(IntentConfig.IDENTITY, StringConfig.BUYER);
-                cb.doIntent(ConfirmPayActivity.class, bundle);
-                if (!TextUtils.isEmpty(cart_info)) {
-                    RxBus.getInstance().send(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER, null);
-                } else {
-                    RxBus.getInstance().send(RxEvent.OrderEvent.CONFIRM_ORDER, null);
-                }
-            }
+                    @Override
+                    public void onSuccess(BaseListData<String> base) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(IntentConfig.PAY_IDS, (Serializable) base.getData());
+                        bundle.putString(IntentConfig.IDENTITY, StringConfig.BUYER);
+                        cb.doIntent(ConfirmPayActivity.class, bundle);
+                        if (!TextUtils.isEmpty(cart_info)) {
+                            RxBus.getInstance().send(RxEvent.OrderEvent.SHOP_CAR_CONFIRM_ORDER, null);
+                        } else {
+                            RxBus.getInstance().send(RxEvent.OrderEvent.CONFIRM_ORDER, null);
+                        }
+                    }
 
-            @Override
-            public void onDefeated(BaseListData<String> base) {
+                    @Override
+                    public void onDefeated(BaseListData<String> base) {
 
-            }
-        });
+                    }
+                });
     }
 
     public List<String> getDeliveryMethodList() {
@@ -203,19 +211,20 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
     /**
      * 获取商家优惠券
      */
-    public void getCoupons(boolean isRefresh, String providerId, String money){
+    public void getCoupons(boolean isRefresh, String providerId, String money) {
         if (couponMap.get(position) != null && couponMap.get(position).size() > 0) {
             cb.showCouponWindow(true);
             return;
         }
+        cb.showLoaddingDialog();
         String page = "0";
         if (couponMap.get(position) != null && couponMap.get(position).size() > 0) {
-            page = couponMap.get(position).get(couponMap.get(position).size() -1).getCode_id();
+            page = couponMap.get(position).get(couponMap.get(position).size() - 1).getCode_id();
         }
         Map<String, String> map = new HashMap<>();
         map.put("type", "3");
         map.put("amount", money);
-        map.put("page",  page);
+        map.put("page", page);
         map.put("provider_id", providerId);
         HttpUtils.doHttp(subscription, RxRequest.create(PersonService.class, HttpVersionConfig.API_COUPON_INFO).getMyCoupon(map), new ServiceCallback<BaseListData<Coupon>>() {
             @Override
@@ -225,9 +234,12 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
 
             @Override
             public void onSuccess(BaseListData<Coupon> data) {
+                cb.dismissLoaddingDialog();
                 if (data.getData() != null && data.getData().size() > 0) {
+                    couponMap.put(position, data.getData());
                     cb.refreshCouponList(isRefresh, data.getData());
                 }
+                JLog.d(TAG, "couponMap = " + new Gson().toJson(couponMap));
                 cb.showCouponWindow(isRefresh);
             }
 
@@ -282,7 +294,28 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
     }
 
     @Override
-    public void useCoupon() {
+    public void useCoupon(Coupon item) {
+        listBeans.get(position).setCoupon_code(item.getCode_id());
+        listBeans.get(position).setCoupon_price(item.getDecrease());
+        cb.closeChooseCouponWindow();
 
+        float totalCouponPrice = 0;
+        for (CommodityComfirm.InfoListBean bean : listBeans) {
+            if (StringUtil.isEmpty(bean.getCoupon_code())) {
+
+            } else {
+                totalCouponPrice += Float.valueOf(bean.getCoupon_price());
+            }
+        }
+
+        totalAmount.set(String.valueOf(Float.valueOf(orderAmount) - totalCouponPrice));
+    }
+
+    public List<CommodityComfirm.InfoListBean> getListBeans() {
+        return listBeans;
+    }
+
+    public void setListBeans(List<CommodityComfirm.InfoListBean> listBeans) {
+        this.listBeans = listBeans;
     }
 }

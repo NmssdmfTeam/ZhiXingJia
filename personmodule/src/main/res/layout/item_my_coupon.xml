@@ -1,58 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="data"
             type="com.zhixingjia.bean.personmodule.Coupon"/>
     </data>
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="87dp"
-        android:paddingLeft="12dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/bg_choose_coupon">
+        android:background="@drawable/bg_choose_coupon"
+        android:paddingLeft="12dp">
 
         <TextView
             android:id="@+id/tvPriceUnit"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
+            android:layout_marginTop="15dp"
             android:text="￥"
             android:textColor="#FFFF9A14"
             android:textSize="18dp"
-            android:layout_marginTop="15dp"
             />
 
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="40.5dp"
+            android:layout_alignBaseline="@+id/tvPriceUnit"
+            android:layout_toRightOf="@+id/tvPriceUnit"
             android:text="@{data.decrease}"
             android:textColor="#FFFF9A14"
             android:textSize="29dp"
-            android:layout_toRightOf="@+id/tvPriceUnit"
-            android:layout_alignBaseline="@+id/tvPriceUnit"
             />
 
         <TextView
             android:id="@+id/tvCondition"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
+            android:layout_below="@+id/tvPrice"
+            android:layout_marginTop="5dp"
             android:text="@{data.cond_name}"
             android:textColor="#FFFF9A14"
             android:textSize="11dp"
-            android:layout_below="@+id/tvPrice"
-            android:layout_marginTop="5dp"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_alignTop="@+id/tvCondition"
-            android:layout_toRightOf="@+id/tvCondition"
             android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/tvCondition"
             android:text="@{data.company_name}"
             android:textColor="#FFFF9A14"
             android:textSize="11dp"
@@ -61,21 +64,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:text="@{data.validity}"
+            android:layout_below="@+id/tvCondition"
+            android:text="@{`有效期：`+data.validity}"
             android:textColor="#FFFF9A14"
             android:textSize="11dp"
-            android:layout_below="@+id/tvCondition"
             />
 
         <TextView
             android:id="@+id/tvDescription"
             android:layout_width="92dp"
             android:layout_height="87dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
             android:text="使用说明"
             android:textColor="#FFFF9A14"
             android:textSize="15dp"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
             />
     </RelativeLayout>
 </layout>

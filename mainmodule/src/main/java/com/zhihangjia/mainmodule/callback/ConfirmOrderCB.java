@@ -14,4 +14,5 @@ public interface ConfirmOrderCB extends BaseCB {
     void refreshCouponList(boolean isRefresh, List<Coupon> list);
 
     void showCouponWindow(boolean refresh);
+    void closeChooseCouponWindow();
 }

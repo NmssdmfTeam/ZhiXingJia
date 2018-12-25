@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <import type="android.view.View"/>
+
         <variable
             name="vm"
             type="com.zhihangjia.mainmodule.viewmodel.OrderDetailVM"/>
     </data>
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/activity_grey_bg"
-        tools:context=".activity.OrderDetailActivity">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/activity_grey_bg"
+                android:orientation="vertical"
+                tools:context=".activity.OrderDetailActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,12 +28,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:background="#FFFF9A14"
-                android:text="@{vm.detail.remaining_time}"
-                android:textColor="@color/white"
-                android:textSize="14dp"
+                android:background="#fff4e7"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
+                android:text="@{vm.detail.remaining_time}"
+                android:textColor="#FFFF9A14"
+                android:textSize="14dp"
                 />
 
             <RelativeLayout
@@ -43,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
-                    android:src="@drawable/icon_address_big" />
+                    android:src="@drawable/icon_address_big"/>
 
                 <TextView
                     android:id="@+id/tvReceiverName"
@@ -54,33 +58,33 @@
                     android:layout_toRightOf="@+id/ivAddress"
                     android:text="@{vm.detail.consignee}"
                     android:textColor="#FF333333"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:layout_below="@+id/tvReceiverName"
                     android:layout_alignLeft="@+id/tvReceiverName"
+                    android:layout_below="@+id/tvReceiverName"
                     android:layout_marginTop="8dp"
                     android:text="@{vm.detail.consignee_address}"
                     android:textColor="#FF333333"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="22.5dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="12dp"
                     android:layout_marginRight="16dp"
+                    android:layout_marginTop="12dp"
                     android:text="@{vm.detail.consignee_phone}"
                     android:textColor="#FF333333"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12dp"
-                android:background="#FFF6F6F6" />
+                android:background="#FFF6F6F6"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -93,12 +97,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
                     android:drawableLeft="@drawable/icon_shop"
-                    android:drawableRight="@drawable/icon_arrow_item_title_right"
                     android:drawablePadding="4dp"
+                    android:drawableRight="@drawable/icon_arrow_item_title_right"
                     android:gravity="center_vertical"
                     android:text="@{vm.detail.nickname}"
                     android:textColor="#FF333333"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,9 +112,12 @@
                     android:layout_marginRight="16dp"
                     android:text="@{vm.detail.order_status_name}"
                     android:textColor="#FFFF9A14"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
+
+            <include layout="@layout/include_recyclerview_cutoff_line"/>
 
             <LinearLayout
                 android:id="@+id/llOrderMerchandise"
@@ -122,10 +129,11 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="94dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp">
 
                 <TextView
                     android:id="@+id/tvTotalPriceDes"
@@ -134,7 +142,7 @@
                     android:layout_marginTop="8dp"
                     android:text="商品总价"
                     android:textColor="#FF999999"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -143,7 +151,7 @@
                     android:layout_alignParentRight="true"
                     android:text="@{`￥`+vm.detail.goods_amount}"
                     android:textColor="#FF999999"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"/>
 
                 <TextView
                     android:id="@+id/tvFreightDes"
@@ -153,7 +161,7 @@
                     android:layout_marginTop="4dp"
                     android:text="运费(商家配送) "
                     android:textColor="#FF999999"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -162,7 +170,7 @@
                     android:layout_alignParentRight="true"
                     android:text="@{`￥`+vm.detail.cost_freight}"
                     android:textColor="#FF999999"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"/>
 
                 <TextView
                     android:id="@+id/tvCouponDes"
@@ -172,7 +180,7 @@
                     android:layout_marginTop="4dp"
                     android:text="优惠券"
                     android:textColor="#FF999999"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -181,7 +189,7 @@
                     android:layout_alignParentRight="true"
                     android:text="@{`-￥`+vm.detail.discount_amount}"
                     android:textColor="#FF999999"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"/>
 
                 <TextView
                     android:id="@+id/tvOrderTotalPriceDes"
@@ -191,7 +199,9 @@
                     android:layout_marginTop="4dp"
                     android:text="订单总价"
                     android:textColor="#FF999999"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+                    android:visibility="gone"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -200,10 +210,11 @@
                     android:layout_alignParentRight="true"
                     android:text="@{`￥`+vm.detail.goods_amount}"
                     android:textColor="#FF999999"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
-            <include layout="@layout/include_recyclerview_cutoff_line" />
+            <include layout="@layout/include_recyclerview_cutoff_line"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -218,7 +229,7 @@
                     android:layout_marginLeft="16dp"
                     android:text="实付款"
                     android:textColor="#FF333333"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"/>
 
                 <TextView
                     android:id="@+id/tvPayPrice"
@@ -229,7 +240,7 @@
                     android:layout_marginRight="16dp"
                     android:text="@{vm.detail.order_amount}"
                     android:textColor="#FFFF5C4A"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"/>
 
                 <TextView
                     android:layout_width="12.5dp"
@@ -238,13 +249,13 @@
                     android:layout_toLeftOf="@+id/tvPayPrice"
                     android:text="￥"
                     android:textColor="#FFFF5C4A"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12dp"
-                android:background="#FFF6F6F6" />
+                android:background="#FFF6F6F6"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -254,42 +265,43 @@
                 android:paddingLeft="16dp"
                 android:text="订单信息"
                 android:textColor="#FF333333"
-                android:textSize="17dp" />
+                android:textSize="17dp"/>
 
             <TextView
                 android:id="@+id/tvLog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:paddingBottom="8dp"
-                android:text="@{vm.log}"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
+                android:text="@{vm.log}"
                 android:textColor="#FF999999"
-                android:textSize="12dp"
-                android:background="@color/white"/>
+                android:textSize="12dp"/>
 
-            <include layout="@layout/include_recyclerview_cutoff_line" />
+            <include layout="@layout/include_recyclerview_cutoff_line"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="@color/white"
                 android:paddingRight="16dp">
+
                 <com.nmssdmf.commonlib.view.TagLayout
                     android:id="@+id/tl"
                     android:layout_width="wrap_content"
                     android:layout_height="55dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="16dp"
-                    app:horizontal_space="12dp"
                     android:layout_alignParentRight="true"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="12dp"
+                    app:horizontal_space="12dp"
                     />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12dp"
-                android:background="#FFF6F6F6" />
+                android:background="#FFF6F6F6"/>
         </LinearLayout>
     </ScrollView>
 </layout>

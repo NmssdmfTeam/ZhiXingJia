@@ -55,6 +55,8 @@ public class MyCouponsActivity extends BaseTitleRecyclerViewActivity implements 
     public void showCouponDescriptionWindow(String des) {
         if (couponDescriptionWindow == null) {
             couponDescriptionWindow = new CouponDescriptionWindow(this, des);
+        } else {
+            couponDescriptionWindow.setText(des);
         }
 
         couponDescriptionWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);

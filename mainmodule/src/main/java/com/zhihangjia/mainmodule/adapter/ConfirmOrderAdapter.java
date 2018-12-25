@@ -31,7 +31,6 @@ public class ConfirmOrderAdapter extends BaseDataBindingAdapter<CommodityComfirm
     protected void convert2(BaseBindingViewHolder<ItemConfirmOrderBinding> helper, CommodityComfirm.InfoListBean item, int position) {
         ItemConfirmOrderBinding binding = helper.getBinding();
         binding.setData(item);
-        binding.tvAmount.setText("共"+item.getSum_total()+"件");
         if (item.getFreight_type() == 1) {
             binding.tvDeliveryMethod.setText("上门自提");
         } else {

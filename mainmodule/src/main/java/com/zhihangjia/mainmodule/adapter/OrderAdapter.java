@@ -90,6 +90,11 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
             }
         }
 
+        if (binding.tl.getChildCount() == 0) {
+            binding.tl.setVisibility(ViewGroup.GONE);
+        } else {
+            binding.tl.setVisibility(ViewGroup.VISIBLE);
+        }
     }
 
     /**
@@ -179,6 +184,19 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
      */
     public void initWaitPay(TagLayout layout, Order item, int index) {
         if (identity.equals("buyer")) {
+
+            TextView cancelView = new OrderBtnTextView(mContext);
+            cancelView.setText("取消订单");
+            layout.addView(cancelView);
+            cancelView.setOnClickListener(v -> showDialog(index, 2, "确认取消订单么"));
+
+
+            TextView offLinePayView = new OrderBtnTextView(mContext);
+            offLinePayView.setText("到店付");
+            layout.addView(offLinePayView);
+            offLinePayView.setOnClickListener(v -> showDialog(index, 1, "确认到店付么"));
+
+
             TextView payView = new OrderBtnTextView(mContext);
             payView.setText("支付");
             layout.addView(payView);
@@ -194,16 +212,6 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
                 intent.setClass(mContext, ConfirmPayActivity.class);
                 mContext.startActivity(intent);
             });
-
-            TextView offLinePayView = new OrderBtnTextView(mContext);
-            offLinePayView.setText("到店付");
-            layout.addView(offLinePayView);
-            offLinePayView.setOnClickListener(v -> showDialog(index, 1, "确认到店付么"));
-
-            TextView cancelView = new OrderBtnTextView(mContext);
-            cancelView.setText("取消订单");
-            layout.addView(cancelView);
-            cancelView.setOnClickListener(v -> showDialog(index, 2, "确认取消订单么"));
         } else {
 
         }
