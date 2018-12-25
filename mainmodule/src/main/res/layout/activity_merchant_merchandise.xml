@@ -95,11 +95,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{(v)->vm.tvPopularityClick(v, true)}"
+                android:onClick="@{(v)->vm.tvPopularityClick(v, 1)}"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:text="人气最高"
-                android:textColor="@{vm.tvPopularitySelect ? @color/main_color : @color/light_black2}"
+                android:textColor="@{vm.tvPopularitySelect == 1 ? @color/main_color : @color/light_black2}"
                 android:textSize="14dp"/>
 
             <TextView
@@ -108,11 +108,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{(v)->vm.tvPopularityClick(v, false)}"
+                android:onClick="@{(v)->vm.tvPopularityClick(v, 2)}"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:text="好评优先"
-                android:textColor="@{!vm.tvPopularitySelect ? @color/main_color : @color/light_black2}"
+                android:textColor="@{vm.tvPopularitySelect == 2 ? @color/main_color : @color/light_black2}"
                 android:textSize="14dp"/>
 
         </LinearLayout>
@@ -148,6 +148,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/search_black_trans"
                     android:clickable="true"
+                    android:onClick="@{(v)->vm.tvMerchantChooseCloseClick(v)}"
                     />
 
             </LinearLayout>

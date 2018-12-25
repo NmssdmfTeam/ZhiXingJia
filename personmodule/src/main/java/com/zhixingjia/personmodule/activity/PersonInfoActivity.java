@@ -232,7 +232,9 @@ public class PersonInfoActivity extends BaseTitleActivity implements PersonInfoC
 
     @Override
     public void dismissModifyAvatarWindow() {
-        modifyAvatarWindow.dismiss();
+        if (modifyAvatarWindow != null) {
+            modifyAvatarWindow.dismiss();
+        }
     }
 
 }

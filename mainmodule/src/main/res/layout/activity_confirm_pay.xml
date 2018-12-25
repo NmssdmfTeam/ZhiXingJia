@@ -5,6 +5,7 @@
         <variable
             name="vm"
             type="com.zhihangjia.mainmodule.viewmodel.ConfirmPayVM"/>
+        <import type="android.view.View"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -43,14 +44,16 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="12dp"
-            android:background="#FFF6F6F6" />
+            android:background="#FFF6F6F6"
+            android:visibility="@{vm.payInfo.coupon_sum == null ||Integer.valueOf(vm.payInfo.coupon_sum) == 0 ? View.GONE : View.VISIBLE}"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:onClick="@{(v)->vm.onPlatformCouponClick(v)}">
+            android:onClick="@{(v)->vm.onPlatformCouponClick(v)}"
+            android:visibility="@{vm.payInfo.coupon_sum == null ||Integer.valueOf(vm.payInfo.coupon_sum) == 0 ? View.GONE : View.VISIBLE}">
 
             <TextView
                 android:layout_width="83dp"
@@ -159,14 +162,16 @@
             layout="@layout/include_recyclerview_cutoff_line"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="54dp" />
+            android:layout_marginLeft="54dp"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:id="@+id/rlEpay"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="16dp"
-            android:onClick="@{(v)->vm.onAlipayClick(v)}">
+            android:onClick="@{(v)->vm.onAlipayClick(v)}"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"

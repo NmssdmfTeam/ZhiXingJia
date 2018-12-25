@@ -13,6 +13,7 @@ import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
+import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.service.PersonService;
@@ -47,6 +48,10 @@ public class ChangeNameVM extends BaseVM {
     }
 
     public void changeName() {
+        if (StringUtil.isEmpty(name.get())) {
+            baseCallBck.showToast("请先输入内容");
+            return;
+        }
         Map<String, String> map = new HashMap<>();
         if (type == 1) {
             map.put("nickname", name.get());

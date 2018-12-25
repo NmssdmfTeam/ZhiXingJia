@@ -56,7 +56,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tvName"
             android:layout_marginTop="6dp"
-            android:text="@{@string/beauty + data.price + data.unit}"
+            android:text="@{@string/beauty + data.sold + data.unit}"
             android:textColor="#FF999999"
             android:textSize="12dp"/>
     </RelativeLayout>

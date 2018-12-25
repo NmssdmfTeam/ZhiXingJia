@@ -13,14 +13,11 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.callback.MerchantMerchandiseCB;
-import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.TradeArea;
 import com.zhixingjia.service.MainService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MerchantMerchandiseVM extends BaseVM {
     public static final int TYPE_MERCHANT = 0;//商家
@@ -28,7 +25,7 @@ public class MerchantMerchandiseVM extends BaseVM {
     public final ObservableInt type = new ObservableInt(TYPE_MERCHANT);//0表示商家, 1：表示商品
 
     public final ObservableBoolean tvMerchantChooseSelect = new ObservableBoolean(false);//商家
-    public final ObservableBoolean tvPopularitySelect = new ObservableBoolean(true);//true:人气最高, false:好评优先
+    public final ObservableInt tvPopularitySelect = new ObservableInt();//0:商圈 1:人气最高, 2:好评优先
 
     private List<TradeArea> areaList = new ArrayList<>();
 
@@ -86,22 +83,34 @@ public class MerchantMerchandiseVM extends BaseVM {
 
 
     public void tvMerchantClick(View view) {
+        if (TYPE_MERCHANT == type.get())
+            return;
         type.set(TYPE_MERCHANT);
+        tvMerchantChooseSelect.set(false);
     }
 
     public void tvMerchandiseClick(View view) {
+        if (TYPE_MERCHANDISE == type.get())
+            return;
         type.set(TYPE_MERCHANDISE);
+        tvMerchantChooseSelect.set(false);
     }
 
     public void tvMerchantChooseClick(View view) {
         tvMerchantChooseSelect.set(!tvMerchantChooseSelect.get());
+        tvPopularitySelect.set(0);
     }
 
-    public void tvPopularityClick(View view, boolean select) {
-        if (tvPopularitySelect.get() == select) {
+    public void tvMerchantChooseCloseClick(View view){
+        tvMerchantChooseSelect.set(false);
+    }
+
+    public void tvPopularityClick(View view, int selectType) {
+        if (tvPopularitySelect.get() == selectType) {
             return;
         }
-        tvPopularitySelect.set(select);
+        tvMerchantChooseSelect.set(false);
+        tvPopularitySelect.set(selectType);
         cb.changeSelectType(tvPopularitySelect.get());
     }
 
