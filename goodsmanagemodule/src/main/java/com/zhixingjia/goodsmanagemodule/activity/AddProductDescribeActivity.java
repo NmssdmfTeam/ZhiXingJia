@@ -173,6 +173,9 @@ public class AddProductDescribeActivity extends BaseTitleActivity implements Add
                 binding.llContent.removeView(itemPostContentBinding.getRoot());
             }
         });
+        if (binding.llContent.getChildCount() == 0) {
+            itemPostContentBinding.btnRemove.setVisibility(View.GONE);
+        }
         binding.llContent.addView(itemPostContentBinding.getRoot());
     }
 
@@ -208,6 +211,9 @@ public class AddProductDescribeActivity extends BaseTitleActivity implements Add
                     binding.llContent.removeView(itemPostContentBinding.getRoot());
                 }
             });
+            if (binding.llContent.getChildCount() == 0) {
+                itemPostContentBinding.btnRemove.setVisibility(View.GONE);
+            }
             binding.llContent.addView(itemPostContentBinding.getRoot());
         }
     }

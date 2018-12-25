@@ -56,18 +56,19 @@ public class SetCouponVM extends BaseVM implements WheelPickerWindowCB {
         initData();
         if (TextUtils.isEmpty(coupon_id)) {
             couponSeller.set(new CouponSeller());
-            couponSeller.get().setStatus("0");
+            couponSeller.get().setTimetype("1");
+            couponSeller.get().setStatus("1");
+            couponSeller.get().setCond("all");
+        }
+        if ("all".equals(couponSeller.get().getCond())) {
+            useCondition.set("无门槛");
         } else {
-            if ("all".equals(couponSeller.get().getCond())) {
-                useCondition.set("无门槛");
-            } else {
-                useCondition.set("订单金额满减");
-            }
-            if ("1".equals(couponSeller.get().getTimetype())) {
-                timeType.set("时间段");
-            } else {
-                timeType.set("发放后周期");
-            }
+            useCondition.set("订单金额满减");
+        }
+        if ("1".equals(couponSeller.get().getTimetype())) {
+            timeType.set("时间段");
+        } else {
+            timeType.set("发放后周期");
         }
     }
 
@@ -156,14 +157,15 @@ public class SetCouponVM extends BaseVM implements WheelPickerWindowCB {
             public void onSuccess(Base base) {
                 if (TextUtils.isEmpty(coupon_id)) {
                     RxBus.getInstance().send(RxEvent.PersonInfoEvent.COUPON_INSERT,null);
+                    cb.showToast("添加优惠券成功");
                 } else {
                     EventInfo eventInfo = new EventInfo();
                     eventInfo.setIndex(position);
                     eventInfo.setContent(couponSeller.get());
                     RxBus.getInstance().send(RxEvent.PersonInfoEvent.COUPON_SAVE,eventInfo);
+                    cb.showToast("修改优惠券成功");
                 }
                 cb.finishActivity();
-                cb.showToast("添加优惠券成功");
             }
 
             @Override

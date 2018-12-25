@@ -78,6 +78,7 @@ public class ApplySupplierVM extends BaseVM {
     private int imageIndex = -1;     //表示点击那个证件操作
     private int uploadImageCount = 0;     //上传图片数量
     public final ObservableBoolean isFromSupplier = new ObservableBoolean(false);//是否来自卖家
+    public final ObservableBoolean isEdit = new ObservableBoolean();
 
 
     /**
@@ -115,6 +116,7 @@ public class ApplySupplierVM extends BaseVM {
                 businessLicenseCardPathUploadBean.setUrl(company.getLicense_img().getM_url());
                 applySupplier.set(company);
                 isFromSupplier.set(true);
+                isEdit.set(true);
             }
         }
 //        businessCircleList.add("")

@@ -2,6 +2,7 @@ package com.zhixingjia.goodsmanagemodule.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.jushi.gallery.activity.ImageGalleryActivity;
@@ -45,6 +46,9 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
         brandwheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),brandWheelPickerWindowCB);
         categorywheelPickerWindow = new WheelPickerWindow(this,new ArrayList<String>(),categoryWheelPickerWindowCB);
         binding.setVm(vm);
+        if (!TextUtils.isEmpty(vm.getCommodity_id())) {
+            setTitle("编辑商品");
+        }
         setListener();
     }
 
