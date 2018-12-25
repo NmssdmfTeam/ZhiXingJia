@@ -64,6 +64,7 @@
                         android:layout_marginRight="16dp"
                         android:background="@color/white"
                         android:hint="请输入优惠券名称"
+                        android:textColor="#FF333333"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
                         android:gravity="right|center_vertical"
@@ -104,8 +105,8 @@
                         android:hint="请输入优惠券规则描述"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
-                        android:textColor="@color/text_black"
                         android:background="@null"
+                        android:textColor="#FF333333"
                         android:text="@={vm.couponSeller.description}"/>
 
                 </RelativeLayout>
@@ -145,6 +146,7 @@
                         android:onClick="@{(v)->vm.chooseTimeType(v)}"
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
+                        android:textColor="#FF333333"
                         />
                 </RelativeLayout>
 
@@ -246,6 +248,7 @@
                         android:textColorHint="#FFCCCCCC"
                         android:textSize="15dp"
                         android:gravity="right"
+                        android:textColor="#FF333333"
                         android:text="@{vm.couponSeller.starttime}"
                         android:onClick="@{(v)->vm.onSetStartDateClick(v)}"/>
                 </RelativeLayout>
@@ -289,7 +292,8 @@
                         android:textSize="15dp"
                         android:gravity="right"
                         android:text="@={vm.couponSeller.endtime}"
-                        android:onClick="@{(v)->vm.onSetEndDateClick(v)}"/>
+                        android:onClick="@{(v)->vm.onSetEndDateClick(v)}"
+                        android:textColor="#FF333333"/>
                 </RelativeLayout>
 
                 <include
@@ -325,6 +329,7 @@
                         android:text="@{vm.useCondition}"
                         android:onClick="@{(v)->vm.chooseUseCondition(v)}"
                         android:textColorHint="#FFCCCCCC"
+                        android:textColor="#FF333333"
                         android:textSize="15dp"
                         android:gravity="right"/>
                 </RelativeLayout>
@@ -359,7 +364,7 @@
                         android:text="@={vm.couponSeller.morethannumber}"
                         android:minWidth="60dp"
                         android:textColorHint="#FFCCCCCC"
-                        android:textColor="@color/text_black"
+                        android:textColor="#FF333333"
                         android:textSize="15dp"
                         android:gravity="right"
                         android:hint="请输入订单满多少金额才能使用优惠券"
@@ -401,7 +406,7 @@
                         android:text="@={vm.couponSeller.decrease}"
                         android:minWidth="60dp"
                         android:textColorHint="#FFCCCCCC"
-                        android:textColor="@color/text_black"
+                        android:textColor="#FF333333"
                         android:gravity="right"
                         android:textSize="15dp"
                         android:hint="输入金额"
