@@ -47,6 +47,7 @@
                 android:text="@{data.commodity_name}"
                 android:textColor="#FF333333"
                 android:textSize="14dp"
+                android:layout_marginLeft="10dp"
                 />
         </RelativeLayout>
 

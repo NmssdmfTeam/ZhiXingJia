@@ -94,6 +94,16 @@ public class ShopCouponListVM extends BaseVM {
             case RxEvent.PersonInfoEvent.COUPON_SAVE:
                 CouponSeller couponSeller = (CouponSeller) info.getContent();
                 int index = info.getIndex();
+                if ("morethan".equals(couponSeller.getCond())) {
+                    couponSeller.setCond_name("满"+couponSeller.getMorethannumber()+"元使用");
+                } else {
+                    couponSeller.setCond_name("无门槛");
+                }
+                if ("1".equals(couponSeller.getTimetype())) {
+                    couponSeller.setValidity(couponSeller.getStarttime()+"至"+couponSeller.getEndtime());
+                } else {
+                    couponSeller.setValidity("领取后"+couponSeller.getExpireday()+"天过期");
+                }
                 cb.setData(couponSeller, index);
                 break;
             case RxEvent.PersonInfoEvent.COUPON_DELTE:
