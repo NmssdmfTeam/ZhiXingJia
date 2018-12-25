@@ -8,18 +8,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
-import com.nmssdmf.commonlib.activity.WebViewActivity;
-import com.nmssdmf.commonlib.binding.ImageViewBinding;
-import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MainActivity;
+import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.activity.SearchActivity;
 import com.zhihangjia.mainmodule.activity.YXHeadLineActivity;
-import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.adapter.AdvertisingRotationViewPagerAdapter;
 import com.zhihangjia.mainmodule.adapter.MainAdapter;
 import com.zhihangjia.mainmodule.bean.MainBean;
@@ -140,20 +137,10 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
 
             }
         });
-        ImageView ivNotice = binding.getRoot().findViewById(R.id.ivNotice);
-        ivNotice.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                doIntent(MessageCenterActivity.class,null);
-            }
-        });
+        ImageView ivMessage = binding.getRoot().findViewById(R.id.ivMessage);
+        ivMessage.setOnClickListener(v -> doIntent(MessageCenterActivity.class,null));
 
-        binding.iIndexTitle.vSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doIntent(SearchActivity.class, null);
-            }
-        });
+        binding.iIndexTitle.vSearch.setOnClickListener(v -> doIntent(SearchActivity.class, null));
     }
 
     @Override

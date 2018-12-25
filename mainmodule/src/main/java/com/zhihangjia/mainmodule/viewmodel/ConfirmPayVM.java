@@ -28,6 +28,8 @@ import com.nmssdmf.commonlib.bean.Payment;
 import com.zhixingjia.bean.personmodule.Coupon;
 import com.zhixingjia.service.MainService;
 import com.zhixingjia.service.PersonService;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +44,12 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
 
     private List<String> payIds = new ArrayList<>();
     public final ObservableField<PayInfo> payInfo = new ObservableField<>();
+    public final ObservableField<String> payPrice = new ObservableField<>();
+    public final ObservableField<String> couponString = new ObservableField<>();
     private ConfirmPayCB callback;
     public List<Coupon> coupons = new ArrayList<>();
     private String pages = "0";
-    private Coupon coupon;
+    private Coupon coupon = new Coupon();
 
     /**
      * 不需要callback可以传null
@@ -81,6 +85,8 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
                     @Override
                     public void onSuccess(BaseData<PayInfo> payInfoBaseData) {
                         payInfo.set(payInfoBaseData.getData());
+                        payPrice.set(payInfo.get().getOrder_amount());
+                        couponString.set(payInfo.get().getCoupon_sum()+baseCallBck.getStringFromId(R.string.enable_coupon_num));
                         callback.setListener();
                     }
 
@@ -104,7 +110,7 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
             pages = "0";
         }
         Map<String, String> map = new HashMap<>();
-        map.put("type", "3");
+        map.put("type", "2");
         map.put("amount", money);
         map.put("page",  pages);
         HttpUtils.doHttp(subscription,
@@ -143,7 +149,7 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
             pay_method = "yipay";
         }
         map.put("pay_method", pay_method);
-        if (coupon != null)
+        if (!StringUtil.isEmpty(coupon.getCode_id()))
             map.put("coupon_code",  coupon.getCode_id());
         HttpUtils.doHttp(subscription,
                 RxRequest.create(MainService.class, HttpVersionConfig.API_PAY_PAYMENT).payment(map),
@@ -190,7 +196,10 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
 
     @Override
     public void useCoupon(Coupon item) {
-
+        coupon.setCode_id(item.getCode_id());
+        payPrice.set(new BigDecimal(payInfo.get().getOrder_amount()).subtract(new BigDecimal(item.getDecrease())).toString());
+        couponString.set("-￥" + item.getDecrease());
+        callback.closeCouponWindow();
     }
 
     @Override

@@ -64,6 +64,13 @@ public class ConfirmPayActivity extends BaseTitleActivity implements ConfirmPayC
     }
 
     @Override
+    public void closeCouponWindow() {
+        if (chooseCouponWindow != null) {
+            chooseCouponWindow.dismiss();
+        }
+    }
+
+    @Override
     public int getContentViewId() {
         return R.layout.activity_confirm_pay;
     }
