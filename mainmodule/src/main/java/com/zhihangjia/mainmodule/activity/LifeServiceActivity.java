@@ -61,6 +61,7 @@ public class LifeServiceActivity extends BaseTitleActivity implements LifeServic
         setTitle(vm.cateName);
         adapter = new LifeServiceAdapter(new ArrayList<>());
         binding.crv.setAdapter(adapter);
+        adapter.setCateName(vm.cateName);
         //模拟广告数据
         List<Banner.CommomBanner> bannersBeans = new ArrayList<>();
         //初始化轮播广告

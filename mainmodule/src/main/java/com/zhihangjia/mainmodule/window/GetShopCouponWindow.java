@@ -52,6 +52,6 @@ public class GetShopCouponWindow extends PopupWindow implements ChooseShopCoupon
 
     @Override
     public void getDone() {
-
+        dismiss();
     }
 }

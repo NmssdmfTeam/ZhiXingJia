@@ -31,11 +31,11 @@ public class CommentDetailListFragment extends BaseTitleRecyclerViewFragment {
 
     @Override
     public void initAll(View view, Bundle savedInstanceState) {
-        super.initAll(view, savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
             vm.commodityId = bundle.getString(IntentConfig.COMMODITY_ID);
         }
+        super.initAll(view, savedInstanceState);
     }
 
     @Override

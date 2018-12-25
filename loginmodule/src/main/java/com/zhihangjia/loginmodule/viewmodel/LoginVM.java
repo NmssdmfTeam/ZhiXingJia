@@ -24,8 +24,10 @@ import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.social.WXLoginApi;
+import com.nmssdmf.commonlib.util.Base64Utils;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
+import com.nmssdmf.commonlib.util.RSAUtil;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -40,6 +42,7 @@ import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.service.LoginService;
 import com.zhixingjia.service.MainService;
 
+import java.security.PublicKey;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,7 +112,16 @@ public class LoginVM extends BaseVM {
     private void doLogin() {
         Map<String, String> map = new HashMap<>();
         map.put("login_account", phoneNum.get());
-        map.put("password", pwd.get());
+        try {
+            PublicKey publicKey = RSAUtil.loadPublicKey(BaseConfig.PUBLIC_KEY);
+            // 加密
+            byte[] encryptByte = RSAUtil.encryptData(pwd.get().getBytes(), publicKey);
+            // 为了方便观察吧加密后的数据用base64加密转一下，要不然看起来是乱码,所以解密是也是要用Base64先转换
+            String afterencrypt = Base64Utils.encode(encryptByte);
+            map.put("password", afterencrypt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         cb.showLoaddingDialog();
         HttpUtils.doHttp(subscription, RxRequest.create(LoginService.class, HttpVersionConfig.API_AUTH_LOGIN).login(map), new ServiceCallback<BaseData<LoginResult>>() {
             @Override

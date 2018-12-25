@@ -133,7 +133,6 @@ public class PostVM extends BaseVM {
         params.put("cate_id", currentCat);
         params.put("title", title);
         params.put("contents", new Gson().toJson(postContents));
-        //先上传图片
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_INSERT).postBbs(params),
                 new ServiceCallback<BaseData<BbsInsertResult>>() {
             @Override
