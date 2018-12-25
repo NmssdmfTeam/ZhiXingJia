@@ -40,7 +40,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
-                    android:background="@color/activity_grey_bg"/>
+                    android:background="@color/activity_grey_bg"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -53,7 +55,7 @@
                         android:gravity="center_vertical"
                         android:text="店铺名称"
                         android:textColor="#FF333333"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -137,11 +139,11 @@
                         android:text="@={vm.applySupplier.co_addr}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
                 </RelativeLayout>
 
-                <include layout="@layout/include_recyclerview_cutoff_line"/>
+                <include layout="@layout/include_recyclerview_cutoff_line" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -154,7 +156,7 @@
                         android:gravity="center_vertical"
                         android:text="法人姓名"
                         android:textColor="#FF333333"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -164,17 +166,17 @@
                         android:layout_marginRight="30dp"
                         android:background="@null"
                         android:drawablePadding="3.5dp"
-                        android:enabled="@{!vm.isFromSupplier}"
                         android:gravity="right"
                         android:hint="请填写店铺法人姓名"
                         android:text="@={vm.applySupplier.deputy}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp"
+                        android:enabled="@{!vm.isFromSupplier}"/>
 
                 </RelativeLayout>
 
-                <include layout="@layout/include_recyclerview_cutoff_line"/>
+                <include layout="@layout/include_recyclerview_cutoff_line" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -187,7 +189,7 @@
                         android:gravity="center_vertical"
                         android:text="联系电话"
                         android:textColor="#FF333333"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -202,11 +204,11 @@
                         android:text="@={vm.applySupplier.co_phone}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
                 </RelativeLayout>
 
-                <include layout="@layout/include_recyclerview_cutoff_line"/>
+                <include layout="@layout/include_recyclerview_cutoff_line" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -214,39 +216,34 @@
                     android:onClick="@{(v)->vm.onCategotyViewClick(v)}">
 
                     <TextView
-                        android:id="@+id/tvCategoty"
                         android:layout_width="64dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="16dp"
                         android:gravity="center_vertical"
                         android:text="主营产品"
                         android:textColor="#FF333333"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="21dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="16dp"
-                        android:layout_toRightOf="@+id/tvCategoty"
                         android:drawablePadding="3.5dp"
                         android:drawableRight="@{vm.isFromSupplier?@drawable/point_transparent:@drawable/icon_arrow_item_right}"
-                        android:ellipsize="end"
-                        android:enabled="@{!vm.isFromSupplier}"
                         android:gravity="right"
                         android:hint="请选择店铺主营产品"
-                        android:singleLine="true"
                         android:text="@{vm.applySupplier.main_camp_name}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp"
+                        android:enabled="@{!vm.isFromSupplier}"/>
 
                 </RelativeLayout>
 
 
-                <include layout="@layout/include_recyclerview_cutoff_line"/>
+                <include layout="@layout/include_recyclerview_cutoff_line" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -258,9 +255,9 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="13.5dp"
                         android:gravity="center_vertical"
-                        android:text="证件信息"
+                        android:text="上传证件"
                         android:textColor="#FF333333"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                     <RelativeLayout
                         android:layout_width="105dp"
@@ -273,11 +270,11 @@
                             android:layout_width="105dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/upload_papers"
-                            android:enabled="@{vm.isFromSupplier}"
                             android:onClick="@{(v)->vm.onFrontIDCardClick(v)}"
                             android:text="法人身份证正面"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -285,7 +282,7 @@
                             android:layout_below="@+id/ivFrontIDCard"
                             android:text="法人身份证正面"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -300,11 +297,11 @@
                             android:layout_width="105dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/upload_papers"
-                            android:enabled="@{vm.isFromSupplier}"
                             android:onClick="@{(v)->vm.onBackIDCardClick(v)}"
                             android:text="法人身份证反面"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -312,7 +309,7 @@
                             android:layout_below="@+id/ivBackIDCard"
                             android:text="法人身份证反面"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -326,19 +323,19 @@
                             android:layout_width="105dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/upload_papers"
-                            android:enabled="@{vm.isFromSupplier}"
                             android:onClick="@{(v)->vm.onBackBusinessLicenceClick(v)}"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ivLiscense"
-                            android:layout_centerHorizontal="true"
                             android:text="营业执照"
+                            android:layout_centerHorizontal="true"
                             android:textColor="#FFCCCCCC"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp" />
                     </RelativeLayout>
 
                 </RelativeLayout>

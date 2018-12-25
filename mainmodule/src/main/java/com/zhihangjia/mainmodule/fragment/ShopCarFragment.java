@@ -92,4 +92,10 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
             binding.crv.setRefreshing(false);
         adapter.notifyDataChangedAfterLoadMore(refresh, list);
     }
+
+    @Override
+    public void setAdapterEdit(boolean isAdapterEdit) {
+        adapter.setEdit(isAdapterEdit);
+        adapter.notifyDataSetChanged();
+    }
 }

@@ -128,6 +128,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDe
             @Override
             public void onSuccess(Base base) {
                 cb.showToast("添加购物车成功");
+                cb.showShopCarRedPoint();
                 RxBus.getInstance().send(RxEvent.OrderEvent.SHOPCAR_ADD, null);
             }
 

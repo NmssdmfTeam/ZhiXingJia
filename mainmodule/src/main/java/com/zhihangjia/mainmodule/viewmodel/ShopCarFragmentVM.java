@@ -285,6 +285,7 @@ public class ShopCarFragmentVM extends BaseVM {
 
     public void editClick(View view) {
         edit.set(!edit.get());
+        cb.setAdapterEdit(edit.get());
     }
 
     public List<ShopCar> getList() {

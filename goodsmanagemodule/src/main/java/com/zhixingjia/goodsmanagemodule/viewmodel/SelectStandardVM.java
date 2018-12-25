@@ -55,6 +55,16 @@ public class SelectStandardVM extends BaseVM {
                 }
             }
         }
+        boolean isEmpty = true;
+        for (String key : selectedSpecInfos.keySet()) {
+            if (selectedSpecInfos.get(key).size() > 0) {
+                isEmpty = false;
+                break;
+            }
+        }
+        if (isEmpty) {
+            selectedSpecInfos = new LinkedHashMap();
+        }
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConfig.SEPC_INFO_SELECTED, (Serializable) selectedSpecInfos);
         callback.setResultCode(Activity.RESULT_OK,bundle);
