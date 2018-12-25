@@ -30,6 +30,8 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".activity.ChangePwdActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AddOrEditAddressActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

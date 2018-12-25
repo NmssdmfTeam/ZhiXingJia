@@ -20,7 +20,7 @@
             android:layout_alignParentBottom="true"
             android:background="#FFFF9A14"
             android:gravity="center"
-            android:text="@{vm.isEdit?@string/to_apply:@string/save}"
+            android:text="@{vm.isEdit?@string/save:@string/to_apply}"
             android:textColor="#FFFFFFFF"
             android:textSize="16dp"
             android:onClick="@{(v)->vm.onCommitClick(v)}"/>
