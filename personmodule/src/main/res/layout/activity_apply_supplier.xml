@@ -20,7 +20,7 @@
             android:layout_alignParentBottom="true"
             android:background="#FFFF9A14"
             android:gravity="center"
-            android:text="提交申请"
+            android:text="@{vm.isEdit?@string/to_apply:@string/save}"
             android:textColor="#FFFFFFFF"
             android:textSize="16dp"
             android:onClick="@{(v)->vm.onCommitClick(v)}"/>
