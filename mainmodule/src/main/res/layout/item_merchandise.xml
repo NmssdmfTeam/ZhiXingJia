@@ -61,6 +61,19 @@
             android:ellipsize="end" />
 
         <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`/`+data.unit}"
+            android:textColor="#FF999999"
+            android:textSize="12dp"
+            android:layout_toRightOf="@+id/tvPrice"
+            android:layout_alignBottom="@+id/ivGoodsImg"
+            android:layout_alignBaseline="@+id/tvPrice"
+            android:singleLine="true"
+            android:ellipsize="end" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{`已售` + data.sold + data.unit}"
@@ -68,7 +81,7 @@
             android:textSize="12dp"
             android:layout_marginBottom="2.5dp"
             android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/tvPrice"
+            android:layout_toRightOf="@+id/tvUnit"
             android:layout_alignBottom="@+id/tvPrice"/>
 
         <TextView

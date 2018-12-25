@@ -130,12 +130,14 @@ public class Seller extends BaseObservable {
             this.commodity_id = commodity_id;
         }
 
+        @Bindable
         public String getCommodity_name() {
             return commodity_name;
         }
 
         public void setCommodity_name(String commodity_name) {
             this.commodity_name = commodity_name;
+            notifyPropertyChanged(BR.commodity_name);
         }
     }
 }
