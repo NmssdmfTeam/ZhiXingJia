@@ -388,10 +388,10 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/shape_all_merchandise_bg"
                         android:gravity="center"
+                        android:onClick="@{(v)->vm.onMerchantsClick(v)}"
                         android:text="全部商品"
                         android:textColor="#FFFFFFFF"
-                        android:textSize="12dp"
-                        android:onClick="@{(v)->vm.onMerchantsClick(v)}"/>
+                        android:textSize="12dp" />
 
                     <TextView
                         android:id="@+id/tvProductDescription"
@@ -479,14 +479,28 @@
                 android:src="@drawable/icon_share" />
 
 
-            <ImageView
-                android:id="@+id/ivAddShoppingCar"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
-                android:layout_toLeftOf="@+id/ivShare"
-                android:onClick="@{(v)->vm.ivAddShoppingCarClick(v)}"
-                android:src="@drawable/icon_shopping_car" />
+                android:layout_toLeftOf="@+id/ivShare">
+
+                <ImageView
+                    android:id="@+id/ivAddShoppingCar"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:onClick="@{(v)->vm.ivAddShoppingCarClick(v)}"
+                    android:src="@drawable/icon_shopping_car" />
+
+                <View
+                    android:id="@+id/vRedPoint"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/message_red_point"
+                    android:layout_toRightOf="@+id/tvMessageName"
+                    android:layout_alignTop="@+id/tvMessageName"
+                    android:visibility="gone"/>
+            </RelativeLayout>
 
         </RelativeLayout>
 

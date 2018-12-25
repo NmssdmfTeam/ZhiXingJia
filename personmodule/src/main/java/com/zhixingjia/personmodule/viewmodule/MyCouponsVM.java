@@ -19,6 +19,9 @@ import java.util.Map;
  */
 
 public class MyCouponsVM extends BaseTitleRecyclerViewVM {
+    private int page;    //分页
+    private MyCouponsCB callback;
+
     /**
      * 不需要callback可以传null
      *
@@ -26,12 +29,16 @@ public class MyCouponsVM extends BaseTitleRecyclerViewVM {
      */
     public MyCouponsVM(MyCouponsCB callBack) {
         super(callBack);
+        this.callback = callBack;
     }
 
     @Override
     public void initData(final boolean isRefresh) {
+        if (isRefresh)
+            page = 0;
         Map<String, String> map = new HashMap<>();
         map.put("type", "1");
+        map.put("page", String.valueOf(page));
         HttpUtils.doHttp(subscription, RxRequest.create(PersonService.class, HttpVersionConfig.API_COUPON_INFO).getMyCoupon(map), new ServiceCallback<BaseListData<Coupon>>() {
             @Override
             public void onError(Throwable error) {
@@ -41,6 +48,7 @@ public class MyCouponsVM extends BaseTitleRecyclerViewVM {
             @Override
             public void onSuccess(BaseListData<Coupon> base) {
                 baseTitleRecyclerViewCB.refreshAdapter(isRefresh, base.getData());
+                page++;
             }
 
             @Override

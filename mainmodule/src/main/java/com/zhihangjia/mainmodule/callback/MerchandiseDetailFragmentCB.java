@@ -20,4 +20,5 @@ public interface MerchandiseDetailFragmentCB extends BaseCB {
     String getGoodsSum();
 
     void toShare(CommodityDetail commodityDetail);
+    void showShopCarRedPoint();
 }

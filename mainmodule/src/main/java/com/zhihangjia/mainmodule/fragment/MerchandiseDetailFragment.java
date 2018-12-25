@@ -201,6 +201,11 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     }
 
     @Override
+    public void showShopCarRedPoint() {
+        binding.vRedPoint.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void onAddCartClick() {
         vm.addCartStore();
     }

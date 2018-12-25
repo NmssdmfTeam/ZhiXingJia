@@ -33,6 +33,7 @@ import java.util.List;
 
 public class ShopCarAdapter extends BaseDataBindingMultiItemQuickAdapter<ShopCar> {
     private ShopCarAdapterListener listener;
+    private boolean isEdit;
 
     public ShopCarAdapter(@Nullable List<ShopCar> data, ShopCarAdapterListener listener) {
         super(data);
@@ -114,6 +115,8 @@ public class ShopCarAdapter extends BaseDataBindingMultiItemQuickAdapter<ShopCar
                         specificationBinding.setData(skuListBean);
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dpToPx(mContext, 46));
                         merchandiseBinding.llSpecification.addView(specificationBinding.getRoot(), params);
+                        specificationBinding.amv.setCurrentNum(skuListBean.getSku_sum());
+                        specificationBinding.amv.setEditEnable(!isEdit);
                         specificationBinding.amv.setListener(new AddMinusView.AddMinusViewListener() {
                             @Override
                             public void currentNumChange(String currentNum) {
@@ -201,5 +204,13 @@ public class ShopCarAdapter extends BaseDataBindingMultiItemQuickAdapter<ShopCar
 
     public interface ShopCarAdapterListener {
         void changePrice();
+    }
+
+    public boolean isEdit() {
+        return isEdit;
+    }
+
+    public void setEdit(boolean edit) {
+        isEdit = edit;
     }
 }

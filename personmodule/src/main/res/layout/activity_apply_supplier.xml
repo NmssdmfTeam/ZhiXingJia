@@ -40,7 +40,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
-                    android:background="@color/activity_grey_bg" />
+                    android:background="@color/activity_grey_bg"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

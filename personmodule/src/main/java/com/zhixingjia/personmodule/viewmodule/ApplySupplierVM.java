@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.google.gson.Gson;
+import com.jushi.gallery.activity.BeautyImageGalleryActivity;
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseListData;
@@ -239,10 +241,23 @@ public class ApplySupplierVM extends BaseVM {
      * @param view
      */
     public void onFrontIDCardClick(View view) {
-        if (isFromSupplier.get())
+        if (isFromSupplier.get()) {
+            toBeautyImageGalleryActivity(frontIDCardPathUploadBean.getL_url());
             return;
+        }
         imageIndex = 1;
         callback.showSelectImageDialog(frontIDCardPathTemp);
+    }
+
+    private void toBeautyImageGalleryActivity(String url) {
+        if (TextUtils.isEmpty(url))
+            return;
+        Bundle bundle = new Bundle();
+        bundle.putInt(BeautyImageGalleryActivity.PAGE_INDEX, 0);
+        List<Uri> imageUrls = new ArrayList<>();
+        imageUrls.add(Uri.parse(url));
+        bundle.putSerializable(BeautyImageGalleryActivity.LIST_PATH_KEY, (Serializable) imageUrls);
+        callback.doIntent(BeautyImageGalleryActivity.class, bundle);
     }
 
     /**
@@ -251,8 +266,10 @@ public class ApplySupplierVM extends BaseVM {
      * @param view
      */
     public void onBackIDCardClick(View view) {
-        if (isFromSupplier.get())
+        if (isFromSupplier.get()) {
+            toBeautyImageGalleryActivity(backIDCardPathUploadBean.getL_url());
             return;
+        }
         imageIndex = 2;
         callback.showSelectImageDialog(backIDCardPathTemp);
     }
@@ -263,8 +280,10 @@ public class ApplySupplierVM extends BaseVM {
      * @param view
      */
     public void onBackBusinessLicenceClick(View view) {
-        if (isFromSupplier.get())
+        if (isFromSupplier.get()) {
+            toBeautyImageGalleryActivity(businessLicenseCardPathUploadBean.getL_url());
             return;
+        }
         imageIndex = 3;
         callback.showSelectImageDialog(businessLicenseCardPathTemp);
     }

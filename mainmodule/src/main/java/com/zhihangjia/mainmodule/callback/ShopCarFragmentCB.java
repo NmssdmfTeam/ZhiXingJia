@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface ShopCarFragmentCB extends BaseCB {
     void refreshData(List<ShopCar> list, boolean refresh);
+    void setAdapterEdit(boolean isAdapterEdit);
 }

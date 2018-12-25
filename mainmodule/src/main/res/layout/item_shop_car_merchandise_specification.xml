@@ -80,7 +80,7 @@
             android:layout_marginRight="16dp"
             app:maxNum="@{Integer.valueOf(data.stock)}"
             app:currentNum="@{data.sku_sum}"
-            />
+            app:minNum="1"/>
 
     </RelativeLayout>
 </layout>

@@ -150,16 +150,16 @@ public class AddOrEditProductVM extends BaseVM {
      * @param view
      */
     public void selectSkuClick(View view) {
-        if ((selectedSepc == null || selectedSepc.size() == 0)
-                && (commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info() != null && commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info().size() > 0)) {
-            cb.showToast("请选择规格");
-            return;
-        }
+//        if ((selectedSepc == null || selectedSepc.size() == 0)
+//                && (commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info() != null && commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info().size() > 0)) {
+//            //跳转没有规格的商品规格页面
+//
+//            return;
+//        }
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConfig.STOCK_PRICE, priceSet);
         bundle.putSerializable(IntentConfig.UNIT, (Serializable) commodityInitialize.getUnit_info());
-        if (commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info() != null
-                && commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info().size() > 0) {
+        if (selectedSepc != null && selectedSepc.size() > 0) {//若选择了商品规格,跳转商品规格价格库存页面
             bundle.putSerializable(IntentConfig.SEPC_INFO_SELECTED, (Serializable) selectedSepc);
             bundle.putSerializable(IntentConfig.SEPC_INFO, (Serializable) commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info());
             if (!TextUtils.isEmpty(categoryId)) {
@@ -219,6 +219,12 @@ public class AddOrEditProductVM extends BaseVM {
                 if (selectedSepc != null && selectedSepc.size() > 0) {
                     sepcName.set("已设置");
                     skuName.set(null);//重新填写价格库存
+                } else {
+                    sepcName.set(null);
+                    if (sepcPriceStockUnit != null) {
+                        sepcPriceStockUnit = null;
+                        skuName.set(null);//重新填写价格库存
+                    }
                 }
             }
         } else if (requestCode == SELECT_STOCK) {
@@ -279,7 +285,7 @@ public class AddOrEditProductVM extends BaseVM {
             baseCallBck.showToast("请填写货号");
             return false;
         }
-        if (isSpec.get()) {
+        if (selectedSepc != null && selectedSepc.size() > 0) {
             if (TextUtils.isEmpty(sepcName.get())) {
                 baseCallBck.showToast("请填写商品规格");
                 return false;
@@ -393,7 +399,7 @@ public class AddOrEditProductVM extends BaseVM {
         params.put("commodity_name", title.get());
         params.put("imgs", new Gson().toJson(imageIds));
         params.put("bn", code.get());
-        if (isSpec.get()) { //是否有规格
+        if (sepcPriceStockUnit != null && sepcPriceStockUnit.getSepcPriceStockSets().size() > 0) { //是否有规格的价格库存
             params.put("unit", sepcPriceStockUnit.getUnit());
             params.put("sku", new Gson().toJson(sepcPriceStockUnit.getSepcPriceStockSets()));
         } else {
@@ -513,15 +519,17 @@ public class AddOrEditProductVM extends BaseVM {
                 title.set(commodityShow.getCommodity_name());
                 cb.initImageSelectView(commodityShow.getImgs());
                 code.set(commodityShow.getBn());
-                isSpec.set(commodityShow.getSepc_val() != null && commodityShow.getSepc_val().size() > 0);
+                isSpec.set(commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info() != null
+                        && commodityInitialize.getCateinfo().get(categoryIndex).getSepc_info().size() > 0);
                 //初始化库存
-                if (isSpec.get()) {
+                if (commodityShow.getSku() != null && commodityShow.getSku().size() > 0) {
                     sepcPriceStockUnit = new SepcPriceStockUnit();
                     sepcPriceStockUnit.setUnit(commodityShow.getUnit());
                     sepcPriceStockUnit.setSepcPriceStockSets(commodityShow.getSku());
                 } else {
                     priceSet = new PriceSet();
                     priceSet.setUnit(commodityShow.getUnit());
+                    priceSet.setStock(commodityShow.getStock());
                     priceSet.setPrice(commodityShow.getPrice());
                 }
                 skuName.set("已设置");

@@ -3,6 +3,7 @@ package com.zhixingjia.personmodule.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
@@ -48,6 +49,18 @@ public class ApplySupplierActivity extends BaseTitleActivity implements ApplySup
     public void initContent(Bundle savedInstanceState) {
         binding = (ActivityApplySupplierBinding) baseViewBinding;
         businessCirclePopWindow = new WheelPickerWindow(this,new ArrayList<String>(),this);
+        if (vm.isFromSupplier.get()) {
+            setTitle("公司信息");
+        }
+        if (vm.frontIDCardPathUploadBean != null && !TextUtils.isEmpty(vm.frontIDCardPathUploadBean.getS_url())) {
+            loadFrontIDCardImg(vm.frontIDCardPathUploadBean.getM_url());
+        }
+        if (vm.backIDCardPathUploadBean != null && !TextUtils.isEmpty(vm.backIDCardPathUploadBean.getS_url())) {
+            loadBackIDCardImg(vm.backIDCardPathUploadBean.getM_url());
+        }
+        if (vm.businessLicenseCardPathUploadBean != null && !TextUtils.isEmpty(vm.businessLicenseCardPathUploadBean.getS_url())) {
+            loadLicenseImg(vm.businessLicenseCardPathUploadBean.getM_url());
+        }
     }
 
     @Override
