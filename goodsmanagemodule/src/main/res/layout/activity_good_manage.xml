@@ -79,10 +79,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:src="@drawable/icon_add_goods"
             android:background="@color/main_color"
-            app:srcCompat="@drawable/icon_add_goods"
+            app:borderWidth="0dp"
             android:layout_marginRight="24dp"
-            android:layout_marginBottom="40dp"/>
+            android:layout_marginBottom="40dp"
+            app:elevation="0dp"
+            app:pressedTranslationZ="0dp"
+            />
+
     </android.support.design.widget.CoordinatorLayout>
 </layout>
 

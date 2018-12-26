@@ -216,6 +216,7 @@
                     android:onClick="@{(v)->vm.onCategotyViewClick(v)}">
 
                     <TextView
+                        android:id="@+id/tvCategoty"
                         android:layout_width="64dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="16dp"
@@ -229,16 +230,20 @@
                         android:layout_height="21dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="16dp"
+                        android:layout_toRightOf="@+id/tvCategoty"
                         android:drawablePadding="3.5dp"
                         android:drawableRight="@{vm.isFromSupplier?@drawable/point_transparent:@drawable/icon_arrow_item_right}"
+                        android:ellipsize="end"
+                        android:enabled="@{!vm.isFromSupplier}"
                         android:gravity="right"
                         android:hint="请选择店铺主营产品"
+                        android:singleLine="true"
                         android:text="@{vm.applySupplier.main_camp_name}"
                         android:textColor="@color/text_black"
                         android:textColorHint="#FFCCCCCC"
-                        android:textSize="15dp"
-                        android:enabled="@{!vm.isFromSupplier}"/>
+                        android:textSize="15dp"/>
 
                 </RelativeLayout>
 
@@ -255,7 +260,7 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="13.5dp"
                         android:gravity="center_vertical"
-                        android:text="上传证件"
+                        android:text="证件信息"
                         android:textColor="#FF333333"
                         android:textSize="16dp" />
 

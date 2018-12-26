@@ -51,6 +51,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
     private MaterialsCategoryAdapter materialsCategoryAdapter;
     private ItemMaterialsCrvheadBinding itemMaterialsCrvheadBinding;
     private int[] pinDrawable = new int[]{R.drawable.living_room, R.drawable.bed_room, R.drawable.pic_kitchen, R.drawable.toilet};
+    private String[] pinString = new String[]{"客厅", "卧室", "厨房", "卫生间"};
 
     @Override
     public BaseVM initViewModel() {
@@ -97,6 +98,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
                 bundle.putString(IntentConfig.CATE_PW, String.valueOf(index));
+                bundle.putString(IntentConfig.KEYWORD, pinString[index - 1]);
                 doIntent(SearchResultActivity.class, bundle);
             });
         }
@@ -185,6 +187,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
                 bundle.putString(IntentConfig.BRAND_ID, brandsBean.getId());
+                bundle.putString(IntentConfig.KEYWORD, brandsBean.getTitle());
                 doIntent(SearchResultActivity.class, bundle);
             });
         }

@@ -5,24 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.nmssdmf.commonlib.bean.BaseData;
-import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhihangjia.mainmodule.activity.MapActivity;
 import com.zhihangjia.mainmodule.callback.MerchantMainCB;
 import com.zhixingjia.bean.mainmodule.ShopInfo;
 import com.zhixingjia.service.MainService;
 
-import java.util.Observable;
-
 public class MerchantMainVM extends BaseVM {
-    public String member_id = "14";
+    public String member_id;
     public final ObservableField<ShopInfo> shopInfo = new ObservableField<>();
     private MerchantMainCB callback;
+    private int type;
 
     /**
      * 不需要callback可以传null
@@ -32,13 +29,14 @@ public class MerchantMainVM extends BaseVM {
     public MerchantMainVM(MerchantMainCB callBack) {
         super(callBack);
         this.callback = callBack;
-        initData();
+
     }
 
-    private void initData() {
+    public void initData() {
         Bundle bundle = callback.getIntentData();
         if (bundle != null) {
             member_id = bundle.getString(IntentConfig.ID);
+            type = bundle.getInt(IntentConfig.TYPE);
         }
     }
 
@@ -80,5 +78,13 @@ public class MerchantMainVM extends BaseVM {
      */
     public void onAddressClick(View view) {
         callback.showChooseMapWindow();
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

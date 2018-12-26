@@ -2,9 +2,11 @@ package com.zhihangjia.mainmodule.adapter;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
@@ -40,6 +42,9 @@ public class ConfirmOrderAdapter extends BaseDataBindingAdapter<CommodityComfirm
         binding.tvShopDetail.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setClass(mContext , MerchantMainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(IntentConfig.ID, item.getProvider_id());
+            intent.putExtras(bundle);
             mContext.startActivity(intent);
         });
         binding.tvDeliveryMethod.setOnClickListener(v -> cb.chooseDeliveryMethod(position));
