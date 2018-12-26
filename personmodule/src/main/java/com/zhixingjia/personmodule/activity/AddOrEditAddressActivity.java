@@ -30,7 +30,7 @@ public class AddOrEditAddressActivity extends BaseTitleActivity implements AddOr
 
     @Override
     public String setTitle() {
-        return "新增地址";
+        return "";
     }
 
     @Override
@@ -42,6 +42,7 @@ public class AddOrEditAddressActivity extends BaseTitleActivity implements AddOr
                 vm.area.set(item);
             }
         });
+        vm.iniData();
         vm.getArea();
     }
 
@@ -75,5 +76,10 @@ public class AddOrEditAddressActivity extends BaseTitleActivity implements AddOr
         selectAddressWindow.changeDataList(areas);
         binding.setVm(vm);
         setListener();
+    }
+
+    @Override
+    public void chnageTitle(String title) {
+        setTitle(title);
     }
 }

@@ -19,7 +19,6 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.personmodule.Address;
 import com.zhixingjia.bean.personmodule.AddressInsertResult;
 import com.zhixingjia.personmodule.callback.AddOrEditAddressCB;
@@ -54,10 +53,10 @@ public class AddOrEditAddressVM extends BaseVM {
     public AddOrEditAddressVM(AddOrEditAddressCB callBack) {
         super(callBack);
         this.callback = callBack;
-        iniData();
+
     }
 
-    private void iniData() {
+    public void iniData() {
         Bundle bundle = callback.getIntentData();
         if (bundle != null){
             addrId = bundle.getString(IntentConfig.ADDRID);
@@ -68,6 +67,9 @@ public class AddOrEditAddressVM extends BaseVM {
             area.set(addressinfo.getArea());
             address.set(addressinfo.getAddr());
             isDefault.set("0".equals(addressinfo.getIs_default())?false:true);
+            callback.chnageTitle("编辑地址");
+        } else {
+            callback.chnageTitle("新增地址");
         }
     }
 

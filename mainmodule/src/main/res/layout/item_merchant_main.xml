@@ -41,6 +41,7 @@
             android:textSize="11dp"/>
 
         <TextView
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_below="@+id/tvName"
@@ -49,6 +50,15 @@
             android:text="@{data.price}"
             android:textColor="#FFFF5C4A"
             android:textSize="17dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_toRightOf="@+id/tvPrice"
+            android:text="@{`/` + data.unit}"
+            android:textColor="#FF999999"
+            android:textSize="12dp"
+            android:layout_alignBaseline="@+id/tvPrice"/>
 
         <TextView
             android:layout_width="wrap_content"

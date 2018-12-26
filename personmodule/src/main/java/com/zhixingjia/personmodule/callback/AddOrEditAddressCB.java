@@ -13,4 +13,6 @@ import java.util.List;
 public interface AddOrEditAddressCB extends BaseCB {
 
     void setArea(List<String> areas);
+
+    void chnageTitle(String title);
 }

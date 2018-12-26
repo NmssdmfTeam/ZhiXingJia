@@ -64,7 +64,7 @@ public class MerchantMainFragment extends BaseRecyclerViewFragment implements Me
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         binding.crv.setLayoutManager(layoutManager);
         //初始化首页轮播图
-        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(new ArrayList<Banner.CommomBanner>(), headerMerchantMainBinding.rpv);
+        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(new ArrayList<>(), headerMerchantMainBinding.rpv);
         headerMerchantMainBinding.rpv.setAdapter(viewPagerAdapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
