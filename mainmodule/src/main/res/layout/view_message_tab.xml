@@ -24,7 +24,7 @@
             android:background="@drawable/message_red_point"
             android:layout_toRightOf="@+id/tvMessageName"
             android:layout_alignTop="@+id/tvMessageName"
-            />
+            android:visibility="gone"/>
 
     </RelativeLayout>
 </layout>

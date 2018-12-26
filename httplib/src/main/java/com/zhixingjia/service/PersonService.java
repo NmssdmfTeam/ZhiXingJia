@@ -110,4 +110,12 @@ public interface PersonService {
      */
     @GET ("/api/app/update_info")
     Observable<BaseData<UpdateInfo>> getUpdateInfo(@Query("system") String system);
+
+    /**
+     * 收货地址 - 删除
+     * @return
+     */
+    @FormUrlEncoded
+    @POST ("/api/address/del")
+    Observable<Base> addressDel(@Field("addr_id") String addr_id);
 }

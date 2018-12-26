@@ -101,4 +101,10 @@ public class ManageAddressListActivity extends BaseTitleActivity implements Mana
         adapter.notifyItemChanged(position);
         adapter.setDefaultPosition(position);
     }
+
+    @Override
+    public void deleteAddress(int position) {
+        adapter.getData().remove(position);
+        adapter.notifyItemRemoved(position);
+    }
 }

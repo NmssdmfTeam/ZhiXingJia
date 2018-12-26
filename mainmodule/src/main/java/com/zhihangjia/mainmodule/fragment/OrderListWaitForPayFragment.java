@@ -47,7 +47,7 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
         binding = (FragmentOrderListWaitForPayBinding) baseBinding;
         binding.setVm(vm);
         adapter = new OrderWaitForPayAdapter(vm.getList(), vm);
-
+        adapter.setIdentify(vm.getIdentity());
         binding.crv.setAdapter(adapter);
         binding.crv.setOnDataChangeListener(new OnDataChangeListener() {
             @Override

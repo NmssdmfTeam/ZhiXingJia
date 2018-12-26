@@ -191,6 +191,14 @@ public class AddMinusView extends LinearLayout {
         void currentNumChange(String currentNum);
     }
 
+    public int getMinNum() {
+        return minNum;
+    }
+
+    public void setMinNum(int minNum) {
+        this.minNum = minNum;
+    }
+
     public EditText getTvNum() {
         return tvNum;
     }

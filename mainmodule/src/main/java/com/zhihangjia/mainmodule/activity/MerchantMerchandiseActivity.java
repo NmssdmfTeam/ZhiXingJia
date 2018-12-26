@@ -96,6 +96,7 @@ public class MerchantMerchandiseActivity extends BaseActivity implements Merchan
             @Override
             public void onItemClick(TradeArea item, int position) {
                 vm.tvMerchantChooseSelect.set(false);
+                vm.businessCircle.set(item.getTrade_name());
                 if (binding.vp.getCurrentItem() == 0) {
                     merchantFragment.getVm().setTradeAreaId(item.getTrade_id());
                 } else {

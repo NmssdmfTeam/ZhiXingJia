@@ -6,6 +6,9 @@ import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.callback.MessageCenterCB;
 import com.zhixingjia.bean.mainmodule.MessageUnread;
@@ -47,5 +50,34 @@ public class MessageCenterVM extends BaseVM {
 
             }
         });
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.PersonInfoEvent.SYSTEM_NOTIFICATION_READED, this);
+        RxBus.getInstance().register(RxEvent.PersonInfoEvent.ORDER_NOTIFICATION_READED, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.SYSTEM_NOTIFICATION_READED, this);
+        RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.ORDER_NOTIFICATION_READED, this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.PersonInfoEvent.SYSTEM_NOTIFICATION_READED:
+                messageUnread.setSys_message("0");
+                messageUnread.setAll_message(messageUnread.getOrder_message());
+                callback.showNotice();
+                break;
+            case RxEvent.PersonInfoEvent.ORDER_NOTIFICATION_READED:
+                messageUnread.setOrder_message("0");
+                messageUnread.setAll_message(messageUnread.getSys_message());
+                callback.showNotice();
+                break;
+        }
     }
 }

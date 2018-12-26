@@ -15,6 +15,7 @@ import com.zhihangjia.mainmodule.databinding.ItemConfirmOrderBinding;
 import com.zhihangjia.mainmodule.databinding.ItemConfirmOrderCommodityInfoBinding;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -53,6 +54,12 @@ public class ConfirmOrderAdapter extends BaseDataBindingAdapter<CommodityComfirm
             if (!StringUtil.isEmpty(item.getShop_coupon()) && !"0".equals(item.getShop_coupon()))
                 cb.chooseCoupon(position,item.getProvider_id(), item.getProduct_amount());
         });
+        if (StringUtil.isEmpty(item.getCoupon_code())) {
+            binding.tvPrice.setText(item.getProduct_amount());
+        } else {
+            binding.tvPrice.setText(new BigDecimal(item.getProduct_amount()).subtract(new BigDecimal(item.getCoupon_price())).toString());
+        }
+
         binding.llInfoList.removeAllViews();
         for (CommodityComfirm.InfoListBean.ListInfoBean listInfoBean : item.getList_info()) {
             ItemConfirmOrderCommodityInfoBinding infoBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_confirm_order_commodity_info, null,false);

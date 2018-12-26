@@ -276,6 +276,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:text="@{vm.log}"
+                android:lineSpacingExtra="6dp"
                 android:textColor="#FF999999"
                 android:textSize="12dp"/>
 

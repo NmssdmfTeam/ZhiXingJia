@@ -1,7 +1,10 @@
 package com.zhixingjia.personmodule.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
@@ -42,6 +45,8 @@ public class AddOrEditAddressActivity extends BaseTitleActivity implements AddOr
                 vm.area.set(item);
             }
         });
+        if (!TextUtils.isEmpty(vm.getAddrId()))
+            baseTitleBinding.tTitle.inflateMenu(R.menu.delete);
         vm.getArea();
     }
 
@@ -50,6 +55,13 @@ public class AddOrEditAddressActivity extends BaseTitleActivity implements AddOr
             @Override
             public void onClick(View v) {
                 selectAddressWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
+            }
+        });
+        baseTitleBinding.tTitle.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                vm.deleteAddress();
+                return false;
             }
         });
     }

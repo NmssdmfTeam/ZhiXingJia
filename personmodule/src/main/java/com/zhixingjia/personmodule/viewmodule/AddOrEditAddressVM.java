@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
@@ -160,6 +161,31 @@ public class AddOrEditAddressVM extends BaseVM {
                 });
     }
 
+    public void deleteAddress() {
+        callback.showLoaddingDialog();
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(PersonService.class, HttpVersionConfig.API_ADDRESS_DEL).addressDel(addrId),
+                new ServiceCallback<Base>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(Base base) {
+                EventInfo eventInfo = new EventInfo();
+                eventInfo.setIndex(position);
+                RxBus.getInstance().send(RxEvent.PersonInfoEvent.ADDRESS_DELETE, eventInfo);
+                callback.finishActivity();
+            }
+
+            @Override
+            public void onDefeated(Base base) {
+
+            }
+        });
+    }
+
     public void onSaveClick(View view) {
         save();
     }
@@ -212,5 +238,13 @@ public class AddOrEditAddressVM extends BaseVM {
             return false;
         }
         return true;
+    }
+
+    public String getAddrId() {
+        return addrId;
+    }
+
+    public void setAddrId(String addrId) {
+        this.addrId = addrId;
     }
 }

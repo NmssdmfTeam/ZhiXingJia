@@ -215,6 +215,22 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
         vm.buyNow();
     }
 
+    public void onActivityAddCartClick() {
+        if (vm.commodityDetail.get().getSepc_val() == null || vm.commodityDetail.get().getSepc_val().size() == 0) {
+            showChooseSpecificationWindow();
+            return;
+        }
+        vm.addCartStore();
+    }
+
+    public void onActivityBuyNowClick() {
+        if (vm.commodityDetail.get().getSepc_val() == null || vm.commodityDetail.get().getSepc_val().size() == 0) {
+            showChooseSpecificationWindow();
+            return;
+        }
+        vm.buyNow();
+    }
+
     public String getPhoneNum() {
         return vm.commodityDetail.get().getProvider_info().getCo_phone();
     }

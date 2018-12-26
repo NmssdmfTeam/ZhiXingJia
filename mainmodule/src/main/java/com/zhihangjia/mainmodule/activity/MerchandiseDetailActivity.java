@@ -72,7 +72,7 @@ public class MerchandiseDetailActivity extends BaseActivity implements Merchandi
 
     @Override
     public void addCart() {
-        merchandiseDetailFragment.onAddCartClick();
+        merchandiseDetailFragment.onActivityAddCartClick();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MerchandiseDetailActivity extends BaseActivity implements Merchandi
 
     @Override
     public void buyNow() {
-        merchandiseDetailFragment.onBuyClick();
+        merchandiseDetailFragment.onActivityBuyNowClick();
     }
 
     @Override

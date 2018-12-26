@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.viewmodel;
 
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.view.View;
 
@@ -26,6 +27,7 @@ public class MerchantMerchandiseVM extends BaseVM {
 
     public final ObservableBoolean tvMerchantChooseSelect = new ObservableBoolean(false);//商家
     public final ObservableInt tvPopularitySelect = new ObservableInt();//0:商圈 1:人气最高, 2:好评优先
+    public final ObservableField<String> businessCircle = new ObservableField<>("全部");              //商圈
 
     private List<TradeArea> areaList = new ArrayList<>();
 

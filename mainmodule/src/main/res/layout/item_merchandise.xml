@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{`已售` + data.sold + data.unit}"
+            android:text="@{`已售` + data.sold}"
             android:textColor="#FF999999"
             android:textSize="12dp"
             android:layout_marginBottom="2.5dp"

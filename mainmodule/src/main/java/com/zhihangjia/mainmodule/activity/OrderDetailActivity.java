@@ -146,19 +146,20 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
     }
 
     public void initWaitPay(TagLayout layout){
-        TextView payView = new OrderBtnTextView(this);
-        payView.setText("支付");
-        layout.addView(payView);
-        payView.setOnClickListener(v -> vm.pay());
+
+        TextView cancelView = new OrderBtnTextView(this);
+        cancelView.setText("取消订单");
+        layout.addView(cancelView);
+        cancelView.setOnClickListener(v -> vm.cancelOrder());
 
         TextView offLinePayView = new OrderBtnTextView(this);
         offLinePayView.setText("到店付");
         layout.addView(offLinePayView);
         offLinePayView.setOnClickListener(v -> vm.offlinePayOrder());
 
-        TextView cancelView = new OrderBtnTextView(this);
-        cancelView.setText("取消订单");
-        layout.addView(cancelView);
-        cancelView.setOnClickListener(v -> vm.cancelOrder());
+        TextView payView = new OrderBtnTextView(this);
+        payView.setText("支付");
+        layout.addView(payView);
+        payView.setOnClickListener(v -> vm.pay());
     }
 }

@@ -75,19 +75,23 @@
             android:layout_width="match_parent"
             android:layout_height="41dp">
 
-            <TextView
-                android:id="@+id/tvMerchantChoose"
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableRight="@{vm.tvMerchantChooseSelect ? @drawable/filtrate_arrow_orange : @drawable/filtrate_arrow_gray}"
-                android:gravity="center"
-                android:onClick="@{(v)->vm.tvMerchantChooseClick(v)}"
-                android:paddingLeft="38dp"
-                android:paddingRight="38dp"
-                android:text="商圈"
-                android:textColor="@{vm.tvMerchantChooseSelect ? @color/main_color : @color/light_black2}"
-                android:textSize="14dp"/>
+                android:onClick="@{(v)->vm.tvMerchantChooseClick(v)}">
+                <TextView
+                    android:id="@+id/tvMerchantChoose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:drawableRight="@{vm.tvMerchantChooseSelect ? @drawable/filtrate_arrow_orange : @drawable/filtrate_arrow_gray}"
+                    android:gravity="center"
+                    android:text="@{vm.businessCircle}"
+                    android:textColor="@{vm.tvMerchantChooseSelect ? @color/main_color : @color/light_black2}"
+                    android:textSize="14dp"/>
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/tvPopularity"

@@ -89,10 +89,11 @@ public class LifeServiceDetailActivity extends BaseTitleActivity implements Life
 
     @Override
     public void setContent() {
+//        binding.getRoot()
+        binding.llHead.removeAllViews();
+        binding.llHead.addView(headviewBinding.getRoot());
         binding.crv.setRefreshing(false);
-        adapter.removeAllHeaderView();
         headviewBinding.setData(vm.lifeServiceDetail.get());
-        adapter.addHeaderView(headviewBinding.getRoot());
         binding.setVm(vm);
         if (vm.lifeServiceDetail.get() == null || vm.lifeServiceDetail.get().getContent() == null)
             return;
@@ -149,7 +150,7 @@ public class LifeServiceDetailActivity extends BaseTitleActivity implements Life
         Bundle bundle = new Bundle();
         int index = 0;
         for (Uri imgs : vm.imageUrls) {
-            if (imgs.getPath().equals(contentBean.getImg())) {
+            if (imgs.toString().equals(contentBean.getImg())) {
                 break;
             }
             index++;

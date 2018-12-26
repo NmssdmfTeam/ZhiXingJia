@@ -8,8 +8,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.nmssdmf.customerviewlib.loadmore.MultiSwipeRefreshLayout;
 
 /**
  * Created by ${nmssdmf} on 2017/11/22 0022.
@@ -22,8 +27,9 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
 
     private Context context;
 
-    private SwipeRefreshLayout srl;
+    private MultiSwipeRefreshLayout srl;
     private RecyclerView rv;
+    private ImageView picNoDataImageView;
     private OnDataChangeListener onDataChangeListener;
     private RecyclerView.LayoutManager layoutManager;
     private BaseQuickAdapter adapter;
@@ -47,7 +53,7 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setOrientation(LinearLayout.VERTICAL);
 
-        srl = new SwipeRefreshLayout(context);
+        srl = new MultiSwipeRefreshLayout(context);
         srl.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         srl.setOnRefreshListener(this);
 
@@ -58,7 +64,18 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
             rv.setLayoutManager(new LinearLayoutManager(context));
         }
 
-        srl.addView(rv);
+        RelativeLayout relativeLayout = new RelativeLayout(context);
+        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        srl.addView(relativeLayout);
+        srl.setSwipeableChildren(rv);
+        relativeLayout.addView(rv);
+        //添加暂无内容
+        picNoDataImageView = new ImageView(context);
+        picNoDataImageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        picNoDataImageView.setImageDrawable(getResources().getDrawable(R.drawable.pic_no_data));
+        picNoDataImageView.setScaleType(ImageView.ScaleType.CENTER);
+        picNoDataImageView.setVisibility(View.GONE);
+        relativeLayout.addView(picNoDataImageView);
         addView(srl);
 
         if (attrs != null) {
@@ -139,7 +156,7 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
         return srl;
     }
 
-    public void setSrl(SwipeRefreshLayout srl) {
+    public void setSrl(MultiSwipeRefreshLayout srl) {
         this.srl = srl;
     }
 
@@ -172,7 +189,9 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
         return adapter;
     }
 
-    public void setAdapter(BaseQuickAdapter adapter) {
+    public void setAdapter(final BaseQuickAdapter adapter) {
+        if (this.adapter != null)
+            this.adapter.unregisterAdapterDataObserver(adapterDataObserver);
         this.adapter = adapter;
         //动画
 //        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
@@ -181,8 +200,21 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
 //            adapter.setPreLoadNumber(loadMorePageSize);
             adapter.setOnLoadMoreListener(this);
         }
+        adapter.registerAdapterDataObserver(adapterDataObserver);
         rv.setAdapter(adapter);
     }
+
+    private RecyclerView.AdapterDataObserver adapterDataObserver = new RecyclerView.AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            super.onChanged();
+            if (adapter.getData().size() > 0) {
+                picNoDataImageView.setVisibility(View.GONE);
+            } else {
+                picNoDataImageView.setVisibility(View.VISIBLE);
+            }
+        }
+    };
 
     public int getLoadMorePageSize() {
         return loadMorePageSize;

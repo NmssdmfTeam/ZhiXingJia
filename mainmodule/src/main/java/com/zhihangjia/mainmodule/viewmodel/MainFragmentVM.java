@@ -13,6 +13,7 @@ import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.AllLifeCategoriesActivity;
 import com.zhihangjia.mainmodule.activity.LifeServiceActivity;
 import com.zhihangjia.mainmodule.activity.PoliticsNoticeActivity;
 import com.zhihangjia.mainmodule.activity.XYTelecomActivity;
@@ -208,6 +209,6 @@ public class MainFragmentVM extends BaseVM {
     }
 
     public void onLifeServiceClick(View view) {
-        cb.doIntent(LifeServiceActivity.class, null);
+        cb.doIntent(AllLifeCategoriesActivity.class, null);
     }
 }

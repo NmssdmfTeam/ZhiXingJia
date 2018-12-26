@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.callback.MessageCenterCB;
@@ -32,6 +33,7 @@ public class MessageCenterActivity extends BaseTitleActivity implements MessageC
     private FragmentPagerAdapter fragmentPagerAdapter;
     private ViewMessageTabBinding systemTabBinding;
     private ViewMessageTabBinding orderTabBinding;
+    private boolean isFirstLoad = true;
 
     @Override
     public String getTAG() {
@@ -59,6 +61,9 @@ public class MessageCenterActivity extends BaseTitleActivity implements MessageC
     private void initTabLayout(){
         SystemMessageFragment systemMessageFragment = new SystemMessageFragment();
         OrderMessageFragment orderMessageFragment = new OrderMessageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IntentConfig.ENABLE_LOAD, true);
+        systemMessageFragment.setArguments(bundle);
         list.add(systemMessageFragment);
         list.add(orderMessageFragment);
 
@@ -75,6 +80,7 @@ public class MessageCenterActivity extends BaseTitleActivity implements MessageC
 
 
         orderTabBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.view_message_tab, null, false);
+        orderTabBinding.vRed.setVisibility(View.VISIBLE);
         orderTabBinding.tvMessageName.setText("订单消息");
         binding.tl.getTabAt(1).setCustomView(orderTabBinding.getRoot());
         orderTabBinding.tvMessageName.setTextColor(Color.parseColor("#666666"));
@@ -91,6 +97,10 @@ public class MessageCenterActivity extends BaseTitleActivity implements MessageC
                     systemTabBinding.tvMessageName.setTextColor(Color.parseColor("#FFFF9A14"));
                     orderTabBinding.tvMessageName.setTextColor(Color.parseColor("#666666"));
                 } else {
+                    if (isFirstLoad) {
+                        ((OrderMessageFragment)list.get(1)).loadData();
+                        isFirstLoad = false;
+                    }
                     orderTabBinding.tvMessageName.setTextColor(Color.parseColor("#FFFF9A14"));
                     systemTabBinding.tvMessageName.setTextColor(Color.parseColor("#666666"));
                 }

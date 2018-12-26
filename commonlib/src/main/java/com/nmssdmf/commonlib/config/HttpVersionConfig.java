@@ -366,4 +366,9 @@ public class HttpVersionConfig {
      * 获取APP版本更新信息
      */
     public static final int API_APP_UPDATE_INFO = 1;
+
+    /**
+     * 收货地址 - 删除
+     */
+    public static final int API_ADDRESS_DEL = 1;
 }

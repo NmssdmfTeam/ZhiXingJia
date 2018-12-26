@@ -17,4 +17,6 @@ public interface ManageAddressCB extends BaseCB {
     void setData(List<Address> addresses, boolean isRefresh);
 
     void setAddress(Address address, int position);
+
+    void deleteAddress(int position);
 }

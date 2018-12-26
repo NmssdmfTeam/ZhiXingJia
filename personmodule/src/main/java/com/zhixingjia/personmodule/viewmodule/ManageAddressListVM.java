@@ -77,6 +77,7 @@ public class ManageAddressListVM extends BaseVM {
         super.registerRxBus();
         RxBus.getInstance().register(RxEvent.PersonInfoEvent.ADDRESS_INSERT, this);
         RxBus.getInstance().register(RxEvent.PersonInfoEvent.ADDRESS_SAVE, this);
+        RxBus.getInstance().register(RxEvent.PersonInfoEvent.ADDRESS_DELETE, this);
     }
 
     @Override
@@ -84,6 +85,7 @@ public class ManageAddressListVM extends BaseVM {
         super.unRegisterRxBus();
         RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.ADDRESS_INSERT, this);
         RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.ADDRESS_SAVE, this);
+        RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.ADDRESS_DELETE, this);
     }
 
     public void onRxEvent(RxEvent event, EventInfo info) {
@@ -94,6 +96,10 @@ public class ManageAddressListVM extends BaseVM {
             case RxEvent.PersonInfoEvent.ADDRESS_SAVE:
                 Address address = (Address) info.getContent();
                 callback.setAddress(address, info.getIndex());
+                break;
+            case RxEvent.PersonInfoEvent.ADDRESS_DELETE:
+                int postion = info.getIndex();
+                callback.deleteAddress(postion);
                 break;
         }
     }

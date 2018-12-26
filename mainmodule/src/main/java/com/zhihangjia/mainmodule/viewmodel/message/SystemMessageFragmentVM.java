@@ -6,6 +6,8 @@ import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.zhixingjia.bean.mainmodule.Message;
 import com.zhixingjia.service.MainService;
@@ -43,6 +45,7 @@ public class SystemMessageFragmentVM extends BaseRecyclerViewFragmentVM {
                     @Override
                     public void onSuccess(BaseListData<Message> messageBaseListData) {
                         baseCB.refreshAdapter(isRefresh, messageBaseListData.getData());
+                        RxBus.getInstance().send(RxEvent.PersonInfoEvent.SYSTEM_NOTIFICATION_READED, null);
                         if (messageBaseListData != null && messageBaseListData.getData().size() > 0) {
                             page = messageBaseListData.getData().get(messageBaseListData.getData().size() - 1).getId();
                         }

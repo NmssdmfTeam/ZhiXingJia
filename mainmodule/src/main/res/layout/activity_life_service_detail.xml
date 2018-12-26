@@ -11,6 +11,14 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/llHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
         <com.nmssdmf.customerviewlib.CustomerRecyclerView
             android:id="@+id/crv"
             android:layout_width="match_parent"

@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class OrderMessageFragmentVM extends BaseRecyclerViewFragmentVM {
     private String page = "0";
+    private boolean enableLoad = false;
 
     /**
      * 不需要callback可以传null
@@ -27,6 +28,8 @@ public class OrderMessageFragmentVM extends BaseRecyclerViewFragmentVM {
 
     @Override
     public void initData(boolean isRefresh) {
+        if (!enableLoad)
+            return;
         if (isRefresh)
             page = "0";
         Map<String, String> map = new HashMap<>();
@@ -53,5 +56,13 @@ public class OrderMessageFragmentVM extends BaseRecyclerViewFragmentVM {
 
                     }
                 });
+    }
+
+    public boolean isEnableLoad() {
+        return enableLoad;
+    }
+
+    public void setEnableLoad(boolean enableLoad) {
+        this.enableLoad = enableLoad;
     }
 }

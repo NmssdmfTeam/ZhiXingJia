@@ -198,4 +198,12 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
     public void setCurrent(boolean current) {
         this.current = current;
     }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
 }

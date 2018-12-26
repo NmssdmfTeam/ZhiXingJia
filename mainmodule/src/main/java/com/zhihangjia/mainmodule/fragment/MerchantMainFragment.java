@@ -5,11 +5,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
+import com.nmssdmf.commonlib.glide.util.GlideUtil;
+import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
@@ -34,7 +37,6 @@ public class MerchantMainFragment extends BaseRecyclerViewFragment implements Me
 
     private MerchantMainFragmentVM vm;
     private MerchantMainAdapter adapter;
-    private AdvertisingRotationViewPagerAdapter viewPagerAdapter;
     private HeaderMerchantMainBinding headerMerchantMainBinding;
 
     @Override
@@ -63,9 +65,6 @@ public class MerchantMainFragment extends BaseRecyclerViewFragment implements Me
         binding.crv.setLoadMoreEnable(false);
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         binding.crv.setLayoutManager(layoutManager);
-        //初始化首页轮播图
-        viewPagerAdapter = new AdvertisingRotationViewPagerAdapter(new ArrayList<Banner.CommomBanner>(), headerMerchantMainBinding.rpv);
-        headerMerchantMainBinding.rpv.setAdapter(viewPagerAdapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -97,8 +96,17 @@ public class MerchantMainFragment extends BaseRecyclerViewFragment implements Me
     }
 
     private void loadBannerData() {
-        viewPagerAdapter.getAdvertisingRotations().clear();
-        viewPagerAdapter.getAdvertisingRotations().addAll(vm.bannersBeans);
-        viewPagerAdapter.notifyDataSetChanged();
+        if (vm.bannersBeans == null || vm.bannersBeans.size() == 0 || TextUtils.isEmpty(vm.bannersBeans.get(0).getImg_url())) {
+            headerMerchantMainBinding.rpv.setVisibility(View.GONE);
+        } else {
+            headerMerchantMainBinding.rpv.setVisibility(View.VISIBLE);
+            GlideUtil.load(headerMerchantMainBinding.rpv, vm.bannersBeans.get(0).getImg_url());
+            headerMerchantMainBinding.rpv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Banner.CommomBanner.bannerClick(vm.bannersBeans.get(0), getActivity());
+                }
+            });
+        }
     }
 }

@@ -52,13 +52,13 @@ public class ApplySupplierActivity extends BaseTitleActivity implements ApplySup
         if (vm.isFromSupplier.get()) {
             setTitle("公司信息");
         }
-        if (vm.frontIDCardPathUploadBean != null && !TextUtils.isEmpty(vm.frontIDCardPathUploadBean.getS_url())) {
+        if (vm.frontIDCardPathUploadBean != null && !TextUtils.isEmpty(vm.frontIDCardPathUploadBean.getM_url())) {
             loadFrontIDCardImg(vm.frontIDCardPathUploadBean.getM_url());
         }
-        if (vm.backIDCardPathUploadBean != null && !TextUtils.isEmpty(vm.backIDCardPathUploadBean.getS_url())) {
+        if (vm.backIDCardPathUploadBean != null && !TextUtils.isEmpty(vm.backIDCardPathUploadBean.getM_url())) {
             loadBackIDCardImg(vm.backIDCardPathUploadBean.getM_url());
         }
-        if (vm.businessLicenseCardPathUploadBean != null && !TextUtils.isEmpty(vm.businessLicenseCardPathUploadBean.getS_url())) {
+        if (vm.businessLicenseCardPathUploadBean != null && !TextUtils.isEmpty(vm.businessLicenseCardPathUploadBean.getM_url())) {
             loadLicenseImg(vm.businessLicenseCardPathUploadBean.getM_url());
         }
     }

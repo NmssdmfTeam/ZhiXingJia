@@ -28,6 +28,7 @@ public class SystemMessageAdapter extends BaseDataBindingAdapter<Message, ItemSy
 
     @Override
     protected void convert2(BaseBindingViewHolder<ItemSystemMessageBinding> helper, Message item, int position) {
+        helper.getBinding().setData(item);
         String str = item.getContents();
         if (!"0".equals(item.getJumps()))
             str = str + "<font color='#FF9A14'><small>点击查看</small></font>";
@@ -44,7 +45,7 @@ public class SystemMessageAdapter extends BaseDataBindingAdapter<Message, ItemSy
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 intent.setClass(mContext ,OrderDetailActivity.class);
-                bundle.putString(IntentConfig.ID, item.getId());
+                bundle.putString(IntentConfig.ID, item.getRelation());
                 bundle.putString(IntentConfig.IDENTITY, StringConfig.BUYER);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
@@ -52,7 +53,7 @@ public class SystemMessageAdapter extends BaseDataBindingAdapter<Message, ItemSy
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 intent.setClass(mContext ,OrderDetailActivity.class);
-                bundle.putString(IntentConfig.ID, item.getId());
+                bundle.putString(IntentConfig.ID, item.getRelation());
                 bundle.putString(IntentConfig.IDENTITY, StringConfig.PROVIDER);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);

@@ -15,4 +15,5 @@ public interface ConfirmOrderCB extends BaseCB {
 
     void showCouponWindow(boolean refresh);
     void closeChooseCouponWindow();
+    void notifyPosition(int position);
 }

@@ -124,7 +124,13 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
                                         if (isEqual) {
                                             try {
                                                 binding.amv.setMaxNum(Integer.valueOf(skuBean.getStock()));
-                                                binding.amv.setCurrentNum("0");
+                                                if (Integer.valueOf(skuBean.getStock()) > 0) {
+                                                    binding.amv.setMinNum(1);
+                                                    binding.amv.setCurrentNum("1");
+                                                } else {
+                                                    binding.amv.setMinNum(0);
+                                                    binding.amv.setCurrentNum("0");
+                                                }
                                                 binding.amv.setVisibility(View.VISIBLE);
                                             } catch (Exception e) {
 
@@ -150,12 +156,18 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
                 binding.tvStock.setText(commodityDetail.getStock());
                 binding.tvPrice.setText(commodityDetail.getPrice());
                 binding.amv.setMaxNum(Integer.valueOf(commodityDetail.getStock()));
-                binding.amv.setCurrentNum("0");
+                if (Integer.valueOf(commodityDetail.getStock()) > 0) {
+                    binding.amv.setMinNum(1);
+                    binding.amv.setCurrentNum("1");
+                } else {
+                    binding.amv.setMinNum(0);
+                    binding.amv.setCurrentNum("0");
+                }
                 binding.amv.setVisibility(View.VISIBLE);
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)binding.sv.getLayoutParams();
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
                 binding.sv.setLayoutParams(layoutParams);
-                setHeight(DensityUtil.dpToPx(context, 300.5f));
+                setHeight(DensityUtil.dpToPx(context, 260.5f));
             }
         }
     }

@@ -33,6 +33,7 @@ import java.util.List;
 public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOrderWaitForPayBinding> {
     private AlertDialog.Builder normalDialog;
     private OrderWaitForPayAdapterListener listener;
+    private String identify;                            //身份
     public OrderWaitForPayAdapter(@Nullable List<Order> data, OrderWaitForPayAdapterListener listener) {
         super(R.layout.item_order_wait_for_pay, data);
         this.listener = listener;
@@ -55,6 +56,7 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
             Bundle bundle = new Bundle();
             bundle.putString(IntentConfig.ID, item.getOrder_id());
             bundle.putInt(IntentConfig.POSITION, position);
+            bundle.putString(IntentConfig.IDENTITY, identify);
             intent.setClass(mContext, OrderDetailActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
@@ -151,5 +153,13 @@ public class OrderWaitForPayAdapter extends BaseDataBindingAdapter<Order, ItemOr
         void cancelOrder(int index);
 
         void offlinePayOrder(int index);
+    }
+
+    public String getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(String identify) {
+        this.identify = identify;
     }
 }

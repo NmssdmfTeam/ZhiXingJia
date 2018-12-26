@@ -75,6 +75,12 @@ public class RxEvent {
         public static final int COUPON_DELTE = VALUE + 5;     //删除优惠券
 
         public static final int IDENTIFY_CHANGE = VALUE + 6;    //切换身份
+
+        public static final int ADDRESS_DELETE = VALUE + 7;    //删除地址
+
+        public static final int SYSTEM_NOTIFICATION_READED = VALUE + 8;    //系统消息已读
+
+        public static final int ORDER_NOTIFICATION_READED = VALUE + 9;    //订单息已读
     }
 
     public static class OrderEvent extends RxEvent {

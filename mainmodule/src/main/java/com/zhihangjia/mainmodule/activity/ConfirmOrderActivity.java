@@ -110,6 +110,11 @@ public class ConfirmOrderActivity extends BaseTitleActivity implements ConfirmOr
     }
 
     @Override
+    public void notifyPosition(int position) {
+        adapter.notifyItemChanged(position+1);
+    }
+
+    @Override
     public void setData(List<CommodityComfirm.InfoListBean> infoListBeans, boolean isRefresh) {
         if (isRefresh) {
             binding.crv.setRefreshing(false);

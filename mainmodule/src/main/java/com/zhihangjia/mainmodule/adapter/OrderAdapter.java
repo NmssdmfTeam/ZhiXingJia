@@ -57,6 +57,7 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
             Bundle bundle = new Bundle();
             bundle.putString(IntentConfig.ID, item.getOrder_id());
             bundle.putInt(IntentConfig.POSITION, position);
+            bundle.putString(IntentConfig.IDENTITY, identity);
             intent.setClass(mContext, OrderDetailActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);

@@ -33,6 +33,7 @@ import com.zhixingjia.service.MainService;
 import com.zhixingjia.service.PersonService;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -299,16 +300,17 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
         listBeans.get(position).setCoupon_price(item.getDecrease());
         cb.closeChooseCouponWindow();
 
-        float totalCouponPrice = 0;
+        BigDecimal totalCouponPrice = new BigDecimal(0);
         for (CommodityComfirm.InfoListBean bean : listBeans) {
             if (StringUtil.isEmpty(bean.getCoupon_code())) {
 
             } else {
-                totalCouponPrice += Float.valueOf(bean.getCoupon_price());
+                totalCouponPrice = totalCouponPrice.add(new BigDecimal(bean.getCoupon_price()));
             }
         }
 
-        totalAmount.set(String.valueOf(Float.valueOf(orderAmount) - totalCouponPrice));
+        totalAmount.set(new BigDecimal(orderAmount).subtract(totalCouponPrice).toString());
+        cb.notifyPosition(position);
     }
 
     public List<CommodityComfirm.InfoListBean> getListBeans() {
