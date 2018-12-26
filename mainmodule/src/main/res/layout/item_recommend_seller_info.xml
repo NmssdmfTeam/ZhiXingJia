@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
+        <import type="android.view.View"/>
+
         <variable
             name="data"
             type="com.zhixingjia.bean.mainmodule.HouseBean.SellerBean"/>
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +26,7 @@
                 android:id="@+id/ivPic"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                app:src="@{data.avatar}" />
+                app:src="@{data.avatar}"/>
 
             <TextView
                 android:id="@+id/tvName"
@@ -32,7 +37,7 @@
                 android:maxWidth="213dp"
                 android:text="@{data.company_name}"
                 android:textColor="#FF333333"
-                android:textSize="15dp" />
+                android:textSize="15dp"/>
 
             <TextView
                 android:id="@+id/tvTag"
@@ -46,7 +51,7 @@
                 android:singleLine="true"
                 android:text="@{@string/main_product + data.main_camp}"
                 android:textColor="#FF999999"
-                android:textSize="12dp" />
+                android:textSize="12dp"/>
 
             <TextView
                 android:id="@+id/tvLocation"
@@ -63,7 +68,7 @@
                 android:singleLine="true"
                 android:text="@{data.co_addr}"
                 android:textColor="#FF999999"
-                android:textSize="12dp" />
+                android:textSize="12dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -80,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:rating="5"
-                    android:stepSize="0.1" />
+                    android:stepSize="0.1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,28 +94,114 @@
                     android:minWidth="11dp"
                     android:text="@{data.score}"
                     android:textColor="#FF666666"
-                    android:textSize="8dp" />
+                    android:textSize="8dp"/>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1.09km"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:textColor="#FF999999"
-                android:layout_alignParentRight="true"
                 android:layout_alignBottom="@+id/ivPic"
-                android:textSize="12dp" />
+                android:layout_alignParentRight="true"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="1.09km"
+                android:textColor="#FF999999"
+                android:textSize="12dp"/>
 
         </RelativeLayout>
-        
+
         <LinearLayout
             android:id="@+id/llPics"
             android:layout_width="match_parent"
             android:layout_height="82.5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="@{data.goods_info == null|| data.goods_info.size() == 0 ? View.GONE : View.VISIBLE}">
+
+            <RelativeLayout
+                android:id="@+id/rvGoodSecond1"
+                android:layout_width="110dp"
+                android:layout_height="82.5dp"
+                android:layout_marginLeft="8dp">
+
+                <com.nmssdmf.commonlib.view.GlideImageView
+                    android:id="@+id/ivGoodSecond1"
+                    src="@{data.goods_info[0].imgs}"
+                    android:layout_width="110dp"
+                    android:layout_height="82.5dp"
+                    android:background="@drawable/shape_glide_image_bg"
+                    />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#33000000"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@{data.goods_info[0].commodity_name}"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rvGoodSecond2"
+                android:layout_width="110dp"
+                android:layout_height="82.5dp"
+                android:layout_marginLeft="6.5dp"
+                android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size() &gt; 1 ? View.VISIBLE : View.GONE}">
+
+                <com.nmssdmf.commonlib.view.GlideImageView
+                    src="@{data.goods_info[1].imgs}"
+                    android:layout_width="110dp"
+                    android:layout_height="82.5dp"
+                    android:background="@drawable/shape_glide_image_bg"
+
+                    />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#33000000"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@{data.goods_info[1].commodity_name}"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rvGoodSecond3"
+                android:layout_width="110dp"
+                android:layout_height="82.5dp"
+                android:layout_marginLeft="6.5dp"
+                android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size() == 3 ? View.VISIBLE : View.GONE}">
+
+                <com.nmssdmf.commonlib.view.GlideImageView
+                    src="@{data.goods_info[2].imgs}"
+                    android:layout_width="110dp"
+                    android:layout_height="82.5dp"
+                    android:background="@drawable/shape_glide_image_bg"
+                    />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#33000000"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@{data.goods_info[2].commodity_name}"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp"
+                    />
+            </RelativeLayout>
 
         </LinearLayout>
 

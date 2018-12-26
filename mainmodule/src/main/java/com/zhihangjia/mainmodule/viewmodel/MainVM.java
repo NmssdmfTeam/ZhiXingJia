@@ -136,7 +136,11 @@ public class MainVM extends BaseVM {
                 callback.switchFragment(info.getIndex());
                 break;
             case RxEvent.LoginEvent.RE_LOGIN:
-                callback.switchFragment(0);
+                if (info != null && info.getIndex() == -1) {
+
+                } else {
+                    callback.switchFragment(0);
+                }
                 callback.doIntentClassName(ActivityNameConfig.LOGIN_ACTIVITY, null);
                 break;
             case RxEvent.LoginEvent.LOGOUT:

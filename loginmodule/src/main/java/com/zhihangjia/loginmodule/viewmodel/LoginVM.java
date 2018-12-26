@@ -8,7 +8,6 @@ import android.view.View;
 import com.google.gson.Gson;
 import com.nmssdmf.commonlib.activity.WebViewActivity;
 import com.nmssdmf.commonlib.bean.BaseData;
-import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
@@ -17,15 +16,12 @@ import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
-import com.nmssdmf.commonlib.net.IServiceLib;
 import com.nmssdmf.commonlib.net.http.OkHttpClientProvider;
 import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
-import com.nmssdmf.commonlib.social.WXLoginApi;
 import com.nmssdmf.commonlib.util.Base64Utils;
-import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.RSAUtil;
 import com.nmssdmf.commonlib.util.StringUtil;
@@ -157,7 +153,7 @@ public class LoginVM extends BaseVM {
                         if (StringConfig.OK.equals(userInfoBaseData.getStatus_code())) {
                             PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfoBaseData.getData()));
                             RxBus.getInstance().send(RxEvent.LoginEvent.LOGIN_SUCCESS, null);
-                            cb.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
+//                            cb.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
                             cb.finishActivity();
                         }
                     }

@@ -107,7 +107,7 @@
             android:layout_above="@+id/iCutOffLine"
             android:layout_below="@+id/givIcon"
             android:layout_marginTop="8dp"
-            android:paddingLeft="16dp"
+            android:paddingLeft="8dp"
             android:visibility="@{data.goods_info == null || data.goods_info.size() == 0 ? View.GONE : View.VISIBLE}">
 
             <RelativeLayout
@@ -125,49 +125,50 @@
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
                     android:background="#33000000"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@{data.goods_info[0].commodity_name}"
                     android:textColor="#FFFFFFFF"
                     android:textSize="13dp"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="@{data.goods_info[0].commodity_name}"
-                    android:gravity="center"
-                    android:layout_alignParentBottom="true"
                     />
             </RelativeLayout>
 
             <RelativeLayout
-            android:layout_width="110dp"
-            android:layout_height="82.5dp"
-            android:layout_marginLeft="6.5dp">
-
-            <com.nmssdmf.commonlib.view.GlideImageView
-                android:id="@+id/ivGoodSecond"
-                src="@{data.goods_info[1].imgs}"
                 android:layout_width="110dp"
                 android:layout_height="82.5dp"
-                android:background="@drawable/shape_glide_image_bg"
-                android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size() &gt; 1 ? View.VISIBLE : View.GONE}"
-                />
+                android:layout_marginLeft="6.5dp"
+                android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size() &gt; 1 ? View.VISIBLE : View.GONE}">
 
-            <TextView
-                android:layout_width="110dp"
-                android:layout_height="24dp"
-                android:background="#33000000"
-                android:textColor="#FFFFFFFF"
-                android:textSize="13dp"
-                android:text="@{data.goods_info[1].commodity_name}"
-                android:gravity="center"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:layout_alignParentBottom="true"
-                />
-        </RelativeLayout>
+                <com.nmssdmf.commonlib.view.GlideImageView
+                    android:id="@+id/ivGoodSecond"
+                    src="@{data.goods_info[1].imgs}"
+                    android:layout_width="110dp"
+                    android:layout_height="82.5dp"
+                    android:background="@drawable/shape_glide_image_bg"
+                    />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#33000000"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@{data.goods_info[1].commodity_name}"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp"
+                    />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="110dp"
                 android:layout_height="82.5dp"
-                android:layout_marginLeft="6.5dp">
+                android:layout_marginLeft="6.5dp"
+                android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size()== 3 ? View.VISIBLE : View.GONE}">
 
                 <com.nmssdmf.commonlib.view.GlideImageView
                     android:id="@+id/ivGoodThird"
@@ -175,24 +176,24 @@
                     android:layout_width="110dp"
                     android:layout_height="82.5dp"
                     android:background="@drawable/shape_glide_image_bg"
-                    android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size()== 3 ? View.VISIBLE : View.GONE}"
                     />
 
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
                     android:background="#33000000"
-                    android:textColor="#FFFFFFFF"
-                    android:textSize="13dp"
-                    android:text="@{data.goods_info[2].commodity_name}"
+                    android:ellipsize="end"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:layout_alignParentBottom="true"
+                    android:text="@{data.goods_info[2].commodity_name}"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp"
                     />
             </RelativeLayout>
 
         </LinearLayout>
+
         <include
             android:id="@+id/iCutOffLine"
             layout="@layout/include_recyclerview_cutoff_line"

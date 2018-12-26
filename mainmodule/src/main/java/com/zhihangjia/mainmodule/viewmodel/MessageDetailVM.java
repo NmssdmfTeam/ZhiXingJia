@@ -13,6 +13,7 @@ import android.view.View;
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
+import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
@@ -204,6 +205,12 @@ public class MessageDetailVM extends BaseVM {
     }
 
     public void onCommentClick(View view) {
+        //是否登录
+        String token = PreferenceUtil.getString(PrefrenceConfig.TOKEN, "");
+        if (TextUtils.isEmpty(token)) {//未登录
+            baseCallBck.doIntentClassName(ActivityNameConfig.LOGIN_ACTIVITY, null);
+            return;
+        }
         Bundle bundle = new Bundle();
         bundle.putString(IntentConfig.BBS_ID, messageId);
         baseCallBck.doIntent(ReplyActivity.class, bundle);

@@ -3,13 +3,11 @@ package com.zhihangjia.mainmodule.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
-import com.nmssdmf.commonlib.activity.WebViewActivity;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
@@ -183,14 +181,11 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
             ItemHotBrandBinding itemHotBrandBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_hot_brand, null, false);
             itemHotBrandBinding.setData(brandsBean);
             itemMaterialsCrvheadBinding.llBrand.addView(itemHotBrandBinding.getRoot());
-            itemHotBrandBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
-                    bundle.putString(IntentConfig.BRAND_ID, brandsBean.getId());
-                    doIntent(SearchResultActivity.class, bundle);
-                }
+            itemHotBrandBinding.getRoot().setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
+                bundle.putString(IntentConfig.BRAND_ID, brandsBean.getId());
+                doIntent(SearchResultActivity.class, bundle);
             });
         }
     }

@@ -3,20 +3,14 @@ package com.zhihangjia.mainmodule.adapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.amap.api.maps2d.AMapUtils;
 import com.amap.api.maps2d.model.LatLng;
 import com.nmssdmf.commonlib.config.IntentConfig;
-import com.nmssdmf.commonlib.glide.util.GlideUtil;
-import com.nmssdmf.commonlib.util.DensityUtil;
-import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
-import com.zhihangjia.mainmodule.activity.MerchantMerchandiseActivity;
 import com.zhihangjia.mainmodule.databinding.ItemRecommendSellerInfoBinding;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 
@@ -48,24 +42,24 @@ public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<HouseBean
         distance = ((int)((distance / 100000f) * 100 + 0.005)) / 100;
         itemRecommendSellerInfoBinding.tvDistance.setText(distance+"km");
         //初始化图片
-        if (item.getGoods_info() != null && item.getGoods_info().size() > 0) {
-            helper.getBinding().llPics.setVisibility(View.VISIBLE);
-            helper.getBinding().llPics.removeAllViews();
-            int i = 0;
-            for (HouseBean.SellerBean.GoodsInfo goodsInfo : item.getGoods_info()) {
-                GlideImageView imageView = new GlideImageView(mContext);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DensityUtil.dpToPx(mContext, 110), DensityUtil.dpToPx(mContext, 82.5f));
-                if (i != 2)
-                    layoutParams.rightMargin = DensityUtil.dpToPx(mContext, 6.5f);
-                imageView.setLayoutParams(layoutParams);
-                GlideUtil.load(imageView, goodsInfo.getImgs());
-                helper.getBinding().llPics.addView(imageView);
-                i++;
-            }
-        } else {
-            helper.getBinding().llPics.removeAllViews();
-            helper.getBinding().llPics.setVisibility(View.GONE);
-        }
+//        if (item.getGoods_info() != null && item.getGoods_info().size() > 0) {
+//            helper.getBinding().llPics.setVisibility(View.VISIBLE);
+//            helper.getBinding().llPics.removeAllViews();
+//            int i = 0;
+//            for (HouseBean.SellerBean.GoodsInfo goodsInfo : item.getGoods_info()) {
+//                GlideImageView imageView = new GlideImageView(mContext);
+//                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DensityUtil.dpToPx(mContext, 110), DensityUtil.dpToPx(mContext, 82.5f));
+//                if (i != 2)
+//                    layoutParams.rightMargin = DensityUtil.dpToPx(mContext, 6.5f);
+//                imageView.setLayoutParams(layoutParams);
+//                GlideUtil.load(imageView, goodsInfo.getImgs());
+//                helper.getBinding().llPics.addView(imageView);
+//                i++;
+//            }
+//        } else {
+//            helper.getBinding().llPics.removeAllViews();
+//            helper.getBinding().llPics.setVisibility(View.GONE);
+//        }
         itemRecommendSellerInfoBinding.getRoot().setOnClickListener(v -> {
             Intent intent = new Intent();
             Bundle bundle = new Bundle();

@@ -259,25 +259,22 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
      */
     @Override
     public void checkUpdate() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String should_check = PreferenceUtil.getString(PrefrenceConfig.IS_VERSION_UPDATE, "1");
-                JLog.d(TAG, "Main should_check" + should_check);
-                if (should_check.equals("0")) {
-                    long old_check_time = PreferenceUtil.getLong(PrefrenceConfig.NOT_UPDATE_TIME, System.currentTimeMillis());
-                    if (vm.is_first){
-                        PreferenceUtil.setBooleanValue("is_first", false);
-                        UpdateManager.getInstance().checkVersion(MainActivity.this, false, UpdateManager.DOWNLOAD_TYPE_APP);
-                    }else {
-                        if ((System.currentTimeMillis() - old_check_time) > 604800000) { // need > one week
-                            UpdateManager.getInstance().checkVersion(MainActivity.this, false, UpdateManager.DOWNLOAD_TYPE_APP);
-                        }
-                    }
-
-                } else {
+        new Handler().postDelayed(() -> {
+            String should_check = PreferenceUtil.getString(PrefrenceConfig.IS_VERSION_UPDATE, "1");
+            JLog.d(TAG, "Main should_check" + should_check);
+            if (should_check.equals("0")) {
+                long old_check_time = PreferenceUtil.getLong(PrefrenceConfig.NOT_UPDATE_TIME, System.currentTimeMillis());
+                if (vm.is_first){
+                    PreferenceUtil.setBooleanValue("is_first", false);
                     UpdateManager.getInstance().checkVersion(MainActivity.this, false, UpdateManager.DOWNLOAD_TYPE_APP);
+                }else {
+                    if ((System.currentTimeMillis() - old_check_time) > 604800000) { // need > one week
+                        UpdateManager.getInstance().checkVersion(MainActivity.this, false, UpdateManager.DOWNLOAD_TYPE_APP);
+                    }
                 }
+
+            } else {
+                UpdateManager.getInstance().checkVersion(MainActivity.this, false, UpdateManager.DOWNLOAD_TYPE_APP);
             }
         }, 200);
 
