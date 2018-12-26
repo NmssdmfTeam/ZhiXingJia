@@ -283,8 +283,9 @@
                             android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:layout_below="@+id/ivFrontIDCard"
                             android:text="法人身份证正面"
                             android:textColor="#FFCCCCCC"
@@ -311,10 +312,11 @@
                             android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ivBackIDCard"
                             android:text="法人身份证反面"
+                            android:gravity="center"
                             android:textColor="#FFCCCCCC"
                             android:textSize="15dp" />
                     </RelativeLayout>
@@ -337,9 +339,10 @@
                             android:enabled="@{vm.isFromSupplier}"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ivLiscense"
+                            android:gravity="center"
                             android:text="营业执照"
                             android:layout_centerHorizontal="true"
                             android:textColor="#FFCCCCCC"
