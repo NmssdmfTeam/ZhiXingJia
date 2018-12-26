@@ -77,12 +77,24 @@
                 android:ellipsize="end" />
 
             <TextView
+                android:id="@+id/tvPriceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`/`+data.unit}"
+                android:textColor="#FF999999"
+                android:textSize="12dp"
+                android:layout_toRightOf="@+id/tvPrice"
+                android:layout_alignBaseline="@+id/tvPrice"
+                android:singleLine="true"
+                android:ellipsize="end" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/beauty + data.sold}"
                 android:textColor="#FF999999"
                 android:textSize="12dp"
-                android:layout_toRightOf="@+id/tvPrice"
+                android:layout_toRightOf="@+id/tvPriceUnit"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
                 android:layout_alignBottom="@+id/ivGoodsImg"/>
