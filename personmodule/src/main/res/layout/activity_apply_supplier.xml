@@ -272,8 +272,9 @@
 
                         <com.nmssdmf.commonlib.view.GlideImageView
                             android:id="@+id/ivFrontIDCard"
-                            android:layout_width="105dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="70dp"
+                            android:layout_centerHorizontal="true"
                             android:background="@drawable/upload_papers"
                             android:onClick="@{(v)->vm.onFrontIDCardClick(v)}"
                             android:text="法人身份证正面"
@@ -291,7 +292,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="60dp"
@@ -299,8 +300,9 @@
 
                         <com.nmssdmf.commonlib.view.GlideImageView
                             android:id="@+id/ivBackIDCard"
-                            android:layout_width="105dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="70dp"
+                            android:layout_centerHorizontal="true"
                             android:background="@drawable/upload_papers"
                             android:onClick="@{(v)->vm.onBackIDCardClick(v)}"
                             android:text="法人身份证反面"
@@ -318,16 +320,17 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="168dp">
 
                         <com.nmssdmf.commonlib.view.GlideImageView
                             android:id="@+id/ivLiscense"
-                            android:layout_width="105dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="70dp"
                             android:background="@drawable/upload_papers"
+                            android:layout_centerHorizontal="true"
                             android:onClick="@{(v)->vm.onBackBusinessLicenceClick(v)}"
                             android:textColor="#FFCCCCCC"
                             android:textSize="15dp"
