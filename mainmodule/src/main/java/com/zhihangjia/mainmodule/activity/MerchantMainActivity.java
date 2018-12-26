@@ -3,9 +3,7 @@ package com.zhihangjia.mainmodule.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
-import android.view.View;
 
-import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMapUtils;
 import com.amap.api.maps2d.model.LatLng;
@@ -66,6 +64,7 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
     protected void initAll(Bundle savedInstanceState) {
         binding = (ActivityMerchantMainBinding) baseBinding;
         chooseMapWindow = new ChooseMapWindow(this);
+        vm.initData();
         initTabLayout();
 
         initView();
@@ -105,6 +104,8 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
         binding.tl.getTabAt(0).setText("店铺首页");
         binding.tl.getTabAt(1).setText("全部商品");
         binding.tl.getTabAt(2).setText("口碑评价");
+
+        binding.vp.setCurrentItem(vm.getType());
     }
 
     @Override

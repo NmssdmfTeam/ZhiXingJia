@@ -74,15 +74,17 @@
 
         </android.support.v4.view.ViewPager>
 
-        <android.support.design.widget.FloatingActionButton
+        <ImageView
             android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_gravity="bottom|end"
-            android:background="@color/main_color"
-            app:srcCompat="@drawable/icon_add_goods"
+            android:src="@drawable/icon_add_goods"
+            android:background="@drawable/shape_white_bg"
             android:layout_marginRight="24dp"
-            android:layout_marginBottom="40dp"/>
+            android:layout_marginBottom="40dp"
+            />
+
     </android.support.design.widget.CoordinatorLayout>
 </layout>
 

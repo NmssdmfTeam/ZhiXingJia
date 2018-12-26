@@ -3,13 +3,11 @@ package com.zhihangjia.mainmodule.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
-import com.nmssdmf.commonlib.activity.WebViewActivity;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
@@ -53,6 +51,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
     private MaterialsCategoryAdapter materialsCategoryAdapter;
     private ItemMaterialsCrvheadBinding itemMaterialsCrvheadBinding;
     private int[] pinDrawable = new int[]{R.drawable.living_room, R.drawable.bed_room, R.drawable.pic_kitchen, R.drawable.toilet};
+    private String[] pinString = new String[]{"客厅", "卧室", "厨房", "卫生间"};
 
     @Override
     public BaseVM initViewModel() {
@@ -99,6 +98,7 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
                 bundle.putString(IntentConfig.CATE_PW, String.valueOf(index));
+                bundle.putString(IntentConfig.KEYWORD, pinString[index - 1]);
                 doIntent(SearchResultActivity.class, bundle);
             });
         }
@@ -183,14 +183,12 @@ public class MaterialsMarketFragment extends BaseFragment implements MarketFragm
             ItemHotBrandBinding itemHotBrandBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_hot_brand, null, false);
             itemHotBrandBinding.setData(brandsBean);
             itemMaterialsCrvheadBinding.llBrand.addView(itemHotBrandBinding.getRoot());
-            itemHotBrandBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
-                    bundle.putString(IntentConfig.BRAND_ID, brandsBean.getId());
-                    doIntent(SearchResultActivity.class, bundle);
-                }
+            itemHotBrandBinding.getRoot().setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.TYPE, SearchFragmentVM.TYPE_MATERIALS_MERCHANDISE);
+                bundle.putString(IntentConfig.BRAND_ID, brandsBean.getId());
+                bundle.putString(IntentConfig.KEYWORD, brandsBean.getTitle());
+                doIntent(SearchResultActivity.class, bundle);
             });
         }
     }

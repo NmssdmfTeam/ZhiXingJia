@@ -33,6 +33,9 @@ public class MerchantAdapter extends BaseDataBindingAdapter<Seller, ItemMerchant
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(mContext, MerchantMainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentConfig.ID, item.getMember_id());
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }
         });

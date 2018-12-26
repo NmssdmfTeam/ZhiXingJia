@@ -3,11 +3,8 @@ package com.zhihangjia.mainmodule.viewmodel;
 import android.os.Bundle;
 import android.view.View;
 
-import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhihangjia.mainmodule.activity.ConfirmOrderActivity;
-import com.zhihangjia.mainmodule.activity.MerchantMainActivity;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailCB;
 
 /**

@@ -73,6 +73,7 @@ public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDe
     public void onMerchantsClick(View view) {
         Bundle bundle = new Bundle();
         bundle.putString(IntentConfig.ID, commodityDetail.get().getProvider_id());
+        bundle.putInt(IntentConfig.TYPE, 1);
         cb.doIntent(MerchantMainActivity.class, bundle);
     }
 

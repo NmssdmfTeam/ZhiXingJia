@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:text="@{data.validity}"
+            android:text="@{`有效期：`+data.validity}"
             android:textColor="#FFFF9A14"
             android:textSize="11dp"
             android:layout_below="@+id/tvCondition"
