@@ -17,6 +17,8 @@ import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.ShopCarAdapter;
 import com.zhihangjia.mainmodule.callback.ShopCarFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentShopcarBinding;
+import com.zhihangjia.mainmodule.databinding.ItemShopCarBinding;
+import com.zhihangjia.mainmodule.databinding.ItemShopcarNodataBinding;
 import com.zhihangjia.mainmodule.viewmodel.ShopCarFragmentVM;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 
@@ -60,7 +62,8 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
     public void initAll(View view, Bundle savedInstanceState) {
         binding = (FragmentShopcarBinding) baseBinding;
         binding.setVm(vm);
-        vm.getData(false);
+        binding.crv.setPicNoDataImageViewVisible(false);
+        vm.getData(true);
         adapter = new ShopCarAdapter(vm.getList(), () -> {
             vm.countTotalPrice();
             vm.changeSelect();
@@ -88,8 +91,10 @@ public class ShopCarFragment extends BaseFragment implements ShopCarFragmentCB{
 
     @Override
     public void refreshData(List<ShopCar> list, boolean refresh) {
-        if (refresh)
+        if (refresh) {
             binding.crv.setRefreshing(false);
+            binding.includeShopcarNodata.getRoot().setVisibility(list.size() == 0?View.VISIBLE:View.GONE);
+        }
         adapter.notifyDataChangedAfterLoadMore(refresh, list);
     }
 

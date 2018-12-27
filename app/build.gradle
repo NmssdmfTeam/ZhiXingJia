@@ -69,11 +69,6 @@ apply plugin: 'com.bugtags.library.plugin'
 //Bugtags 插件配置
 bugtags {
     //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
-    //线上
-//    appKey "77c3590c8ea6e18389c3a0f0a17f3677"  //这里是你的 appKey
-//    appSecret "b5d0614ede67e977d55045d53f573be5"    //这里是你的 appSecret，管理员在设置页可以查看
-
-    //线下
     appKey "63088815c190983c7bbc615fe4f914ff"  //这里是你的 appKey
     appSecret "c4f3a7e7f733d5193baa3dc2d8661a18"    //这里是你的 appSecret，管理员在设置页可以查看
     mappingUploadEnabled true

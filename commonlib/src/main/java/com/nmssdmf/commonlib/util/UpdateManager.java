@@ -114,19 +114,23 @@ public class UpdateManager {
                             PreferenceUtil.setLongValue(PrefrenceConfig.NOT_UPDATE_TIME, System.currentTimeMillis());// 每隔一段时间判断是否需要检查更新
 
                             if (detail.getVersion() != null) {
-                                int lever_version_online = Integer.valueOf(detail.getVersion().replace(".", ""));
+                                try {
+                                    int lever_version_online = Integer.valueOf(detail.getVersion().replace(".", ""));
 
-                                //大于
-                                if (lever_version_online > lever_version_local) {
-                                    showUpdateDialog(activity);
-                                } else {
-                                    if (should_show) {
-                                        if (activity == null) {
-                                            JLog.i("UpdateManager", " activity is null");
-                                        } else {
-                                            Toast.makeText(activity, "已经是最新版,无需更新", Toast.LENGTH_SHORT).show();
+                                    //大于
+                                    if (lever_version_online > lever_version_local) {
+                                        showUpdateDialog(activity);
+                                    } else {
+                                        if (should_show) {
+                                            if (activity == null) {
+                                                JLog.i("UpdateManager", " activity is null");
+                                            } else {
+                                                Toast.makeText(activity, "已经是最新版,无需更新", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     }
+                                } catch (Exception e) {
+
                                 }
                             }
                         }

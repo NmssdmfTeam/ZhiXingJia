@@ -17,4 +17,5 @@ public interface MessageDetailCB extends BaseCB {
     void refreshGiveInfo(int zanNum, String giveNames);
     void setPageTitle(String title);
     void endFresh();
+    void showShareWindow();
 }

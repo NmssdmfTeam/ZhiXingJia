@@ -34,6 +34,7 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
     private RecyclerView.LayoutManager layoutManager;
     private BaseQuickAdapter adapter;
     private int loadMorePageSize = 10;
+    private boolean isPicNoDataImageViewVisible = true;
 
     private boolean loadmoreEnable = true;
 
@@ -208,10 +209,12 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
         @Override
         public void onChanged() {
             super.onChanged();
-            if (adapter.getData().size() > 0) {
-                picNoDataImageView.setVisibility(View.GONE);
-            } else {
-                picNoDataImageView.setVisibility(View.VISIBLE);
+            if (isPicNoDataImageViewVisible) {
+                if (adapter.getData().size() > 0) {
+                    picNoDataImageView.setVisibility(View.GONE);
+                } else {
+                    picNoDataImageView.setVisibility(View.VISIBLE);
+                }
             }
         }
     };
@@ -222,5 +225,13 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
 
     public void setLoadMorePageSize(int loadMorePageSize) {
         this.loadMorePageSize = loadMorePageSize;
+    }
+
+    public boolean isPicNoDataImageViewVisible() {
+        return isPicNoDataImageViewVisible;
+    }
+
+    public void setPicNoDataImageViewVisible(boolean picNoDataImageViewVisible) {
+        isPicNoDataImageViewVisible = picNoDataImageViewVisible;
     }
 }

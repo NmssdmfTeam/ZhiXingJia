@@ -122,24 +122,29 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
         });
         baseTitleBinding.tTitle.setOnMenuItemClickListener(menuItem -> {
             if (menuItem.getItemId() == R.id.share) {
-                if (PermissionCompat.getInstance().checkAboutSharePermission(MessageDetailActivity.this)) {
-                    UMWeb web = new UMWeb(vm.detail.get().getShare_url());
-                    web.setTitle(vm.detail.get().getTitle());//标题
-                    if (vm.imageUrls.size() > 0) {
-                        UMImage image = new UMImage(this, vm.imageUrls.get(0).getPath());
-                        web.setThumb(image);  //缩略图
-                    }
-                    if (vm.firstContent.length() > 30) {
-                        vm.firstContent = vm.firstContent.substring(0, 30);
-                    }
-                    web.setDescription(vm.firstContent);//描述
-                    new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                            .withMedia(web).setCallback(MessageDetailActivity.this)
-                            .open();
-                }
+                showShareWindow();
             }
             return false;
         });
+    }
+
+    @Override
+    public void showShareWindow() {
+        if (PermissionCompat.getInstance().checkAboutSharePermission(MessageDetailActivity.this)) {
+            UMWeb web = new UMWeb(vm.detail.get().getShare_url());
+            web.setTitle(vm.detail.get().getTitle());//标题
+            if (vm.imageUrls.size() > 0) {
+                UMImage image = new UMImage(this, vm.imageUrls.get(0).getPath());
+                web.setThumb(image);  //缩略图
+            }
+            if (vm.firstContent.length() > 30) {
+                vm.firstContent = vm.firstContent.substring(0, 30);
+            }
+            web.setDescription(vm.firstContent);//描述
+            new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                    .withMedia(web).setCallback(MessageDetailActivity.this)
+                    .open();
+        }
     }
 
     @Override

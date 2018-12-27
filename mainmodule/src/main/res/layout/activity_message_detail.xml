@@ -104,6 +104,7 @@
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="23dp"
+                    android:onClick="@{(v)->vm.onShareClick(v)}"
                     android:src="@drawable/icon_commentbar_share" />
             </LinearLayout>
 

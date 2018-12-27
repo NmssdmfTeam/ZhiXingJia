@@ -116,12 +116,20 @@
 
         </RelativeLayout>
 
+        <include
+            android:id="@+id/includeShopcarNodata"
+            layout="@layout/item_shopcar_nodata"
+            android:layout_below="@+id/rlTitle"
+            android:layout_height="230dp"
+            android:layout_width="match_parent"
+            android:visibility="gone"/>
+
         <com.nmssdmf.customerviewlib.CustomerRecyclerView
             android:id="@+id/crv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/rlBottom"
-            android:layout_below="@+id/rlTitle"
+            android:layout_below="@+id/includeShopcarNodata"
             app:loadmore_enable="false"/>
 
 

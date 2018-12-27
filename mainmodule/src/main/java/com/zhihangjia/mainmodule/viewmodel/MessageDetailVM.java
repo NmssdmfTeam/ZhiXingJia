@@ -224,6 +224,10 @@ public class MessageDetailVM extends BaseVM {
         cb.scrollToTop();
     }
 
+    public void onShareClick(View view) {
+        cb.showShareWindow();
+    }
+
     /**
      * 点赞
      */
