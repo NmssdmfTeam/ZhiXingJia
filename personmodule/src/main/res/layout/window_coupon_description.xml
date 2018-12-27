@@ -29,6 +29,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:paddingTop="12dp"
             android:text="1、老克勒左南非世界杯南非世界杯。
 2、老克勒百花村大舒服点东西都有茜。
 3、老克勒布艺城东西都有。
@@ -40,7 +41,7 @@
             android:layout_below="@+id/ivTitle"
             android:lineSpacingExtra="7dp"
             android:layout_alignParentBottom="true"
-            android:gravity="center_vertical|left"
+            android:gravity="left"
             />
     </RelativeLayout>
 </layout>

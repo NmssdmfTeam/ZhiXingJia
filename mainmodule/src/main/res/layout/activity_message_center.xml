@@ -18,12 +18,13 @@
             app:tabIndicatorColor="#FF9A14"
             app:tabIndicatorHeight="2dp"/>
 
+        <include layout="@layout/include_recyclerview_cutoff_line"/>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
 
-        <include layout="@layout/include_recyclerview_cutoff_line"/>
     </LinearLayout>
 </layout>

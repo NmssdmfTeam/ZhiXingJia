@@ -45,10 +45,11 @@ public class AddOrEditAddressActivity extends BaseTitleActivity implements AddOr
                 vm.area.set(item);
             }
         });
-        if (!TextUtils.isEmpty(vm.getAddrId()))
-            baseTitleBinding.tTitle.inflateMenu(R.menu.delete);
+
         vm.iniData();
         vm.getArea();
+        if (!TextUtils.isEmpty(vm.getAddrId()))
+            baseTitleBinding.tTitle.inflateMenu(R.menu.delete);
     }
 
     private void setListener() {

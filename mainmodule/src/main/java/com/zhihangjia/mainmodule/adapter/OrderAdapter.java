@@ -92,9 +92,9 @@ public class OrderAdapter extends BaseDataBindingAdapter<Order, ItemOrderBinding
         }
 
         if (binding.tl.getChildCount() == 0) {
-            binding.tl.setVisibility(ViewGroup.GONE);
+            binding.rl.setVisibility(ViewGroup.GONE);
         } else {
-            binding.tl.setVisibility(ViewGroup.VISIBLE);
+            binding.rl.setVisibility(ViewGroup.VISIBLE);
         }
     }
 

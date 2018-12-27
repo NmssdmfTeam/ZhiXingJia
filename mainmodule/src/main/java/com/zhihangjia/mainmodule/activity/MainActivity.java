@@ -116,10 +116,10 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             int index = bundle.getInt(IntentConfig.POSITION);
-            switchFragment(current_index);
-            setSelectedTab(index, true);
-            setSelectedTab(current_index, false);
-            current_index = index;
+//            setSelectedTab(current_index, false);
+//            setSelectedTab(index, true);
+//            current_index = index;
+            switchFragment(index);
         }
     }
 
