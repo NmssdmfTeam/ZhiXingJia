@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
-import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.view.GlideImageView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.umeng.socialize.ShareAction;
@@ -24,7 +23,6 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MerchandiseDetailActivity;
-import com.zhihangjia.mainmodule.activity.MessageDetailActivity;
 import com.zhihangjia.mainmodule.adapter.MerchandiseDetailViewPagerAdapter;
 import com.zhihangjia.mainmodule.callback.MerchandiseDetailFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMerchandiseDetailBinding;
@@ -241,7 +239,7 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     }
 
     public void toMerchants() {
-        vm.onMerchantsClick(null);
+        vm.onMerchantsClick(null, 0);
     }
 
     @Override

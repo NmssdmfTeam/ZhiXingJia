@@ -90,6 +90,7 @@
                 android:textSize="13dp"/>
 
             <RelativeLayout
+                android:id="@+id/rl"
                 android:layout_width="match_parent"
                 android:layout_height="27dp"
                 android:layout_below="@+id/tvTotalPriceUnit"

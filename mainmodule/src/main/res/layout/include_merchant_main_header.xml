@@ -48,7 +48,7 @@
 
             <TextView
                 android:id="@+id/tvName"
-                android:layout_width="88dp"
+                android:layout_width="wrap_content"
                 android:layout_height="21dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="21.5dp"
@@ -71,28 +71,29 @@
                 android:textColor="#FF999999"
                 android:textSize="12dp" />
 
-            <TextView
-                android:id="@+id/tvScore"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="23dp"
-                android:gravity="center"
-                android:text="@{data.score}"
-                android:textColor="#FF666666"
-                android:textSize="10dp" />
-
-
             <android.support.v7.widget.AppCompatRatingBar
                 android:id="@+id/acrbStore"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
+                android:layout_marginLeft="8dp"
                 android:layout_alignTop="@+id/tvScore"
-                android:layout_marginRight="2dp"
-                android:layout_toLeftOf="@+id/tvScore"
+                android:layout_toRightOf="@+id/tvName"
                 android:numStars="5"
                 android:stepSize="0.1" />
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_marginTop="23dp"
+                android:gravity="center"
+                android:text="@{data.score}"
+                android:textColor="#FF666666"
+                android:layout_toRightOf="@+id/acrbStore"
+                android:layout_marginLeft="2dp"
+                android:textSize="10dp" />
+
 
             <TextView
                 android:id="@+id/tvDistance"

@@ -18,7 +18,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="88dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginRight="16dp">
 
             <com.nmssdmf.commonlib.view.GlideImageView
@@ -151,19 +151,19 @@
                     android:background="@drawable/shape_glide_image_bg"
                     />
 
-            <TextView
-                android:layout_width="110dp"
-                android:layout_height="24dp"
-                android:background="#33000000"
-                android:textColor="#FFFFFFFF"
-                android:textSize="13dp"
-                android:text="@{data.goods_info[1].commodity_name}"
-                android:gravity="center"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:layout_alignParentBottom="true"
-                android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size() &gt; 1 ? View.VISIBLE : View.GONE}"/>
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#33000000"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@{data.goods_info[1].commodity_name}"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp"
+                    android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size() &gt; 1 ? View.VISIBLE : View.GONE}"/>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="110dp"
@@ -183,14 +183,14 @@
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
                     android:background="#33000000"
-                    android:textColor="#FFFFFFFF"
-                    android:textSize="13dp"
-                    android:text="@{data.goods_info[2].commodity_name}"
+                    android:ellipsize="end"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:layout_alignParentBottom="true"
+                    android:text="@{data.goods_info[2].commodity_name}"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp"
                     android:visibility="@{data.goods_info != null &amp;&amp; data.goods_info.size()== 3 ? View.VISIBLE : View.GONE}"/>
             </RelativeLayout>
 

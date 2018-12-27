@@ -70,10 +70,10 @@ public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDe
         cb.showChooseSpecificationWindow();
     }
 
-    public void onMerchantsClick(View view) {
+    public void onMerchantsClick(View view, int type) {
         Bundle bundle = new Bundle();
         bundle.putString(IntentConfig.ID, commodityDetail.get().getProvider_id());
-        bundle.putInt(IntentConfig.TYPE, 1);
+        bundle.putInt(IntentConfig.TYPE, type);
         cb.doIntent(MerchantMainActivity.class, bundle);
     }
 

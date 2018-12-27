@@ -394,7 +394,7 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/shape_all_merchandise_bg"
                         android:gravity="center"
-                        android:onClick="@{(v)->vm.onMerchantsClick(v)}"
+                        android:onClick="@{(v)->vm.onMerchantsClick(v, 1)}"
                         android:text="全部商品"
                         android:textColor="#FFFFFFFF"
                         android:textSize="12dp" />
