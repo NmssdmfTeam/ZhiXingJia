@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
-                android:drawableLeft="@drawable/icon_shop"
+                android:drawableLeft="@drawable/icon_shop_small"
                 android:drawablePadding="4dp"
                 android:drawableRight="@drawable/icon_arrow_item_title_right"
                 android:gravity="center_vertical"
