@@ -46,19 +46,19 @@ public class OrderListWaitForPayFragmentVM extends BaseVM implements OrderWaitFo
     @Override
     public void registerRxBus() {
         super.registerRxBus();
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CANCEL, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_PAY, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.PAY_FINISH, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CANCEL, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_PAY, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.PAY_FINISH, this);
     }
 
     @Override
     public void unRegisterRxBus() {
         super.unRegisterRxBus();
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CANCEL, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_PAY, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.PAY_FINISH, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CANCEL, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_PAY, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.PAY_FINISH, this);
     }
 
 

@@ -2,6 +2,7 @@ package com.zhihangjia.mainmodule.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
@@ -82,6 +83,29 @@ public class OrderListSupplierActivity extends BaseActivity implements OrderList
 
 
         vm.getData();
+        setListener();
+    }
+
+    public void setListener() {
+        binding.vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                OrderListFragment fragment = (OrderListFragment) fragments.get(i);
+                if (fragment.isResumed()) {
+                    fragment.initData();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     @Override

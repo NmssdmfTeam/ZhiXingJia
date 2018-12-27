@@ -133,6 +133,7 @@ public class MineProviderFragmentVM extends BaseVM {
     public void registerRxBus() {
         super.registerRxBus();
         RxBus.getInstance().register(RxEvent.PersonInfoEvent.IDENTIFY_CHANGE, this);
+        RxBus.getInstance().register(RxEvent.LoginEvent.LOGOUT, this);
     }
 
     public void getMessageUnread() {
@@ -185,12 +186,20 @@ public class MineProviderFragmentVM extends BaseVM {
     public void unRegisterRxBus() {
         super.unRegisterRxBus();
         RxBus.getInstance().unregister(RxEvent.PersonInfoEvent.IDENTIFY_CHANGE, this);
+        RxBus.getInstance().unregister(RxEvent.LoginEvent.LOGOUT, this);
     }
 
     public void onRxEvent(RxEvent event, EventInfo info) {
         switch (event.getType()) {
             case RxEvent.PersonInfoEvent.IDENTIFY_CHANGE:
                 getUserInfo();
+                break;
+            case RxEvent.LoginEvent.LOGOUT:
+                MessageUnread messageUnread = new MessageUnread();
+                messageUnread.setAll_message("0");
+                messageUnread.setOrder_message("0");
+                messageUnread.setSys_message("0");
+                callback.showNotice(messageUnread);
                 break;
         }
     }

@@ -154,7 +154,7 @@ public class MerchantMainActivity extends BaseActivity implements MerchantMainCB
             LatLng shopLatLng = new LatLng(Double.valueOf(vm.shopInfo.get().getMember().getLatitude()), Double.valueOf(vm.shopInfo.get().getMember().getLongitude()));
             float distance = AMapUtils.calculateLineDistance(latLng, shopLatLng);
             //精确到小数点后两位
-            distance = ((int) ((distance / 100000f) * 100 + 0.005)) / 100;
+            distance = ((int) ((distance / 1000f) * 100 + 0.05)) / 100;
             vm.shopInfo.get().getMember().setDistance(distance + "km");
         } catch (Exception e) {
 

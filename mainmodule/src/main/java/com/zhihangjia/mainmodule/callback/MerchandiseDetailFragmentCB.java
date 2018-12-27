@@ -21,4 +21,5 @@ public interface MerchandiseDetailFragmentCB extends BaseCB {
 
     void toShare(CommodityDetail commodityDetail);
     void showShopCarRedPoint();
+    String getStock();//获取库存，可能有规格，那就需要从选择规格选择窗口中获取库存数据
 }

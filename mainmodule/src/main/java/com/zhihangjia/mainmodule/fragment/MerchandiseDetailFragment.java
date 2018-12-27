@@ -206,6 +206,11 @@ public class MerchandiseDetailFragment extends BaseFragment implements Merchandi
     }
 
     @Override
+    public String getStock() {
+        return chooseSpecificationWindow.getSelectedStock();
+    }
+
+    @Override
     public void onAddCartClick() {
         vm.addCartStore();
     }

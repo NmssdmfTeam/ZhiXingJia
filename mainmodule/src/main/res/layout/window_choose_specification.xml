@@ -124,7 +124,10 @@
                         android:layout_height="32dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"/>
+                        android:layout_marginRight="16dp"
+                        app:minNum="1"
+                        app:maxNum="1"
+                        app:currentNum="1"/>
                 </RelativeLayout>
             </LinearLayout>
 

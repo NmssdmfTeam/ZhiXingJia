@@ -11,6 +11,7 @@ import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
@@ -82,7 +83,8 @@ public class MessageCenterModuleActivity extends BaseTitleActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.publishMessage) {
                     if (TextUtils.isEmpty(PreferenceUtil.getString(PrefrenceConfig.TOKEN,""))) {
-                        RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, null);
+                        EventInfo eventInfo = new EventInfo(-1);
+                        RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, eventInfo);
                         return false;
                     }
                     Bundle bundle = new Bundle();

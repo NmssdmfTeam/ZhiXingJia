@@ -17,6 +17,7 @@ import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
@@ -180,5 +181,29 @@ public class MineCustomerFragmentVM extends BaseVM {
         Bundle bundle = new Bundle();
         bundle.putInt(IntentConfig.POSITION, 1);
         callback.doIntent(MyPostActivity.class, bundle);
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.LoginEvent.LOGOUT, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.LoginEvent.LOGOUT, this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.LoginEvent.LOGOUT:
+                MessageUnread messageUnread = new MessageUnread();
+                messageUnread.setAll_message("0");
+                messageUnread.setOrder_message("0");
+                messageUnread.setSys_message("0");
+                callback.showNotice(messageUnread);
+                break;
+        }
     }
 }

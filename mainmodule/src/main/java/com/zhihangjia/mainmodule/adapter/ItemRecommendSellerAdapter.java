@@ -41,25 +41,6 @@ public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<HouseBean
         //精确到小数点后两位
         distance = ((int)((distance / 1000f) * 100 + 0.05)) / 100f;
         itemRecommendSellerInfoBinding.tvDistance.setText(distance+"km");
-        //初始化图片
-//        if (item.getGoods_info() != null && item.getGoods_info().size() > 0) {
-//            helper.getBinding().llPics.setVisibility(View.VISIBLE);
-//            helper.getBinding().llPics.removeAllViews();
-//            int i = 0;
-//            for (HouseBean.SellerBean.GoodsInfo goodsInfo : item.getGoods_info()) {
-//                GlideImageView imageView = new GlideImageView(mContext);
-//                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DensityUtil.dpToPx(mContext, 110), DensityUtil.dpToPx(mContext, 82.5f));
-//                if (i != 2)
-//                    layoutParams.rightMargin = DensityUtil.dpToPx(mContext, 6.5f);
-//                imageView.setLayoutParams(layoutParams);
-//                GlideUtil.load(imageView, goodsInfo.getImgs());
-//                helper.getBinding().llPics.addView(imageView);
-//                i++;
-//            }
-//        } else {
-//            helper.getBinding().llPics.removeAllViews();
-//            helper.getBinding().llPics.setVisibility(View.GONE);
-//        }
         itemRecommendSellerInfoBinding.getRoot().setOnClickListener(v -> {
             Intent intent = new Intent();
             Bundle bundle = new Bundle();

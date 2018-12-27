@@ -43,25 +43,25 @@ public class OrderListFragmentVM extends BaseRecyclerViewFragmentVM implements O
     @Override
     public void registerRxBus() {
         super.registerRxBus();
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CANCEL, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_SEND, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_PAY, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CHECK_OFFLINE_PAY, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_COMMENT, this);
-        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CHECK_RECEIVER, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CANCEL, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_SEND, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_PAY, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CHECK_OFFLINE_PAY, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_COMMENT, this);
+//        RxBus.getInstance().register(RxEvent.OrderEvent.ORDER_CHECK_RECEIVER, this);
     }
 
     @Override
     public void unRegisterRxBus() {
         super.unRegisterRxBus();
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CANCEL, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_SEND, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_PAY, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CHECK_OFFLINE_PAY, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_COMMENT, this);
-        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CHECK_RECEIVER, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CANCEL, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_SEND, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_PAY, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_OFFLINE_PAY, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CHECK_OFFLINE_PAY, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_COMMENT, this);
+//        RxBus.getInstance().unregister(RxEvent.OrderEvent.ORDER_CHECK_RECEIVER, this);
     }
 
     @Override

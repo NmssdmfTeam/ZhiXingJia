@@ -157,6 +157,10 @@ public class MerchandiseDetailFragmentVM extends BaseVM implements MerchandiseDe
             cb.showChooseSpecificationWindow();
             return null;
         }
+        if (TextUtils.isEmpty(cb.getStock()) || "0".equals(cb.getStock())) {
+            baseCallBck.showToast("该商品暂无库存");
+            return null;
+        }
         map.put("goods_sum", String.valueOf(goodsSum));
         return map;
     }

@@ -88,6 +88,10 @@ public class OrderListWaitForPayFragment extends BaseFragment implements OrderLi
         }
     }
 
+    public void initData() {
+        vm.getData(true);
+    }
+
     @Override
     public void cancelOrder() {
         adapter.notifyDataSetChanged();

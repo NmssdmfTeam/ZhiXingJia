@@ -146,6 +146,8 @@ public class MainVM extends BaseVM {
             case RxEvent.LoginEvent.LOGOUT:
                 callback.switchFragment(0);
                 callback.setShopCarNumber("0");
+                //去除小红点
+
                 break;
             case RxEvent.LoginEvent.LOGIN_SUCCESS:
                 callback.initTab();

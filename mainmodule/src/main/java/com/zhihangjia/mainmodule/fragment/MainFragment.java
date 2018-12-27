@@ -8,8 +8,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
+import com.nmssdmf.commonlib.config.IntentConfig;
+import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.zhihangjia.mainmodule.R;
@@ -138,7 +143,13 @@ public class MainFragment extends BaseFragment implements MainFragmentCB {
             }
         });
         ImageView ivMessage = binding.getRoot().findViewById(R.id.ivMessage);
-        ivMessage.setOnClickListener(v -> doIntent(MessageCenterActivity.class,null));
+        ivMessage.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(PreferenceUtil.getString(PrefrenceConfig.TOKEN,""))) {
+                RxBus.getInstance().send(RxEvent.LoginEvent.RE_LOGIN, null);
+                return;
+            }
+            doIntent(MessageCenterActivity.class, null);
+        });
 
         binding.iIndexTitle.vSearch.setOnClickListener(v -> doIntent(SearchActivity.class, null));
     }

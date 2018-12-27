@@ -51,6 +51,10 @@ public class OrderListFragment extends BaseRecyclerViewFragment implements Order
         vm.initData(true);
     }
 
+    public void initData() {
+        vm.initData(true);
+    }
+
     @Override
     public void cancelOrder() {
         adapter.notifyDataSetChanged();

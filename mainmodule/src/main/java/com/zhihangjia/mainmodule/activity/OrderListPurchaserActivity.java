@@ -93,6 +93,19 @@ public class OrderListPurchaserActivity extends BaseActivity implements OrderLis
             @Override
             public void onPageSelected(int position) {
                 setCurrent(position);
+                Fragment fragment = fragments.get(position);
+                if (fragment instanceof OrderListWaitForPayFragment) {
+                    OrderListWaitForPayFragment forPayFragment = (OrderListWaitForPayFragment) fragment;
+                    if (forPayFragment.isResumed()) {
+                        forPayFragment.initData();
+                    }
+                }
+                if (fragment instanceof  OrderListFragment) {
+                    OrderListFragment orderListFragment = (OrderListFragment) fragment;
+                    if (orderListFragment.isResumed()) {
+                        orderListFragment.initData();
+                    }
+                }
             }
 
             @Override

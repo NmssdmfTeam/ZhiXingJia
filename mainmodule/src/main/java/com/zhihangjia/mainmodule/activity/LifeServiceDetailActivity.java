@@ -90,39 +90,14 @@ public class LifeServiceDetailActivity extends BaseTitleActivity implements Life
     @Override
     public void setContent() {
 //        binding.getRoot()
-        binding.llHead.removeAllViews();
-        binding.llHead.addView(headviewBinding.getRoot());
         binding.crv.setRefreshing(false);
+        adapter.removeAllHeaderView();
+        adapter.addHeaderView(headviewBinding.getRoot());
         headviewBinding.setData(vm.lifeServiceDetail.get());
         binding.setVm(vm);
         if (vm.lifeServiceDetail.get() == null || vm.lifeServiceDetail.get().getContent() == null)
             return;
         adapter.notifyDataChangedAfterLoadMore(true, vm.contentBeans);
-//        vm.imageUrls.clear();
-//        for (ContentsBean contentsBean : vm.lifeServiceDetail.get().getContent()) {
-//            ItemMessageDetailBinding itemMessageDetailBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.item_message_detail, null, false);
-//            itemMessageDetailBinding.content.setText(contentsBean.getNote());
-//            if (contentsBean.getImgs() != null && contentsBean.getImgs().size() > 0) {
-//                for (String img : contentsBean.getImgs()) {
-//                    GlideImageView imageView = new GlideImageView(this);
-//                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                    layoutParams.topMargin = DensityUtil.dpToPx(this, 12);
-//                    layoutParams.bottomMargin = DensityUtil.dpToPx(this, 12);
-//                    imageView.setLayoutParams(layoutParams);
-//                    GlideUtil.load(imageView, img);
-//                    itemMessageDetailBinding.llContent.addView(imageView);
-//                    vm.imageUrls.add(Uri.parse(img));
-//                    int index = vm.imageUrls.size() - 1;
-//                    imageView.setOnClickListener(v -> {
-//                        Bundle bundle = new Bundle();
-//                        bundle.putInt(BeautyImageGalleryActivity.PAGE_INDEX, index);
-//                        bundle.putSerializable(BeautyImageGalleryActivity.LIST_PATH_KEY, (Serializable) vm.imageUrls);
-//                        doIntent(BeautyImageGalleryActivity.class, bundle);
-//                    });
-//                }
-//            }
-//            binding.llContent.addView(itemMessageDetailBinding.getRoot());
-//        }
     }
 
     @Override

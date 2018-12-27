@@ -43,6 +43,7 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
     private Map<String,String> stock = new HashMap<>();
     private String productSkuId;                //所选的规格ID
     private ViewClickListener viewClickListener;
+    private String selectedStock;
 
     public ChooseSpecificationWindow(final Context context, ViewClickListener viewClickListener){
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_choose_specification, null, false);
@@ -123,13 +124,16 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
                                         }
                                         if (isEqual) {
                                             try {
-                                                binding.amv.setMaxNum(Integer.valueOf(skuBean.getStock()));
                                                 if (Integer.valueOf(skuBean.getStock()) > 0) {
-                                                    binding.amv.setMinNum(1);
-                                                    binding.amv.setCurrentNum("1");
+                                                    binding.amv.setMaxNum(Integer.valueOf(skuBean.getStock()));
+                                                    if (Integer.valueOf(binding.amv.getCurrentNum()) > Integer.valueOf(skuBean.getStock())) {
+                                                        binding.amv.setCurrentNum(skuBean.getStock());
+                                                    } else {
+                                                        binding.amv.setCurrentNum(binding.amv.getCurrentNum());
+                                                    }
                                                 } else {
-                                                    binding.amv.setMinNum(0);
-                                                    binding.amv.setCurrentNum("0");
+                                                    binding.amv.setMaxNum(1);
+                                                    binding.amv.setCurrentNum("1");
                                                 }
                                                 binding.amv.setVisibility(View.VISIBLE);
                                             } catch (Exception e) {
@@ -137,6 +141,7 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
                                             }
                                             binding.tvPrice.setText(skuBean.getPrice());
                                             binding.tvStock.setText(context.getText(R.string.stock) + skuBean.getStock());
+                                            selectedStock = skuBean.getStock();
                                             productSkuId = skuBean.getProduct_id();
                                         }
                                     }
@@ -157,16 +162,15 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
                 binding.tvPrice.setText(commodityDetail.getPrice());
                 binding.amv.setMaxNum(Integer.valueOf(commodityDetail.getStock()));
                 if (Integer.valueOf(commodityDetail.getStock()) > 0) {
-                    binding.amv.setMinNum(1);
-                    binding.amv.setCurrentNum("1");
+                    binding.amv.setMaxNum(Integer.valueOf(commodityDetail.getStock()));
                 } else {
-                    binding.amv.setMinNum(0);
-                    binding.amv.setCurrentNum("0");
+                    binding.amv.setMaxNum(1);
                 }
                 binding.amv.setVisibility(View.VISIBLE);
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)binding.sv.getLayoutParams();
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
                 binding.sv.setLayoutParams(layoutParams);
+                selectedStock = commodityDetail.getPrice();
                 setHeight(DensityUtil.dpToPx(context, 260.5f));
             }
         }
@@ -179,5 +183,13 @@ public class ChooseSpecificationWindow extends PopupWindow implements ChooseSpec
 
     public String goodsSum() {
         return binding.amv.getCurrentNum();
+    }
+
+    public String getSelectedStock() {
+        return selectedStock;
+    }
+
+    public void setSelectedStock(String selectedStock) {
+        this.selectedStock = selectedStock;
     }
 }

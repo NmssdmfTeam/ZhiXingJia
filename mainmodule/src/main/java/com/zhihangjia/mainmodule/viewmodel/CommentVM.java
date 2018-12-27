@@ -16,6 +16,7 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.OrderListPurchaserActivity;
 import com.zhihangjia.mainmodule.bean.GoodsComment;
 import com.zhihangjia.mainmodule.callback.CommentCB;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
@@ -117,6 +118,7 @@ public class CommentVM extends BaseVM {
             public void onSuccess(Base base) {
                 callback.showToast("发表评论成功");
                 RxBus.getInstance().send(RxEvent.OrderEvent.ORDER_COMMENT, null);
+                callback.finishActivity();
             }
 
             @Override

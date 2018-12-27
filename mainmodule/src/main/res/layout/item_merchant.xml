@@ -89,6 +89,7 @@
                 android:stepSize="0.1"/>
 
             <TextView
+                android:id="@+id/tvDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="16.5dp"
                 android:layout_alignBottom="@+id/givIcon"

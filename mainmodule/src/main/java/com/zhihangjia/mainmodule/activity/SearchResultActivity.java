@@ -60,6 +60,7 @@ public class SearchResultActivity extends BaseTitleRecyclerViewActivity implemen
     @Override
     public void initContent(Bundle savedInstanceState) {
         vm.getData();
+
         super.initContent(savedInstanceState);
     }
 

@@ -11,6 +11,9 @@ import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.AllLifeCategoriesActivity;
@@ -210,5 +213,29 @@ public class MainFragmentVM extends BaseVM {
 
     public void onLifeServiceClick(View view) {
         cb.doIntent(AllLifeCategoriesActivity.class, null);
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.LoginEvent.LOGOUT, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.LoginEvent.LOGOUT, this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.LoginEvent.LOGOUT:
+                MessageUnread messageUnread = new MessageUnread();
+                messageUnread.setAll_message("0");
+                messageUnread.setOrder_message("0");
+                messageUnread.setSys_message("0");
+                cb.showNotice(messageUnread);
+                break;
+        }
     }
 }
