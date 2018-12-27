@@ -8,10 +8,9 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhixingjia.bean.mainmodule.CommodityInitialize;
 import com.zhixingjia.bean.goodsmanagemodel.SepcPriceStockSet;
+import com.zhixingjia.bean.mainmodule.CommodityInitialize;
 import com.zhixingjia.goodsmanagemodule.bean.SepcPriceStockUnit;
-import com.zhixingjia.goodsmanagemodule.bean.SepcStockPrice;
 import com.zhixingjia.goodsmanagemodule.callback.LadderPriceSettingCB;
 
 import java.util.ArrayList;
@@ -101,21 +100,25 @@ public class LadderPriceSettingVM extends BaseVM {
         }
         //比对sepcPriceStockUnit已选择的，若规格一致，比对是否存在sku_product_id
         if (sepcPriceStockUnit != null) {
+            List<SepcPriceStockSet> sepcPriceStockSetsTemp = new ArrayList<>();
             for (List<SepcPriceStockSet.SpecInfo> specInfoList : selectedStandardValues) {
                 boolean isExist = false;
                 for (SepcPriceStockSet sepcPriceStockSet : sepcPriceStockUnit.getSepcPriceStockSets()) {
                     List<SepcPriceStockSet.SpecInfo> selectedSpecInfos = sepcPriceStockSet.getSpec_info();
                     if (isSpecListEqual(selectedSpecInfos, specInfoList)) {//若是不存在的规格，则添加
                         isExist = true;
+                        sepcPriceStockSetsTemp.add(sepcPriceStockSet);
+                        break;
                     }
                 }
                 if (!isExist) {
                     SepcPriceStockSet sepcPriceStockSet = new SepcPriceStockSet();
                     sepcPriceStockSet.setSku_product_id("0");
                     sepcPriceStockSet.setSpec_info(specInfoList);
-                    sepcPriceStockUnit.getSepcPriceStockSets().add(sepcPriceStockSet);
+                    sepcPriceStockSetsTemp.add(sepcPriceStockSet);
                 }
             }
+            sepcPriceStockUnit.setSepcPriceStockSets(sepcPriceStockSetsTemp);
         } else {
             sepcPriceStockUnit = new SepcPriceStockUnit();
             sepcPriceStockUnit.setSepcPriceStockSets(new ArrayList<SepcPriceStockSet>());

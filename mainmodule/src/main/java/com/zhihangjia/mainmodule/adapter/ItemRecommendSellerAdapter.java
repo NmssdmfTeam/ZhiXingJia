@@ -39,7 +39,7 @@ public class ItemRecommendSellerAdapter extends BaseDataBindingAdapter<HouseBean
         //测量距离
         float distance = AMapUtils.calculateLineDistance(location,latLng);
         //精确到小数点后两位
-        distance = ((int)((distance / 100000f) * 100 + 0.005)) / 100f;
+        distance = ((int)((distance / 1000f) * 100 + 0.05)) / 100f;
         itemRecommendSellerInfoBinding.tvDistance.setText(distance+"km");
         //初始化图片
 //        if (item.getGoods_info() != null && item.getGoods_info().size() > 0) {
