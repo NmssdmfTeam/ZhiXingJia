@@ -120,8 +120,7 @@ public class TagLayout extends LinearLayout {
             } else {
                 right = left + childW;//如果不是第一个,则需要加上间距
                 if (right + paddingRight > superW) {//超过容器宽度
-                    if ((this.lineCount > 0 && line_count + 1 > this.lineCount)
-                            || top + childH + verticalSpace + childH + paddingBottom > superH) {
+                    if ((this.lineCount > 0 && line_count + 1 > this.lineCount)) {
                         //超过限定行数或者大于group的高度
                         break;
                     } else {//换行添加
@@ -150,7 +149,7 @@ public class TagLayout extends LinearLayout {
             left = right + horizontalSpace;
         }
         boolean isHeightWrapContent = superHeightMode == MeasureSpec.AT_MOST || superHeightMode == MeasureSpec.UNSPECIFIED;
-        boolean isWidthtWrapContent = superHeightMode == MeasureSpec.AT_MOST || superHeightMode == MeasureSpec.UNSPECIFIED;
+        boolean isWidthtWrapContent = superWithMode == MeasureSpec.AT_MOST || superWithMode == MeasureSpec.UNSPECIFIED;
         if (isHeightWrapContent && isWidthtWrapContent) {//当宽度/高度设置为wrap_content时候
             setMeasuredDimension(maxRight + paddingRight, bottom + paddingBottom);
         } else if (isHeightWrapContent) {//当高度设置为wrap_content时候
