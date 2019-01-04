@@ -16,11 +16,6 @@ buildscript {
     }
 }
 
-tasks.withType(JavaCompile) {
-    // Try to turn them all off automatically
-    options.compilerArgs << '-nowarn' // same as '-Xlint:none'
-}
-
 allprojects {
     repositories {
         google()
