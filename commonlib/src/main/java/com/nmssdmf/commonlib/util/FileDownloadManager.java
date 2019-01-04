@@ -351,7 +351,7 @@ public class FileDownloadManager {
      */
     private void installApk(File file, Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//兼容安卓7.0版本
-            Uri uri = FileProvider.getUriForFile(context, "com.jushi.product.FileProvider", file); //修改  downloadFile 来源于上面下载文件时保存下来的
+            Uri uri = FileProvider.getUriForFile(context, "com.zhihangjia.project.FileProvider", file); //修改  downloadFile 来源于上面下载文件时保存下来的
             //  BuildConfig.APPLICATION_ID + ".fileprovider" 是在manifest中 Provider里的authorities属性定义的值
             Intent installIntent = new Intent(Intent.ACTION_VIEW);
             installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
