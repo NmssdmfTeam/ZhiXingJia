@@ -28,66 +28,72 @@ public class ImageViewBinding {
     @BindingAdapter(value = {"src", "placeholderImage", "error", "roundAsCircle", "roundRadius", "scaleType"}, requireAll = false)
     public static void loadImage(final GlideImageView view, String url, Drawable holderDrawable,
                                  Drawable errorDrawable, boolean roundAsCircle, float radius, String scaleType) {
-        RequestBuilder requestBuilder = Glide.with(view.getContext()).asDrawable().load(url);
-        RequestOptions requestOptions = new RequestOptions()
-                .priority(Priority.HIGH);
-        if (scaleType == null) {
-            requestOptions.centerCrop();
-        } else {
-            switch (scaleType) {
-                case centerInside:
-                    requestOptions.centerInside();
-                    break;
-                case fitCenter:
-                    requestOptions.fitCenter();
-                    break;
-                default:
-                    requestOptions.centerCrop();
-                    break;
+        try {
+
+
+            RequestBuilder requestBuilder = Glide.with(view.getContext()).asDrawable().load(url);
+            RequestOptions requestOptions = new RequestOptions()
+                    .priority(Priority.HIGH);
+            if (scaleType == null) {
+                requestOptions.centerCrop();
+            } else {
+                switch (scaleType) {
+                    case centerInside:
+                        requestOptions.centerInside();
+                        break;
+                    case fitCenter:
+                        requestOptions.fitCenter();
+                        break;
+                    default:
+                        requestOptions.centerCrop();
+                        break;
+                }
             }
-        }
-        errorDrawable = errorDrawable == null ? view.getContext().getResources().getDrawable(R.drawable.no_pic) : errorDrawable;
-        if (roundAsCircle) {
-            // To set the src circle
-            requestOptions = requestOptions.circleCrop();
-            // To set the placeHolderImage circle
-            if (holderDrawable != null) {
-                RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) holderDrawable).getBitmap());
-                bitmapDrawable.setCircular(true);
-                requestOptions = requestOptions.placeholder(bitmapDrawable);
-            }
-            // To set the errorImage circle
-            if (errorDrawable != null) {
-                RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) errorDrawable).getBitmap());
-                bitmapDrawable.setCircular(true);
-                requestOptions = requestOptions.error(bitmapDrawable);
-            }
-        } else {
-            if (radius > 0) {
-                // To set the src round
-                requestOptions = requestOptions.transform(new RoundTransform(view.getContext(), radius));
-                // To set the placeHolderImage round
+            errorDrawable = errorDrawable == null ? view.getContext().getResources().getDrawable(R.drawable.no_pic) : errorDrawable;
+            if (roundAsCircle) {
+                // To set the src circle
+                requestOptions = requestOptions.circleCrop();
+                // To set the placeHolderImage circle
                 if (holderDrawable != null) {
                     RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) holderDrawable).getBitmap());
-                    bitmapDrawable.setCornerRadius(radius);
+                    bitmapDrawable.setCircular(true);
                     requestOptions = requestOptions.placeholder(bitmapDrawable);
                 }
-                // To set the errorImage round
+                // To set the errorImage circle
                 if (errorDrawable != null) {
                     RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) errorDrawable).getBitmap());
-                    bitmapDrawable.setCornerRadius(radius);
+                    bitmapDrawable.setCircular(true);
                     requestOptions = requestOptions.error(bitmapDrawable);
                 }
             } else {
-                if (holderDrawable != null) {
-                    requestOptions = requestOptions.placeholder(holderDrawable);
-                }
-                if (errorDrawable != null) {
-                    requestOptions = requestOptions.error(errorDrawable);
+                if (radius > 0) {
+                    // To set the src round
+                    requestOptions = requestOptions.transform(new RoundTransform(view.getContext(), radius));
+                    // To set the placeHolderImage round
+                    if (holderDrawable != null) {
+                        RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) holderDrawable).getBitmap());
+                        bitmapDrawable.setCornerRadius(radius);
+                        requestOptions = requestOptions.placeholder(bitmapDrawable);
+                    }
+                    // To set the errorImage round
+                    if (errorDrawable != null) {
+                        RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) errorDrawable).getBitmap());
+                        bitmapDrawable.setCornerRadius(radius);
+                        requestOptions = requestOptions.error(bitmapDrawable);
+                    }
+                } else {
+                    if (holderDrawable != null) {
+                        requestOptions = requestOptions.placeholder(holderDrawable);
+                    }
+                    if (errorDrawable != null) {
+                        requestOptions = requestOptions.error(errorDrawable);
+                    }
                 }
             }
+            requestBuilder.apply(requestOptions).into(view);
+        } catch (Exception e) {
+
         }
-        requestBuilder.apply(requestOptions).into(view);
     }
 
     /**
@@ -96,27 +102,31 @@ public class ImageViewBinding {
      * @param view
      * @param resId
      */
-    @BindingAdapter(value = {"src","scaleType"}, requireAll = false)
+    @BindingAdapter(value = {"src", "scaleType"}, requireAll = false)
     public static void loadImage(GlideImageView view, int resId, String scaleType) {
-        RequestBuilder requestBuilder = Glide.with(view.getContext()).asDrawable().load(resId);
-        RequestOptions requestOptions = new RequestOptions()
-                .priority(Priority.HIGH);
-        if (scaleType == null) {
-            requestOptions.centerCrop();
-        } else {
-            switch (scaleType) {
-                case centerInside:
-                    requestOptions.centerInside();
-                    break;
-                case fitCenter:
-                    requestOptions.fitCenter();
-                    break;
-                default:
-                    requestOptions.centerCrop();
-                    break;
+        try {
+            RequestBuilder requestBuilder = Glide.with(view.getContext()).asDrawable().load(resId);
+            RequestOptions requestOptions = new RequestOptions()
+                    .priority(Priority.HIGH);
+            if (scaleType == null) {
+                requestOptions.centerCrop();
+            } else {
+                switch (scaleType) {
+                    case centerInside:
+                        requestOptions.centerInside();
+                        break;
+                    case fitCenter:
+                        requestOptions.fitCenter();
+                        break;
+                    default:
+                        requestOptions.centerCrop();
+                        break;
+                }
             }
+            requestBuilder.apply(requestOptions).into(view);
+        } catch (Exception e) {
+
         }
-        requestBuilder.apply(requestOptions).into(view);
     }
 
 }

@@ -26,93 +26,97 @@ public class GlideUtil {
     public final static int centerInside = 103;
 
     public static void load(ImageView view, String url) {
-        load(view, url, null, null, false, 0,centerCrop);
+        load(view, url, null, null, false, 0, centerCrop);
     }
 
     public static void load(ImageView view, String url, int centerMode) {
-        load(view, url, null, null, false, 0,centerMode);
+        load(view, url, null, null, false, 0, centerMode);
     }
 
     public static void load(ImageView view, String url, float radius) {
-        load(view, url, null, null, false, radius,centerCrop);
+        load(view, url, null, null, false, radius, centerCrop);
     }
 
     public static void load(ImageView view, String url, Drawable holderDrawable) {
-        load(view, url, holderDrawable, null, false, 0,centerCrop);
+        load(view, url, holderDrawable, null, false, 0, centerCrop);
     }
 
     public static void load(ImageView view, String url, Drawable holderDrawable, float radius) {
-        load(view, url, holderDrawable, null, false, radius,centerCrop);
+        load(view, url, holderDrawable, null, false, radius, centerCrop);
     }
 
     public static void load(ImageView view, String url, Drawable holderDrawable, Drawable errorDrawable) {
-        load(view, url, holderDrawable, errorDrawable, false, 0,centerCrop);
+        load(view, url, holderDrawable, errorDrawable, false, 0, centerCrop);
     }
 
     public static void load(ImageView view, String url, Drawable holderDrawable, Drawable errorDrawable, boolean roundAsCircle) {
-        load(view, url, holderDrawable, errorDrawable,roundAsCircle,0,centerCrop);
+        load(view, url, holderDrawable, errorDrawable, roundAsCircle, 0, centerCrop);
     }
 
     public static void load(ImageView view, String url, Drawable holderDrawable, Drawable errorDrawable, float radius) {
-        load(view, url, holderDrawable, errorDrawable, false, radius,centerCrop);
+        load(view, url, holderDrawable, errorDrawable, false, radius, centerCrop);
     }
 
     public static void load(ImageView view, String url, Drawable holderDrawable, Drawable errorDrawable, boolean roundAsCircle, float radius, int centerMode) {
-        RequestBuilder requestBuilder = Glide.with(view.getContext()).asDrawable().load(url);
-        RequestOptions requestOptions = new RequestOptions()
-                .priority(Priority.HIGH);
-        if (centerMode == centerInside) {
-            requestOptions.centerInside();
-        } else if (centerMode == centerCrop) {
-            requestOptions.centerCrop();
-        } else if (centerMode == fitCenter) {
-            requestOptions.fitCenter();
-        }
+        try {
+            RequestBuilder requestBuilder = Glide.with(view.getContext()).asDrawable().load(url);
+            RequestOptions requestOptions = new RequestOptions()
+                    .priority(Priority.HIGH);
+            if (centerMode == centerInside) {
+                requestOptions.centerInside();
+            } else if (centerMode == centerCrop) {
+                requestOptions.centerCrop();
+            } else if (centerMode == fitCenter) {
+                requestOptions.fitCenter();
+            }
 
-        errorDrawable = errorDrawable == null ? view.getContext().getResources().getDrawable(R.drawable.no_pic) : errorDrawable;
+            errorDrawable = errorDrawable == null ? view.getContext().getResources().getDrawable(R.drawable.no_pic) : errorDrawable;
 //        holderDrawable = holderDrawable == null ? view.getContext().getResources().getDrawable(R.drawable.no_pic_big) : holderDrawable;
 
-        if (roundAsCircle) {
-            // To set the src circle
-            requestOptions = requestOptions.circleCrop();
-            // To set the placeHolderImage circle
-            if (holderDrawable != null) {
-                RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) holderDrawable).getBitmap());
-                bitmapDrawable.setCircular(true);
-                requestOptions = requestOptions.placeholder(bitmapDrawable);
-            }
-            // To set the errorImage circle
-            if (errorDrawable != null) {
-                RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) errorDrawable).getBitmap());
-                bitmapDrawable.setCircular(true);
-                requestOptions = requestOptions.error(bitmapDrawable);
-            }
-        } else {
-            if (radius > 0) {
-                // To set the src round
-                requestOptions = requestOptions.transform(new RoundTransform(view.getContext(), radius));
-                // To set the placeHolderImage round
+            if (roundAsCircle) {
+                // To set the src circle
+                requestOptions = requestOptions.circleCrop();
+                // To set the placeHolderImage circle
                 if (holderDrawable != null) {
                     RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) holderDrawable).getBitmap());
-                    bitmapDrawable.setCornerRadius(radius);
+                    bitmapDrawable.setCircular(true);
                     requestOptions = requestOptions.placeholder(bitmapDrawable);
                 }
-                // To set the errorImage round
+                // To set the errorImage circle
                 if (errorDrawable != null) {
                     RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) errorDrawable).getBitmap());
-                    bitmapDrawable.setCornerRadius(radius);
+                    bitmapDrawable.setCircular(true);
                     requestOptions = requestOptions.error(bitmapDrawable);
                 }
             } else {
-                if (holderDrawable != null) {
-                    requestOptions = requestOptions.placeholder(holderDrawable);
-                }
-                if (errorDrawable != null) {
-                    requestOptions = requestOptions.error(errorDrawable);
+                if (radius > 0) {
+                    // To set the src round
+                    requestOptions = requestOptions.transform(new RoundTransform(view.getContext(), radius));
+                    // To set the placeHolderImage round
+                    if (holderDrawable != null) {
+                        RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) holderDrawable).getBitmap());
+                        bitmapDrawable.setCornerRadius(radius);
+                        requestOptions = requestOptions.placeholder(bitmapDrawable);
+                    }
+                    // To set the errorImage round
+                    if (errorDrawable != null) {
+                        RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(view.getResources(), ((BitmapDrawable) errorDrawable).getBitmap());
+                        bitmapDrawable.setCornerRadius(radius);
+                        requestOptions = requestOptions.error(bitmapDrawable);
+                    }
+                } else {
+                    if (holderDrawable != null) {
+                        requestOptions = requestOptions.placeholder(holderDrawable);
+                    }
+                    if (errorDrawable != null) {
+                        requestOptions = requestOptions.error(errorDrawable);
+                    }
                 }
             }
-        }
 
-        requestBuilder.apply(requestOptions).into(view);
+            requestBuilder.apply(requestOptions).into(view);
+        } catch (Exception e) {
+
+        }
     }
 }
