@@ -32,4 +32,8 @@ public class ActivityNameConfig {
     public static final String CHANGEACCOUNT_ACTIVITY = LOGIN_PACKAGE + ".Activity.ChangeAccountActivity";
     public static final String MERCHANTMAIN_ACTIVITY = MAINMODULE_PACKAGE + ".activity.MerchantMainActivity";
     public static final String MERCHANDISEDETAIL_ACTIVITY = MAINMODULE_PACKAGE + ".activity.MerchandiseDetailActivity";
+
+    public static final String ORDERDETAIL_ACTIVITY = MAINMODULE_PACKAGE + ".activity.OrderDetailActivity";
+    public static final String WEBVIEW_ACTIVITY = MAINMODULE_PACKAGE + ".activity.OrderDetailActivity";
+    public static final String MESSAGEDETAIL_ACTIVITY = MAINMODULE_PACKAGE + ".activity.MessageDetailActivity";
 }

@@ -371,4 +371,9 @@ public class HttpVersionConfig {
      * 收货地址 - 删除
      */
     public static final int API_ADDRESS_DEL = 1;
+
+    /**
+     * 获取用户的在个推的ClientID
+     */
+    public static final int API_MY_GETUI_PUSH = 1;
 }

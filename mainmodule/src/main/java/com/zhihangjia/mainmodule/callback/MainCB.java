@@ -14,4 +14,5 @@ public interface MainCB extends BaseCB {
     void initTab();
     void setShopCarNumber(String num);
     void checkUpdate();
+    String getClientId();
 }

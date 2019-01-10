@@ -1,5 +1,9 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.text.TextUtils;
+
+import com.igexin.sdk.PushManager;
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.UpdateInfo;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
@@ -95,6 +99,34 @@ public class MainVM extends BaseVM {
 
             @Override
             public void onDefeated(BaseData<AllSum> allSumBaseData) {
+
+            }
+        });
+    }
+
+    public void getPushClientId() {
+        String clientId = callback.getClientId();
+        JLog.d(TAG, clientId);
+        if (!TextUtils.isEmpty(clientId)) {
+            postClientId(clientId);
+        }
+    }
+
+    private void postClientId(String clientId) {
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_MY_GETUI_PUSH).getUiPush(clientId),
+                new ServiceCallback<Base>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(Base base) {
+
+            }
+
+            @Override
+            public void onDefeated(Base base) {
 
             }
         });

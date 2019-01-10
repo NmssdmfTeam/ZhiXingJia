@@ -114,7 +114,7 @@ public class ImageViewBinding {
                 switch (scaleType) {
                     case centerInside:
                         requestOptions.centerInside();
-                        break;  
+                        break;
                     case fitCenter:
                         requestOptions.fitCenter();
                         break;

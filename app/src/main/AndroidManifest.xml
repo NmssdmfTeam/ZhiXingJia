@@ -86,6 +86,11 @@
         </service>
 
         <service android:name=".service.ZhiHangjiaPushIntentService"/>
+
+        <receiver
+            android:name=".receiver.GeTuiNotificationClickReceiver"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
 
 </manifest>
