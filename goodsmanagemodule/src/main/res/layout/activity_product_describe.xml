@@ -81,7 +81,7 @@
                     android:textColor="#FF999999"
                     android:textSize="12dp" />
 
-                <com.nmssdmf.commonlib.view.TagLayout
+                <com.nmssdmf.gitlib.view.TagLayout
                     android:id="@+id/tagLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
