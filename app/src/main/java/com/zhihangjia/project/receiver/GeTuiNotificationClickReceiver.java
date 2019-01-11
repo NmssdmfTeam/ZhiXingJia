@@ -2,6 +2,7 @@ package com.zhihangjia.project.receiver;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import com.nmssdmf.commonlib.bean.PushMessage;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
+import com.nmssdmf.commonlib.util.DisposeIntentMessage;
+import com.zhihangjia.project.FirstActivity;
 
 import java.util.List;
 
@@ -19,51 +22,40 @@ public class GeTuiNotificationClickReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PushMessage.Payload payload = (PushMessage.Payload) intent.getSerializableExtra("message");
-        //传递给MainActivity处理
-        Intent activityIntent = new Intent();
-        Bundle bundle = new Bundle();
-        activityIntent.putExtras(bundle);
-        activityIntent.setClassName(context, ActivityNameConfig.MAIN_ACTIVITY);
-        if (payload != null) {
-            if (TextUtils.isEmpty(payload.getSource_type())) {
-                activityIntent.setClassName(context, ActivityNameConfig.MAIN_ACTIVITY);
-                return;
-            }
-            switch (payload.getSource_type()) {
-                case "all":
-                    activityIntent.setClassName(context, ActivityNameConfig.MAIN_ACTIVITY);
-                    break;
-                case "order"://订单详情
-                    bundle.putString(IntentConfig.ID, payload.getSource_jumps());
-                    bundle.putString(IntentConfig.IDENTITY, payload.getOrder_role().equals("1")?StringConfig.BUYER:StringConfig.PROVIDER);
-                    activityIntent.putExtras(bundle);
-                    activityIntent.setClassName(context, ActivityNameConfig.ORDERDETAIL_ACTIVITY);
-                    break;
-                case "h5":
-                    bundle.putString(IntentConfig.LINK, payload.getSource_jumps());
-                    activityIntent.putExtras(bundle);
-                    activityIntent.setClass(context, WebViewActivity.class);
-                    break;
-                case "shop"://商家首页
-                    bundle.putString(IntentConfig.ID, payload.getSource_jumps());
-                    activityIntent.putExtras(bundle);
-                    activityIntent.setClassName(context, ActivityNameConfig.MERCHANTMAIN_ACTIVITY);
-                    break;
-                case "commodity"://商品详情
-                    bundle.putString(IntentConfig.COMMODITY_ID, payload.getSource_jumps());
-                    activityIntent.putExtras(bundle);
-                    activityIntent.setClassName(context, ActivityNameConfig.MERCHANDISEDETAIL_ACTIVITY);
-                    break;
-                case "bbsinfo":
-                    bundle.putString(IntentConfig.ID, payload.getSource_jumps());
-                    activityIntent.putExtras(bundle);
-                    activityIntent.setClassName(context, ActivityNameConfig.MESSAGEDETAIL_ACTIVITY);
-                    break;
-            }
-        }
-        try {
+        if (!isExsitMianActivity(context, ActivityNameConfig.MAIN_ACTIVITY)) {//MainActivity未开启,传递给MainActivity处理
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("message", payload);
+            Intent activityIntent = new Intent();
+            activityIntent.putExtras(bundle);
+            activityIntent.setClassName(context, FirstActivity.class.getName());
             context.startActivity(activityIntent);
-        } catch (Exception e) {
+            return;
         }
+        DisposeIntentMessage.resovleIntent(context, payload);
+    }
+
+    /**
+     * 判断某一个类是否存在任务栈里面
+     *
+     * @return
+     */
+    public boolean isExsitMianActivity(Context context, String className) {
+        Intent intent = new Intent();
+        intent.setClassName(context, className);
+        ComponentName cmpName = intent.resolveActivity(context
+                .getPackageManager());
+        boolean flag = false;
+        if (cmpName != null) { // 说明系统中存在这个activity
+            ActivityManager am = (ActivityManager) context
+                    .getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> taskInfoList = am.getRunningTasks(100);
+            for (ActivityManager.RunningTaskInfo taskInfo : taskInfoList) {
+                if (taskInfo.baseActivity.equals(cmpName)) { // 说明它已经启动了
+                    flag = true;
+                    break; // 跳出循环，优化效率
+                }
+            }
+        }
+        return flag;
     }
 }

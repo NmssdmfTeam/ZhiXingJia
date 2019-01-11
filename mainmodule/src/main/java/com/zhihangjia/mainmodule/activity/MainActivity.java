@@ -13,11 +13,13 @@ import android.widget.TextView;
 
 import com.igexin.sdk.PushManager;
 import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.bean.PushMessage;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.DisposeIntentMessage;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PermissionCompat;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
@@ -285,5 +287,10 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     @Override
     public String getClientId() {
         return PushManager.getInstance().getClientid(this);
+    }
+
+    @Override
+    public void doMessageIntent(PushMessage.Payload payload) {
+        DisposeIntentMessage.resovleIntent(this, payload);
     }
 }

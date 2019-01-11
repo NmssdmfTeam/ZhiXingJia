@@ -1,5 +1,7 @@
 package com.zhihangjia.project.viewmodel;
 
+import android.os.Bundle;
+
 import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -29,6 +31,7 @@ public class FirstVM extends BaseVM {
     }
 
     public void init() {
+        Bundle bundle = baseCallBck.getIntentData();
         Observable observable = Observable.create((ObservableOnSubscribe<String>) e -> {
             Thread.sleep(1000);
             e.onComplete();
@@ -51,7 +54,7 @@ public class FirstVM extends BaseVM {
 
             @Override
             public void onComplete() {
-                baseCallBck.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
+                baseCallBck.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, bundle);
                 baseCallBck.finishActivity();
             }
         };
