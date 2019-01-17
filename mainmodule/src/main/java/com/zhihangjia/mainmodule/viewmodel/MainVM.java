@@ -1,6 +1,12 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.os.Bundle;
+import android.text.TextUtils;
+
+import com.igexin.sdk.PushManager;
+import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
+import com.nmssdmf.commonlib.bean.PushMessage;
 import com.nmssdmf.commonlib.bean.UpdateInfo;
 import com.nmssdmf.commonlib.config.ActivityNameConfig;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
@@ -11,6 +17,7 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.DisposeIntentMessage;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -42,6 +49,11 @@ public class MainVM extends BaseVM {
         super(callBack);
         this.callback = callBack;
         identify = PreferenceUtil.getString(PrefrenceConfig.IDENTIFY, "buyer");
+        Bundle bundle = callBack.getIntentData();
+        if (bundle != null) {
+            PushMessage.Payload payload = (PushMessage.Payload) bundle.getSerializable("message");
+            callBack.doMessageIntent(payload);
+        }
     }
 
     @Override
@@ -95,6 +107,34 @@ public class MainVM extends BaseVM {
 
             @Override
             public void onDefeated(BaseData<AllSum> allSumBaseData) {
+
+            }
+        });
+    }
+
+    public void getPushClientId() {
+        String clientId = callback.getClientId();
+        JLog.d(TAG, clientId);
+        if (!TextUtils.isEmpty(clientId)) {
+            postClientId(clientId);
+        }
+    }
+
+    private void postClientId(String clientId) {
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_MY_GETUI_PUSH).getUiPush(clientId),
+                new ServiceCallback<Base>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(Base base) {
+
+            }
+
+            @Override
+            public void onDefeated(Base base) {
 
             }
         });

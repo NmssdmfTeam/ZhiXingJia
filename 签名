@@ -1,10 +1,4 @@
-签名:
-Alias:zhixingjia
-pwd:zxj123456
 
-微信支付:
-AppID：wx74034cb7f59a0bc1
-AppSecret: 1e44c8f1e9fe81964ef7144cbdf8b62b
 
 
 订单列表与说明的按钮说明：
@@ -19,13 +13,3 @@ AppSecret: 1e44c8f1e9fe81964ef7144cbdf8b62b
 卖家待发货：发货
 卖家待收货：无按钮
 卖家待评价：无按钮
-
-腾讯应用宝	2961098935	qq123456	http://open.qq.com
-华为应用市场	2961098935@qq.com	qq123456	http://developer.huawei.com/consumer/cn
-阿里应用商店/豌豆荚/PP助手	2961098935@qq.com qq123456	http://open.uc.cn/
-三星应用商店	http://support-cn.samsung.com/App/DeveloperChina/Home/Index	三星账号	15358001112	qq112233~~
-oppo应用商店	2961098935@qq.com	Qq123456	http://open.oppomobile.com
-vivo应用商店	2961098935@qq.com	Qq123456	https://dev.vivo.com.cn
-360手机助手	2961098935@qq.com	Qq123456	http://dev.360.cn
-百度手机助手/安卓市场/91助手	江苏知行	qq123456	http://app.baidu.com
-小米应用商店	15358001112/2961098935@qq.com	qq123456	https://dev.mi.com

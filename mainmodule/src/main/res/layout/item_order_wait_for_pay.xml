@@ -96,7 +96,7 @@
                 android:textColor="#FF333333"
                 android:textSize="13dp" />
 
-            <com.nmssdmf.commonlib.view.TagLayout
+            <com.nmssdmf.gitlib.view.TagLayout
                 android:id="@+id/tl"
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
@@ -107,7 +107,7 @@
                 app:horizontal_space="12dp"
                 android:layout_alignParentRight="true">
 
-            </com.nmssdmf.commonlib.view.TagLayout>
+            </com.nmssdmf.gitlib.view.TagLayout>
 
         </RelativeLayout>
 

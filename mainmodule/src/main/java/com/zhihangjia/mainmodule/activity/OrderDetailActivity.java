@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.util.DensityUtil;
-import com.nmssdmf.commonlib.view.TagLayout;
+import com.nmssdmf.gitlib.view.TagLayout;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.callback.OrderDetailCB;

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.JLog;
-import com.nmssdmf.commonlib.view.TagLayout;
+import com.nmssdmf.gitlib.view.TagLayout;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;

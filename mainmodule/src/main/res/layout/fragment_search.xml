@@ -86,7 +86,7 @@
                 android:src="@drawable/icon_delete"
                 android:onClick="@{(v)->vm.ivDeleteClick(v)}"/>
 
-            <com.nmssdmf.commonlib.view.TagLayout
+            <com.nmssdmf.gitlib.view.TagLayout
                 android:id="@+id/tlSearchHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 app:horizontal_space="12dp"
                 app:vertical_space="12dp">
 
-            </com.nmssdmf.commonlib.view.TagLayout>
+            </com.nmssdmf.gitlib.view.TagLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -116,7 +116,7 @@
                 android:textSize="13dp"
                 />
 
-            <com.nmssdmf.commonlib.view.TagLayout
+            <com.nmssdmf.gitlib.view.TagLayout
                 android:id="@+id/tlHotSearchHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                 app:horizontal_space="12dp"
                 app:vertical_space="12dp">
 
-            </com.nmssdmf.commonlib.view.TagLayout>
+            </com.nmssdmf.gitlib.view.TagLayout>
         </RelativeLayout>
 
     </LinearLayout>

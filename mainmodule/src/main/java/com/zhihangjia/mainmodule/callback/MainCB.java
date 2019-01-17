@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.callback;
 
+import com.nmssdmf.commonlib.bean.PushMessage;
 import com.nmssdmf.commonlib.callback.BaseCB;
 
 /**
@@ -14,4 +15,6 @@ public interface MainCB extends BaseCB {
     void initTab();
     void setShopCarNumber(String num);
     void checkUpdate();
+    String getClientId();
+    void doMessageIntent(PushMessage.Payload payload);
 }

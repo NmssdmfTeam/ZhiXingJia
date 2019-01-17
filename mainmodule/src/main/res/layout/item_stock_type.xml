@@ -21,7 +21,7 @@
                 android:textColor="#FF333333"
                 android:textSize="14dp" />
 
-            <com.nmssdmf.commonlib.view.TagLayout
+            <com.nmssdmf.gitlib.view.TagLayout
                 android:id="@+id/tlColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 app:horizontal_space="12dp"
                 app:vertical_space="12dp">
 
-            </com.nmssdmf.commonlib.view.TagLayout>
+            </com.nmssdmf.gitlib.view.TagLayout>
 
         </RelativeLayout>
 

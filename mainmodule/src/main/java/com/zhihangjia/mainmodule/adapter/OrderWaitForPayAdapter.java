@@ -15,7 +15,7 @@ import com.nmssdmf.commonlib.config.PrefrenceConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
-import com.nmssdmf.commonlib.view.TagLayout;
+import com.nmssdmf.gitlib.view.TagLayout;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;

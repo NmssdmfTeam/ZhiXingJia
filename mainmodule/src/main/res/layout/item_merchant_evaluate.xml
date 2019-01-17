@@ -66,7 +66,7 @@
             android:textSize="15dp"
             />
 
-        <com.nmssdmf.commonlib.view.TagLayout
+        <com.nmssdmf.gitlib.view.TagLayout
             android:id="@+id/tl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:layout_marginTop="8dp"
             app:line_count="3">
 
-        </com.nmssdmf.commonlib.view.TagLayout>
+        </com.nmssdmf.gitlib.view.TagLayout>
 
         <include
             layout="@layout/include_recyclerview_cutoff_line"

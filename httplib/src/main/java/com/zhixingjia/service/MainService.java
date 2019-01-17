@@ -462,4 +462,11 @@ public interface MainService {
      */
     @GET("/api/bbs/sticks")
     Observable<BaseListData<BbsInfoList>> getBbsSticks();
+
+    /**
+     * 获取用户的在个推的ClientID
+     */
+    @FormUrlEncoded
+    @POST("/api/my/getui_push")
+    Observable<Base> getUiPush(@Field("clientid") String clientId);
 }
