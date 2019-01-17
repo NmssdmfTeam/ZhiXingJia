@@ -10,7 +10,6 @@ android {
         versionName version_name
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
