@@ -376,4 +376,14 @@ public class HttpVersionConfig {
      * 获取用户的在个推的ClientID
      */
     public static final int API_MY_GETUI_PUSH = 1;
+
+    /**
+     * 帖子黑名单
+     */
+    public static final int API_BBS_BLACK  = 1;
+
+    /**
+     * 帖子删除
+     */
+    public static final int API_BBS_MYDEL  = 1;
 }

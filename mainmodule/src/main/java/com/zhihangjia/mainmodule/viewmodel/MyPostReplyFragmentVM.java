@@ -6,7 +6,11 @@ import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
+import com.nmssdmf.commonlib.rxbus.EventInfo;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
+import com.zhihangjia.mainmodule.callback.MyPostReplyCB;
 import com.zhixingjia.bean.personmodule.Reply;
 import com.zhixingjia.service.MainService;
 
@@ -18,13 +22,15 @@ import com.zhixingjia.service.MainService;
 */
 public class MyPostReplyFragmentVM extends BaseRecyclerViewFragmentVM {
     private String page = "0";
+    private MyPostReplyCB cb;
     /**
      * 不需要callback可以传null
      *
      * @param callBack
      */
-    public MyPostReplyFragmentVM(BaseRecyclerViewFragmentCB callBack) {
+    public MyPostReplyFragmentVM(MyPostReplyCB callBack) {
         super(callBack);
+        this.cb = callBack;
     }
 
     @Override
@@ -51,5 +57,35 @@ public class MyPostReplyFragmentVM extends BaseRecyclerViewFragmentVM {
 
                     }
                 });
+    }
+
+    @Override
+    public void registerRxBus() {
+        super.registerRxBus();
+        RxBus.getInstance().register(RxEvent.BbsEvent.BBS_DELETE, this);
+        RxBus.getInstance().register(RxEvent.BbsEvent.BBS_BLACK, this);
+    }
+
+    @Override
+    public void unRegisterRxBus() {
+        super.unRegisterRxBus();
+        RxBus.getInstance().unregister(RxEvent.BbsEvent.BBS_DELETE, this);
+        RxBus.getInstance().unregister(RxEvent.BbsEvent.BBS_BLACK, this);
+    }
+
+    public void onRxEvent(RxEvent event, EventInfo info) {
+        switch (event.getType()) {
+            case RxEvent.BbsEvent.BBS_DELETE:
+                if (info != null) {
+                    int position = info.getIndex();
+                    cb.removeItemNotify(position);
+                } else {
+                    initData(true);
+                }
+                break;
+            case RxEvent.BbsEvent.BBS_BLACK:
+                initData(true);
+                break;
+        }
     }
 }

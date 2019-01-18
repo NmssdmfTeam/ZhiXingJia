@@ -63,6 +63,11 @@ public class MessageCenterModuleFragment extends BaseRecyclerViewFragment implem
         adapter.notifyDataChangedAfterLoadMore(isRefresh,data);
     }
 
+    @Override
+    public void removeItemNotify(int position) {
+        adapter.notifyItemRemoved(position);
+    }
+
     public void setTypes(String types) {
         vm.types = types;
     }

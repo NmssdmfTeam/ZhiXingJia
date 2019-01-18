@@ -4,6 +4,7 @@ import com.nmssdmf.commonlib.activity.BaseTitleRecyclerViewActivity;
 import com.nmssdmf.commonlib.viewmodel.BaseTitleRecyclerViewVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.adapter.DailyHotNewsAdapter;
+import com.zhihangjia.mainmodule.callback.BbsStickPostCB;
 import com.zhihangjia.mainmodule.viewmodel.BbsStickyPostVM;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 * @date 2018/12/6 16:47
 * @version v3.2.0
 */
-public class BbsStickyPostActivity extends BaseTitleRecyclerViewActivity {
+public class BbsStickyPostActivity extends BaseTitleRecyclerViewActivity implements BbsStickPostCB {
     private final String TAG = BbsStickyPostActivity.class.getSimpleName();
     private BbsStickyPostVM vm;
     private DailyHotNewsAdapter adapter;
@@ -39,5 +40,10 @@ public class BbsStickyPostActivity extends BaseTitleRecyclerViewActivity {
     @Override
     public String getTAG() {
         return TAG;
+    }
+
+    @Override
+    public void removeItemNotify(int position) {
+        adapter.notifyItemRemoved(position);
     }
 }

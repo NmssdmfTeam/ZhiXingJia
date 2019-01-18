@@ -10,4 +10,5 @@ import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
  */
 public interface DailyHotNewsCB extends BaseRecyclerViewFragmentCB {
     String pages();
+    void removeItemNotify(int position);
 }

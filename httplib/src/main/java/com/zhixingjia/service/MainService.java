@@ -469,4 +469,18 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/my/getui_push")
     Observable<Base> getUiPush(@Field("clientid") String clientId);
+
+    /**
+     * 帖子黑名单
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/black")
+    Observable<Base> bbsBlack(@Field("bbs_id") String bbs_id);
+
+    /**
+     * 帖子删除
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/mydel")
+    Observable<Base> bbsMydel(@Field("bbs_id") String bbs_id);
 }

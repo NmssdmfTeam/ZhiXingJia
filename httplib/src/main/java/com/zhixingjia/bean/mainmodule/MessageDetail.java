@@ -28,6 +28,7 @@ public class MessageDetail extends BaseObservable{
     private String comment_pages;//评论的总页数，需要弄到顶部，格式为1/5，前面是当页的页数，后面5是总页面
     private List<ContentsBean> contents;//内容数组
     private String share_url;           //分享url
+    private String myinfo;              //登录的账号是否是该帖子的发布者， 1=是 0=否 ，是的时候在弹框中出现删除这两个字，反之不需要
 
 
     @Bindable
@@ -158,6 +159,14 @@ public class MessageDetail extends BaseObservable{
 
     public void setShare_url(String share_url) {
         this.share_url = share_url;
+    }
+
+    public String getMyinfo() {
+        return myinfo;
+    }
+
+    public void setMyinfo(String myinfo) {
+        this.myinfo = myinfo;
     }
 
     public static class ContentsBean extends BaseObservable{

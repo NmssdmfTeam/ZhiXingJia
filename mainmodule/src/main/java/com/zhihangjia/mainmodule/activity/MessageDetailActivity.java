@@ -1,11 +1,16 @@
 package com.zhihangjia.mainmodule.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +44,7 @@ import com.zhihangjia.mainmodule.databinding.ActivityMessageDetailBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMessageDetailBinding;
 import com.zhihangjia.mainmodule.databinding.ItemMessageDetailHeadBinding;
 import com.zhihangjia.mainmodule.viewmodel.MessageDetailVM;
+import com.zhihangjia.mainmodule.window.MessageDetailMenuWindow;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 import com.zhixingjia.bean.mainmodule.MessageDetail;
 
@@ -51,13 +57,16 @@ import java.util.List;
  * @description 信息详情activity
  * @date 2018/11/20 11:10
  */
-public class MessageDetailActivity extends BaseTitleActivity implements MessageDetailCB, CommentListContentAdapter.ItemClickListener, FlipOverAdapter.OnItemClickListener, UMShareListener {
+public class MessageDetailActivity extends BaseTitleActivity implements MessageDetailCB,
+        CommentListContentAdapter.ItemClickListener, FlipOverAdapter.OnItemClickListener,
+        UMShareListener, MessageDetailMenuWindow.MessageDetailMenuWindowListener {
     private final String TAG = MessageDetailActivity.class.getSimpleName();
     private MessageDetailVM vm;
     private ActivityMessageDetailBinding binding;
     private CommentListContentAdapter adapter;
     private ItemMessageDetailHeadBinding itemMessageDetailHeadBinding;
     private FlipOverAdapter flipOverAdapter;
+    private MessageDetailMenuWindow messageDetailMenuWindow;
 
     @Override
     public String setTitle() {
@@ -122,10 +131,20 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
         });
         baseTitleBinding.tTitle.setOnMenuItemClickListener(menuItem -> {
             if (menuItem.getItemId() == R.id.share) {
-                showShareWindow();
+                showMessageDetailMenuWindow();
             }
             return false;
         });
+    }
+
+    public void showMessageDetailMenuWindow() {
+        if (vm.detail.get() == null) {
+            return;
+        }
+        if (messageDetailMenuWindow == null) {
+            messageDetailMenuWindow = new MessageDetailMenuWindow(this,this, vm.detail.get().getMyinfo());
+        }
+        messageDetailMenuWindow.showAtLocation(binding.getRoot(), Gravity.BOTTOM, 0, 0);
     }
 
     @Override
@@ -296,5 +315,46 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
 
+    }
+
+    @Override
+    public void onBbsBlackClick() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).setMessage("是否要加入黑名单").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                vm.bbsBlack();
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+        int width = DensityUtil.dpToPx(this, 340);
+        alertDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    public void onBbsReportClick() {
+
+    }
+
+    @Override
+    public void onBbsDelClick() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).setMessage("是否要删除").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                vm.bbsDel();
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+        int width = DensityUtil.dpToPx(this, 340);
+        alertDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 }
