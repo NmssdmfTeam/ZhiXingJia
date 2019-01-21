@@ -25,7 +25,7 @@ import java.util.Map;
 public class DailyHotNewsVM extends BaseRecyclerViewFragmentVM {
     private DailyHotNewsCB callback;
     public int types = 0;
-    private String page;
+    public String page;
 
     /**
      * 不需要callback可以传null

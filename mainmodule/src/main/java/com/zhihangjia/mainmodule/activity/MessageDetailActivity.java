@@ -81,7 +81,7 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
         binding.crv.setAdapter(adapter);
         itemMessageDetailHeadBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_message_detail_head, null, false);
         adapter.addHeaderView(itemMessageDetailHeadBinding.getRoot());
-        baseTitleBinding.tTitle.inflateMenu(R.menu.share);
+        baseTitleBinding.tTitle.inflateMenu(R.menu.more);
         setListener();
 
         vm.getMessageDetail();

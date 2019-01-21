@@ -21,7 +21,7 @@ import com.zhixingjia.service.MainService;
 * @version v3.2.0
 */
 public class MyPostReplyFragmentVM extends BaseRecyclerViewFragmentVM {
-    private String page = "0";
+    public String page = "0";
     private MyPostReplyCB cb;
     /**
      * 不需要callback可以传null

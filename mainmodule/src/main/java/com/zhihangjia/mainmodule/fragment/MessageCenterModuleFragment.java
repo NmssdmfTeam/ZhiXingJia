@@ -65,6 +65,9 @@ public class MessageCenterModuleFragment extends BaseRecyclerViewFragment implem
 
     @Override
     public void removeItemNotify(int position) {
+        adapter.getData().remove(position);
+        if (adapter.getData().size() > 0)
+            vm.pages = adapter.getData().get(adapter.getData().size() - 1).getBbs_id();
         adapter.notifyItemRemoved(position);
     }
 

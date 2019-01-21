@@ -19,7 +19,7 @@ import com.zhixingjia.service.MainService;
  * <p>
  */
 public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
-    private String pages;       //分页需要传输的值
+    public String pages;       //分页需要传输的值
     private MessageCenterModuleCB callback;
     public String types;
     public String cate_id = "1";
@@ -101,13 +101,6 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
         }
         switch (event.getType()) {
             case RxEvent.BbsEvent.BBS_DELETE:
-                if (info != null) {
-                    int position = info.getIndex();
-                    callback.removeItemNotify(position);
-                } else {
-                    initData(true);
-                }
-                break;
             case RxEvent.BbsEvent.BBS_BLACK:
                 initData(true);
                 break;

@@ -66,6 +66,7 @@ public class DailyHotNewsFragment extends BaseRecyclerViewFragment implements Da
 
     @Override
     public void removeItemNotify(int position) {
+        adapter.getData().remove(position);
         adapter.notifyItemRemoved(position);
     }
 }

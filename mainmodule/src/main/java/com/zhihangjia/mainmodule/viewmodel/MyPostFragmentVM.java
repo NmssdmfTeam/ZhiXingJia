@@ -22,7 +22,7 @@ import com.zhixingjia.service.MainService;
 * @version v3.2.0
 */
 public class MyPostFragmentVM extends BaseRecyclerViewFragmentVM {
-    private String page = "0";
+    public String page = "0";
     private MyPostCB cb;
 
     /**

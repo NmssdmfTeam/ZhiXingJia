@@ -100,6 +100,7 @@ public class MessageFragment extends BaseTitleFragment implements IndexMessageCB
         fragmentMessageBinding.tl.getTabAt(0).setText("24小时热点");
         fragmentMessageBinding.tl.getTabAt(1).setText("最新发布");
         fragmentMessageBinding.tl.getTabAt(2).setText("最后回复");
+        fragmentMessageBinding.vp.setOffscreenPageLimit(3);
         vm.getMessageCat();
         vm.getBbsSticks();
         setListener();

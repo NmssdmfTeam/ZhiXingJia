@@ -29,7 +29,7 @@ import java.util.Map;
 * @version v3.2.0
 */
 public class BbsStickyPostVM extends BaseTitleRecyclerViewVM {
-    private String page = "0";
+    public String page = "0";
     private String type = "1";
     private String keyword;
     private BbsStickPostCB cb;

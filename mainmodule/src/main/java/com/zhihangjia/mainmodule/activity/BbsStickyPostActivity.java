@@ -44,6 +44,9 @@ public class BbsStickyPostActivity extends BaseTitleRecyclerViewActivity impleme
 
     @Override
     public void removeItemNotify(int position) {
+        adapter.getData().remove(position);
+        if (adapter.getData().size() > 0)
+            vm.page = adapter.getData().get(adapter.getData().size() - 1).getBbs_id();
         adapter.notifyItemRemoved(position);
     }
 }
