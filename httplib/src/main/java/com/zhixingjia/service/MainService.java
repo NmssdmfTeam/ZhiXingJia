@@ -28,6 +28,7 @@ import com.zhixingjia.bean.mainmodule.New;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
 import com.zhixingjia.bean.mainmodule.PayInfo;
+import com.zhixingjia.bean.mainmodule.Promotion;
 import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.ShopInfo;
@@ -493,4 +494,11 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/bbs/report")
     Observable<Base> bbsReport(@Field("bbs_id") String bbs_id, @Field("contents") String contents);
+
+    /**
+     * 促销活动列表
+     * @return
+     */
+    @GET("/api/zhanshi/promotion")
+    Observable<BaseListData<Promotion>> getPromotion(@Query("pages") String pages);
 }

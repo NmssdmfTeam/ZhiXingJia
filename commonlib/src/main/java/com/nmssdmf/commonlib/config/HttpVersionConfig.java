@@ -391,4 +391,9 @@ public class HttpVersionConfig {
      * 帖子举报
      */
     public static final int API_BBS_REPORT  = 1;
+
+    /**
+     * 促销活动列表
+     */
+    public static final int API_ZHANSHI_PROMOTION  = 2;
 }
