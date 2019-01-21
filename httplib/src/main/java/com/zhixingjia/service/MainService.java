@@ -483,4 +483,14 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/bbs/mydel")
     Observable<Base> bbsMydel(@Field("bbs_id") String bbs_id);
+
+    /**
+     * 帖子举报
+     * @param bbs_id
+     * @param contents
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/report")
+    Observable<Base> bbsReport(@Field("bbs_id") String bbs_id, @Field("contents") String contents);
 }

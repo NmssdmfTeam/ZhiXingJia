@@ -386,4 +386,9 @@ public class HttpVersionConfig {
      * 帖子删除
      */
     public static final int API_BBS_MYDEL  = 1;
+
+    /**
+     * 帖子举报
+     */
+    public static final int API_BBS_REPORT  = 1;
 }

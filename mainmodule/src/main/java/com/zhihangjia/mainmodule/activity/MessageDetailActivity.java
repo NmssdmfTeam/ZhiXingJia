@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.jushi.gallery.activity.BeautyImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.JLog;
@@ -130,7 +131,7 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
             }
         });
         baseTitleBinding.tTitle.setOnMenuItemClickListener(menuItem -> {
-            if (menuItem.getItemId() == R.id.share) {
+            if (menuItem.getItemId() == R.id.more) {
                 showMessageDetailMenuWindow();
             }
             return false;
@@ -337,7 +338,10 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
 
     @Override
     public void onBbsReportClick() {
-
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConfig.BBS_ID, vm.messageId);
+        doIntent(ReportActivity.class, bundle);
+        messageDetailMenuWindow.dismiss();
     }
 
     @Override

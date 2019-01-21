@@ -57,6 +57,12 @@ public class MessageDetailMenuWindow extends PopupWindow {
                 listener.onBbsBlackClick();
             }
         });
+        binding.tvReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onBbsReportClick();
+            }
+        });
     }
 
     @Override
