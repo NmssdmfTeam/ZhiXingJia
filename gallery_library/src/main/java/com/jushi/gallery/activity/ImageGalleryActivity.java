@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -19,6 +20,7 @@ import com.jushi.gallery.R;
 import com.jushi.gallery.adapter.ImageAdapter;
 import com.jushi.gallery.bean.ImageData;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -150,6 +152,54 @@ public class ImageGalleryActivity extends AppCompatActivity {
                     String path = cursor.getString(dataColumnIndex);
                     //@66`_1T]11U[]7G7{[3%`QI==@66`_1T]11U[]7G7{[3�I.png
 //                    JLog.i(TAG,"img path:"+path);
+                    if (!pattern.matcher(path).matches()) {
+                        data.setPath(path);
+                        list.add(data);
+                    }
+                }
+                // show newest photo at beginning of the list
+                Collections.reverse(list);
+                adapter.notifyDataSetChanged();
+                cursor.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getVideoDataFromSdCard(){
+        try {
+            final String[] columns = { MediaStore.Video.Thumbnails._ID
+                    , MediaStore.Video.Thumbnails.DATA
+                    ,MediaStore.Video.Media.DURATION
+                    ,MediaStore.Video.Media.SIZE
+                    ,MediaStore.Video.Media.DISPLAY_NAME
+                    ,MediaStore.Video.Media.DATE_MODIFIED};;
+            final String order = MediaStore.Video.Media._ID;
+
+            CursorLoader loader = new CursorLoader(activity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI, columns, null, null, order);
+            Cursor cursor = loader.loadInBackground();
+            if (cursor != null && cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
+                    // 获取视频的路径
+                    int videoId = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));
+                    String path = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+                    int duration = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.DURATION));
+                    long size = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media.SIZE))/1024; //单位kb
+                    if(size<0){
+                        //某些设备获取size<0，直接计算
+                        Log.e("dml","this video size < 0 " + path);
+                        size = new File(path).length()/1024;
+                    }
+                    String displayName = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME));
+                    Log.d(TAG, "videoId = " + videoId + "\npath = " + path
+                            +"\nduration = " + duration+"\nsize = "+size+"\ndisplayName = " + displayName);
+
+                    ImageData data = new ImageData();
+//                    int dataColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
+//                    String path = cursor.getString(dataColumnIndex);
+//                    Log.i(TAG,"img path:"+path);
                     if (!pattern.matcher(path).matches()) {
                         data.setPath(path);
                         list.add(data);

@@ -8,7 +8,11 @@ android {
         targetSdkVersion target_sdk_version.toInteger()
         versionCode version_code.toInteger()
         versionName version_name
-
+        manifestPlaceholders = [//个推
+                                GETUI_APP_ID:"m2JsRaezsYAGiXHKW4fMd",
+                                GETUI_APP_KEY:"UkctPxzTDV7FlwALsMXrS9",
+                                GETUI_APP_SECRET:"dnjEHFtzKV8pTchqCQFFV4"
+        ]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
