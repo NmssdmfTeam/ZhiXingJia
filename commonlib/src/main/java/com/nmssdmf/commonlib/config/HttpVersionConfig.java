@@ -396,4 +396,9 @@ public class HttpVersionConfig {
      * 促销活动列表
      */
     public static final int API_ZHANSHI_PROMOTION  = 2;
+
+    /**
+     * 领券中心列表
+     */
+    public static final int API_ZHANSHI_COUPON  = 2;
 }

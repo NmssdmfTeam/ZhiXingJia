@@ -40,6 +40,9 @@
     <string name="provider_service">卖家服务&#160;</string>
     <string name="logistics_service">物流服务&#160;</string>
     <string name="goods_title">商品:&#160;</string>
+    <string name="morethan">满</string>
+    <string name="morethan_money">元使用</string>
+    <string name="yuan_buy">元购</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

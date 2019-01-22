@@ -9,6 +9,7 @@ import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.BbsInsertResult;
+import com.zhixingjia.bean.mainmodule.CenterCoupon;
 import com.zhixingjia.bean.mainmodule.Comment;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
@@ -501,4 +502,11 @@ public interface MainService {
      */
     @GET("/api/zhanshi/promotion")
     Observable<BaseListData<Promotion>> getPromotion(@Query("pages") String pages);
+
+    /**
+     * 领券中心列表
+     * @return
+     */
+    @GET("/api/zhanshi/coupon")
+    Observable<BaseListData<CenterCoupon>> getCenterCoupon(@Query("pages") String pages);
 }
