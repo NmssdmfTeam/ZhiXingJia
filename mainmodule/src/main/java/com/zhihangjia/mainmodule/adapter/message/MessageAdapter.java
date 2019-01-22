@@ -71,6 +71,7 @@ public class MessageAdapter extends BaseDataBindingAdapter<IndexBean.ForumBean, 
                 Intent intent = new Intent();
                 intent.setClass(mContext, MessageDetailActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putInt(IntentConfig.POSITION, position);
                 bundle.putString(IntentConfig.ID, item.getBbs_id());
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);

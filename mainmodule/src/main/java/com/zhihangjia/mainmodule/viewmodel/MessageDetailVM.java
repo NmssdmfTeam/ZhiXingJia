@@ -67,6 +67,8 @@ public class MessageDetailVM extends BaseVM {
     private boolean isGive;                 //是否点过赞
     private int zanNumOriginal;             //点赞实际个数
     private String user_name;
+    private int position;                   //位置
+    private int currentPageIndex = -1;           //pageView的currentPage Index;
 
     /**
      * 不需要callback可以传null
@@ -104,6 +106,8 @@ public class MessageDetailVM extends BaseVM {
         Bundle bundle = baseCallBck.getIntentData();
         if (bundle != null) {
             messageId = bundle.getString(IntentConfig.ID);
+            position = bundle.getInt(IntentConfig.POSITION);
+            currentPageIndex = bundle.getInt(IntentConfig.PAGEVIEW_CURRENT_INDEX, -1);
         }
         user_name = PreferenceUtil.getString(PrefrenceConfig.USER_NAME, "知行家276410");
     }
@@ -273,6 +277,60 @@ public class MessageDetailVM extends BaseVM {
                     //刷新评论
                     cb.onCommentZanRequestFinish(position);
                 }
+            }
+
+            @Override
+            public void onDefeated(Base base) {
+
+            }
+        });
+    }
+
+    public void bbsBlack() {
+        baseCallBck.showLoaddingDialog();
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_BLACK).bbsBlack(messageId),
+                new ServiceCallback<Base>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(Base base) {
+                baseCallBck.finishActivity();
+                EventInfo eventInfo = null;
+                if (currentPageIndex != -1) {
+                    eventInfo = new EventInfo();
+                    eventInfo.setContent(currentPageIndex);
+                }
+                RxBus.getInstance().send(RxEvent.BbsEvent.BBS_BLACK, eventInfo);
+            }
+
+            @Override
+            public void onDefeated(Base base) {
+
+            }
+        });
+    }
+
+    public void  bbsDel() {
+        baseCallBck.showLoaddingDialog();
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_MYDEL).bbsMydel(messageId),
+                new ServiceCallback<Base>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(Base base) {
+                baseCallBck.finishActivity();
+                EventInfo eventInfo = new EventInfo();
+                eventInfo.setIndex(position);
+                eventInfo.setContent(currentPageIndex);
+                RxBus.getInstance().send(RxEvent.BbsEvent.BBS_DELETE, eventInfo);
             }
 
             @Override

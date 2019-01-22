@@ -309,7 +309,7 @@ public class OkHttpClientProvider {
             builder.addHeader("User-Agent", UA);
             //为解决 http://blog.csdn.net/zhangteng22/article/details/52233126 问题
             builder.addHeader("Connection", "close");
-            builder.addHeader("Accept", "application/vnd.v" + version + "+json");
+            builder.addHeader("Accept", "application/vnd.trading.v" + version + "+json");
             if (null == token || "".equals(token) || "null".equals(token)) {
                 // no token
             } else {

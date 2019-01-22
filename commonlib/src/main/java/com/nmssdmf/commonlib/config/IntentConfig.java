@@ -66,4 +66,5 @@ public class IntentConfig {
     public static final String LIFE_CATE = "life_cate";//生活服务全部分类
 
     public static final String ENABLE_LOAD = "enable_load";//生活服务全部分类
+    public static final String PAGEVIEW_CURRENT_INDEX = "pageview_current_index";//当前fragment的位置
 }

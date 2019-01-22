@@ -95,7 +95,7 @@ public class Banner extends BaseObservable{
         }
 
         public static void bannerClick(CommomBanner commomBanner, Context context) {
-            if (TextUtils.isEmpty(commomBanner.getLink_url())) {
+            if (TextUtils.isEmpty(commomBanner.getLink_url()) && ("1".equals(commomBanner.getJumps()) || "2".equals(commomBanner.getJumps()) || "3".equals(commomBanner.getJumps()))) {
                 return;
             }
             if ("1".equals(commomBanner.getJumps())) {
@@ -117,6 +117,10 @@ public class Banner extends BaseObservable{
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.COMMODITY_ID, commomBanner.getLink_url());
                 intent.putExtras(bundle);
+                context.startActivity(intent);
+            } else if ("4".equals(commomBanner.getJumps())) {
+                Intent intent = new Intent();
+                intent.setClassName(context, ActivityNameConfig.SHOWCENTER_ACTIVITY);
                 context.startActivity(intent);
             }
         }

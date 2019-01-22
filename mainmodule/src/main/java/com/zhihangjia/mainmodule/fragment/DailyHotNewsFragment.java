@@ -33,6 +33,7 @@ public class DailyHotNewsFragment extends BaseRecyclerViewFragment implements Da
     @Override
     public BaseDataBindingAdapter initAdapter(List list) {
         adapter = new DailyHotNewsAdapter(list);
+        adapter.setCurrentPageIndex(vm.types);
         return adapter;
     }
 
@@ -61,5 +62,11 @@ public class DailyHotNewsFragment extends BaseRecyclerViewFragment implements Da
     @Override
     public String pages() {
         return adapter.getData().get(adapter.getData().size() - 1).getBbs_id();
+    }
+
+    @Override
+    public void removeItemNotify(int position) {
+        adapter.getData().remove(position);
+        adapter.notifyItemRemoved(position);
     }
 }

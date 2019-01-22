@@ -16,4 +16,6 @@ public interface MessageCenterModuleCB extends BaseRecyclerViewFragmentCB {
     void stopFreshAction();
 
     void setData(List<IndexBean.ForumBean> data, boolean isRefresh);
+
+    void removeItemNotify(int position);
 }

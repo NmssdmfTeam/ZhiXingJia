@@ -28,6 +28,7 @@ import com.zhixingjia.bean.mainmodule.New;
 import com.zhixingjia.bean.mainmodule.Order;
 import com.zhixingjia.bean.mainmodule.OrderDetail;
 import com.zhixingjia.bean.mainmodule.PayInfo;
+import com.zhixingjia.bean.mainmodule.Promotion;
 import com.zhixingjia.bean.mainmodule.Seller;
 import com.zhixingjia.bean.mainmodule.ShopCar;
 import com.zhixingjia.bean.mainmodule.ShopInfo;
@@ -469,4 +470,35 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/my/getui_push")
     Observable<Base> getUiPush(@Field("clientid") String clientId);
+
+    /**
+     * 帖子黑名单
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/black")
+    Observable<Base> bbsBlack(@Field("bbs_id") String bbs_id);
+
+    /**
+     * 帖子删除
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/mydel")
+    Observable<Base> bbsMydel(@Field("bbs_id") String bbs_id);
+
+    /**
+     * 帖子举报
+     * @param bbs_id
+     * @param contents
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/bbs/report")
+    Observable<Base> bbsReport(@Field("bbs_id") String bbs_id, @Field("contents") String contents);
+
+    /**
+     * 促销活动列表
+     * @return
+     */
+    @GET("/api/zhanshi/promotion")
+    Observable<BaseListData<Promotion>> getPromotion(@Query("pages") String pages);
 }

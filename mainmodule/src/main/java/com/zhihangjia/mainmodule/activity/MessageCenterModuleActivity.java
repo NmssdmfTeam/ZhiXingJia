@@ -71,6 +71,7 @@ public class MessageCenterModuleActivity extends BaseTitleActivity {
         binding.tl.getTabAt(0).setText("最新发布");
         binding.tl.getTabAt(1).setText("最新回复");
         binding.tl.getTabAt(2).setText("精华热帖");
+        binding.vp.setOffscreenPageLimit(3);
         baseTitleBinding.tTitle.inflateMenu(R.menu.messagecenter);
         baseTitleBinding.iSlenderLine.setVisibility(View.GONE);
         setTitle(vm.name);

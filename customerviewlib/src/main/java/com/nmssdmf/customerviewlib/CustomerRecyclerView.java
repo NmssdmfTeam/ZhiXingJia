@@ -209,15 +209,25 @@ public class CustomerRecyclerView extends LinearLayout implements BaseQuickAdapt
         @Override
         public void onChanged() {
             super.onChanged();
-            if (isPicNoDataImageViewVisible) {
-                if (adapter.getData().size() > 0) {
-                    picNoDataImageView.setVisibility(View.GONE);
-                } else {
-                    picNoDataImageView.setVisibility(View.VISIBLE);
-                }
-            }
+            isShowNoDataPicImageView();
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+            super.onItemRangeRemoved(positionStart, itemCount);
+            isShowNoDataPicImageView();
         }
     };
+
+    private void isShowNoDataPicImageView() {
+        if (isPicNoDataImageViewVisible) {
+            if (adapter.getData().size() > 0) {
+                picNoDataImageView.setVisibility(View.GONE);
+            } else {
+                picNoDataImageView.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 
     public int getLoadMorePageSize() {
         return loadMorePageSize;

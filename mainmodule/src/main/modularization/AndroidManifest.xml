@@ -119,6 +119,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.BbsTopCommentActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReportActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ShowCenterActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

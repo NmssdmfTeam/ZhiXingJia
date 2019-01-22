@@ -3,7 +3,7 @@
     <data>
         <variable
             name="data"
-            type="com.zhixingjia.bean.mainmodule.YXTelecom"/>
+            type="com.zhixingjia.bean.mainmodule.Promotion"/>
     </data>
     <com.nmssdmf.commonlib.view.GlideImageView
         android:id="@+id/giv"
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginTop="16dp"
-        app:src="@{data.img_url}">
+        app:src="@{data.info_img}">
 
     </com.nmssdmf.commonlib.view.GlideImageView>
 </layout>

@@ -19,7 +19,7 @@ import com.zhixingjia.service.MainService;
  * <p>
  */
 public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
-    private String pages;       //分页需要传输的值
+    public String pages;       //分页需要传输的值
     private MessageCenterModuleCB callback;
     public String types;
     public String cate_id = "1";
@@ -72,6 +72,8 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
         super.registerRxBus();
         RxBus.getInstance().register(RxEvent.BbsEvent.BBS_INSERT, this);
         RxBus.getInstance().register(RxEvent.BbsEvent.COMMENT_INSERT, this);
+        RxBus.getInstance().register(RxEvent.BbsEvent.BBS_DELETE, this);
+        RxBus.getInstance().register(RxEvent.BbsEvent.BBS_BLACK, this);
     }
 
     @Override
@@ -79,6 +81,8 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
         super.unRegisterRxBus();
         RxBus.getInstance().unregister(RxEvent.BbsEvent.BBS_INSERT, this);
         RxBus.getInstance().unregister(RxEvent.BbsEvent.COMMENT_INSERT, this);
+        RxBus.getInstance().unregister(RxEvent.BbsEvent.BBS_DELETE, this);
+        RxBus.getInstance().unregister(RxEvent.BbsEvent.BBS_BLACK, this);
     }
 
     public void onRxEvent(RxEvent event, EventInfo info) {
@@ -94,6 +98,12 @@ public class MessageCenterModuleFragmentVM extends BaseRecyclerViewFragmentVM {
                     getBbsInfoList(types, cate_id, true);
                     break;
             }
+        }
+        switch (event.getType()) {
+            case RxEvent.BbsEvent.BBS_DELETE:
+            case RxEvent.BbsEvent.BBS_BLACK:
+                initData(true);
+                break;
         }
     }
 }

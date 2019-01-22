@@ -22,6 +22,8 @@ import com.zhixingjia.bean.mainmodule.IndexBean;
 import java.util.List;
 
 public class DailyHotNewsAdapter extends BaseDataBindingAdapter<IndexBean.ForumBean, ItemDailyHotNewsBinding> {
+    private int currentPageIndex;
+
     public DailyHotNewsAdapter(@Nullable List<IndexBean.ForumBean> data) {
         super(R.layout.item_daily_hot_news, data);
     }
@@ -61,9 +63,19 @@ public class DailyHotNewsAdapter extends BaseDataBindingAdapter<IndexBean.ForumB
                 Bundle bundle = new Bundle();
                 intent.setClass(mContext, MessageDetailActivity.class);
                 bundle.putString(IntentConfig.ID, item.getBbs_id());
+                bundle.putInt(IntentConfig.POSITION, position);
+                bundle.putInt(IntentConfig.PAGEVIEW_CURRENT_INDEX, currentPageIndex);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }
         });
+    }
+
+    public int getCurrentPageIndex() {
+        return currentPageIndex;
+    }
+
+    public void setCurrentPageIndex(int currentPageIndex) {
+        this.currentPageIndex = currentPageIndex;
     }
 }

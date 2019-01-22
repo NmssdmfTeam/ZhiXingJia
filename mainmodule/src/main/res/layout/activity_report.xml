@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.ReportVM"/>
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填写你要举报的内容"
+                android:textSize="15dp"
+                android:padding="16dp"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/text_gray"
+                android:background="@null"
+                android:text="@={vm.content}"/>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

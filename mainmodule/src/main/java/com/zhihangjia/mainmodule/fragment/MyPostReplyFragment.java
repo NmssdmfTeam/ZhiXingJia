@@ -4,6 +4,7 @@ import com.nmssdmf.commonlib.fragment.BaseRecyclerViewFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.adapter.MyPostReplyAdapter;
+import com.zhihangjia.mainmodule.callback.MyPostReplyCB;
 import com.zhihangjia.mainmodule.viewmodel.MyPostReplyFragmentVM;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 * @date 2018/11/20 18:24
 * @version v3.2.0
 */
-public class MyPostReplyFragment extends BaseRecyclerViewFragment {
+public class MyPostReplyFragment extends BaseRecyclerViewFragment implements MyPostReplyCB {
     private MyPostReplyFragmentVM vm;
     private MyPostReplyAdapter adapter;
     private final String TAG = MyPostReplyFragment.class.getSimpleName();
@@ -34,5 +35,13 @@ public class MyPostReplyFragment extends BaseRecyclerViewFragment {
     @Override
     public String getTAG() {
         return TAG;
+    }
+
+    @Override
+    public void removeItemNotify(int position) {
+        adapter.getData().remove(position);
+        if (adapter.getData().size() > 0)
+            vm.page = adapter.getData().get(adapter.getData().size() - 1).getBbs_id();
+        adapter.notifyItemRemoved(position);
     }
 }

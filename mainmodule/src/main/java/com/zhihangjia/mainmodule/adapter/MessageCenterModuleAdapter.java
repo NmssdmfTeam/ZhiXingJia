@@ -65,6 +65,7 @@ public class MessageCenterModuleAdapter extends BaseDataBindingAdapter<IndexBean
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentConfig.ID, item.getBbs_id());
+                bundle.putInt(IntentConfig.POSITION, position);
                 intent.putExtras(bundle);
                 intent.setClass(mContext, MessageDetailActivity.class);
                 mContext.startActivity(intent);
