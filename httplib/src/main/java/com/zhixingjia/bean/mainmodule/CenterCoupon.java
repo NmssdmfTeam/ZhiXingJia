@@ -4,13 +4,15 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import com.nmssdmf.commonlib.BR;
 
+import java.io.Serializable;
+
 /**
 * @description 领券中心
 * @author chenbin
 * @date 2019/1/22 13:23
 * @version v3.2.0
 */
-public class CenterCoupon extends BaseObservable {
+public class CenterCoupon extends BaseObservable implements Serializable {
 
     /**
      * coupon_id : 2

@@ -1,5 +1,7 @@
 package com.zhixingjia.service;
 
+import android.databinding.ObservableField;
+
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
@@ -509,4 +511,13 @@ public interface MainService {
      */
     @GET("/api/zhanshi/coupon")
     Observable<BaseListData<CenterCoupon>> getCenterCoupon(@Query("pages") String pages);
+
+    /**
+     * 领券中心列表 - 立即领取
+     * @param coupon_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/zhanshi/coupon/receive")
+    Observable<Base> recieve(@Field("coupon_id") String coupon_id);
 }

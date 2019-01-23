@@ -109,6 +109,7 @@
             android:layout_height="86.95dp"
             android:src="@drawable/coupon_sold_out"
             android:layout_gravity="center_vertical"
+            android:padding="7dp"
             android:visibility="@{data.allsum.equals(data.receive_sum)?View.VISIBLE:View.GONE}"/>
 
         <RelativeLayout
@@ -140,6 +141,7 @@
                 app:total_engle="270" />
 
             <TextView
+                android:id="@+id/tvRecieve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="立即领取"

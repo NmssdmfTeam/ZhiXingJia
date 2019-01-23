@@ -401,4 +401,9 @@ public class HttpVersionConfig {
      * 领券中心列表
      */
     public static final int API_ZHANSHI_COUPON  = 2;
+
+    /**
+     * 领券中心列表 - 立即领取
+     */
+    public static final int API_ZHANSHI_COUPON_RECEIVE  = 2;
 }

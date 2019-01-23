@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.CouponDescriptionVM"/>
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.nmssdmf.commonlib.view.GlideImageView
+            android:id="@+id/ivCouponImg"
+            android:layout_width="150dp"
+            android:layout_height="112.5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            app:src="@{vm.centerCoupon.coupon_img}"/>
+
+        <RelativeLayout
+            android:id="@+id/rlCouponInfo"
+            android:layout_width="match_parent"
+            android:layout_height="112.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/ivCouponImg">
+
+            <TextView
+                android:id="@+id/tvTitile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{vm.centerCoupon.title}"
+                android:textColor="#FF333333"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tvCompanyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitile"
+                android:text="@{vm.centerCoupon.company_name}"
+                android:textColor="#FF999999"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/tvMoreThan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCompanyName"
+                android:layout_marginTop="7.5dp"
+                android:background="@drawable/shape_coupon_morethan_tag_bg"
+                android:text='@{@string/morethan+vm.centerCoupon.morethannumber+@string/morethan_money}'
+                android:visibility='@{"morethan".equals(vm.centerCoupon.cond)?View.VISIBLE:View.GONE}'
+                android:textColor="#FFFF9A14"
+                android:textSize="10dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="现优惠："
+                    android:textColor="#FFFF9A14"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#FFFF9A14"
+                    android:visibility='@{"morethan".equals(vm.centerCoupon.cond)?View.VISIBLE:View.GONE}'
+                    android:textSize="11dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{"morethan".equals(vm.centerCoupon.cond)?vm.centerCoupon.decrease:(vm.centerCoupon.decrease+@string/yuan_buy)}'
+                    android:textColor="#FFFF9A14"
+                    android:textSize="17dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvRecieveNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#FF999999"
+                    android:visibility="@{vm.centerCoupon.allsum.equals(vm.centerCoupon.receive_sum)?View.GONE:View.VISIBLE}"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="90.6dp"
+            android:layout_height="86.95dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/rlCouponInfo"
+            android:layout_marginTop="-50dp"
+            android:padding="7dp"
+            android:src="@drawable/coupon_sold_out"
+            android:visibility="@{vm.centerCoupon.allsum.equals(vm.centerCoupon.receive_sum)?View.VISIBLE:View.GONE}"/>
+
+        <TextView
+            android:id="@+id/tvCouponDesicription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="优惠说明"
+            android:textColor="#FF333333"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/ivCouponImg"
+            android:layout_marginTop="30dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:layout_width="343dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@{vm.centerCoupon.description}"
+            android:textColor="#FF333333"
+            android:layout_below="@+id/tvCouponDesicription"
+            android:layout_marginTop="14dp"
+            android:textSize="13dp" />
+        
+        <Button
+            android:layout_width="343dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="7dp"
+            android:layout_height="40dp"
+            android:text="@{vm.centerCoupon.allsum.equals(vm.centerCoupon.receive_sum)?@string/sold_out:@string/recieve_now}"
+            android:textColor="#FFFFFFFF"
+            android:enabled="@{!vm.centerCoupon.allsum.equals(vm.centerCoupon.receive_sum)}"
+            android:background="@drawable/selector_recieve_btn_bg"
+            android:layout_alignParentBottom="true"
+            android:textSize="15dp"
+            android:onClick="@{(v)->vm.onRecieveClick(v)}"/>
+    </RelativeLayout>
+</layout>

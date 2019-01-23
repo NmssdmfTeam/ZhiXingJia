@@ -132,6 +132,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.ShowCenterActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CouponDescriptionActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
