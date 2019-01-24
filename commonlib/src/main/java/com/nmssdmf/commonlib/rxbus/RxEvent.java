@@ -124,6 +124,7 @@ public class RxEvent {
         public static final int VALUE = 600;
 
         public static final int COUPON_RECIEVE = VALUE + 1;
+        public static final int REFRESH_MY_COUPON_TICKET_NUM = VALUE + 2;
     }
 
     public int getType() {

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
 
         <variable
             name="data"
-            type="com.zhixingjia.bean.mainmodule.CenterCoupon" />
+            type="com.zhixingjia.bean.mainmodule.CouponCard" />
 
         <import type="android.view.View" />
     </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:text="￥"
-                    android:textColor="@{data.allsum.equals(data.receive_sum)?0xFF999999:0xFFFF9A14}"
+                    android:textColor='@{data.type==0?0xFFFF9A14:0xFF666666}'
                     android:textSize="11dp"
                     android:visibility='@{"morethan".equals(data.cond)?View.VISIBLE:View.GONE}' />
 
@@ -75,7 +73,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text='@{"morethan".equals(data.cond)?data.decrease:(data.decrease+@string/yuan_buy)}'
-                    android:textColor="@{data.allsum.equals(data.receive_sum)?0xFF999999:0xFFFF9A14}"
+                    android:textColor="@{data.type==0?0xFFFF9A14:0xFF666666}"
                     android:textSize="13dp" />
 
                 <TextView
@@ -83,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="10dp"
-                    android:background="@{data.allsum.equals(data.receive_sum)?@drawable/shape_coupon_morethan_tag_gray_bg:@drawable/shape_coupon_morethan_tag_bg}"
+                    android:background="@{data.type==0?@drawable/shape_coupon_morethan_tag_bg:@drawable/shape_coupon_morethan_tag_gray_bg}"
                     android:ellipsize="end"
                     android:paddingBottom="2.5dp"
                     android:paddingLeft="6dp"
@@ -91,7 +89,7 @@
                     android:paddingTop="2.5dp"
                     android:singleLine="true"
                     android:text='@{@string/morethan+data.morethannumber+@string/morethan_money}'
-                    android:textColor="@{data.allsum.equals(data.receive_sum)?0xFF999999:0xFFFF9A14}"
+                    android:textColor="@{data.type==0?0xFFFF9A14:0xFF666666}"
                     android:textSize="10dp"
                     android:visibility='@{"morethan".equals(data.cond)?View.VISIBLE:View.GONE}' />
             </LinearLayout>
@@ -107,44 +105,16 @@
         <ImageView
             android:layout_width="90.6dp"
             android:layout_height="86.95dp"
-            android:src="@drawable/coupon_sold_out"
+            android:src="@{data.type==1?@drawable/coupon_sold_out:@drawable/coupon_ticket_invalidate}"
             android:layout_gravity="center_vertical"
             android:padding="7dp"
-            android:visibility="@{data.allsum.equals(data.receive_sum)?View.VISIBLE:View.GONE}"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:visibility="@{data.allsum.equals(data.receive_sum)?View.GONE:View.VISIBLE}">
-
-            <com.nmssdmf.commonlib.view.ColorArcProgressBar
-                android:id="@+id/couponSurplusBar"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_centerHorizontal="true"
-                app:back_width="5dp"
-                app:diameter="55dp"
-                app:front_color1="#FFFF9A14"
-                app:front_color2="#FFFF9A14"
-                app:front_color3="#FFFF9A14"
-                app:front_width="5dp"
-                app:is_need_content="true"
-                app:is_need_title="true"
-                app:is_need_unit="false"
-                app:max_value="100"
-                app:string_title="已抢"
-                app:text_size="12dp"
-                app:title_text_size="12dp"
-                app:total_engle="270" />
+            android:visibility="@{data.type==0?View.GONE:View.VISIBLE}"/>
 
             <TextView
                 android:id="@+id/tvRecieve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="立即领取"
+                android:text="立即使用"
                 android:textColor="#FFFFFFFF"
                 android:layout_below="@+id/couponSurplusBar"
                 android:background="@drawable/shape_all_merchandise_bg"
@@ -153,7 +123,9 @@
                 android:paddingTop="2.5dp"
                 android:paddingBottom="2.5dp"
                 android:layout_marginTop="-5dp"
-                android:textSize="12dp" />
-        </RelativeLayout>
+                android:textSize="12dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"
+                android:visibility="@{data.type == 0?View.VISIBLE:View.GONE}"/>
     </LinearLayout>
 </layout>

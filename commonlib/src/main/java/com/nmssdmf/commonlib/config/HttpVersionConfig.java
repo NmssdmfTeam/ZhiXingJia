@@ -408,7 +408,12 @@ public class HttpVersionConfig {
     public static final int API_ZHANSHI_COUPON_RECEIVE  = 2;
 
     /**
-     * 领券中心列表 - 立即领取
+     * 宜兴电信分类点击更多的商品列表
      */
     public static final int API_DX_COMMODITY_LIST  = 2;
+
+    /**
+     * 我的卡券列表
+     */
+    public static final int API_MY_CARD_TICKET  = 2;
 }

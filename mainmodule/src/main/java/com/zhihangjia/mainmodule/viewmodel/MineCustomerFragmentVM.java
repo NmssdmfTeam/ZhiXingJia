@@ -23,6 +23,7 @@ import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
+import com.zhihangjia.mainmodule.activity.MyCouponCardActivity;
 import com.zhihangjia.mainmodule.activity.MyPostActivity;
 import com.zhihangjia.mainmodule.activity.OrderListPurchaserActivity;
 import com.zhihangjia.mainmodule.callback.MineCustomerFragmentCB;
@@ -67,6 +68,10 @@ public class MineCustomerFragmentVM extends BaseVM {
 
     public void myCouponClick(View view){
         baseCallBck.doIntentClassName(ActivityNameConfig.MY_COUPONS_ACTIVITY, null);
+    }
+
+    public void myCouponCardClick(View view) {
+        baseCallBck.doIntent(MyCouponCardActivity.class, null);
     }
 
     public void personInfoClick(View view) {

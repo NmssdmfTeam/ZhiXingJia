@@ -16,6 +16,8 @@ import com.zhixingjia.bean.mainmodule.Comment;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
 import com.zhixingjia.bean.mainmodule.CommodityDetail;
+import com.zhixingjia.bean.mainmodule.CouponCard;
+import com.zhixingjia.bean.mainmodule.CouponCardTicketSum;
 import com.zhixingjia.bean.mainmodule.CouponSeller;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
@@ -527,4 +529,18 @@ public interface MainService {
      */
     @GET("/api/dx/commodity_list")
     Observable<BaseListData<YXTelecom.CommodityBean.CommodityInfoBean>> getDxCommodity(@Query("pages") String pages, @Query("cate_id") String cate_id);
+
+    /**
+     * 我的卡券列表
+     * @return
+     */
+    @GET("/api/my/card_ticket")
+    Observable<BaseListData<CouponCard>> getCouponCard(@Query("pages") String pages, @Query("types") String types);
+
+    /**
+     * 我的卡券数量
+     * @return
+     */
+    @GET("/api/my/card_ticket_sum")
+    Observable<BaseData<CouponCardTicketSum>> getCouponCardTicketSum();
 }

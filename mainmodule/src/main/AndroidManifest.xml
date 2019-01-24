@@ -136,6 +136,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SmartLifeCommodityActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyCouponCardActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
