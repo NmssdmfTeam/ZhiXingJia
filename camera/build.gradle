@@ -25,9 +25,10 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    implementation('com.android.support:appcompat-v7:25.3.0') {
+    implementation "com.android.support:appcompat-v7:$suppert_verison"
+   /* implementation('com.android.support:appcompat-v7:25.3.0'){
         exclude module: 'support-v4'
-    }
+    }*/
 }
 
 

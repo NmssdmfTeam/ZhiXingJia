@@ -41,7 +41,7 @@ public class CameraActivity extends Activity {
         jCameraView = (JCameraView) findViewById(R.id.jcameraview);
         //设置视频保存路径
 //        jCameraView.setSaveVideoPath(Environment.getExternalStorageDirectory().getPath() + File.separator + "JCamera");
-        jCameraView.setSaveVideoPath(videoPath.split("\\.")[0]);
+        jCameraView.setSaveVideoPath(videoPath);
         jCameraView.setFeatures(JCameraView.BUTTON_STATE_BOTH);
         jCameraView.setTip("JCameraView Tip");
         jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE);
@@ -68,7 +68,9 @@ public class CameraActivity extends Activity {
 //                Log.i("JCameraView", "bitmap = " + bitmap.getWidth());
                 String path = FileUtil.saveBitmap(imagePath, bitmap);
                 Intent intent = new Intent();
-                intent.putExtra("imagePath", path);
+                Bundle bundle = new Bundle();
+                bundle.putString("imagePath", path);
+                intent.putExtras(bundle);
                 setResult(101, intent);
                 finish();
             }
@@ -79,7 +81,10 @@ public class CameraActivity extends Activity {
                 String path = FileUtil.saveBitmap(imagePath, firstFrame);
                 Log.i("CJT", "url = " + url + ", Bitmap = " + path);
                 Intent intent = new Intent();
-                intent.putExtra("imagePath", path);
+                Bundle bundle = new Bundle();
+                bundle.putString("imagePath", path);
+                bundle.putString("videoPath", url);
+                intent.putExtras(bundle);
                 setResult(102, intent);
                 finish();
             }

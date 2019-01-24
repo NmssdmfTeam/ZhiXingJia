@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import com.cjt2325.cameralibrary.activity.CameraActivity;
 import com.google.gson.Gson;
 import com.jushi.gallery.activity.ImageGalleryActivity;
+import com.jushi.gallery.bean.ImageData;
 import com.nmssdmf.commonlib.R;
 import com.nmssdmf.commonlib.adapter.ImageSelectAdapter;
 import com.nmssdmf.commonlib.bean.Upload;
@@ -32,6 +34,7 @@ import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.IntegerConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
+import com.nmssdmf.commonlib.databinding.AlertDialogSelectImageBinding;
 import com.nmssdmf.commonlib.net.IServiceLib;
 import com.nmssdmf.commonlib.net.http.OkHttpClientProvider;
 import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
@@ -103,11 +106,11 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 
     private int image_max_size = 12;    //最多允许选择图片张数
 
-    private int type = 0;//0表示还没选择，1表示照片，2表示视频, 视频与照片只能选一个，并且视频只能选一张
+    private boolean showVideo = false;//表示是否选择视频
 
     public ImageSelectView(Context context) {
         super(context);
-        initView(context);
+//        initView(context);
     }
 
     public ImageSelectView(Context context, AttributeSet attrs) {
@@ -168,11 +171,24 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     private void toShowDialog() {
         if (adapter.getImageSize() < image_max_size) {
             temp_path = FileUtil.getBaseImageDir() + System.currentTimeMillis() + ".jpg";
-            video_path = FileUtil.getTempDir() + System.currentTimeMillis()+".mp4";
-            showAddImageAndVideoDialog((Activity) context, (image_max_size - adapter.getImageSize()));
+            video_path = FileUtil.getTempDir()/* + System.currentTimeMillis()+".mp4"*/;
+            if (showVideo && !hasVideo()) {//允许上传视频，并且还没有选择视视频
+                showAddImageAndVideoDialog((Activity) context, (image_max_size - adapter.getImageSize()));
+            } else {
+                showAddImageDialog((Activity) context,image_max_size - adapter.getImageSize(), temp_path );
+            }
         } else {
             ToastUtil.getInstance().showToast("图片数目已达上限");
         }
+    }
+
+    private boolean hasVideo(){
+        for (UploadImage image : uploadImages) {
+            if (!CommonUtils.isEmpty(image.getVideoPath())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -186,17 +202,14 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     public static void showAddImageDialog(final Activity activity, final int count, final String filePath) {
         final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
         final android.support.v7.app.AlertDialog dialog;
-        final LinearLayout layout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.alert_dialog_select_image, null);
 
-        builder.setView(layout);
-        TextView tv_add_image_phone = (TextView) layout.findViewById(R.id.tv_add_image_phone);
-        TextView tv_add_image_galley = (TextView) layout.findViewById(R.id.tv_add_image_galley);
-        TextView tv_add_video = layout.findViewById(R.id.tv_add_video);
+        AlertDialogSelectImageBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.alert_dialog_select_image, null, false);
+        builder.setView(binding.getRoot());
 
         dialog = builder.create();
         final PackageManager pm = activity.getPackageManager();
 
-        tv_add_image_phone.setOnClickListener(new View.OnClickListener() {
+        binding.tvAddImagePhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (dialog.isShowing()) {
@@ -209,7 +222,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
             }
         });
 
-        tv_add_image_galley.setOnClickListener(new View.OnClickListener() {
+        binding.tvAddImageGalley.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (dialog.isShowing()) {
@@ -219,19 +232,6 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
                     return;
                 }
                 getImageFromAlbum(activity, count);
-            }
-        });
-
-        tv_add_video.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-                if (!PermissionCompat.getInstance().checkGalleryPermission(activity)) {
-                    return;
-                }
-                getVideoFromAlbum(activity, count);
             }
         });
         dialog.show();
@@ -249,7 +249,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     public void showAddImageAndVideoDialog(final Activity activity, final int count) {
         final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
         final android.support.v7.app.AlertDialog dialog;
-        final LinearLayout layout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.alert_dialog_select_image, null);
+        final LinearLayout layout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.alert_dialog_select_video, null);
 
         builder.setView(layout);
         TextView tv_add_image_phone = (TextView) layout.findViewById(R.id.tv_add_image_phone);
@@ -265,10 +265,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
                 if (dialog.isShowing()) {
                     dialog.dismiss();
                 }
-//                if (!PermissionCompat.getInstance().checkGalleryPermission(activity)) {
-//                    return;
-//                }
-//                getImageFromCamera(activity, filePath);
+
                 getPermissions(activity);
             }
         });
@@ -408,12 +405,36 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     }
 
     /**
+     * 录像返回添加
+     */
+    public void addCameraVideo(Intent data) {
+        UploadImage uploadImage = new UploadImage();
+        uploadImage.setUrl(temp_path);
+        uploadImage.setImage_id("");
+        if (data != null && data.getExtras() != null) {
+            String videoPath = data.getExtras().getString("videoPath");
+            if (!CommonUtils.isEmpty(videoPath)) {
+                uploadImage.setVideoPath(videoPath);
+            }
+        }
+        if (adapter.getData().size() == 0)
+            adapter.getData().add(uploadImage);
+        else
+            adapter.getData().add(adapter.getData().size() - 1, uploadImage);
+        if (adapter.getImageSize() == image_max_size) {
+            removeAddImageView();
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
      * 拍照返回添加
      */
     public void addCameraImage() {
         UploadImage uploadImage = new UploadImage();
         uploadImage.setUrl(temp_path);
         uploadImage.setImage_id("");
+
         if (adapter.getData().size() == 0)
             adapter.getData().add(uploadImage);
         else
@@ -433,11 +454,14 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         if (data == null) {
             return;
         }
-        List<String> temps = data.getExtras().getStringArrayList("datas");
-        for (String path : temps) {
+        List<ImageData> temps = (List<ImageData>)data.getExtras().getSerializable("datas");
+        for (ImageData imageData : temps) {
             UploadImage uploadImage = new UploadImage();
-            uploadImage.setUrl(path);
+            uploadImage.setUrl(imageData.getPath());
             uploadImage.setImage_id("");
+            if (!CommonUtils.isEmpty(imageData.getVideoPath())) {
+                uploadImage.setVideoPath(imageData.getVideoPath());
+            }
             if (adapter.getData().size() == 0)
                 adapter.getData().add(uploadImage);
             else
@@ -656,12 +680,12 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 //    }
 
 
-    public int getType() {
-        return type;
+    public boolean isShowVideo() {
+        return showVideo;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setShowVideo(boolean showVideo) {
+        this.showVideo = showVideo;
     }
 
     public String[] getResult() {
