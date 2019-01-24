@@ -29,18 +29,10 @@ public class XYTelecomAdapter extends BaseDataBindingAdapter<YXTelecom, ItemXyTe
     @Override
     protected void convert2(BaseBindingViewHolder<ItemXyTelecomBinding> helper, YXTelecom item, int position) {
         ItemXyTelecomBinding binding = helper.getBinding();
-        binding.setData(item);
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(item.getLink_url()))
-                    return;
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.LINK, item.getLink_url());
-                intent.putExtras(bundle);
-                intent.setClass(mContext, WebViewActivity.class);
-                mContext.startActivity(intent);
+
             }
         });
     }

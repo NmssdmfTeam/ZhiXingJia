@@ -125,7 +125,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.CouponDescriptionActivity"
             android:screenOrientation="portrait"/>
-
+        <activity android:name=".activity.SmartLifeCommodityActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

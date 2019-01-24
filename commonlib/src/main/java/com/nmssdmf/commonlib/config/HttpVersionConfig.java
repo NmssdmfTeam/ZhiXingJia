@@ -215,7 +215,7 @@ public class HttpVersionConfig {
     /**
      * 宜兴电信广告信息列表
      */
-    public static final int API_DX_INFOLISTS = 1;
+    public static final int API_DX_INFOLISTS = 2;
     /**
      * 确认支付页面(选择支付方式)
      */
@@ -406,4 +406,9 @@ public class HttpVersionConfig {
      * 领券中心列表 - 立即领取
      */
     public static final int API_ZHANSHI_COUPON_RECEIVE  = 2;
+
+    /**
+     * 领券中心列表 - 立即领取
+     */
+    public static final int API_DX_COMMODITY_LIST  = 2;
 }

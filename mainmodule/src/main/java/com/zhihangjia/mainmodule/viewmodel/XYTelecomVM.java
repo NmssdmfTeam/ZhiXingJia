@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
@@ -34,23 +35,20 @@ public class XYTelecomVM extends BaseVM {
         }
         HttpUtils.doHttp(subscription,
                 RxRequest.create(MainService.class, HttpVersionConfig.API_DX_INFOLISTS).getYXInfoList(page),
-                new ServiceCallback<BaseListData<YXTelecom>>() {
+                new ServiceCallback<BaseData<YXTelecom>>() {
             @Override
             public void onError(Throwable error) {
                 cb.endFresh();
             }
 
             @Override
-            public void onSuccess(BaseListData<YXTelecom> xyTelecomBaseListData) {
+            public void onSuccess(BaseData<YXTelecom> xyTelecomBaseListData) {
                 cb.endFresh();
                 cb.setData(xyTelecomBaseListData.getData(),isRefresh);
-                if (xyTelecomBaseListData.getData().size() > 0) {
-                    page = xyTelecomBaseListData.getData().get(xyTelecomBaseListData.getData().size() - 1).getId();
-                }
             }
 
             @Override
-            public void onDefeated(BaseListData<YXTelecom> xyTelecomBaseListData) {
+            public void onDefeated(BaseData<YXTelecom> xyTelecomBaseListData) {
                 cb.endFresh();
             }
         });

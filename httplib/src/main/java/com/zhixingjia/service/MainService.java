@@ -357,7 +357,7 @@ public interface MainService {
      * 宜兴电信广告信息列表
      */
     @GET("/api/dx/infolist")
-    Observable<BaseListData<YXTelecom>> getYXInfoList(@Query("page") String page);
+    Observable<BaseData<YXTelecom>> getYXInfoList(@Query("page") String page);
 
     /**
      * 确认支付页面(选择支付方式)
@@ -520,4 +520,11 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/zhanshi/coupon/receive")
     Observable<Base> recieve(@Field("coupon_id") String coupon_id);
+
+    /**
+     * 宜兴电信分类点击更多的商品列表
+     * @return
+     */
+    @GET("/api/dx/commodity_list")
+    Observable<BaseListData<YXTelecom.CommodityBean.CommodityInfoBean>> getDxCommodity(@Query("pages") String pages, @Query("cate_id") String cate_id);
 }
