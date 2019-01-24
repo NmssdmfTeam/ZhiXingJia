@@ -32,7 +32,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
     private static final String TAG = "ImageAdapter";
     private List<ImageData> list = new ArrayList<>();
     private Activity context;
-    private ArrayList<String> selects = new ArrayList<>();
+//    private ArrayList<String> selects = new ArrayList<>();
+    private List<ImageData> selects = new ArrayList<>();
     private boolean show_select = false;
     private int count = 4;
     private RelativeLayout.LayoutParams layout_params;
@@ -111,7 +112,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
     private void startBeautyGallery(final int position) {
         Intent intent = new Intent(context, BeautyImageSelectActivity.class);
         Bundle bundle = new Bundle();
-        Uri uri = Uri.parse("file://" + list.get(position).getPath());
+        Uri uri = Uri.parse("file://" + (type == ImageGalleryActivity.TYPE_IMAGE ? list.get(position).getPath() :list.get(position).getVideoPath() ));
         bundle.putParcelable(BeautyImageSelectActivity.PATH_KEY, uri);
         bundle.putInt(BeautyImageSelectActivity.CHECK_COUNT, getSelects().size());
         bundle.putInt(BeautyImageSelectActivity.POSITION, position);
@@ -136,13 +137,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
                     selects.clear();
                     notifyItemChanged(last_checked_position);
                 }
-                selects.add(list.get(position).getPath());
+                selects.add(list.get(position));
                 list.get(position).setSelected(true);
                 notifyItemChanged(position);
                 last_checked_position = position;
             } else {
                 if (selects.size() < count) {
-                    selects.add(list.get(position).getPath());
+                    selects.add(list.get(position));
                     list.get(position).setSelected(true);
                     notifyItemChanged(position);
                     last_checked_position = position;
@@ -162,7 +163,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
         return list.size();
     }
 
-    public ArrayList<String> getSelects() {
+    public List<ImageData> getSelects() {
         return this.selects;
     }
 
@@ -171,7 +172,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
 
         if (b) {
             if (selects.size() < count) {
-                selects.add(list.get(position).getPath());
+                selects.add(list.get(position));
                 list.get(position).setSelected(true);
                 last_checked_position = position;
             } else {
@@ -189,6 +190,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
 
     public void setType(int type) {
         this.type = type;
+        if (type == ImageGalleryActivity.TYPE_VIDEO) {
+            count = 1;
+        }
     }
 
     public int getCount() {

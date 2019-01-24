@@ -53,6 +53,7 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
     }
 
     private void setListener() {
+        binding.isv.setShowVideo(true);
         binding.isv.setOnUploadlistener(new ImageSelectView.OnImageUpLoadCompleteListener() {
             @Override
             public void onUpLoadComplete(String[] ids) {
@@ -70,6 +71,7 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
 
             }
         });
+
     }
 
     @Override
@@ -106,7 +108,8 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
                 if (resultCode == 101) {//照片
                     binding.isv.addCameraImage();
                 } else if (resultCode == 102) {//视频快照
-                    binding.isv.addCameraImage();
+
+                    binding.isv.addCameraVideo(data);
                 }
                 break;
             }

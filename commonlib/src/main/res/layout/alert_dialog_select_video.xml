@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="view"
+            type="com.nmssdmf.commonlib.view.ImageSelectView"/>
+    </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -39,5 +44,17 @@
             android:textColor="@color/text_black"
             android:textSize="@dimen/font_size_mid" />
 
+        <include layout="@layout/include_recyclerview_cutoff_line" />
+
+        <TextView
+            android:id="@+id/tv_add_video"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:text="选取短视频"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/font_size_mid"
+            />
     </LinearLayout>
 </layout>

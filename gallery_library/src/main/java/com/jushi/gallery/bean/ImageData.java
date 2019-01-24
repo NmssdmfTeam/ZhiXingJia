@@ -10,7 +10,16 @@ import java.io.Serializable;
  */
 public class ImageData implements Serializable {
     private String path;
+    private String videoPath;
     private boolean selected = false;
+
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
 
     public String getPath() {
         return path;

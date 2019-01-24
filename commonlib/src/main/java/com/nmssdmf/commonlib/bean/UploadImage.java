@@ -15,6 +15,15 @@ public class UploadImage extends Base implements MultiItemEntity {
     private String m_url;
     private String s_url;
     private int type;
+    private String videoPath;
+
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
 
     public String getImage_id() {
         return image_id;

@@ -19,8 +19,10 @@ import android.widget.RelativeLayout;
 import com.jushi.gallery.R;
 import com.jushi.gallery.adapter.ImageAdapter;
 import com.jushi.gallery.bean.ImageData;
+import com.jushi.gallery.util.MediaUtil;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -137,7 +139,7 @@ public class ImageGalleryActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.i_ok) {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("datas", adapter.getSelects());
+                bundle.putSerializable("datas", (Serializable) adapter.getSelects());
                 intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -185,7 +187,7 @@ public class ImageGalleryActivity extends AppCompatActivity {
                     ,MediaStore.Video.Media.DURATION
                     ,MediaStore.Video.Media.SIZE
                     ,MediaStore.Video.Media.DISPLAY_NAME
-                    ,MediaStore.Video.Media.DATE_MODIFIED};;
+                    ,MediaStore.Video.Media.DATE_MODIFIED};
             final String order = MediaStore.Video.Media._ID;
 
             CursorLoader loader = new CursorLoader(activity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI, columns, null, null, order);
@@ -212,7 +214,10 @@ public class ImageGalleryActivity extends AppCompatActivity {
 //                    String path = cursor.getString(dataColumnIndex);
 //                    Log.i(TAG,"img path:"+path);
                     if (!pattern.matcher(path).matches()) {
-                        data.setPath(path);
+                        //获取第一帧图片
+                        String imagePath = MediaUtil.getImageForVideo(path);
+                        data.setPath(imagePath);
+                        data.setVideoPath(path);
                         list.add(data);
                     }
                 }
