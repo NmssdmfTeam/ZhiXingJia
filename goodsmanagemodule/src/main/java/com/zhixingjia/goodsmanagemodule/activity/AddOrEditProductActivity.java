@@ -102,6 +102,14 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
                     binding.isv.addAlbumImage(data);
                 }
                 break;
+            case 100:{
+                if (resultCode == 101) {//照片
+                    binding.isv.addCameraImage();
+                } else if (resultCode == 102) {//视频快照
+                    binding.isv.addCameraImage();
+                }
+                break;
+            }
             default:
                 vm.onActivityResult(requestCode, resultCode, data);
                 break;

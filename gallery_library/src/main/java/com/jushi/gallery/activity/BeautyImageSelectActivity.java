@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.jushi.gallery.R;
@@ -44,7 +46,7 @@ public class BeautyImageSelectActivity extends AppCompatActivity {
     private View rl_bottom;
     private TextView tv_tips;
     private ImageView zdv;
-
+    private VideoView vv;
     /**
      * 大图展示的uri
      */
@@ -69,6 +71,8 @@ public class BeautyImageSelectActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
+    private int type;//判断图片与视频
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +92,7 @@ public class BeautyImageSelectActivity extends AppCompatActivity {
         rl_bottom = findViewById(R.id.rl_bottom);
         tv_tips = (TextView) findViewById(R.id.tv_tips);
         zdv = (ImageView) findViewById(R.id.zdv);
-
+        vv = (VideoView) findViewById(R.id.vv);
     }
 
     private void getData() {
@@ -103,6 +107,7 @@ public class BeautyImageSelectActivity extends AppCompatActivity {
         has_checked = bundle.getBoolean(CHECKED, false);
         max_count = bundle.getInt(MAX_COUNT, 4);
         position = bundle.getInt(POSITION, -1);
+        type = bundle.getInt("type", ImageGalleryActivity.TYPE_IMAGE);
         tv_tips.setText(has_count + "/" + max_count);
 
         cb.setEnabled((max_count > has_count));
@@ -114,10 +119,23 @@ public class BeautyImageSelectActivity extends AppCompatActivity {
 
 //        JLog.i(TAG,"width:"+size.x+",height:"+size.y);
 
-        Glide.with(this)
-                .load(uri)
-                .into(zdv);
+//        Glide.with(this)
+//                .load(uri)
+//                .into(zdv);
+        if (type == ImageGalleryActivity.TYPE_IMAGE) {
 
+            Glide.with(this)
+                    .load(uri)
+                    .into(zdv);
+            vv.setVisibility(View.GONE);
+            rl_bottom.setVisibility(View.VISIBLE);
+        } else if (type == ImageGalleryActivity.TYPE_VIDEO) {
+            vv.setVisibility(View.VISIBLE);
+            rl_bottom.setVisibility(View.GONE);
+            vv.setVideoURI(uri);
+            vv.setMediaController(new MediaController(this));
+            vv.start();
+        }
 
         setListener();
     }

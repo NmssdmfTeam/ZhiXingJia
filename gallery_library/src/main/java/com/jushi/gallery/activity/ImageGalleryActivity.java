@@ -42,12 +42,16 @@ public class ImageGalleryActivity extends AppCompatActivity {
     public static final int IMAGE_SELECT_REQUEST = 11010;
     public static final int IMAGE_SELECT_RESULT = 11011;
 
+    public static final int TYPE_IMAGE = 0;//照片
+    public static final int TYPE_VIDEO = 1;//视频
+
     protected Toolbar toolbar;
     private GridLayoutManager layout_manager;
     private RecyclerView rv;
     private Activity activity;
     private ImageAdapter adapter;
     private List<ImageData> list = new ArrayList<>();
+    private int type = TYPE_IMAGE;
 
     /**
      * 如果有特殊字符不提取
@@ -84,11 +88,18 @@ public class ImageGalleryActivity extends AppCompatActivity {
         adapter.setLayout_params(getImageItemLayoutParam());
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            type = bundle.getInt("type");
             adapter.setCount(bundle.getInt("count"));
+            adapter.setType(type);
         }
         rv.setAdapter(adapter);
 
-        getImageDataFromSdCard();
+
+        if (type == TYPE_IMAGE) {
+            getImageDataFromSdCard();
+        } else if (type == TYPE_VIDEO){
+            getVideoDataFromSdCard();
+        }
 
         setListener();
     }
