@@ -1,19 +1,27 @@
 package com.zhihangjia.mainmodule.fragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.nmssdmf.commonlib.config.StringConfig;
-import com.zhihangjia.mainmodule.R;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MainActivity;
 import com.zhihangjia.mainmodule.callback.MineProviderFragmentCB;
 import com.zhihangjia.mainmodule.databinding.FragmentMineProviderBinding;
 import com.zhihangjia.mainmodule.viewmodel.MineProviderFragmentVM;
+import com.zhihangjia.mainmodule.activity.CaptureActivity;
 import com.zhixingjia.bean.mainmodule.MessageUnread;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
 * @description 知行家首页-- 建材家居fragment
@@ -98,4 +106,35 @@ public class MineProviderFragment extends BaseFragment implements MineProviderFr
             binding.ivMessageNotice.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public boolean checkPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case MineProviderFragmentVM.REQUEST_CODE_SCAN:// 二维码
+                // 扫描二维码回传
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        //获取扫描结果
+                        Bundle bundle = data.getExtras();
+                        String result = bundle.getString(CaptureActivity.EXTRA_STRING);
+                        showToast("fragment 扫描结果：" + result);
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
 }

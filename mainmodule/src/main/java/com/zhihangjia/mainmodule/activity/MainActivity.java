@@ -293,4 +293,5 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     public void doMessageIntent(PushMessage.Payload payload) {
         DisposeIntentMessage.resovleIntent(this, payload);
     }
+
 }

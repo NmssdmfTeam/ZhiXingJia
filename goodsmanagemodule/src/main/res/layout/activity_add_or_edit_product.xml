@@ -110,8 +110,6 @@
 
                     <include layout="@layout/include_recyclerview_cutoff_line" />
 
-
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
