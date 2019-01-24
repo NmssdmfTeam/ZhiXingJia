@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
 import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
@@ -7,6 +8,8 @@ import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
+import com.zhihangjia.mainmodule.callback.PromotionsCB;
+import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.Promotion;
 import com.zhixingjia.service.MainService;
 
@@ -18,14 +21,16 @@ import com.zhixingjia.service.MainService;
 */
 public class PromotionsActivityVM extends BaseRecyclerViewFragmentVM {
     private int pages = 1;
+    private PromotionsCB callback;
 
     /**
      * 不需要callback可以传null
      *
      * @param callBack
      */
-    public PromotionsActivityVM(BaseRecyclerViewFragmentCB callBack) {
+    public PromotionsActivityVM(PromotionsCB callBack) {
         super(callBack);
+        this.callback = callBack;
     }
 
     @Override
@@ -48,6 +53,30 @@ public class PromotionsActivityVM extends BaseRecyclerViewFragmentVM {
 
             @Override
             public void onDefeated(BaseListData<Promotion> promotionBaseListData) {
+
+            }
+        });
+    }
+
+    /**
+     * 获取头部广告
+     */
+    public void getBanners() {
+        HttpUtils.doHttp(subscription,
+                RxRequest.create(MainService.class, HttpVersionConfig.API_BANNERS).getBanner("zs"),
+                new ServiceCallback<BaseData<Banner>>() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseData<Banner> bannerBaseData) {
+                callback.setHeadV(bannerBaseData.getData().getBanner_top());
+            }
+
+            @Override
+            public void onDefeated(BaseData<Banner> bannerBaseData) {
 
             }
         });

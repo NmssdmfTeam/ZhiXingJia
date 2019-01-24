@@ -8,6 +8,7 @@ import com.nmssdmf.commonlib.adapter.FragmentPagerAdapter;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.databinding.ActivityShowCenterBinding;
+import com.zhihangjia.mainmodule.fragment.CouponCenterFragment;
 import com.zhihangjia.mainmodule.fragment.PromotionsActivityFragment;
 import com.zhihangjia.mainmodule.viewmodel.ShowCenterVM;
 
@@ -37,8 +38,8 @@ public class ShowCenterActivity extends BaseTitleActivity {
         binding = (ActivityShowCenterBinding) baseViewBinding;
         PromotionsActivityFragment promotionsActivityFragment = new PromotionsActivityFragment();
         fragments.add(promotionsActivityFragment);
-        PromotionsActivityFragment promotionsActivityFragment2 = new PromotionsActivityFragment();
-        fragments.add(promotionsActivityFragment2);
+        CouponCenterFragment couponCenterFragment = new CouponCenterFragment();
+        fragments.add(couponCenterFragment);
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), this, fragments);
 
         binding.vp.setAdapter(adapter);

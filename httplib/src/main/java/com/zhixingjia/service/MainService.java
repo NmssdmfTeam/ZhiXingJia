@@ -1,5 +1,7 @@
 package com.zhixingjia.service;
 
+import android.databinding.ObservableField;
+
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
@@ -9,6 +11,7 @@ import com.zhixingjia.bean.mainmodule.Banner;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 import com.zhixingjia.bean.mainmodule.BbsInfoList;
 import com.zhixingjia.bean.mainmodule.BbsInsertResult;
+import com.zhixingjia.bean.mainmodule.CenterCoupon;
 import com.zhixingjia.bean.mainmodule.Comment;
 import com.zhixingjia.bean.mainmodule.Commodity;
 import com.zhixingjia.bean.mainmodule.CommodityComfirm;
@@ -354,7 +357,7 @@ public interface MainService {
      * 宜兴电信广告信息列表
      */
     @GET("/api/dx/infolist")
-    Observable<BaseListData<YXTelecom>> getYXInfoList(@Query("page") String page);
+    Observable<BaseData<YXTelecom>> getYXInfoList(@Query("page") String page);
 
     /**
      * 确认支付页面(选择支付方式)
@@ -501,4 +504,27 @@ public interface MainService {
      */
     @GET("/api/zhanshi/promotion")
     Observable<BaseListData<Promotion>> getPromotion(@Query("pages") String pages);
+
+    /**
+     * 领券中心列表
+     * @return
+     */
+    @GET("/api/zhanshi/coupon")
+    Observable<BaseListData<CenterCoupon>> getCenterCoupon(@Query("pages") String pages);
+
+    /**
+     * 领券中心列表 - 立即领取
+     * @param coupon_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/zhanshi/coupon/receive")
+    Observable<Base> recieve(@Field("coupon_id") String coupon_id);
+
+    /**
+     * 宜兴电信分类点击更多的商品列表
+     * @return
+     */
+    @GET("/api/dx/commodity_list")
+    Observable<BaseListData<YXTelecom.CommodityBean.CommodityInfoBean>> getDxCommodity(@Query("pages") String pages, @Query("cate_id") String cate_id);
 }

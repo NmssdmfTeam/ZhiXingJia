@@ -3,7 +3,7 @@
     <data>
         <variable
             name="data"
-            type="com.zhixingjia.bean.mainmodule.YXTelecom"/>
+            type="com.zhixingjia.bean.mainmodule.YXTelecom.BannerInfoBean"/>
     </data>
     <com.nmssdmf.commonlib.view.GlideImageView
         android:id="@+id/giv"

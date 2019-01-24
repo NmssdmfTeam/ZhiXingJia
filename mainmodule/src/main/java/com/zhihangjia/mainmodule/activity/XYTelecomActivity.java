@@ -72,34 +72,41 @@ public class XYTelecomActivity extends BaseActivity implements XYTelecomCB{
     }
 
     @Override
-    public void setData(List<YXTelecom> telecoms, boolean isRefresh) {
+    public void setData(YXTelecom telecoms, boolean isRefresh) {
         if (isRefresh) {
             binding.llContent.removeAllViews();
         }
-        int size = telecoms.size() > 3 ? 3:telecoms.size();
-        for (int i = 0; i < size; i++) {
-            ItemXyTelecomBinding itemXyTelecomBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.item_xy_telecom, null, false);
-            int finalI = i;
-            itemXyTelecomBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (TextUtils.isEmpty(telecoms.get(finalI).getLink_url()))
-                        return;
-                    Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.LINK, telecoms.get(finalI).getLink_url());
-                    intent.putExtras(bundle);
-                    intent.setClass(XYTelecomActivity.this, WebViewActivity.class);
-                    XYTelecomActivity.this.startActivity(intent);
-                }
-            });
-            itemXyTelecomBinding.setData(telecoms.get(i));
-            binding.llContent.addView(itemXyTelecomBinding.getRoot());
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) itemXyTelecomBinding.getRoot().getLayoutParams();
-            layoutParams.topMargin = DensityUtil.dpToPx(this, 16);
-            itemXyTelecomBinding.getRoot().setLayoutParams(layoutParams);
+        if (telecoms.getBanner_info() != null) {
+            int size = telecoms.getBanner_info().size();
+            List<YXTelecom.BannerInfoBean> bannerInfoBean = telecoms.getBanner_info();
+            for (int i = 0; i < size; i++) {
+                ItemXyTelecomBinding itemXyTelecomBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.item_xy_telecom, null, false);
+                int finalI = i;
+                itemXyTelecomBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (TextUtils.isEmpty(bannerInfoBean.get(finalI).getLink_url()))
+                            return;
+                        Intent intent = new Intent();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(IntentConfig.LINK, bannerInfoBean.get(finalI).getLink_url());
+                        intent.putExtras(bundle);
+                        intent.setClass(XYTelecomActivity.this, WebViewActivity.class);
+                        XYTelecomActivity.this.startActivity(intent);
+                    }
+                });
+                itemXyTelecomBinding.setData(bannerInfoBean.get(i));
+                binding.llContent.addView(itemXyTelecomBinding.getRoot());
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) itemXyTelecomBinding.getRoot().getLayoutParams();
+                layoutParams.topMargin = DensityUtil.dpToPx(this, 16);
+                itemXyTelecomBinding.getRoot().setLayoutParams(layoutParams);
+            }
+            binding.rpv.pause();
         }
-        binding.rpv.pause();
+        if (telecoms.getCommodity() != null) {
+            rollPageViewAdapter.setYxTelecoms(telecoms.getCommodity());
+            rollPageViewAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

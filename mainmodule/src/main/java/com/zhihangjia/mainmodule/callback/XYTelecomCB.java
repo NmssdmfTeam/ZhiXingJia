@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public interface XYTelecomCB extends BaseCB {
-    void setData(List<YXTelecom> telecoms, boolean isRefresh);
+    void setData(YXTelecom telecoms, boolean isRefresh);
 
     void endFresh();
 }

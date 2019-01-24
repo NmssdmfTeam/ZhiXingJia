@@ -53,4 +53,24 @@
         <attr name="unselected_background" format="color|reference"/>
         <attr name="selected_background" format="color|reference"/>
     </declare-styleable>
+
+    <declare-styleable name="ColorArcProgressBar">
+        <attr name="front_color1" format="color"/>
+        <attr name="front_color2" format="color"/>
+        <attr name="front_color3" format="color"/>
+        <attr name="total_engle" format="integer"/>
+        <attr name="diameter" format="dimension"/>
+        <attr name="back_width" format="dimension"/>
+        <attr name="front_width" format="dimension"/>
+        <attr name="text_size" format="dimension"/>
+        <attr name="title_text_size" format="dimension"/>
+        <attr name="is_need_title" format="boolean"/>
+        <attr name="is_need_content" format="boolean"/>
+        <attr name="is_need_unit" format="boolean"/>
+        <attr name="is_need_dial" format="boolean"/>
+        <attr name="string_unit" format="string"/>
+        <attr name="string_title" format="string"/>
+        <attr name="current_value" format="float"/>
+        <attr name="max_value" format="float"/>
+    </declare-styleable>
 </resources>

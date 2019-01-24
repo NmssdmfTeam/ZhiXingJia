@@ -120,6 +120,12 @@ public class RxEvent {
         public static final int REFRESH_GOODSMANAGE_OPERATION = VALUE + 4;
     }
 
+    public static class CouponEvent extends RxEvent {
+        public static final int VALUE = 600;
+
+        public static final int COUPON_RECIEVE = VALUE + 1;
+    }
+
     public int getType() {
         return type;
     }
