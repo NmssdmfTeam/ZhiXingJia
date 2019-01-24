@@ -16,4 +16,6 @@ public interface MineProviderFragmentCB extends BaseCB {
     void initView();
 
     void showNotice(MessageUnread messageUnread);
+
+    boolean checkPermission();
 }

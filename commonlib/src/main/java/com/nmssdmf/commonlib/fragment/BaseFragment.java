@@ -187,7 +187,7 @@ public abstract class BaseFragment extends Fragment implements BaseCB {
         if (bundle != null) {
             intent.putExtras(bundle);
         }
-        getActivity().startActivityForResult(intent, requestCode);
+       startActivityForResult(intent, requestCode);
     }
 
     @Override

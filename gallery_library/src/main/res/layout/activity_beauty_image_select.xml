@@ -10,6 +10,12 @@
         android:id="@+id/zdv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <VideoView
+        android:id="@+id/vv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

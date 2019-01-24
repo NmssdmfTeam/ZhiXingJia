@@ -22,8 +22,8 @@ import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.activity.OrderListSupplierActivity;
-import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
 import com.zhihangjia.mainmodule.callback.MineProviderFragmentCB;
+import com.zhihangjia.mainmodule.activity.CaptureActivity;
 import com.zhixingjia.bean.mainmodule.MessageUnread;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.bean.personmodule.Company;
@@ -37,7 +37,7 @@ import com.zhixingjia.service.PersonService;
 * @version v3.2.0
 */
 public class MineProviderFragmentVM extends BaseVM {
-
+    public static final int REQUEST_CODE_SCAN = 0x0000;// 扫描二维码
     public ObservableField<UserInfo> userinfo = new ObservableField<>();
     private MineProviderFragmentCB callback;
 
@@ -122,7 +122,11 @@ public class MineProviderFragmentVM extends BaseVM {
     }
 
     public void onCouponManagementClick(View view) {
-        callback.doIntent(ShopCouponListActivity.class, null);
+//        callback.doIntent(ShopCouponListActivity.class, null);
+        //动态权限申请
+        if (callback.checkPermission()) {
+            callback.doIntentForResult(CaptureActivity.class, null, MineProviderFragmentVM.REQUEST_CODE_SCAN);
+        }
     }
 
     public void onMessageClick(View view) {

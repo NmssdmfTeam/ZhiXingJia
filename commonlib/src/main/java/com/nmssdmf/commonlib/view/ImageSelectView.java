@@ -1,5 +1,6 @@
 package com.nmssdmf.commonlib.view;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -19,22 +22,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cjt2325.cameralibrary.activity.CameraActivity;
 import com.google.gson.Gson;
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.R;
 import com.nmssdmf.commonlib.adapter.ImageSelectAdapter;
-import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.Upload;
 import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.IntegerConfig;
 import com.nmssdmf.commonlib.config.StringConfig;
-import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.net.IServiceLib;
 import com.nmssdmf.commonlib.net.http.OkHttpClientProvider;
 import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
 import com.nmssdmf.commonlib.util.CommonUtils;
-import com.nmssdmf.commonlib.util.DataCleanManager;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.FileUtil;
 import com.nmssdmf.commonlib.util.ImageUtil;
@@ -45,9 +46,7 @@ import com.nmssdmf.commonlib.widget.GridSpacingItemDecoration;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -87,6 +86,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 //    private List<String> imageIds = new ArrayList<>();//用于上传给服务器
 
     private String temp_path;//拍照时候的照片地址
+    private String video_path;//摄像时候的地址
 
     private OnImageUpLoadCompleteListener upload_listener;
     private boolean isNeed = false;//图片是否非必填
@@ -102,6 +102,8 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     private int DELETE_IMAGE_SIZE = 18; // 删除图标的高宽
 
     private int image_max_size = 12;    //最多允许选择图片张数
+
+    private int type = 0;//0表示还没选择，1表示照片，2表示视频, 视频与照片只能选一个，并且视频只能选一张
 
     public ImageSelectView(Context context) {
         super(context);
@@ -166,7 +168,8 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
     private void toShowDialog() {
         if (adapter.getImageSize() < image_max_size) {
             temp_path = FileUtil.getBaseImageDir() + System.currentTimeMillis() + ".jpg";
-            showAddImageDialog((Activity) context, (image_max_size - adapter.getImageSize()), temp_path);
+            video_path = FileUtil.getTempDir() + System.currentTimeMillis()+".mp4";
+            showAddImageAndVideoDialog((Activity) context, (image_max_size - adapter.getImageSize()));
         } else {
             ToastUtil.getInstance().showToast("图片数目已达上限");
         }
@@ -188,6 +191,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         builder.setView(layout);
         TextView tv_add_image_phone = (TextView) layout.findViewById(R.id.tv_add_image_phone);
         TextView tv_add_image_galley = (TextView) layout.findViewById(R.id.tv_add_image_galley);
+        TextView tv_add_video = layout.findViewById(R.id.tv_add_video);
 
         dialog = builder.create();
         final PackageManager pm = activity.getPackageManager();
@@ -217,8 +221,122 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
                 getImageFromAlbum(activity, count);
             }
         });
+
+        tv_add_video.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                if (!PermissionCompat.getInstance().checkGalleryPermission(activity)) {
+                    return;
+                }
+                getVideoFromAlbum(activity, count);
+            }
+        });
         dialog.show();
         dialog.getWindow().setLayout(DensityUtil.dpToPx(activity, 340), LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    /**
+     * 通过相册和拍照选择图片
+     *
+     * @param activity
+     * @param count    相册选择的张数
+//     * @param filePath 拍照保存的文件名
+     * @description AlertDialog如果不引用support包，则是居中显示底部按钮
+     */
+    public void showAddImageAndVideoDialog(final Activity activity, final int count) {
+        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
+        final android.support.v7.app.AlertDialog dialog;
+        final LinearLayout layout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.alert_dialog_select_image, null);
+
+        builder.setView(layout);
+        TextView tv_add_image_phone = (TextView) layout.findViewById(R.id.tv_add_image_phone);
+        TextView tv_add_image_galley = (TextView) layout.findViewById(R.id.tv_add_image_galley);
+        TextView tv_add_video = layout.findViewById(R.id.tv_add_video);
+
+        dialog = builder.create();
+        final PackageManager pm = activity.getPackageManager();
+
+        tv_add_image_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+//                if (!PermissionCompat.getInstance().checkGalleryPermission(activity)) {
+//                    return;
+//                }
+//                getImageFromCamera(activity, filePath);
+                getPermissions(activity);
+            }
+        });
+
+        tv_add_image_galley.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                if (!PermissionCompat.getInstance().checkGalleryPermission(activity)) {
+                    return;
+                }
+                getImageFromAlbum(activity, count);
+            }
+        });
+
+        tv_add_video.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                if (!PermissionCompat.getInstance().checkGalleryPermission(activity)) {
+                    return;
+                }
+                getVideoFromAlbum(activity, count);
+            }
+        });
+        dialog.show();
+        dialog.getWindow().setLayout(DensityUtil.dpToPx(activity, 340), LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    /**
+     * 获取权限
+     */
+    private void getPermissions(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager
+                    .PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) == PackageManager
+                            .PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager
+                            .PERMISSION_GRANTED) {
+                gotoCameraActivity(activity);
+            } else {
+                //不具有获取权限，需要进行权限申请
+                ActivityCompat.requestPermissions(activity, new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.CAMERA}, 100);
+            }
+        } else {
+            gotoCameraActivity(activity);
+        }
+    }
+
+    /**
+     * 跳转到拍照摄像的界面
+     * @param activity
+     */
+    private void gotoCameraActivity(Activity activity){
+        Intent intent = new Intent(activity, CameraActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filePath", temp_path);
+        bundle.putString("videoPath", video_path);
+        intent.putExtras(bundle);
+        activity.startActivityForResult(intent, 100);
     }
 
     public static void getImageFromAlbum(Activity activity, int count) {
@@ -262,6 +380,15 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         } else {
             ToastUtil.getInstance().showToast("手机无可用SD卡");
         }
+    }
+
+    public static void getVideoFromAlbum(Activity activity, int count) {
+        Intent intent = new Intent(activity, ImageGalleryActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("count", count);
+        bundle.putInt("type", ImageGalleryActivity.TYPE_VIDEO);
+        intent.putExtras(bundle);
+        activity.startActivityForResult(intent, ImageGalleryActivity.IMAGE_SELECT_REQUEST);
     }
 
     public void notifyDataSetChanged() {
@@ -527,6 +654,15 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
 //        }
 //        adapter.notifyDataSetChanged();
 //    }
+
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public String[] getResult() {
         return toStringArray(getImgIds());

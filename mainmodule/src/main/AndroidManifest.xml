@@ -109,8 +109,6 @@
             android:name=".activity.CommentActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.OrderDetailSupplierActivity">
-        </activity>
         <activity android:name=".activity.SelectCategoriesActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -131,6 +129,8 @@
         <activity android:name=".activity.ReportActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.ShowCenterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CaptureActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.CouponDescriptionActivity"
             android:screenOrientation="portrait"/>

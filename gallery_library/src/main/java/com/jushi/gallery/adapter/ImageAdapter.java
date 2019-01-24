@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jushi.gallery.R;
 import com.jushi.gallery.activity.BeautyImageSelectActivity;
+import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.jushi.gallery.bean.ImageData;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
     private boolean show_select = false;
     private int count = 4;
     private RelativeLayout.LayoutParams layout_params;
+    private int type = ImageGalleryActivity.TYPE_IMAGE;
     /**
      * 最后选择的位置
      */
@@ -115,6 +117,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
         bundle.putInt(BeautyImageSelectActivity.POSITION, position);
         bundle.putInt(BeautyImageSelectActivity.MAX_COUNT, count);
         bundle.putBoolean(BeautyImageSelectActivity.CHECKED, list.get(position).isSelected());
+        bundle.putInt("type", type);
         intent.putExtras(bundle);
         context.startActivityForResult(intent, BeautyImageSelectActivity.BEAUTY_IMAGE_SELECT_REQUEST);
     }
@@ -178,6 +181,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageVH> {
             selects.remove(list.get(position).getPath());
             list.get(position).setSelected(false);
         }
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getCount() {
