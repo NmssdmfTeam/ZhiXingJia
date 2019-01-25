@@ -83,4 +83,6 @@ dependencies {
     api files('libs/umeng-sharetool-6.9.4.jar')
     api 'com.getui:sdk:2.13.0.0'
     api 'com.nmssdmf:gitlib:1.0.0'
+
+    api 'cn.jzvd:jiaozivideoplayer:6.4.1'
 }

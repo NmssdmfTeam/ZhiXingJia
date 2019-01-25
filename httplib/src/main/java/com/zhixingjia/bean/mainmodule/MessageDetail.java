@@ -172,7 +172,7 @@ public class MessageDetail extends BaseObservable{
 
     public static class ContentsBean extends BaseObservable{
         private String note;//内容1
-        private List<String> imgs;//图片集1
+        private List<ImgsBean> imgs;//图片集1
 
         @Bindable
         public String getNote() {
@@ -184,11 +184,11 @@ public class MessageDetail extends BaseObservable{
             notifyPropertyChanged(BR.note);
         }
 
-        public List<String> getImgs() {
+        public List<ImgsBean> getImgs() {
             return imgs;
         }
 
-        public void setImgs(List<String> imgs) {
+        public void setImgs(List<ImgsBean> imgs) {
             this.imgs = imgs;
         }
 

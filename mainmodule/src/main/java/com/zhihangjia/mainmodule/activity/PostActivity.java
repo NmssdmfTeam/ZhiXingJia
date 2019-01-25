@@ -339,8 +339,8 @@ public class PostActivity extends BaseActivity implements PostCB {
                     for (Integer j : set) {
                         if (i == j) {
                             PostContent.VideoInfo videoInfo = map.get(j);
-                            videoInfo.setImage_id(itemPostContentBinding.isv.getResult()[Integer.valueOf(videoInfo.getPosition())]);
-                            postContent.setVideoInfo(videoInfo);
+                            videoInfo.setImage_id(itemPostContentBinding.isv.getImgIds().get(Integer.valueOf(videoInfo.getPosition())));
+                            postContent.setVideoinfo(videoInfo);
                             break;
                         }
                     }

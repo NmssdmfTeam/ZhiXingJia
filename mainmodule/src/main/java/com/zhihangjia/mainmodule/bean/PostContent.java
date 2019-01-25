@@ -13,14 +13,14 @@ public class PostContent {
 
     private String[] imgs;      //图片ID格式
 
-    private  VideoInfo videoInfo;
+    private  VideoInfo videoinfo;
 
-    public VideoInfo getVideoInfo() {
-        return videoInfo;
+    public VideoInfo getVideoinfo() {
+        return videoinfo;
     }
 
-    public void setVideoInfo(VideoInfo videoInfo) {
-        this.videoInfo = videoInfo;
+    public void setVideoinfo(VideoInfo videoinfo) {
+        this.videoinfo = videoinfo;
     }
 
     public String getNote() {
