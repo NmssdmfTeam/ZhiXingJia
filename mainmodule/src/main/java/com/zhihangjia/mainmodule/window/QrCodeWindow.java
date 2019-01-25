@@ -10,9 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
+import com.nmssdmf.commonlib.rxbus.RxBus;
+import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.zhihangjia.mainmodule.R;
@@ -30,7 +29,11 @@ public class QrCodeWindow extends PopupWindow {
         setWidth(DensityUtil.dpToPx(context, 292f));
         binding.ivClose.setOnClickListener(v -> dismiss());
 
-        setOnDismissListener(() -> WindowUtil.setBackgroundAlpha((Activity) context, 1f));
+        setOnDismissListener(() -> {
+            RxBus.getInstance().send(RxEvent.CouponEvent.REFRESH_MY_COUPON, null);
+            WindowUtil.setBackgroundAlpha((Activity) context, 1f);
+        });
+
     }
 
     @Override
@@ -58,11 +61,8 @@ public class QrCodeWindow extends PopupWindow {
         if (data.length > 1) {
             String qrcodeImageData = data[1];
             Bitmap bitmap = base64ToBitmap(qrcodeImageData);
-//            Glide.with(context)
-//                    .load(bitmap)
-//                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true))
-//                    .into(binding.glideimageQrcode);
             binding.glideimageQrcode.setImageBitmap(bitmap);
         }
     }
+
 }

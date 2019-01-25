@@ -11,6 +11,7 @@ import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.viewmodel.BaseRecyclerViewFragmentVM;
 import com.nmssdmf.customerviewlib.OnDataChangeListener;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
+import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.MyCouponCardAdapter;
 import com.zhihangjia.mainmodule.callback.MyCouponCardFragmentCB;
 import com.zhihangjia.mainmodule.viewmodel.MyCouponCardFragmentVM;
@@ -65,6 +66,7 @@ public class MyCouponCardFragmentFragment extends BaseRecyclerViewFragment imple
             }
         });
         qrCodeWindow = new QrCodeWindow(getActivity());
+        binding.getRoot().setBackgroundResource(R.color.activity_grey_bg);
     }
 
     @Override

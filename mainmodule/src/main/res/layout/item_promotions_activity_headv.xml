@@ -8,11 +8,14 @@
 
         <com.nmssdmf.commonlib.rollviewpager.RollPagerView
             android:id="@+id/rpv"
-            android:layout_width="343dp"
+            android:layout_width="match_parent"
             android:layout_height="120dp"
             android:background="@color/white"
             app:rollviewpager_hint_paddingBottom="7dp"
-            app:rollviewpager_play_delay="3000"/>
+            app:rollviewpager_play_delay="3000"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"/>
 
     </LinearLayout>
 </layout>

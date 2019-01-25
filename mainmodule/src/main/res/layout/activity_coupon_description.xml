@@ -50,19 +50,10 @@
                 android:textColor="#FF999999"
                 android:textSize="10dp" />
 
-            <TextView
-                android:id="@+id/tvMoreThan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvCompanyName"
-                android:layout_marginTop="7.5dp"
-                android:background="@drawable/shape_coupon_morethan_tag_bg"
-                android:text='@{@string/morethan+vm.centerCoupon.morethannumber+@string/morethan_money}'
-                android:visibility='@{"morethan".equals(vm.centerCoupon.cond)?View.VISIBLE:View.GONE}'
-                android:textColor="#FFFF9A14"
-                android:textSize="10dp" />
+
 
             <LinearLayout
+                android:id="@+id/llDiscounts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -79,7 +70,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥"
+                    android:text="@string/yuan"
                     android:layout_gravity="center_vertical"
                     android:textColor="#FFFF9A14"
                     android:visibility='@{"morethan".equals(vm.centerCoupon.cond)?View.VISIBLE:View.GONE}'
@@ -106,6 +97,19 @@
                     android:visibility="@{vm.centerCoupon.allsum.equals(vm.centerCoupon.receive_sum)?View.GONE:View.VISIBLE}"
                     android:textSize="12dp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvMoreThan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/llDiscounts"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_coupon_morethan_tag_bg"
+                android:text='@{@string/morethan+vm.centerCoupon.morethannumber+@string/morethan_money}'
+                android:visibility='@{"morethan".equals(vm.centerCoupon.cond)?View.VISIBLE:View.GONE}'
+                android:textColor="#FFFF9A14"
+                android:padding="2dp"
+                android:textSize="10dp" />
 
         </RelativeLayout>
 
@@ -138,6 +142,7 @@
             android:textColor="#FF333333"
             android:layout_below="@+id/tvCouponDesicription"
             android:layout_marginTop="14dp"
+            android:lineSpacingExtra="5dp"
             android:textSize="13dp" />
         
         <Button

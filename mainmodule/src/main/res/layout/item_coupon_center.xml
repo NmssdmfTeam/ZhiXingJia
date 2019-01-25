@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="￥"
+                    android:text="@string/yuan"
                     android:textColor="@{data.allsum.equals(data.receive_sum)?0xFF999999:0xFFFF9A14}"
                     android:textSize="11dp"
                     android:visibility='@{"morethan".equals(data.cond)?View.VISIBLE:View.GONE}' />

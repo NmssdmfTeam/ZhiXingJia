@@ -2,7 +2,6 @@ package com.zhihangjia.mainmodule.viewmodel;
 
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseListData;
-import com.nmssdmf.commonlib.callback.BaseRecyclerViewFragmentCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
@@ -80,6 +79,7 @@ public class CouponCenterVM extends BaseRecyclerViewFragmentVM {
 
             @Override
             public void onSuccess(Base base) {
+                callback.showToast(base.getMessage());
                 item.setReceive_sum(new BigDecimal(item.getReceive_sum()).add(new BigDecimal(1)).toString());
                 callback.notifyItemChange(item, position);
             }

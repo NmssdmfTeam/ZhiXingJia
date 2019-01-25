@@ -51,7 +51,9 @@ public class DailyHotNewsFragment extends BaseRecyclerViewFragment implements Da
     }
 
     public void freshData() {
-        vm.initData(true);
+        if (vm != null) {
+            vm.initData(true);
+        }
     }
 
     @Override
