@@ -270,7 +270,7 @@ public class ColorArcProgressBar extends View {
      * @param currentValues
      */
     public void setCurrentValues(float currentValues) {
-        if (currentValues < 1) {
+        if (currentValues < 1 && currentValues > 0) {
             currentValues = 1;
         }
         currentValues = new BigDecimal(currentValues).setScale(0, RoundingMode.DOWN).floatValue();
