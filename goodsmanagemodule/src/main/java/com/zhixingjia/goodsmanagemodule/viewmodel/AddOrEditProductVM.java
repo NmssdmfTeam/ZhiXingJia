@@ -25,11 +25,10 @@ import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.net.IServiceLib;
 import com.nmssdmf.commonlib.net.http.OkHttpClientProvider;
 import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
-import com.nmssdmf.commonlib.rxbus.EventInfo;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
-import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.ImageUtil;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhixingjia.bean.goodsmanagemodel.CommodityShow;
@@ -45,7 +44,6 @@ import com.zhixingjia.goodsmanagemodule.bean.ProductDescribe;
 import com.zhixingjia.goodsmanagemodule.bean.SepcPriceStockUnit;
 import com.zhixingjia.goodsmanagemodule.callback.AddOrEditProductCB;
 import com.zhixingjia.service.GoodsManageService;
-import com.zhixingjia.service.MainService;
 
 import java.io.File;
 import java.io.Serializable;
@@ -313,8 +311,8 @@ public class AddOrEditProductVM extends BaseVM {
             if (productDescribe.getImgs() != null) {
                 for (UploadImage uploadImage : productDescribe.getImgs()) {
                     if (TextUtils.isEmpty(uploadImage.getImage_id())) {
-                        final String file_path = uploadImage.getUrl();
-                        File file = ImageUtil.getCompressFile(file_path);
+
+                        File file = ImageUtil.getCompressFile( uploadImage.getUrl());
                         // create your getFile object here
                         if (file == null) {
                             ToastUtil.getInstance().showToast("商品描述上传图片失败");

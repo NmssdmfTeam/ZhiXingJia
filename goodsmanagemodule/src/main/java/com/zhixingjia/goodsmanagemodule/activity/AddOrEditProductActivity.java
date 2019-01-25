@@ -7,6 +7,7 @@ import android.view.Gravity;
 
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.callback.WheelPickerWindowCB;
 import com.nmssdmf.commonlib.config.IntegerConfig;
 import com.nmssdmf.commonlib.view.ImageSelectView;
@@ -53,7 +54,6 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
     }
 
     private void setListener() {
-        binding.isv.setShowVideo(true);
         binding.isv.setOnUploadlistener(new ImageSelectView.OnImageUpLoadCompleteListener() {
             @Override
             public void onUpLoadComplete(String[] ids) {
@@ -68,6 +68,11 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
 
             @Override
             public void onAddImageClick(ImageSelectView imageSelectView) {
+
+            }
+
+            @Override
+            public void deleteImage(UploadImage uploadImage) {
 
             }
         });
@@ -104,15 +109,6 @@ public class AddOrEditProductActivity extends BaseTitleActivity implements AddOr
                     binding.isv.addAlbumImage(data);
                 }
                 break;
-            case 100:{
-                if (resultCode == 101) {//照片
-                    binding.isv.addCameraImage();
-                } else if (resultCode == 102) {//视频快照
-
-                    binding.isv.addCameraVideo(data);
-                }
-                break;
-            }
             default:
                 vm.onActivityResult(requestCode, resultCode, data);
                 break;

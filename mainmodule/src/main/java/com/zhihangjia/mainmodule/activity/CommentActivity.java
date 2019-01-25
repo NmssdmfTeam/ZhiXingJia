@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.config.IntegerConfig;
 import com.nmssdmf.commonlib.view.ImageSelectView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -134,6 +135,11 @@ public class CommentActivity extends BaseTitleActivity implements CommentCB {
                 @Override
                 public void onAddImageClick(ImageSelectView imageSelectView) {
                     currentImageSelectView = imageSelectView;
+                }
+
+                @Override
+                public void deleteImage(UploadImage uploadImage) {
+
                 }
             });
             binding.llCommentContent.addView(commentInputBinding.getRoot());

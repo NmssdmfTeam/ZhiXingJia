@@ -182,7 +182,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         }
     }
 
-    private boolean hasVideo(){
+    public boolean hasVideo(){
         for (UploadImage image : uploadImages) {
             if (!CommonUtils.isEmpty(image.getVideoPath())) {
                 return true;
@@ -712,11 +712,19 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         }
     }
 
+    @Override
+    public void onDetele(UploadImage uploadImage) {
+        if (upload_listener != null) {
+            upload_listener.deleteImage(uploadImage);
+        }
+    }
+
     public interface OnImageUpLoadCompleteListener {
         void onUpLoadComplete(String[] ids);
 
         void onUpLoadFailed(Throwable e);
 
         void onAddImageClick(ImageSelectView imageSelectView);
+        void deleteImage(UploadImage uploadImage);
     }
 }

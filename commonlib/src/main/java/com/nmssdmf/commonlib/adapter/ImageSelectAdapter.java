@@ -46,6 +46,9 @@ public class ImageSelectAdapter extends BaseDataBindingMultiItemQuickAdapter<Upl
                 @Override
                 public void onClick(View v) {
                     //删除图片
+                    if (onViewClickListener != null) {
+                        onViewClickListener.onDetele(getData().get(position));
+                    }
                     getData().remove(position);
                     if (getData().size() == 0 || getData().get(getData().size() - 1).getItemType() == 0) {
                         UploadImage uploadImage = new UploadImage();
@@ -82,5 +85,6 @@ public class ImageSelectAdapter extends BaseDataBindingMultiItemQuickAdapter<Upl
 
     public interface ViewClickListener {
         void onAddViewClick();
+        void onDetele(UploadImage uploadImage);
     }
 }

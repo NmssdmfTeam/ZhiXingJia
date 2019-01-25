@@ -31,6 +31,15 @@ public interface IServiceLib {
     Observable<Upload> uploadImage(@Part MultipartBody.Part body);
 
     /**
+     * 上传文件
+     * @param body
+     * @return
+     */
+    @Multipart
+    @POST("/file/upload")
+    Observable<Upload> uploadFile(@Part MultipartBody.Part body);
+
+    /**
      * 获取APP版本更新信息
      * @return
      */

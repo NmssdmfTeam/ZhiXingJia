@@ -1,21 +1,19 @@
 package com.zhihangjia.mainmodule.activity;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.config.IntegerConfig;
 import com.nmssdmf.commonlib.view.ImageSelectView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.bean.PostContent;
 import com.zhihangjia.mainmodule.databinding.ActivityReplayBinding;
-import com.zhihangjia.mainmodule.databinding.ItemPostContentBinding;
 import com.zhihangjia.mainmodule.viewmodel.ReplyVM;
 
 import java.util.ArrayList;
@@ -54,6 +52,11 @@ public class ReplyActivity extends BaseTitleActivity {
 
             @Override
             public void onAddImageClick(ImageSelectView imageSelectView) {
+
+            }
+
+            @Override
+            public void deleteImage(UploadImage uploadImage) {
 
             }
         });

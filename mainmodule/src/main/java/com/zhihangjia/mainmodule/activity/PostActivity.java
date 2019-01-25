@@ -8,9 +8,19 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.jushi.gallery.activity.ImageGalleryActivity;
+import com.jushi.gallery.bean.ImageData;
 import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.bean.Upload;
+import com.nmssdmf.commonlib.bean.UploadImage;
+import com.nmssdmf.commonlib.config.BaseConfig;
 import com.nmssdmf.commonlib.config.IntegerConfig;
+import com.nmssdmf.commonlib.config.StringConfig;
+import com.nmssdmf.commonlib.net.IServiceLib;
+import com.nmssdmf.commonlib.net.http.OkHttpClientProvider;
+import com.nmssdmf.commonlib.net.retrofit.HttpObserver;
+import com.nmssdmf.commonlib.util.CommonUtils;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.view.ImageSelectView;
 import com.nmssdmf.commonlib.view.TagView;
@@ -24,8 +34,18 @@ import com.zhihangjia.mainmodule.databinding.ItemPostTagBinding;
 import com.zhihangjia.mainmodule.viewmodel.PostVM;
 import com.zhixingjia.bean.mainmodule.BbsCategory;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 发帖页面
@@ -33,13 +53,15 @@ import java.util.List;
  * <p>
  * <p>
  */
-public class PostActivity extends BaseActivity implements PostCB{
+public class PostActivity extends BaseActivity implements PostCB {
     private ActivityPostBinding binding;
     private final String TAG = PostActivity.class.getSimpleName();
     private PostVM vm;
     private ImageSelectView currentImageSelectView;
     private List<ItemPostTagBinding> itemPostTagBindings = new ArrayList<>();
     private int imageSectionCount;
+    private PostContent.VideoInfo videInfo;
+    private int videoIndex = -1;
 
     @Override
     public String getTAG() {
@@ -94,7 +116,8 @@ public class PostActivity extends BaseActivity implements PostCB{
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.post) {
-                    uploadImg();
+//                    uploadImg();
+                    uploadVideo();
                 }
                 return false;
             }
@@ -122,8 +145,25 @@ public class PostActivity extends BaseActivity implements PostCB{
             case ImageGalleryActivity.IMAGE_SELECT_REQUEST:
                 if (resultCode == RESULT_OK) {
                     currentImageSelectView.addAlbumImage(data);
+                    //所有图片选择不可显示视频
+                    List<ImageData> temps = (List<ImageData>)data.getExtras().getSerializable("datas");
+                    for (ImageData imageData : temps) {
+                        if (!CommonUtils.isEmpty(imageData.getVideoPath())) {
+                            refreshVideo(false);
+                            break;
+                        }
+                    }
                 }
                 break;
+            case 100: {
+                if (resultCode == 101) {//照片
+                    currentImageSelectView.addCameraImage();
+                } else if (resultCode == 102) {//视频快照
+                    refreshVideo(false);
+                    currentImageSelectView.addCameraVideo(data);
+                }
+                break;
+            }
             default:
                 break;
         }
@@ -135,7 +175,19 @@ public class PostActivity extends BaseActivity implements PostCB{
             ToastUtil.showMsg("图文数量不可超过9个");
             return;
         }
-        final ItemPostContentBinding itemPostContentBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_post_content,null,false);
+        final ItemPostContentBinding itemPostContentBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_post_content, null, false);
+
+        int childCount = binding.llContent.getChildCount();
+        boolean showVideo = true;
+        for (int i = 0; i < childCount; i++) {
+            ItemPostContentBinding itemPostContentBinding1 = DataBindingUtil.findBinding(binding.llContent.getChildAt(i));
+            if (itemPostContentBinding1.isv.hasVideo()) {
+                showVideo = false;
+                break;
+            }
+        }
+        itemPostContentBinding.isv.setShowVideo(showVideo);
+
         itemPostContentBinding.isv.setOnUploadlistener(new ImageSelectView.OnImageUpLoadCompleteListener() {
             @Override
             public void onUpLoadComplete(String[] ids) {
@@ -154,6 +206,13 @@ public class PostActivity extends BaseActivity implements PostCB{
             public void onAddImageClick(ImageSelectView imageSelectView) {
                 currentImageSelectView = imageSelectView;
             }
+
+            @Override
+            public void deleteImage(UploadImage uploadImage) {
+                if (!CommonUtils.isEmpty(uploadImage.getVideoPath())) {
+                    refreshVideo(true);
+                }
+            }
         });
         itemPostContentBinding.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +222,74 @@ public class PostActivity extends BaseActivity implements PostCB{
         });
         binding.llContent.addView(itemPostContentBinding.getRoot());
     }
+
+    /**
+     *是否选择视频
+     * @param video
+     */
+    private void refreshVideo(boolean video){
+        int childCount = binding.llContent.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            ItemPostContentBinding itemPostContentBinding1 = DataBindingUtil.findBinding(binding.llContent.getChildAt(i));
+
+            itemPostContentBinding1.isv.setShowVideo(video);
+        }
+    }
+
+    public void uploadVideo(){
+        showLoaddingDialog();
+        int childCount = binding.llContent.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            ItemPostContentBinding itemPostContentBinding = DataBindingUtil.findBinding(binding.llContent.getChildAt(i));
+            if (itemPostContentBinding.isv.getImgSize() > 0) {
+                for (int j = 0;j <  itemPostContentBinding.isv.getFilePathList().size(); j++) {
+                    UploadImage uploadImage = itemPostContentBinding.isv.getFilePathList().get(j);
+                    if (!CommonUtils.isEmpty(uploadImage.getVideoPath())) {
+                        doUploadVideo(new File(uploadImage.getVideoPath()), i, j);
+                    }
+                }
+            }
+        }
+    }
+
+    public void doUploadVideo(final File file, final int productDescribeIndex, final int imgIndex) {
+
+        RequestBody request_body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), request_body);
+        IServiceLib iService = new Retrofit.Builder()
+                .baseUrl(BaseConfig.IMAGEUPLOADIP)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .client(OkHttpClientProvider.getInstance().getClient()).build().create(IServiceLib.class);
+        iService.uploadFile(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new HttpObserver<Upload>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        ToastUtil.getInstance().showToast("上传视频错误");
+                        dismissLoaddingDialog();
+                    }
+
+                    @Override
+                    public void onNext(Upload uploadImage) {
+                        if (StringConfig.OK.equals(uploadImage.getStatus_code())) {
+                            PostContent.VideoInfo videoInfo = new PostContent.VideoInfo();
+                            videoInfo.setVideo_id(uploadImage.getData().getImage_id());
+                            videoInfo.setPosition(String.valueOf(imgIndex));
+                            videInfo = videoInfo;
+                            videoIndex = productDescribeIndex;
+                        } else {
+                            dismissLoaddingDialog();
+                            ToastUtil.getInstance().showToast("上传视频失败");
+                        }
+                        uploadImg();
+                    }
+                });
+    }
+
+
 
     /**
      * 图片上传
@@ -193,10 +320,14 @@ public class PostActivity extends BaseActivity implements PostCB{
                 PostContent postContent = new PostContent();
                 postContent.setNote(itemPostContentBinding.etContent.getText().toString());
                 postContent.setImgs(itemPostContentBinding.isv.getResult());
+                if (i == videoIndex) {
+                    videInfo.setImage_id(itemPostContentBinding.isv.getResult()[Integer.valueOf(videInfo.getPosition())]);
+                    postContent.setVideoInfo(videInfo);
+                }
                 postContents.add(postContent);
             }
         }
-        vm.postContent(postContents,binding.etTitle.getText().toString());
+        vm.postContent(postContents, binding.etTitle.getText().toString());
     }
 
     @Override
@@ -217,14 +348,14 @@ public class PostActivity extends BaseActivity implements PostCB{
         int i = 0;
         for (BbsCategory category : cats) {
             //设置类别
-            final ItemPostTagBinding itemPostTagBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_post_tag,null,false);
+            final ItemPostTagBinding itemPostTagBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_post_tag, null, false);
             itemPostTagBinding.tvTag.setText(category.getCate_name());
             itemPostTagBinding.tvTag.setMode(TagView.SINGLEMODE);
             itemPostTagBinding.tvTag.setTagId(category.getCate_id());
             itemPostTagBinding.tvTag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    for (ItemPostTagBinding itemPostTag:itemPostTagBindings) {
+                    for (ItemPostTagBinding itemPostTag : itemPostTagBindings) {
                         itemPostTag.tvTag.setSelected(false);
                     }
                     itemPostTagBinding.tvTag.setSelected(true);

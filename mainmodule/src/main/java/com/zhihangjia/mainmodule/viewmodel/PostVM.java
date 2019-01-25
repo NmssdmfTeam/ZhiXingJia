@@ -17,6 +17,7 @@ import com.nmssdmf.commonlib.httplib.RxRequest;
 import com.nmssdmf.commonlib.httplib.ServiceCallback;
 import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.util.ToastUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
@@ -32,12 +33,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* @description  发帖viewmodel
-* @author chenbin
-* @date 2018/11/19 15:07
-* @version v3.2.0
-*/
+ * @author chenbin
+ * @version v3.2.0
+ * @description 发帖viewmodel
+ * @date 2018/11/19 15:07
+ */
 public class PostVM extends BaseVM {
+    private final String TAG = PostVM.class.getSimpleName();
     private PostCB callBack;
     public String currentCat;
     public String catId;
@@ -65,6 +67,7 @@ public class PostVM extends BaseVM {
 
     /**
      * 添加图文
+     *
      * @param view
      */
     public void onAddContentClick(View view) {
@@ -73,6 +76,7 @@ public class PostVM extends BaseVM {
 
     /**
      * 点击标题
+     *
      * @param view
      */
     public void onTitleClick(View view) {
@@ -81,9 +85,10 @@ public class PostVM extends BaseVM {
     }
 
     public void getBbsCat() {
-        String cat_json = PreferenceUtil.getString(PrefrenceConfig.BBS_CAT,"");
+        String cat_json = PreferenceUtil.getString(PrefrenceConfig.BBS_CAT, "");
         if (!TextUtils.isEmpty(cat_json)) {
-            List<BbsCategory> bbsCategories = new Gson().fromJson(cat_json, new TypeToken<List<BbsCategory>>() {}.getType());
+            List<BbsCategory> bbsCategories = new Gson().fromJson(cat_json, new TypeToken<List<BbsCategory>>() {
+            }.getType());
             callBack.setCat(bbsCategories);
         } else {
             getMessageCat();
@@ -119,7 +124,7 @@ public class PostVM extends BaseVM {
 
     public void postContent(List<PostContent> postContents, String title) {
         callBack.showLoaddingDialog();
-        if (postContents == null || postContents.size() == 0){
+        if (postContents == null || postContents.size() == 0) {
             ToastUtil.showMsg("请填写内容");
             callBack.dismissLoaddingDialog();
             return;
@@ -129,34 +134,39 @@ public class PostVM extends BaseVM {
             callBack.dismissLoaddingDialog();
             return;
         }
-        Map<String,Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("cate_id", currentCat);
         params.put("title", title);
         params.put("contents", new Gson().toJson(postContents));
+        JLog.jsonD(TAG, "postContents:", postContents);
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_INSERT).postBbs(params),
                 new ServiceCallback<BaseData<BbsInsertResult>>() {
-            @Override
-            public void onError(Throwable error) {
-                callBack.dismissLoaddingDialog();
-            }
+                    @Override
+                    public void onError(Throwable error) {
+                        callBack.dismissLoaddingDialog();
+                    }
 
-            @Override
-            public void onSuccess(BaseData<BbsInsertResult> base) {
-                if (StringConfig.OK.equals(base.getStatus_code())) {
-                    callBack.dismissLoaddingDialog();
-                    Bundle bundle = new Bundle();
-                    bundle.putString(IntentConfig.ID, base.getData().getBbs_id());
-                    callBack.doIntent(MessageDetailActivity.class, bundle);
-                    callBack.finishActivity();
-                    //刷新消息
-                    RxBus.getInstance().send(RxEvent.BbsEvent.BBS_INSERT, null);
-                }
-            }
+                    @Override
+                    public void onSuccess(BaseData<BbsInsertResult> base) {
+                        if (StringConfig.OK.equals(base.getStatus_code())) {
+                            callBack.dismissLoaddingDialog();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(IntentConfig.ID, base.getData().getBbs_id());
+                            callBack.doIntent(MessageDetailActivity.class, bundle);
+                            callBack.finishActivity();
+                            //刷新消息
+                            RxBus.getInstance().send(RxEvent.BbsEvent.BBS_INSERT, null);
+                        }
+                    }
 
-            @Override
-            public void onDefeated(BaseData<BbsInsertResult> base) {
-                callBack.dismissLoaddingDialog();
-            }
-        });
+                    @Override
+                    public void onDefeated(BaseData<BbsInsertResult> base) {
+                        callBack.dismissLoaddingDialog();
+                    }
+                });
     }
+
+
+
+
 }

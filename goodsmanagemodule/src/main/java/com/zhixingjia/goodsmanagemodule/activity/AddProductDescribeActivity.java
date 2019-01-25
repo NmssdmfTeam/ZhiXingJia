@@ -166,6 +166,11 @@ public class AddProductDescribeActivity extends BaseTitleActivity implements Add
             public void onAddImageClick(ImageSelectView imageSelectView) {
                 currentImageSelectView = imageSelectView;
             }
+
+            @Override
+            public void deleteImage(UploadImage uploadImage) {
+
+            }
         });
         itemPostContentBinding.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +202,11 @@ public class AddProductDescribeActivity extends BaseTitleActivity implements Add
                 @Override
                 public void onAddImageClick(ImageSelectView imageSelectView) {
                     currentImageSelectView = imageSelectView;
+                }
+
+                @Override
+                public void deleteImage(UploadImage uploadImage) {
+
                 }
             });
             itemPostContentBinding.etContent.setText(productDescribe.getNote());
