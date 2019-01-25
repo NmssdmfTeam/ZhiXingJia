@@ -505,7 +505,7 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         return true;
     }
 
-    private List<String> getImgIds() {
+    public List<String> getImgIds() {
         List<String> imgIds = new ArrayList<>();
         for (int i = 0; i < adapter.getImageSize(); i++) {
             imgIds.add(adapter.getData().get(i).getImage_id());
@@ -688,8 +688,17 @@ public class ImageSelectView extends LinearLayout implements ImageSelectAdapter.
         this.showVideo = showVideo;
     }
 
+    /**
+     * 获取上传的图片Id，若有视频内容，剔除视频的第一帧图片
+     * @return
+     */
     public String[] getResult() {
-        return toStringArray(getImgIds());
+        List<String> imgIds = new ArrayList<>();
+        for (int i = 0; i < adapter.getImageSize(); i++) {
+            if (TextUtils.isEmpty(adapter.getData().get(i).getVideoPath()))
+                imgIds.add(adapter.getData().get(i).getImage_id());
+        }
+        return toStringArray(imgIds);
     }
 
     public int getImage_max_size() {

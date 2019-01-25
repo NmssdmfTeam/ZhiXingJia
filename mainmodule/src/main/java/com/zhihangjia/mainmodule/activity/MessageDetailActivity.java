@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.jushi.gallery.activity.BeautyImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.config.IntentConfig;
@@ -51,6 +52,9 @@ import com.zhixingjia.bean.mainmodule.MessageDetail;
 
 import java.io.Serializable;
 import java.util.List;
+
+import cn.jzvd.Jzvd;
+import cn.jzvd.JzvdStd;
 
 /**
  * @author chenbin
@@ -200,22 +204,37 @@ public class MessageDetailActivity extends BaseTitleActivity implements MessageD
                     vm.firstContent = contentsBean.getNote();
                 }
                 if (contentsBean.getImgs() != null && contentsBean.getImgs().size() > 0) {
-                    for (String img : contentsBean.getImgs()) {
-                        GlideImageView imageView = new GlideImageView(this);
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        layoutParams.topMargin = DensityUtil.dpToPx(this, 12);
-                        layoutParams.bottomMargin = DensityUtil.dpToPx(this, 12);
-                        imageView.setLayoutParams(layoutParams);
-                        GlideUtil.load(imageView, img);
-                        itemMessageDetailBinding.llContent.addView(imageView);
-                        vm.imageUrls.add(Uri.parse(img));
-                        int index = vm.imageUrls.size() - 1;
-                        imageView.setOnClickListener(v -> {
-                            Bundle bundle = new Bundle();
-                            bundle.putInt(BeautyImageGalleryActivity.PAGE_INDEX, index);
-                            bundle.putSerializable(BeautyImageGalleryActivity.LIST_PATH_KEY, (Serializable) vm.imageUrls);
-                            doIntent(BeautyImageGalleryActivity.class, bundle);
-                        });
+                    for (MessageDetail.ContentsBean.ImgsBean img : contentsBean.getImgs()) {
+                        if ("0".equals(img.getTypes())) {
+                            GlideImageView imageView = new GlideImageView(this);
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            layoutParams.topMargin = DensityUtil.dpToPx(this, 12);
+                            layoutParams.bottomMargin = DensityUtil.dpToPx(this, 12);
+                            imageView.setLayoutParams(layoutParams);
+                            GlideUtil.load(imageView, img.getImg_url());
+                            itemMessageDetailBinding.llContent.addView(imageView);
+                            vm.imageUrls.add(Uri.parse(img.getImg_url()));
+                            int index = vm.imageUrls.size() - 1;
+                            imageView.setOnClickListener(v -> {
+                                Bundle bundle = new Bundle();
+                                bundle.putInt(BeautyImageGalleryActivity.PAGE_INDEX, index);
+                                bundle.putSerializable(BeautyImageGalleryActivity.LIST_PATH_KEY, (Serializable) vm.imageUrls);
+                                doIntent(BeautyImageGalleryActivity.class, bundle);
+                            });
+                        } else {
+                            JzvdStd jzvdStd = new JzvdStd(this);
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dpToPx(this, 200f));
+                            layoutParams.topMargin = DensityUtil.dpToPx(this, 12);
+                            layoutParams.bottomMargin = DensityUtil.dpToPx(this, 12);
+                            jzvdStd.setLayoutParams(layoutParams);
+                            jzvdStd.setUp(
+                                    img.getVideo_url(),
+                                    "", Jzvd.SCREEN_WINDOW_LIST);
+                            Glide.with(this)
+                                    .load(img.getImg_url())
+                                    .into(jzvdStd.thumbImageView);
+                            itemMessageDetailBinding.llContent.addView(jzvdStd);
+                        }
                     }
                 }
                 itemMessageDetailHeadBinding.llContent.addView(itemMessageDetailBinding.getRoot());

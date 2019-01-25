@@ -37,7 +37,7 @@ public class HttpVersionConfig {
     /**
      * 帖子详情
      */
-    public static final int API_BBS_VIEW = 1;
+    public static final int API_BBS_VIEW = 2;
 
     /**
      * 分类
@@ -51,7 +51,7 @@ public class HttpVersionConfig {
     /**
      * 发帖保存
      */
-    public static final int API_BBS_INSERT = 1;
+    public static final int API_BBS_INSERT = 2;
 
     /**
      * 帖子评论保存
