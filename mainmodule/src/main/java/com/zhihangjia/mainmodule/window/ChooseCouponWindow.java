@@ -11,11 +11,13 @@ import com.nmssdmf.commonlib.util.DensityUtil;
 import com.nmssdmf.commonlib.util.WindowUtil;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.adapter.ChooseCouponAdater;
+import com.zhihangjia.mainmodule.databinding.ItemDontUseCouponBinding;
 import com.zhihangjia.mainmodule.databinding.WindowChooseCouponBinding;
 import com.zhixingjia.bean.personmodule.Coupon;
 
 import java.util.List;
 
+import static android.databinding.DataBindingUtil.inflate;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
@@ -32,7 +34,7 @@ public class ChooseCouponWindow extends PopupWindow{
      * @param type 区分商家优惠券还是平台优惠券
      */
     public ChooseCouponWindow (final Context context, String type,  ChooseCouponAdater.ChooseCouponAdaterListener listener){
-         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.window_choose_coupon, null, false);
+        binding = inflate(LayoutInflater.from(context), R.layout.window_choose_coupon, null, false);
         setContentView(binding.getRoot());
         setHeight(DensityUtil.dpToPx(context, 371.5f));
         setWidth(MATCH_PARENT);
@@ -50,12 +52,19 @@ public class ChooseCouponWindow extends PopupWindow{
         }
 
 //        if (list != null && list.size() > 0) {
+        ItemDontUseCouponBinding itemDontUserCouponBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_dont_use_coupon, null,false);
             ChooseCouponAdater adater = new ChooseCouponAdater( listener);
+            adater.addHeaderView(itemDontUserCouponBinding.getRoot());
             binding.crv.setAdapter(adater);
 //        }
 
         setOnDismissListener(() -> WindowUtil.setBackgroundAlpha((Activity) context, 1f));
-
+        itemDontUserCouponBinding.rlDontUseCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.dontUseCoupon();
+            }
+        });
     }
 
     public void refreshAdapter(boolean isRefresh, List<Coupon> list){

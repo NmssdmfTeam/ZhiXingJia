@@ -313,6 +313,17 @@ public class ConfirmOrderVM extends BaseVM implements ChooseCouponAdater.ChooseC
         cb.notifyPosition(position);
     }
 
+    @Override
+    public void dontUseCoupon() {
+        listBeans.get(position).setCoupon_code("");
+        listBeans.get(position).setCoupon_price("");
+        cb.closeChooseCouponWindow();
+
+        BigDecimal totalCouponPrice = new BigDecimal(0);
+        totalAmount.set(new BigDecimal(orderAmount).subtract(totalCouponPrice).toString());
+        cb.notifyPosition(position);
+    }
+
     public List<CommodityComfirm.InfoListBean> getListBeans() {
         return listBeans;
     }
