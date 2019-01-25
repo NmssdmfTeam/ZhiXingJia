@@ -72,9 +72,9 @@ dependencies {
     api 'me.jessyan:autosize:1.0.6'
     api project(':WheelPicker')
     api project(':camera')
-//    api 'com.bugtags.library:bugtags-lib:latest.integration'
+    api 'com.bugtags.library:bugtags-lib:latest.integration'
     //线上使用，如果不需要使用手动提交 issue，可以选择 metrics 包
-    api 'com.bugtags.metrics:bugtags-lib:latest.integration'
+//    api 'com.bugtags.metrics:bugtags-lib:latest.integration'
     api files('libs/SecurityEnvSDK-release-1.1.0.jar')
     api files('libs/umeng-common-1.5.4.jar')
     api files('libs/umeng-share-core-6.9.4.jar')

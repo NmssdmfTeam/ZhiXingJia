@@ -6,6 +6,7 @@ import android.databinding.Bindable;
 import com.nmssdmf.commonlib.util.StringUtil;
 import com.zhixingjia.httplib.BR;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -189,6 +190,42 @@ public class MessageDetail extends BaseObservable{
 
         public void setImgs(List<String> imgs) {
             this.imgs = imgs;
+        }
+
+        public static class ImgsBean extends BaseObservable implements Serializable {
+            private String types;           //类型 0=图片  1=视频
+            private String img_url;         //图片地址
+            private String video_url;       //视频地址
+
+            @Bindable
+            public String getTypes() {
+                return types;
+            }
+
+            public void setTypes(String types) {
+                this.types = types;
+                notifyPropertyChanged(BR.types);
+            }
+
+            @Bindable
+            public String getImg_url() {
+                return img_url;
+            }
+
+            public void setImg_url(String img_url) {
+                this.img_url = img_url;
+                notifyPropertyChanged(BR.img_url);
+            }
+
+            @Bindable
+            public String getVideo_url() {
+                return video_url;
+            }
+
+            public void setVideo_url(String video_url) {
+                this.video_url = video_url;
+                notifyPropertyChanged(BR.video_url);
+            }
         }
     }
 }
