@@ -28,5 +28,6 @@ public class ChooseCouponAdater extends BaseDataBindingAdapter<Coupon, ItemChoos
 
     public interface  ChooseCouponAdaterListener{
         void useCoupon(Coupon item);
+        void dontUseCoupon();
     }
 }

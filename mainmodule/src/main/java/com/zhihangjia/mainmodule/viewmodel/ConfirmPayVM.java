@@ -203,6 +203,14 @@ public class ConfirmPayVM extends BaseVM implements ChooseCouponAdater.ChooseCou
     }
 
     @Override
+    public void dontUseCoupon() {
+        coupon.setCode_id("");
+        payPrice.set(new BigDecimal(payInfo.get().getOrder_amount()).toString());
+        couponString.set(payInfo.get().getCoupon_sum() + baseCallBck.getStringFromId(R.string.enable_coupon_num));
+        callback.closeCouponWindow();
+    }
+
+    @Override
     public void registerRxBus() {
         super.registerRxBus();
         RxBus.getInstance().register(RxEvent.OrderEvent.ALIPAY_FINISH, this);
