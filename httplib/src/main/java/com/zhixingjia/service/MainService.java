@@ -17,6 +17,7 @@ import com.zhixingjia.bean.mainmodule.CommodityDetail;
 import com.zhixingjia.bean.mainmodule.CouponCard;
 import com.zhixingjia.bean.mainmodule.CouponCardTicketSum;
 import com.zhixingjia.bean.mainmodule.CouponSeller;
+import com.zhixingjia.bean.mainmodule.HeadLines;
 import com.zhixingjia.bean.mainmodule.HotHistory;
 import com.zhixingjia.bean.mainmodule.HouseBean;
 import com.zhixingjia.bean.mainmodule.IndexBean;
@@ -86,6 +87,12 @@ public interface MainService {
     Observable<BaseData<MessageDetail>> getMessageDetail(@Query("bbs_id") String bbs_id);
 
     /**
+     * 宜兴头条详情
+     */
+    @GET ("/api/bbs/view")
+    Observable<BaseData<HeadLines>> getYXHeadLineDetail(@Query("id") String id);
+
+    /**
      * 分类
      * @return
      */
@@ -98,6 +105,13 @@ public interface MainService {
      */
     @GET ("/api/bbs/comment")
     Observable<BaseListData<MessageComment>> getCommentList(@QueryMap Map<String, String> map);
+
+    /**
+     * 宜兴头条详情评论
+     * @return
+     */
+    @GET ("/api/news/headlines_comment")
+    Observable<BaseListData<MessageComment>> getHeadLineCommentList(@QueryMap Map<String, String> map);
 
     /**
      * 发帖保存
@@ -122,6 +136,14 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/bbs/give_insert")
     Observable<Base> giveInsert(@FieldMap Map<String,Object> params);
+
+    /**
+     * 宜兴头条点赞保存或者取消（评论点赞、帖子点赞）
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/headlines/give_insert")
+    Observable<Base> yxHeadLinegiveInsert(@FieldMap Map<String,Object> params);
 
     /**
      * 首页

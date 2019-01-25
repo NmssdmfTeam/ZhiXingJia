@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.XYHeadLineDetailVM" />
+        <import type="android.view.View"></import>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.nmssdmf.customerviewlib.CustomerRecyclerView
+                android:id="@+id/crv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <include layout="@layout/include_recyclerview_cutoff_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="195dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/shape_comment_edit"
+                    android:gravity="center_vertical"
+                    android:hint="写评论..."
+                    android:onClick="@{(v)->vm.onCommentClick(v)}"
+                    android:paddingLeft="16dp"
+                    android:textSize="14dp" />
+
+                <RelativeLayout
+                    android:layout_width="34dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:onClick="@{(v)->vm.onZanClick(v)}">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/icon_commentbar_zan" />
+
+                    <TextView
+                        android:id="@+id/tvNumZan"
+                        android:layout_width="16dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/shape_red_circle_number"
+                        android:gravity="center"
+                        android:text='@{vm.zanNum+""}'
+                        android:visibility="@{vm.zanNum==0?View.GONE:View.VISIBLE}"
+                        android:textColor="@color/white"
+                        android:textSize="8dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="34dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerInParent="true"
+                        android:onClick="@{(v)->vm.onCommentBackClick(v)}"
+                        android:src="@drawable/icon_commentbar_comment" />
+
+                    <TextView
+                        android:id="@+id/tvNumComment"
+                        android:layout_width="16dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/shape_red_circle_number"
+                        android:gravity="center"
+                        android:text='@{vm.commentNum+""}'
+                        android:visibility="@{vm.commentNum==0?View.GONE:View.VISIBLE}"
+                        android:textColor="@color/white"
+                        android:textSize="8dp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="23dp"
+                    android:onClick="@{(v)->vm.onShareClick(v)}"
+                    android:src="@drawable/icon_commentbar_share" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

@@ -40,6 +40,11 @@ public class HttpVersionConfig {
     public static final int API_BBS_VIEW = 2;
 
     /**
+     * 宜兴头条详情评论
+     */
+    public static final int API_NEWS_HEADLINES_COMMENT = 2;
+
+    /**
      * 分类
      */
     public static final int API_BBS_CATE = 1;
@@ -62,6 +67,11 @@ public class HttpVersionConfig {
      * 帖子评论保存
      */
     public static final int API_BBS_GIVE_INSERT = 1;
+
+    /**
+     * 宜兴头条点赞保存或者取消（评论点赞、帖子点赞）
+     */
+    public static final int API_HEADLINES_GIVE_INSERT = 2;
 
     /**
      * 所在地区
@@ -421,4 +431,9 @@ public class HttpVersionConfig {
      *买家扫一扫核销卡券
      */
     public static final int API_MY_COUPON_WRITE_OFF = 2;
+
+    /**
+     *宜兴头条详情评论
+     */
+    public static final int API_NEWS_HEADLINES_COMMENT = 2;
 }

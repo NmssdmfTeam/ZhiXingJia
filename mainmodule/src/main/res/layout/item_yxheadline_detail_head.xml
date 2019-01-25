@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.nmssdmf.commonlib.util.StringUtil" />
+
+        <variable
+            name="vm"
+            type="com.zhihangjia.mainmodule.viewmodel.XYHeadLineDetailVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@{vm.detail.title}"
+            android:textColor="#FF333333"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.detail.read_sum + @string/read}"
+                android:textColor="#FFA5A5A5"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="@{vm.detail.comment_sum + @string/comment}"
+                android:textColor="#FFA5A5A5"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:onClick="@{(v)->vm.onCategoryClick(v)}"
+                android:text="@{vm.detail.cate_name}"
+                android:textColor="#FFFF9A14"
+                android:textSize="13dp" />
+
+
+        </LinearLayout>
+
+        <include layout="@layout/include_recyclerview_cutoff_line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:id="@+id/ivAvater"
+                src="@{vm.detail.avatar}"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="12dp"
+                app:roundAsCircle="@{true}" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ivAvater"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/ivAvater"
+                android:text="@{vm.detail.nickname}"
+                android:textColor="#FF333333"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/ivAvater"
+                android:text="@{vm.detail.createtime}"
+                android:textColor="#FFA5A5A5"
+                android:textSize="12dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

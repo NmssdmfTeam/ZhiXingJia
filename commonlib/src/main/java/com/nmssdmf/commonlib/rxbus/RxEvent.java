@@ -61,6 +61,7 @@ public class RxEvent {
         public static final int INDEX_SWITCH = VALUE + 3;   //跳转信息中心
         public static final int BBS_DELETE = VALUE + 4;     //帖子删除
         public static final int BBS_BLACK = VALUE + 5;     //拉黑
+        public static final int HEADLINE_COMMENT_INSERT = VALUE + 6;     //宜兴头条点赞
     }
 
     public static class PersonInfoEvent extends RxEvent {

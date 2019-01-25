@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="data"
+            type="com.zhihangjia.mainmodule.bean.HeadLineDetailInfo"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llZan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="@{vm.zanNum == 0 ? View.GONE:View.VISIBLE}">
+
+            <com.nmssdmf.commonlib.view.GlideImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_zan" />
+
+            <TextView
+                android:id="@+id/tvGiveinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:textColor="#FF333333"
+                android:textSize="12dp"
+                android:text="@{data.giveNames}"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
