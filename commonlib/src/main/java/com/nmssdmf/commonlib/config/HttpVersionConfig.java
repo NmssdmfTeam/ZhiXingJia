@@ -416,4 +416,9 @@ public class HttpVersionConfig {
      * 我的卡券列表
      */
     public static final int API_MY_CARD_TICKET  = 2;
+
+    /**
+     *买家扫一扫核销卡券
+     */
+    public static final int API_MY_COUPON_WRITE_OFF = 2;
 }

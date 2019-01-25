@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.jushi.gallery.activity.ImageGalleryActivity;
-import com.jushi.gallery.bean.ImageData;
 import com.nmssdmf.commonlib.activity.BaseActivity;
 import com.nmssdmf.commonlib.bean.Upload;
 import com.nmssdmf.commonlib.bean.UploadImage;
@@ -36,7 +35,10 @@ import com.zhixingjia.bean.mainmodule.BbsCategory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -60,8 +62,11 @@ public class PostActivity extends BaseActivity implements PostCB {
     private ImageSelectView currentImageSelectView;
     private List<ItemPostTagBinding> itemPostTagBindings = new ArrayList<>();
     private int imageSectionCount;
-    private PostContent.VideoInfo videInfo;
-    private int videoIndex = -1;
+//    private PostContent.VideoInfo videInfo;
+//    private int videoIndex = -1;
+
+    Map<Integer, PostContent.VideoInfo> map = new HashMap<>();
+    private int videoCount = 0;
 
     @Override
     public String getTAG() {
@@ -146,20 +151,20 @@ public class PostActivity extends BaseActivity implements PostCB {
                 if (resultCode == RESULT_OK) {
                     currentImageSelectView.addAlbumImage(data);
                     //所有图片选择不可显示视频
-                    List<ImageData> temps = (List<ImageData>)data.getExtras().getSerializable("datas");
-                    for (ImageData imageData : temps) {
-                        if (!CommonUtils.isEmpty(imageData.getVideoPath())) {
-                            refreshVideo(false);
-                            break;
-                        }
-                    }
+//                    List<ImageData> temps = (List<ImageData>)data.getExtras().getSerializable("datas");
+//                    for (ImageData imageData : temps) {
+//                        if (!CommonUtils.isEmpty(imageData.getVideoPath())) {
+//                            refreshVideo(false);
+//                            break;
+//                        }
+//                    }
                 }
                 break;
             case 100: {
                 if (resultCode == 101) {//照片
                     currentImageSelectView.addCameraImage();
                 } else if (resultCode == 102) {//视频快照
-                    refreshVideo(false);
+//                    refreshVideo(false);
                     currentImageSelectView.addCameraVideo(data);
                 }
                 break;
@@ -177,16 +182,16 @@ public class PostActivity extends BaseActivity implements PostCB {
         }
         final ItemPostContentBinding itemPostContentBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_post_content, null, false);
 
-        int childCount = binding.llContent.getChildCount();
-        boolean showVideo = true;
-        for (int i = 0; i < childCount; i++) {
-            ItemPostContentBinding itemPostContentBinding1 = DataBindingUtil.findBinding(binding.llContent.getChildAt(i));
-            if (itemPostContentBinding1.isv.hasVideo()) {
-                showVideo = false;
-                break;
-            }
-        }
-        itemPostContentBinding.isv.setShowVideo(showVideo);
+//        int childCount = binding.llContent.getChildCount();
+//        boolean showVideo = true;
+//        for (int i = 0; i < childCount; i++) {
+//            ItemPostContentBinding itemPostContentBinding1 = DataBindingUtil.findBinding(binding.llContent.getChildAt(i));
+//            if (itemPostContentBinding1.isv.hasVideo()) {
+//                showVideo = false;
+//                break;
+//            }
+//        }
+        itemPostContentBinding.isv.setShowVideo(true);
 
         itemPostContentBinding.isv.setOnUploadlistener(new ImageSelectView.OnImageUpLoadCompleteListener() {
             @Override
@@ -209,9 +214,9 @@ public class PostActivity extends BaseActivity implements PostCB {
 
             @Override
             public void deleteImage(UploadImage uploadImage) {
-                if (!CommonUtils.isEmpty(uploadImage.getVideoPath())) {
-                    refreshVideo(true);
-                }
+//                if (!CommonUtils.isEmpty(uploadImage.getVideoPath())) {
+//                    refreshVideo(true);
+//                }
             }
         });
         itemPostContentBinding.btnRemove.setOnClickListener(new View.OnClickListener() {
@@ -245,10 +250,14 @@ public class PostActivity extends BaseActivity implements PostCB {
                 for (int j = 0;j <  itemPostContentBinding.isv.getFilePathList().size(); j++) {
                     UploadImage uploadImage = itemPostContentBinding.isv.getFilePathList().get(j);
                     if (!CommonUtils.isEmpty(uploadImage.getVideoPath())) {
+                        videoCount += 1;
                         doUploadVideo(new File(uploadImage.getVideoPath()), i, j);
                     }
                 }
             }
+        }
+        if (videoCount == 0) {//没有视频，直接上传图片
+            uploadImg();
         }
     }
 
@@ -274,17 +283,22 @@ public class PostActivity extends BaseActivity implements PostCB {
 
                     @Override
                     public void onNext(Upload uploadImage) {
+                        videoCount -= 1;
                         if (StringConfig.OK.equals(uploadImage.getStatus_code())) {
                             PostContent.VideoInfo videoInfo = new PostContent.VideoInfo();
                             videoInfo.setVideo_id(uploadImage.getData().getImage_id());
                             videoInfo.setPosition(String.valueOf(imgIndex));
-                            videInfo = videoInfo;
-                            videoIndex = productDescribeIndex;
+//                            videInfo = videoInfo;
+                            map.put(productDescribeIndex, videoInfo);
+//                            videoIndex = productDescribeIndex;
                         } else {
                             dismissLoaddingDialog();
                             ToastUtil.getInstance().showToast("上传视频失败");
                         }
-                        uploadImg();
+                        if (videoCount == 0) {
+                            uploadImg();
+                        }
+
                     }
                 });
     }
@@ -320,9 +334,16 @@ public class PostActivity extends BaseActivity implements PostCB {
                 PostContent postContent = new PostContent();
                 postContent.setNote(itemPostContentBinding.etContent.getText().toString());
                 postContent.setImgs(itemPostContentBinding.isv.getResult());
-                if (i == videoIndex) {
-                    videInfo.setImage_id(itemPostContentBinding.isv.getResult()[Integer.valueOf(videInfo.getPosition())]);
-                    postContent.setVideoInfo(videInfo);
+                if (map.size() > 0) {
+                    Set<Integer> set = map.keySet(); //取出所有的key值
+                    for (Integer j : set) {
+                        if (i == j) {
+                            PostContent.VideoInfo videoInfo = map.get(j);
+                            videoInfo.setImage_id(itemPostContentBinding.isv.getResult()[Integer.valueOf(videoInfo.getPosition())]);
+                            postContent.setVideoInfo(videoInfo);
+                            break;
+                        }
+                    }
                 }
                 postContents.add(postContent);
             }

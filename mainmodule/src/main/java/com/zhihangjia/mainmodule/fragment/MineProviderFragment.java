@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.nmssdmf.commonlib.config.StringConfig;
 import com.nmssdmf.commonlib.fragment.BaseFragment;
+import com.nmssdmf.commonlib.util.CommonUtils;
+import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.MainActivity;
@@ -20,6 +22,9 @@ import com.zhihangjia.mainmodule.databinding.FragmentMineProviderBinding;
 import com.zhihangjia.mainmodule.viewmodel.MineProviderFragmentVM;
 import com.zhihangjia.mainmodule.activity.CaptureActivity;
 import com.zhixingjia.bean.mainmodule.MessageUnread;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -127,7 +132,19 @@ public class MineProviderFragment extends BaseFragment implements MineProviderFr
                         //获取扫描结果
                         Bundle bundle = data.getExtras();
                         String result = bundle.getString(CaptureActivity.EXTRA_STRING);
-                        showToast("fragment 扫描结果：" + result);
+                        JLog.d(TAG, "result = " + result);
+//                        "types=zs_coupon&member_id=14&code=306339&code_id=3"
+                        if (!CommonUtils.isEmpty(result)) {
+                            String[] params = result.split("&");
+                            if (params.length > 0 && "zs_coupon".equals(params[0].split("=")[1])) {
+                                Map<String, String> map = new HashMap<>();
+                                map.put(params[1].split("=")[0], params[1].split("=")[1]);
+                                map.put(params[2].split("=")[0], params[2].split("=")[1]);
+                                map.put(params[3].split("=")[0], params[3].split("=")[1]);
+                                vm.getCouponWriteOff(map);
+                            }
+
+                        }
                     }
                 }
                 break;

@@ -20,22 +20,25 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
+import com.zhihangjia.mainmodule.activity.CaptureActivity;
 import com.zhihangjia.mainmodule.activity.MessageCenterActivity;
 import com.zhihangjia.mainmodule.activity.OrderListSupplierActivity;
+import com.zhihangjia.mainmodule.activity.ShopCouponListActivity;
 import com.zhihangjia.mainmodule.callback.MineProviderFragmentCB;
-import com.zhihangjia.mainmodule.activity.CaptureActivity;
 import com.zhixingjia.bean.mainmodule.MessageUnread;
 import com.zhixingjia.bean.mainmodule.UserInfo;
 import com.zhixingjia.bean.personmodule.Company;
 import com.zhixingjia.service.MainService;
 import com.zhixingjia.service.PersonService;
 
+import java.util.Map;
+
 /**
-* @description 我的--卖家
-* @author chenbin
-* @date 2018/11/20 16:40
-* @version v3.2.0
-*/
+ * @author chenbin
+ * @version v3.2.0
+ * @description 我的--卖家
+ * @date 2018/11/20 16:40
+ */
 public class MineProviderFragmentVM extends BaseVM {
     public static final int REQUEST_CODE_SCAN = 0x0000;// 扫描二维码
     public ObservableField<UserInfo> userinfo = new ObservableField<>();
@@ -57,7 +60,7 @@ public class MineProviderFragmentVM extends BaseVM {
         baseCallBck.doIntent(OrderListSupplierActivity.class, bundle);
     }
 
-    public void publishGoodsClick(View view){
+    public void publishGoodsClick(View view) {
         baseCallBck.doIntentClassName(ActivityNameConfig.ADD_OR_EDIT_PRODUCT_ACTIVITY, null);
     }
 
@@ -122,7 +125,11 @@ public class MineProviderFragmentVM extends BaseVM {
     }
 
     public void onCouponManagementClick(View view) {
-//        callback.doIntent(ShopCouponListActivity.class, null);
+        callback.doIntent(ShopCouponListActivity.class, null);
+
+    }
+
+    public void onScan(View view) {
         //动态权限申请
         if (callback.checkPermission()) {
             callback.doIntentForResult(CaptureActivity.class, null, MineProviderFragmentVM.REQUEST_CODE_SCAN);
@@ -167,23 +174,44 @@ public class MineProviderFragmentVM extends BaseVM {
         HttpUtils.doHttp(subscription,
                 RxRequest.create(PersonService.class, HttpVersionConfig.API_MY_COMPANY).getMyCompany(),
                 new ServiceCallback<BaseData<Company>>() {
-            @Override
-            public void onError(Throwable error) {
+                    @Override
+                    public void onError(Throwable error) {
 
-            }
+                    }
 
-            @Override
-            public void onSuccess(BaseData<Company> companyBaseData) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(IntentConfig.COMPANY, companyBaseData.getData());
-                callback.doIntentClassName(ActivityNameConfig.APPLYSUPPLIER_ACIVITY, bundle);
-            }
+                    @Override
+                    public void onSuccess(BaseData<Company> companyBaseData) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(IntentConfig.COMPANY, companyBaseData.getData());
+                        callback.doIntentClassName(ActivityNameConfig.APPLYSUPPLIER_ACIVITY, bundle);
+                    }
 
-            @Override
-            public void onDefeated(BaseData<Company> companyBaseData) {
+                    @Override
+                    public void onDefeated(BaseData<Company> companyBaseData) {
 
-            }
-        });
+                    }
+                });
+    }
+
+    public void getCouponWriteOff( Map<String, String> map){
+        callback.showLoaddingDialog();
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_MY_COUPON_WRITE_OFF).getCouponWriteOff(map),
+                new ServiceCallback<BaseData>() {
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(BaseData data) {
+                        callback.showToast(data.getMessage());
+                    }
+
+                    @Override
+                    public void onDefeated(BaseData data) {
+
+                    }
+                });
     }
 
     @Override

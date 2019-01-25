@@ -1,7 +1,5 @@
 package com.zhixingjia.service;
 
-import android.databinding.ObservableField;
-
 import com.nmssdmf.commonlib.bean.Base;
 import com.nmssdmf.commonlib.bean.BaseData;
 import com.nmssdmf.commonlib.bean.BaseListData;
@@ -543,4 +541,12 @@ public interface MainService {
      */
     @GET("/api/my/card_ticket_sum")
     Observable<BaseData<CouponCardTicketSum>> getCouponCardTicketSum();
+
+    /**
+     * 买家扫一扫核销卡券
+     */
+    @FormUrlEncoded
+    @POST("/api/my/coupon_write_off")
+    Observable<BaseData> getCouponWriteOff(@FieldMap Map<String, String> map);
+
 }

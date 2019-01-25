@@ -99,9 +99,9 @@
                                 android:layout_height="32dp"
                                 android:layout_marginRight="15dp"
                                 android:layout_toLeftOf="@+id/rl_message"
+                                android:onClick="@{(v)->vm.onSettingClick(v)}"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/icon_mine_setting"
-                                android:onClick="@{(v)->vm.onSettingClick(v)}"/>
+                                android:src="@drawable/icon_mine_setting"/>
                         </RelativeLayout>
 
                         <LinearLayout
@@ -312,26 +312,26 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="124dp"
+                        android:layout_height="204dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/shape_mine_section_bg"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
+                            android:layout_height="44dp"
                             android:layout_marginLeft="12dp"
-                            android:layout_marginTop="10dp"
                             android:text="必备工具"
                             android:textColor="#FF333333"
+                            android:gravity="center_vertical"
                             android:textSize="17dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="75dp"
                             android:orientation="horizontal">
 
                             <FrameLayout
@@ -404,6 +404,35 @@
 
                             </FrameLayout>
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:onClick="@{(v)->vm.onScan(v)}">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableTop="@drawable/icon_company_info"
+                                    android:text="扫一扫"
+                                    android:textColor="#FF333333"
+                                    android:textSize="13dp"/>
+
+                            </FrameLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="3"/>
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
