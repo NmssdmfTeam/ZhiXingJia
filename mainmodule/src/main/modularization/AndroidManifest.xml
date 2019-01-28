@@ -133,6 +133,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MyCouponCardActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.XYHeadLineDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

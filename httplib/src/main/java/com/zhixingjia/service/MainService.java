@@ -89,7 +89,7 @@ public interface MainService {
     /**
      * 宜兴头条详情
      */
-    @GET ("/api/bbs/view")
+    @GET ("/api/news/headlines")
     Observable<BaseData<HeadLines>> getYXHeadLineDetail(@Query("id") String id);
 
     /**
@@ -128,6 +128,14 @@ public interface MainService {
     @FormUrlEncoded
     @POST("/api/bbs/comment_insert")
     Observable<Base> commentInsert(@FieldMap Map<String,Object> params);
+
+    /**
+     * 宜兴头条评论保存
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/api/headlines/comment_insert")
+    Observable<Base> headLineCommentInsert(@FieldMap Map<String,Object> params);
 
     /**
      * 评论文章点赞

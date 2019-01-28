@@ -15,7 +15,6 @@ public interface XYHeadLineDetailCB extends BaseCB {
     void scrollToTop();
     void onCommentZanRequestFinish(int position);
     void refreshGiveInfo(int zanNum, String giveNames);
-    void setPageTitle(String title);
     void endFresh();
     void showShareWindow();
 }

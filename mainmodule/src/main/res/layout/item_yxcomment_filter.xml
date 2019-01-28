@@ -10,8 +10,9 @@
         android:id="@+id/llCommentTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingTop="20dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="10dp">
@@ -22,23 +23,6 @@
             android:text="全部评论"
             android:textColor="#FF333333"
             android:textSize="17dp" />
-
-        <CheckBox
-            android:id="@+id/cbLookBuilder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:background="@drawable/selector_only_look_builder"
-            android:button="@null"
-            android:checked="@={adapter.onlyLookBuilder}"
-            android:paddingBottom="2dp"
-            android:paddingLeft="5.5dp"
-            android:paddingRight="5.5dp"
-            android:paddingTop="2dp"
-            android:text="只看楼主"
-            android:textColor="#FFFF9A14"
-            android:textSize="12dp" />
 
 
         <View

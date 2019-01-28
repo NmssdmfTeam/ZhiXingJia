@@ -154,6 +154,7 @@ public class LoginVM extends BaseVM {
                             PreferenceUtil.setStringValue(PrefrenceConfig.USER_INFO, new Gson().toJson(userInfoBaseData.getData()));
                             RxBus.getInstance().send(RxEvent.LoginEvent.LOGIN_SUCCESS, null);
 //                            cb.doIntentClassName(ActivityNameConfig.MAIN_ACTIVITY, null);
+                            PreferenceUtil.setStringValue(PrefrenceConfig.USER_NAME, userInfoBaseData.getData().getNickname());
                             cb.finishActivity();
                         }
                     }

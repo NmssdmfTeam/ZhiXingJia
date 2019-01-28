@@ -32,6 +32,7 @@ import java.util.Map;
 public class ReplyVM extends BaseVM {
     public String bbsId;
     public String commentId;
+    public String yxHeadLineId;
 
     /**
      * 不需要callback可以传null
@@ -47,6 +48,7 @@ public class ReplyVM extends BaseVM {
         Bundle bundle = baseCallBck.getIntentData();
         bbsId = bundle.getString(IntentConfig.BBS_ID);
         commentId = bundle.getString(IntentConfig.COMMENT_ID);
+        yxHeadLineId = bundle.getString(IntentConfig.YXHEADLINE_ID);
     }
 
 
@@ -62,32 +64,68 @@ public class ReplyVM extends BaseVM {
             return;
         }
         Map<String,Object> params = new HashMap<>();
-        params.put("bbs_id", bbsId);
+        if (!TextUtils.isEmpty(bbsId)) {
+            params.put("bbs_id", bbsId);
+        }
+        if (!TextUtils.isEmpty(yxHeadLineId)) {
+            params.put("id", yxHeadLineId);
+        }
         if (!TextUtils.isEmpty(commentId))
             params.put("comment_id", commentId);
         params.put("contents", new Gson().toJson(postContents));
-        //先上传图片
-        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_COMMENT_INSERT).commentInsert(params),
-                new ServiceCallback<Base>() {
-                    @Override
-                    public void onError(Throwable error) {
-                        baseCallBck.dismissLoaddingDialog();
-                    }
-
-                    @Override
-                    public void onSuccess(Base base) {
-                        if (StringConfig.OK.equals(base.getStatus_code())) {
+        if (!TextUtils.isEmpty(bbsId)) {
+            //先上传图片
+            HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_BBS_COMMENT_INSERT).commentInsert(params),
+                    new ServiceCallback<Base>() {
+                        @Override
+                        public void onError(Throwable error) {
                             baseCallBck.dismissLoaddingDialog();
-                            baseCallBck.finishActivity();
-                            //刷新消息
-                            RxBus.getInstance().send(RxEvent.BbsEvent.COMMENT_INSERT, null);
                         }
-                    }
 
-                    @Override
-                    public void onDefeated(Base base) {
-                        baseCallBck.dismissLoaddingDialog();
-                    }
-                });
+                        @Override
+                        public void onSuccess(Base base) {
+                            doSuccess(base);
+                        }
+
+                        @Override
+                        public void onDefeated(Base base) {
+                            baseCallBck.dismissLoaddingDialog();
+                        }
+                    });
+        } else {
+            //先上传图片
+            HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_HEADLINES_COMMENT_INSERT).headLineCommentInsert(params),
+                    new ServiceCallback<Base>() {
+                        @Override
+                        public void onError(Throwable error) {
+                            baseCallBck.dismissLoaddingDialog();
+                        }
+
+                        @Override
+                        public void onSuccess(Base base) {
+                            doSuccess(base);
+                        }
+
+                        @Override
+                        public void onDefeated(Base base) {
+                            baseCallBck.dismissLoaddingDialog();
+                        }
+                    });
+        }
+    }
+
+    private void doSuccess(Base base) {
+        if (StringConfig.OK.equals(base.getStatus_code())) {
+            baseCallBck.dismissLoaddingDialog();
+            baseCallBck.finishActivity();
+            if (!TextUtils.isEmpty(bbsId)) {
+                //刷新消息
+                RxBus.getInstance().send(RxEvent.BbsEvent.COMMENT_INSERT, null);
+            }
+            if (!TextUtils.isEmpty(yxHeadLineId)) {
+                //刷新消息
+                RxBus.getInstance().send(RxEvent.BbsEvent.HEADLINE_COMMENT_INSERT, null);
+            }
+        }
     }
 }

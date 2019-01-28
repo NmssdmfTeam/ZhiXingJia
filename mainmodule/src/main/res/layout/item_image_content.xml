@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <TextView
@@ -21,7 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:textColor="#FF666666"
+            android:layout_marginTop="12dp"
             android:textSize="15dp"
+            android:text="@{data.note}"
             android:visibility="@{TextUtils.isEmpty(data.note)?View.GONE:View.VISIBLE}"/>
 
         <com.nmssdmf.commonlib.view.GlideImageView
@@ -30,7 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
-            src="@{data.image}"/>
+            app:src="@{data.image}"
+            android:visibility="@{TextUtils.isEmpty(data.image)?View.GONE:View.VISIBLE}"/>
 
     </LinearLayout>
 </layout>

@@ -6,11 +6,11 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.nmssdmf.commonlib.activity.WebViewActivity;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.customerviewlib.databindingbase.BaseBindingViewHolder;
 import com.nmssdmf.customerviewlib.databindingbase.BaseDataBindingAdapter;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.activity.XYHeadLineDetailActivity;
 import com.zhihangjia.mainmodule.databinding.ItemHeadlineBinding;
 import com.zhixingjia.bean.mainmodule.New;
 
@@ -37,9 +37,10 @@ public class YXHeadLineAdapter extends BaseDataBindingAdapter<New,ItemHeadlineBi
                 if (TextUtils.isEmpty(item.getLink_url()))
                     return;
                 Intent intent = new Intent();
+                intent.setClass(mContext,XYHeadLineDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(IntentConfig.LINK, item.getLink_url());
-                intent.setClass(mContext, WebViewActivity.class);
+                bundle.putString(IntentConfig.ID, item.getId());
+                bundle.putInt(IntentConfig.POSITION, position);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }

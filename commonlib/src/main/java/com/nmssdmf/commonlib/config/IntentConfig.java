@@ -14,6 +14,7 @@ public class IntentConfig {
     public static final String ID = "id";                       //id
 
     public static final String BBS_ID = "bbs_id";               //帖子ID
+    public static final String YXHEADLINE_ID = "yxheadline_id";              //宜兴头条ID
 
     public static final String COMMENT_ID = "comment_id";       //
     public static final String POSITION = "POSITION";

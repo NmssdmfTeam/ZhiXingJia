@@ -14,12 +14,13 @@ public class HeadLineDetailInfo extends BaseObservable implements MultiItemEntit
     private String giveNames;                                       //点赞人
     private String note;                                            //内容文字
     private String image;                                           //内容图片
-    private String zanNum;                                          //点赞个数
+    private int zanNum;                                          //点赞个数
     private int type;
+    private int imageIndex;                                         //第几张图片
 
     @Override
     public int getItemType() {
-        return 0;
+        return type;
     }
 
     @Bindable
@@ -73,12 +74,28 @@ public class HeadLineDetailInfo extends BaseObservable implements MultiItemEntit
     }
 
     @Bindable
-    public String getZanNum() {
+    public int getZanNum() {
         return zanNum;
     }
 
-    public void setZanNum(String zanNum) {
+    public void setZanNum(int zanNum) {
         this.zanNum = zanNum;
         notifyPropertyChanged(BR.zanNum);
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getImageIndex() {
+        return imageIndex;
+    }
+
+    public void setImageIndex(int imageIndex) {
+        this.imageIndex = imageIndex;
     }
 }

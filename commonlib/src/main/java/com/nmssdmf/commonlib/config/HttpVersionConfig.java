@@ -62,6 +62,10 @@ public class HttpVersionConfig {
      * 帖子评论保存
      */
     public static final int API_BBS_COMMENT_INSERT = 1;
+    /**
+     * 宜兴头条评论保存
+     */
+    public static final int API_HEADLINES_COMMENT_INSERT = 2;
 
     /**
      * 帖子评论保存
@@ -433,7 +437,7 @@ public class HttpVersionConfig {
     public static final int API_MY_COUPON_WRITE_OFF = 2;
 
     /**
-     *宜兴头条详情评论
+     * 宜兴头条详情
      */
-    public static final int API_NEWS_HEADLINES_COMMENT = 2;
+    public static final int API_NEWS_HEADLINES = 2;
 }

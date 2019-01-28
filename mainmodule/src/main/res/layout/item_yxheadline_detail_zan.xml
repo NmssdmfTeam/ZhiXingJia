@@ -4,10 +4,12 @@
         <variable
             name="data"
             type="com.zhihangjia.mainmodule.bean.HeadLineDetailInfo"/>
+        <import type="android.view.View"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -18,7 +20,7 @@
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:visibility="@{vm.zanNum == 0 ? View.GONE:View.VISIBLE}">
+            android:visibility="@{data.zanNum == 0 ? View.GONE:View.VISIBLE}">
 
             <com.nmssdmf.commonlib.view.GlideImageView
                 android:layout_width="wrap_content"

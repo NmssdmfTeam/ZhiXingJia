@@ -63,6 +63,19 @@
             android:textSize="13dp" />
 
         <TextView
+            android:id="@+id/tvCommentVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llTop"
+            android:layout_toRightOf="@+id/tvReadingVolume"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="14dp"
+            android:text="@{data.read_sum+ `评论`}"
+            android:textColor="#FF999999"
+            android:textSize="13dp" />
+
+
+        <TextView
             android:id="@+id/tvCreateDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

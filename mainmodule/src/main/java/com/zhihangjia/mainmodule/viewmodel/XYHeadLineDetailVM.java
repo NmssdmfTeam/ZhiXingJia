@@ -1,7 +1,6 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 
-import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -25,13 +24,10 @@ import com.nmssdmf.commonlib.rxbus.RxBus;
 import com.nmssdmf.commonlib.rxbus.RxEvent;
 import com.nmssdmf.commonlib.util.PreferenceUtil;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
-import com.zhihangjia.mainmodule.activity.MessageCenterModuleActivity;
 import com.zhihangjia.mainmodule.activity.ReplyActivity;
-import com.zhihangjia.mainmodule.callback.MessageDetailCB;
 import com.zhihangjia.mainmodule.callback.XYHeadLineDetailCB;
 import com.zhixingjia.bean.mainmodule.HeadLines;
 import com.zhixingjia.bean.mainmodule.MessageComment;
-import com.zhixingjia.bean.mainmodule.MessageDetail;
 import com.zhixingjia.service.MainService;
 
 import java.util.ArrayList;
@@ -53,11 +49,8 @@ public class XYHeadLineDetailVM extends BaseVM {
     public final ObservableField<HeadLines> detail = new ObservableField<>();
 
     private List<MessageComment> list = new ArrayList<>();
-    private List<String> flipList = new ArrayList<>();
     public List<Uri> imageUrls = new ArrayList<>();
     public String firstContent;                         //用于分享的描述
-
-    public final ObservableBoolean onlyLookBuilder = new ObservableBoolean(false);//是否只看楼主，默认是0，0=否 1=是
     public final ObservableBoolean isHot = new ObservableBoolean(false);//最赞
     public final ObservableBoolean isSortDesc = new ObservableBoolean(false);//最赞
 
@@ -70,7 +63,6 @@ public class XYHeadLineDetailVM extends BaseVM {
     private int zanNumOriginal;             //点赞实际个数
     private String user_name;
     private int position;                   //位置
-    private int currentPageIndex = -1;           //pageView的currentPage Index;
 
     /**
      * 不需要callback可以传null
@@ -82,19 +74,6 @@ public class XYHeadLineDetailVM extends BaseVM {
         this.cb = callBack;
         initData();
 
-        onlyLookBuilder.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                getCommentList(true);
-            }
-        });
-
-        isHot.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                getCommentList(true);
-            }
-        });
     }
 
     private void initData() {
@@ -102,7 +81,6 @@ public class XYHeadLineDetailVM extends BaseVM {
         if (bundle != null) {
             messageId = bundle.getString(IntentConfig.ID);
             position = bundle.getInt(IntentConfig.POSITION);
-            currentPageIndex = bundle.getInt(IntentConfig.PAGEVIEW_CURRENT_INDEX, -1);
         }
         user_name = PreferenceUtil.getString(PrefrenceConfig.USER_NAME, "知行家276410");
     }
@@ -110,17 +88,17 @@ public class XYHeadLineDetailVM extends BaseVM {
     @Override
     public void registerRxBus() {
         super.registerRxBus();
-        RxBus.getInstance().register(RxEvent.BbsEvent.COMMENT_INSERT, this);
+        RxBus.getInstance().register(RxEvent.BbsEvent.HEADLINE_COMMENT_INSERT, this);
     }
 
     @Override
     public void unRegisterRxBus() {
         super.unRegisterRxBus();
-        RxBus.getInstance().unregister(RxEvent.BbsEvent.COMMENT_INSERT, this);
+        RxBus.getInstance().unregister(RxEvent.BbsEvent.HEADLINE_COMMENT_INSERT, this);
     }
 
     public void getYXHeadLineDetail() {
-        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_NEWS_HEADLINES_COMMENT).getYXHeadLineDetail(messageId), new ServiceCallback<BaseData<HeadLines>>() {
+        HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_NEWS_HEADLINES).getYXHeadLineDetail(messageId), new ServiceCallback<BaseData<HeadLines>>() {
             @Override
             public void onError(Throwable error) {
 
@@ -130,7 +108,6 @@ public class XYHeadLineDetailVM extends BaseVM {
             public void onSuccess(BaseData<HeadLines> data) {
                 detail.set(data.getData());
 //                int maxPage = Integer.valueOf(detail.get().getComment_pages());
-                flipList.clear();
 //                for (int i = 1; i<= maxPage; i++) {
 //                    flipList.add("第"+i+"页");
 //                }
@@ -158,6 +135,7 @@ public class XYHeadLineDetailVM extends BaseVM {
                 }
                 cb.initView();
                 cb.refreshGiveInfo(zanNumOriginal, data.getData().getGive_info());
+                getCommentList(true);
             }
 
             @Override
@@ -172,6 +150,8 @@ public class XYHeadLineDetailVM extends BaseVM {
         map.put("id", messageId);//必填，帖子ID
         if (!isRefresh)
             page.set(page.get()+1);
+        else
+            page.set(1);
         map.put("pages", String.valueOf(page.get()));//必填，分页的传，默认为1，加载一次加1，以此类推
         map.put("hot_sort", isHot.get() ? "hot" : (isSortDesc.get() ? "desc" : "asc"));//默认传asc desc=倒序 asc=正序 hot=最热
         HttpUtils.doHttp(subscription, RxRequest.create(MainService.class, HttpVersionConfig.API_NEWS_HEADLINES_COMMENT).getHeadLineCommentList(map), new ServiceCallback<BaseListData<MessageComment>>() {
@@ -183,7 +163,7 @@ public class XYHeadLineDetailVM extends BaseVM {
             @Override
             public void onSuccess(BaseListData<MessageComment> data) {
                 cb.endFresh();
-                if (data.getData() != null && data.getData().size() > 0) {
+                if (data.getData() != null) {
                     cb.refreshComent(isRefresh, data.getData());
                 }
             }
@@ -195,9 +175,9 @@ public class XYHeadLineDetailVM extends BaseVM {
         });
     }
 
-    public void tvSortClick(View view) {
-        isHot.set(false);
-        isSortDesc.set(!isSortDesc.get());
+    public void tvSortClick(boolean ishot, boolean isSortDesc) {
+        this.isHot.set(ishot);
+        this.isSortDesc.set(isSortDesc);
 
         getCommentList(true);
     }
@@ -210,7 +190,7 @@ public class XYHeadLineDetailVM extends BaseVM {
             return;
         }
         Bundle bundle = new Bundle();
-        bundle.putString(IntentConfig.BBS_ID, messageId);
+        bundle.putString(IntentConfig.YXHEADLINE_ID, messageId);
         baseCallBck.doIntent(ReplyActivity.class, bundle);
     }
 
@@ -295,7 +275,6 @@ public class XYHeadLineDetailVM extends BaseVM {
         switch (event.getType()) {
             case RxEvent.BbsEvent.HEADLINE_COMMENT_INSERT://变更
                 getYXHeadLineDetail();
-                getCommentList(true);
                 break;
         }
     }
@@ -314,13 +293,5 @@ public class XYHeadLineDetailVM extends BaseVM {
 
     public void setList(List<MessageComment> list) {
         this.list = list;
-    }
-
-    public List<String> getFlipList() {
-        return flipList;
-    }
-
-    public void setFlipList(List<String> flipList) {
-        this.flipList = flipList;
     }
 }
