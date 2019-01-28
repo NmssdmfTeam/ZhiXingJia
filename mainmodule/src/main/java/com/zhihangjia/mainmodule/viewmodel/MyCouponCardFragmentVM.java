@@ -39,7 +39,7 @@ public class MyCouponCardFragmentVM extends BaseRecyclerViewFragmentVM {
                 new ServiceCallback<BaseListData<CouponCard>>() {
                     @Override
                     public void onError(Throwable error) {
-
+                        callback.stopRefreshAnim();
                     }
 
                     @Override
@@ -52,7 +52,7 @@ public class MyCouponCardFragmentVM extends BaseRecyclerViewFragmentVM {
 
                     @Override
                     public void onDefeated(BaseListData<CouponCard> couponCardBaseListData) {
-
+                        callback.stopRefreshAnim();
                     }
                 });
     }

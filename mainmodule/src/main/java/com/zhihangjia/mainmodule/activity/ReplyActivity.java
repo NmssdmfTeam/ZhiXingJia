@@ -9,6 +9,7 @@ import com.jushi.gallery.activity.ImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.bean.UploadImage;
 import com.nmssdmf.commonlib.config.IntegerConfig;
+import com.nmssdmf.commonlib.util.FastClickUtils;
 import com.nmssdmf.commonlib.view.ImageSelectView;
 import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
@@ -47,7 +48,6 @@ public class ReplyActivity extends BaseTitleActivity {
 
             @Override
             public void onUpLoadFailed(Throwable e) {
-
             }
 
             @Override
@@ -68,7 +68,10 @@ public class ReplyActivity extends BaseTitleActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.post) {
-                    uploadImg();
+                    if (!FastClickUtils.isFastClick()){
+                        showLoaddingDialog();
+                        uploadImg();
+                    }
                 }
                 return false;
             }

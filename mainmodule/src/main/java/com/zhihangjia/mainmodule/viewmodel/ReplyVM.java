@@ -1,5 +1,6 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -62,6 +63,14 @@ public class ReplyVM extends BaseVM {
             ToastUtil.showMsg("请填写内容");
             baseCallBck.dismissLoaddingDialog();
             return;
+        } else if (postContents.size() == 1) {
+            String note = postContents.get(0).getNote();
+            String[] images = postContents.get(0).getImgs();
+            if (TextUtils.isEmpty(note) && (images == null || images.length == 0)) {
+                ToastUtil.showMsg("请填写内容");
+                baseCallBck.dismissLoaddingDialog();
+                return;
+            }
         }
         Map<String,Object> params = new HashMap<>();
         if (!TextUtils.isEmpty(bbsId)) {
