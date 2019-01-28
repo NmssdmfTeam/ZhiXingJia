@@ -132,7 +132,8 @@ public class MineProviderFragmentVM extends BaseVM {
     public void onScan(View view) {
         //动态权限申请
         if (callback.checkPermission()) {
-            callback.doIntentForResult(CaptureActivity.class, null, MineProviderFragmentVM.REQUEST_CODE_SCAN);
+//            callback.doIntentForResult(CaptureActivity.class, null, MineProviderFragmentVM.REQUEST_CODE_SCAN);
+            callback.doIntent(CaptureActivity.class, null);
         }
     }
 

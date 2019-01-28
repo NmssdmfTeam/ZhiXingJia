@@ -25,7 +25,13 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.nmssdmf.commonlib.activity.BaseActivity;
+import com.nmssdmf.commonlib.util.CommonUtils;
+import com.nmssdmf.commonlib.viewmodel.BaseVM;
 import com.zhihangjia.mainmodule.R;
+import com.zhihangjia.mainmodule.callback.CaptureCB;
+import com.zhihangjia.mainmodule.databinding.ActivityCaptureBinding;
+import com.zhihangjia.mainmodule.viewmodel.CaptureVM;
 import com.zhihangjia.mainmodule.zbar.camera.CameraManager;
 import com.zhihangjia.mainmodule.zbar.decode.MainHandler;
 import com.zhihangjia.mainmodule.zbar.utils.BeepManager;
@@ -33,6 +39,8 @@ import com.zhihangjia.mainmodule.zbar.utils.BeepManager;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Desc: 1:启动一个SurfaceView作为取景预览
@@ -40,12 +48,13 @@ import java.lang.reflect.Method;
  * 3:对解码返回的结果进行处理.
  * 4:释放资源
  */
-public class CaptureActivity extends Activity implements SurfaceHolder.Callback {
+public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callback , CaptureCB {
+    private final String TAG = CaptureActivity.class.getSimpleName();
+
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 26;
     public static final String EXTRA_STRING = "extra_string";
     public static final int TYPE_BOOK_COVER = 0x101;
     public static final int TYPE_BOOK_CHAPTER = 0x102;
-    private static final String TAG = "CaptureActivity";
     private MainHandler mainHandler;
     private SurfaceHolder mHolder;
 
@@ -61,14 +70,34 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback 
     private boolean isHasSurface = false;
     private boolean isOpenCamera = false;
 
+    private ActivityCaptureBinding binding;
+
+    private CaptureVM vm;
+
     public Handler getHandler() {
         return mainHandler;
     }
 
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_capture);
+    @Override
+    public String getTAG() {
+        return TAG;
+    }
+
+    @Override
+    public int setLayout() {
+        return R.layout.activity_capture;
+    }
+
+    @Override
+    public BaseVM initViewModel() {
+        vm = new CaptureVM(this);
+        return vm;
+    }
+
+    @Override
+    protected void initAll(Bundle savedInstanceState) {
+        binding = (ActivityCaptureBinding) baseBinding;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initView();
         checkPermissionCamera();
@@ -131,6 +160,7 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback 
             scanPreview.getHolder().removeCallback(this);
         }
     }
+
 
     //region 初始化和回收相关资源
     private void initCamera(SurfaceHolder surfaceHolder) {
@@ -279,13 +309,13 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback 
 
     private void activityResult(String result) {
         if (!isFinishing()) {
-            Intent intent =new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putInt("width", mCropRect.width());
-            bundle.putInt("height", mCropRect.height());
-            bundle.putString(EXTRA_STRING, result);
-            intent.putExtras(bundle);
-            setResult(RESULT_OK,intent);
+//            Intent intent =new Intent();
+//            Bundle bundle = new Bundle();
+//            bundle.putInt("width", mCropRect.width());
+//            bundle.putInt("height", mCropRect.height());
+//            bundle.putString(EXTRA_STRING, result);
+//            intent.putExtras(bundle);
+//            setResult(RESULT_OK,intent);
             CaptureActivity.this.finish();
         }
     }
@@ -369,6 +399,33 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback 
     public void surfaceDestroyed(SurfaceHolder holder) {
         isHasSurface = false;
 
+    }
+
+
+    public void getResult(String result){
+        if (!CommonUtils.isEmpty(result)) {
+            String[] params = result.split("&");
+            if (params.length > 0 && "zs_coupon".equals(params[0].split("=")[1])) {
+                Map<String, String> map = new HashMap<>();
+                map.put(params[1].split("=")[0], params[1].split("=")[1]);
+                map.put(params[2].split("=")[0], params[2].split("=")[1]);
+                map.put(params[3].split("=")[0], params[3].split("=")[1]);
+                vm.getCouponWriteOff(map);
+            }
+
+        }
+    }
+
+    @Override
+    public void scanError() {
+        if (mainHandler != null) {
+            mainHandler.resultScan();
+        }
+    }
+
+    @Override
+    public void checkResult() {
+        checkResult("");
     }
     //endregion
 }

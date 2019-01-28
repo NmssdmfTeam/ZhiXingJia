@@ -125,29 +125,29 @@ public class MineProviderFragment extends BaseFragment implements MineProviderFr
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case MineProviderFragmentVM.REQUEST_CODE_SCAN:// 二维码
-                // 扫描二维码回传
-                if (resultCode == RESULT_OK) {
-                    if (data != null) {
-                        //获取扫描结果
-                        Bundle bundle = data.getExtras();
-                        String result = bundle.getString(CaptureActivity.EXTRA_STRING);
-                        JLog.d(TAG, "result = " + result);
-//                        "types=zs_coupon&member_id=14&code=306339&code_id=3"
-                        if (!CommonUtils.isEmpty(result)) {
-                            String[] params = result.split("&");
-                            if (params.length > 0 && "zs_coupon".equals(params[0].split("=")[1])) {
-                                Map<String, String> map = new HashMap<>();
-                                map.put(params[1].split("=")[0], params[1].split("=")[1]);
-                                map.put(params[2].split("=")[0], params[2].split("=")[1]);
-                                map.put(params[3].split("=")[0], params[3].split("=")[1]);
-                                vm.getCouponWriteOff(map);
-                            }
-
-                        }
-                    }
-                }
-                break;
+//            case MineProviderFragmentVM.REQUEST_CODE_SCAN:// 二维码
+//                // 扫描二维码回传
+//                if (resultCode == RESULT_OK) {
+//                    if (data != null) {
+//                        //获取扫描结果
+//                        Bundle bundle = data.getExtras();
+//                        String result = bundle.getString(CaptureActivity.EXTRA_STRING);
+//                        JLog.d(TAG, "result = " + result);
+////                        "types=zs_coupon&member_id=14&code=306339&code_id=3"
+//                        if (!CommonUtils.isEmpty(result)) {
+//                            String[] params = result.split("&");
+//                            if (params.length > 0 && "zs_coupon".equals(params[0].split("=")[1])) {
+//                                Map<String, String> map = new HashMap<>();
+//                                map.put(params[1].split("=")[0], params[1].split("=")[1]);
+//                                map.put(params[2].split("=")[0], params[2].split("=")[1]);
+//                                map.put(params[3].split("=")[0], params[3].split("=")[1]);
+//                                vm.getCouponWriteOff(map);
+//                            }
+//
+//                        }
+//                    }
+//                }
+//                break;
 
             default:
                 break;
