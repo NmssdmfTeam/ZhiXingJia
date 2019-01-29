@@ -21,10 +21,10 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:textColor="#FF666666"
             android:layout_marginTop="12dp"
-            android:textSize="15dp"
+            android:lineSpacingExtra="7dp"
+            android:textSize="16dp"
             android:text="@{data.note}"
             android:visibility="@{TextUtils.isEmpty(data.note)?View.GONE:View.VISIBLE}"/>
 
@@ -32,8 +32,7 @@
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="7dp"
             app:src="@{data.image}"
             android:visibility="@{TextUtils.isEmpty(data.image)?View.GONE:View.VISIBLE}"/>
 

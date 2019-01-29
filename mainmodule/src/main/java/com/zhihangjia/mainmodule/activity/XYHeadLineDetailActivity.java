@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
+import com.nmssdmf.commonlib.callback.DoubleClickListener;
 import com.nmssdmf.commonlib.util.JLog;
 import com.nmssdmf.commonlib.util.PermissionCompat;
 import com.nmssdmf.commonlib.util.ToastUtil;
@@ -86,6 +87,17 @@ public class XYHeadLineDetailActivity extends BaseTitleActivity implements XYHea
             }
             return false;
         });
+        binding.ivCommentBackClick.setOnTouchListener(new DoubleClickListener(new DoubleClickListener.ClickCallBack() {
+            @Override
+            public void oneClick() {
+
+            }
+
+            @Override
+            public void doubleClick() {
+                scrollToTop();
+            }
+        }));
     }
 
     @Override

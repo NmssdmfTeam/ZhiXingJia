@@ -79,10 +79,10 @@
                     android:layout_marginLeft="15dp">
 
                     <ImageView
+                        android:id="@+id/ivCommentBackClick"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerInParent="true"
-                        android:onClick="@{(v)->vm.onCommentBackClick(v)}"
                         android:src="@drawable/icon_commentbar_comment" />
 
                     <TextView
