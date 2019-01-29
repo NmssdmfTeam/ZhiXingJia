@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.nmssdmf.commonlib.util.ToastUtil;
 import com.zhihangjia.mainmodule.R;
 import com.zhihangjia.mainmodule.activity.CaptureActivity;
 import com.zhihangjia.mainmodule.zbar.camera.CameraManager;
@@ -67,7 +66,7 @@ public class MainHandler extends Handler {
         if (msg.what == R.id.decode_succeeded) {
             String result = (String) msg.obj;
             if (!TextUtils.isEmpty(result)) {
-                ToastUtil.getInstance().showToast(result);
+//                ToastUtil.getInstance().showToast(result);
                 activity.getResult(result);
 
 //                activity.checkResult(result);
