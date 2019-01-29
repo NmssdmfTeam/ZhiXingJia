@@ -1,7 +1,6 @@
 package com.zhihangjia.mainmodule.viewmodel;
 
 import com.nmssdmf.commonlib.bean.BaseData;
-import com.nmssdmf.commonlib.callback.BaseCB;
 import com.nmssdmf.commonlib.config.HttpVersionConfig;
 import com.nmssdmf.commonlib.httplib.HttpUtils;
 import com.nmssdmf.commonlib.httplib.RxRequest;
@@ -36,7 +35,6 @@ public class CaptureVM extends BaseVM {
 
                     @Override
                     public void onSuccess(BaseData data) {
-                        cb.showToast(data.getMessage());
                         cb.checkResult();
                     }
 

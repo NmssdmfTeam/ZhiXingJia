@@ -70,7 +70,7 @@
         <com.nmssdmf.gitlib.view.TagLayout
             android:id="@+id/tl"
             android:layout_width="match_parent"
-            android:layout_height="111dp"
+            android:layout_height="wrap_content"
             app:horizontal_count="3"
             app:horizontal_space="5dp"
             android:layout_marginTop="8dp">
