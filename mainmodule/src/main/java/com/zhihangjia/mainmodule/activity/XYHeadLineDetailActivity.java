@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
+import com.jushi.gallery.activity.BeautyImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
 import com.nmssdmf.commonlib.callback.DoubleClickListener;
 import com.nmssdmf.commonlib.util.JLog;
@@ -29,6 +30,7 @@ import com.zhihangjia.mainmodule.viewmodel.XYHeadLineDetailVM;
 import com.zhixingjia.bean.mainmodule.HeadLines;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -267,6 +269,14 @@ public class XYHeadLineDetailActivity extends BaseTitleActivity implements XYHea
         }
         adapter.notifyItemRangeRemoved(filterPosition+1, size - 1);
         vm.tvSortClick(isHot,isSortDesc);
+    }
+
+    @Override
+    public void onImageClick(int imageIndex) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BeautyImageGalleryActivity.PAGE_INDEX, imageIndex);
+        bundle.putSerializable(BeautyImageGalleryActivity.LIST_PATH_KEY, (Serializable) vm.imageUrls);
+        doIntent(BeautyImageGalleryActivity.class, bundle);
     }
 
     @Override

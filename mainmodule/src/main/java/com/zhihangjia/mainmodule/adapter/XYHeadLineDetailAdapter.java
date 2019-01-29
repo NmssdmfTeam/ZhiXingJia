@@ -28,11 +28,11 @@ import com.zhixingjia.bean.mainmodule.MessageComment;
 import java.util.List;
 
 /**
-* @description 宜兴头题详情adapter
-* @author chenbin
-* @date 2019/1/25 20:13
-* @version v3.2.0
-*/
+ * @author chenbin
+ * @version v3.2.0
+ * @description 宜兴头题详情adapter
+ * @date 2019/1/25 20:13
+ */
 public class XYHeadLineDetailAdapter extends BaseDataBindingMultiItemQuickAdapter<HeadLineDetailInfo> {
 
     public final ObservableBoolean onlyLookBuilder = new ObservableBoolean(false);//是否只看楼主，默认是0，0=否 1=是
@@ -47,10 +47,10 @@ public class XYHeadLineDetailAdapter extends BaseDataBindingMultiItemQuickAdapte
     public XYHeadLineDetailAdapter(@Nullable List data, ItemClickListener itemClickListener) {
         super(data);
         this.itemClickListener = itemClickListener;
-        addItemType(0,R.layout.item_image_content);
-        addItemType(1,R.layout.item_yxheadline_detail_zan);
-        addItemType(2,R.layout.item_yxcomment_filter);
-        addItemType(3,R.layout.item_comment_content);
+        addItemType(0, R.layout.item_image_content);
+        addItemType(1, R.layout.item_yxheadline_detail_zan);
+        addItemType(2, R.layout.item_yxcomment_filter);
+        addItemType(3, R.layout.item_comment_content);
         isHot.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -65,6 +65,12 @@ public class XYHeadLineDetailAdapter extends BaseDataBindingMultiItemQuickAdapte
         if (item.getItemType() == 0) {
             ItemImageContentBinding binding = (ItemImageContentBinding) helper.getBinding();
             binding.setData(item);
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickListener.onImageClick(item.getImageIndex());
+                }
+            });
         } else if (item.getItemType() == 1) {
             ItemYxheadlineDetailZanBinding binding = (ItemYxheadlineDetailZanBinding) helper.getBinding();
             binding.setData(item);
@@ -80,10 +86,10 @@ public class XYHeadLineDetailAdapter extends BaseDataBindingMultiItemQuickAdapte
             if (contentsBean.getImgs() != null && contentsBean.getImgs().size() > 0) {
                 binding.tl.removeAllViews();
                 binding.tl.setVisibility(View.VISIBLE);
-                for (MessageComment.ContentsBean.ImgsBean img : contentsBean.getImgs()){
+                for (MessageComment.ContentsBean.ImgsBean img : contentsBean.getImgs()) {
                     GlideImageView imageView = new GlideImageView(mContext);
                     GlideUtil.load(imageView, img.getM_url());
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DensityUtil.dpToPx(mContext, 111),DensityUtil.dpToPx(mContext, 111));
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DensityUtil.dpToPx(mContext, 111), DensityUtil.dpToPx(mContext, 111));
                     binding.tl.addView(imageView, params);
                 }
             } else {
@@ -119,7 +125,10 @@ public class XYHeadLineDetailAdapter extends BaseDataBindingMultiItemQuickAdapte
 
     public interface ItemClickListener {
         void onZanClick(MessageComment item, int position);
+
         void tvSortClick(boolean isHot, boolean isSortDesc);
+
+        void onImageClick(int imageIndex);
     }
 
     public void tvSortClick(View view) {
