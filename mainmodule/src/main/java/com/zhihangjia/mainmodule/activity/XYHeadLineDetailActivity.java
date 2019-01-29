@@ -198,11 +198,11 @@ public class XYHeadLineDetailActivity extends BaseTitleActivity implements XYHea
 
     @Override
     public void scrollToTop() {
-        binding.crv.getRv().scrollToPosition(adapter.getYxCommentFilterPosition());
         if (adapter.getData().size() - 1 > adapter.getYxCommentFilterPosition()) {
             int[] location = new int[2];
-            RecyclerView.ViewHolder vh = binding.crv.getRv().findViewHolderForAdapterPosition(adapter.getYxCommentFilterPosition());
+            RecyclerView.ViewHolder vh = binding.crv.getRv().findViewHolderForAdapterPosition(adapter.getYxCommentFilterPosition() + 1);
             if (vh == null) {
+                binding.crv.getRv().scrollToPosition(adapter.getYxCommentFilterPosition() + 1);
 //                itemYxheadlineDetailHeadBinding.llCommentTop.getLocationInWindow(location);
 //                binding.crv.getRv().scrollBy(0, location[1] - DensityUtil.dpToPx(this, 44) - WindowUtil.getStatusBarHeight(this));
             } else {

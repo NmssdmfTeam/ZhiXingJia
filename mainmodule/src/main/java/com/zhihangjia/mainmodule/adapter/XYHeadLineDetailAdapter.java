@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ViewDataBinding;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.jushi.gallery.activity.BeautyImageGalleryActivity;
 import com.nmssdmf.commonlib.config.IntentConfig;
 import com.nmssdmf.commonlib.glide.util.GlideUtil;
 import com.nmssdmf.commonlib.util.DensityUtil;
@@ -25,6 +27,8 @@ import com.zhihangjia.mainmodule.databinding.ItemYxcommentFilterBinding;
 import com.zhihangjia.mainmodule.databinding.ItemYxheadlineDetailZanBinding;
 import com.zhixingjia.bean.mainmodule.MessageComment;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,11 +90,30 @@ public class XYHeadLineDetailAdapter extends BaseDataBindingMultiItemQuickAdapte
             if (contentsBean.getImgs() != null && contentsBean.getImgs().size() > 0) {
                 binding.tl.removeAllViews();
                 binding.tl.setVisibility(View.VISIBLE);
+                List<Uri> imageUrls = new ArrayList<>();
+                for (MessageComment.ContentsBean.ImgsBean img : contentsBean.getImgs()) {
+                    imageUrls.add(Uri.parse(img.getM_url()));
+                }
+                int imageIndex = 0;
                 for (MessageComment.ContentsBean.ImgsBean img : contentsBean.getImgs()) {
                     GlideImageView imageView = new GlideImageView(mContext);
                     GlideUtil.load(imageView, img.getM_url());
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DensityUtil.dpToPx(mContext, 111), DensityUtil.dpToPx(mContext, 111));
                     binding.tl.addView(imageView, params);
+                    int finalImageIndex = imageIndex;
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(BeautyImageGalleryActivity.PAGE_INDEX, finalImageIndex);
+                            bundle.putSerializable(BeautyImageGalleryActivity.LIST_PATH_KEY, (Serializable) imageUrls);
+                            intent.putExtras(bundle);
+                            intent.setClass(mContext, BeautyImageGalleryActivity.class);
+                            mContext.startActivity(intent);
+                        }
+                    });
+                    imageIndex++;
                 }
             } else {
                 binding.tl.setVisibility(View.GONE);
