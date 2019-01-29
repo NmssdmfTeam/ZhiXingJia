@@ -35,6 +35,7 @@ public class CaptureVM extends BaseVM {
 
                     @Override
                     public void onSuccess(BaseData data) {
+                        cb.showToast(data.getMessage());
                         cb.checkResult();
                     }
 
