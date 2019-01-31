@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.jushi.gallery.activity.BeautyImageGalleryActivity;
 import com.nmssdmf.commonlib.activity.BaseTitleActivity;
@@ -89,17 +90,12 @@ public class XYHeadLineDetailActivity extends BaseTitleActivity implements XYHea
             }
             return false;
         });
-        binding.ivCommentBackClick.setOnTouchListener(new DoubleClickListener(new DoubleClickListener.ClickCallBack() {
+        binding.ivCommentBackClick.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void oneClick() {
-
-            }
-
-            @Override
-            public void doubleClick() {
+            public void onClick(View v) {
                 scrollToTop();
             }
-        }));
+        });
     }
 
     @Override
